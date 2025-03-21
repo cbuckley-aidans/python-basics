@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programming Variables - Learning for 7th Graders</title>
+    <title>Python Variables</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -73,11 +73,11 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
-        .type-card {
+        .example-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .type-card:hover {
+        .example-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
@@ -162,54 +162,656 @@
             color: white;
         }
         
+        .quiz-option.selected {
+            border-color: #3b82f6;
+            border-width: 2px;
+        }
+        
         .variable-animation {
             transition: all 0.5s ease;
         }
+
+        .syntax-step {
+            transition: all 0.3s ease;
+        }
+        
+        .syntax-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .syntax-part {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .syntax-part:hover {
+            background-color: #e0f2fe;
+        }
+
+        .syntax-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #0a2351;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            width: 200px;
+            z-index: 10;
+            transition: opacity 0.3s;
+        }
+
+        .syntax-part:hover .syntax-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Styles for syntax sections */
+        .syntax-section {
+            margin-bottom: 2.5rem;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .declaration-section {
+            background-color: rgba(219, 234, 254, 0.4);
+            border-left: 6px solid #3b82f6;
+        }
+
+        .reassignment-section {
+            background-color: rgba(237, 233, 254, 0.4);
+            border-left: 6px solid #8b5cf6;
+        }
+
+        .multiple-section {
+            background-color: rgba(254, 226, 226, 0.4);
+            border-left: 6px solid #ef4444;
+        }
+
+        .navigation-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .section-title-badge {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .declaration-badge {
+            background-color: #3b82f6;
+        }
+
+        .reassignment-badge {
+            background-color: #8b5cf6;
+        }
+
+        .multiple-badge {
+            background-color: #ef4444;
+        }
+
+        .btn-declaration {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-declaration:hover:not(:disabled) {
+            background-color: #2563eb;
+        }
+
+        .btn-reassignment {
+            background-color: #8b5cf6;
+            color: white;
+        }
+
+        .btn-reassignment:hover:not(:disabled) {
+            background-color: #7c3aed;
+        }
+
+        .btn-multiple {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-multiple:hover:not(:disabled) {
+            background-color: #dc2626;
+        }
+
+        /* Memory visualization */
+        .memory-box {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            overflow: hidden;
+        }
+
+        .memory-cell {
+            position: absolute;
+            width: 140px;
+            height: 70px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: white;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        .memory-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .memory-value {
+            font-size: 16px;
+            font-family: monospace;
+        }
+
+        .memory-arrow {
+            position: absolute;
+            width: 80px;
+            height: 2px;
+            background-color: #94a3b8;
+            transform-origin: left center;
+            transition: all 0.5s ease;
+        }
+
+        .memory-arrow::after {
+            content: "";
+            position: absolute;
+            right: -8px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #94a3b8;
+        }
+
+        /* Type visualization classes */
+        .type-int { border-color: #3b82f6; }
+        .type-float { border-color: #8b5cf6; }
+        .type-str { border-color: #ef4444; }
+        .type-bool { border-color: #10b981; }
+        .type-list { border-color: #f59e0b; }
     </style>
     <script>
-        // Global player score variable
-        var playerScore = 42;
+        // Global variables for interactive examples
+        let counterValue = 0;
+        let fruitVariable = "apple";
         
-        // Global score functions
-        function increaseScore() {
-            playerScore += 10;
-            document.getElementById('score-value').textContent = playerScore;
+        // Counter demo functions
+        function incrementCounter() {
+            counterValue += 1;
+            updateCounterDisplay();
             
             var codeDisplay = document.getElementById('code-display');
             if (codeDisplay) {
-                codeDisplay.innerHTML = `<p># Previous value: ${playerScore - 10}</p>
-<p>score = score + 10</p>
-<p># New value: ${playerScore}</p>`;
+                codeDisplay.innerHTML = `<p># Previous value: ${counterValue - 1}</p>
+<p>counter = counter + 1</p>
+<p># New value: ${counterValue}</p>`;
             }
             
-            animateScore('green');
+            animateCounterChange('increase');
         }
         
-        function decreaseScore() {
-            playerScore -= 5;
-            document.getElementById('score-value').textContent = playerScore;
+        function decrementCounter() {
+            counterValue -= 1;
+            updateCounterDisplay();
             
             var codeDisplay = document.getElementById('code-display');
             if (codeDisplay) {
-                codeDisplay.innerHTML = `<p># Previous value: ${playerScore + 5}</p>
-<p>score = score - 5</p>
-<p># New value: ${playerScore}</p>`;
+                codeDisplay.innerHTML = `<p># Previous value: ${counterValue + 1}</p>
+<p>counter = counter - 1</p>
+<p># New value: ${counterValue}</p>`;
             }
             
-            animateScore('red');
+            animateCounterChange('decrease');
         }
         
-        function animateScore(color) {
-            var scoreElement = document.getElementById('score-value');
-            if (scoreElement) {
-                scoreElement.style.transition = 'transform 0.3s, color 0.3s';
-                scoreElement.style.transform = 'scale(1.2)';
-                scoreElement.style.color = color === 'green' ? '#22c55e' : '#ef4444';
+        function updateCounterDisplay() {
+            var valueElement = document.getElementById('counter-value');
+            if (valueElement) {
+                valueElement.textContent = counterValue;
+                
+                // Update the type display as well
+                var typeElement = document.getElementById('counter-type');
+                if (typeElement) {
+                    typeElement.textContent = typeof(counterValue);
+                }
+            }
+        }
+        
+        function animateCounterChange(direction) {
+            var valueElement = document.getElementById('counter-value');
+            if (valueElement) {
+                valueElement.style.transition = 'transform 0.3s, color 0.3s';
+                valueElement.style.transform = 'scale(1.2)';
+                valueElement.style.color = direction === 'increase' ? '#3b82f6' : '#ef4444';
                 
                 setTimeout(function() {
-                    scoreElement.style.transform = 'scale(1)';
-                    scoreElement.style.color = 'black';
+                    valueElement.style.transform = 'scale(1)';
+                    valueElement.style.color = 'black';
                 }, 300);
+            }
+        }
+        
+        // Fruit picker functions
+        function changeFruit() {
+            const fruits = ["apple", "banana", "cherry", "date", "elderberry"];
+            let currentIndex = fruits.indexOf(fruitVariable);
+            let nextIndex = (currentIndex + 1) % fruits.length;
+            fruitVariable = fruits[nextIndex];
+            
+            updateFruitDisplay();
+            
+            var codeDisplay = document.getElementById('fruit-code');
+            if (codeDisplay) {
+                codeDisplay.innerHTML = `<p># Previous value: "${fruits[currentIndex]}"</p>
+<p>fruit = "${fruitVariable}"</p>
+<p># New value: "${fruitVariable}"</p>`;
+            }
+            
+            animateFruitChange();
+        }
+        
+        function updateFruitDisplay() {
+            var valueElement = document.getElementById('fruit-value');
+            if (valueElement) {
+                valueElement.textContent = fruitVariable;
+                
+                // Update the type display as well
+                var typeElement = document.getElementById('fruit-type');
+                if (typeElement) {
+                    typeElement.textContent = typeof(fruitVariable);
+                }
+            }
+        }
+        
+        function animateFruitChange() {
+            var valueElement = document.getElementById('fruit-value');
+            if (valueElement) {
+                valueElement.style.transition = 'transform 0.3s, color 0.3s';
+                valueElement.style.transform = 'scale(1.2)';
+                valueElement.style.color = '#8b5cf6';
+                
+                setTimeout(function() {
+                    valueElement.style.transform = 'scale(1)';
+                    valueElement.style.color = 'black';
+                }, 300);
+            }
+        }
+
+        // Syntax simulation functions for variable declaration
+        let currentStep = 0;
+        let maxSteps = 6;
+        let currentReassignStep = 0;
+        let maxReassignSteps = 4;
+        let currentMultipleStep = 0;
+        let maxMultipleSteps = 3;
+
+        function nextSyntaxStep() {
+            if (currentStep < maxSteps) {
+                currentStep++;
+                updateSyntaxSimulation();
+            }
+        }
+
+        function prevSyntaxStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                updateSyntaxSimulation();
+            }
+        }
+
+        function nextReassignStep() {
+            if (currentReassignStep < maxReassignSteps) {
+                currentReassignStep++;
+                updateReassignSimulation();
+            }
+        }
+
+        function prevReassignStep() {
+            if (currentReassignStep > 0) {
+                currentReassignStep--;
+                updateReassignSimulation();
+            }
+        }
+
+        function nextMultipleStep() {
+            if (currentMultipleStep < maxMultipleSteps) {
+                currentMultipleStep++;
+                updateMultipleSimulation();
+            }
+        }
+
+        function prevMultipleStep() {
+            if (currentMultipleStep > 0) {
+                currentMultipleStep--;
+                updateMultipleSimulation();
+            }
+        }
+
+        function updateSyntaxSimulation() {
+            // Hide all steps
+            for (let i = 0; i <= maxSteps; i++) {
+                let step = document.getElementById(`syntax-step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                }
+            }
+            
+            // Show current step
+            let currentStepElement = document.getElementById(`syntax-step-${currentStep}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('hidden');
+            }
+            
+            // Update buttons
+            let prevButton = document.getElementById('syntax-prev-btn');
+            let nextButton = document.getElementById('syntax-next-btn');
+            
+            if (prevButton) {
+                prevButton.disabled = currentStep === 0;
+                prevButton.classList.toggle('opacity-50', currentStep === 0);
+            }
+            
+            if (nextButton) {
+                nextButton.disabled = currentStep === maxSteps;
+                nextButton.classList.toggle('opacity-50', currentStep === maxSteps);
+            }
+            
+            // Update step indicator
+            let stepIndicator = document.getElementById('step-indicator');
+            if (stepIndicator) {
+                stepIndicator.textContent = `Step ${currentStep} of ${maxSteps}`;
+            }
+        }
+
+        function updateReassignSimulation() {
+            // Hide all steps
+            for (let i = 0; i <= maxReassignSteps; i++) {
+                let step = document.getElementById(`reassign-step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                }
+            }
+            
+            // Show current step
+            let currentStepElement = document.getElementById(`reassign-step-${currentReassignStep}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('hidden');
+            }
+            
+            // Update buttons
+            let prevButton = document.getElementById('reassign-prev-btn');
+            let nextButton = document.getElementById('reassign-next-btn');
+            
+            if (prevButton) {
+                prevButton.disabled = currentReassignStep === 0;
+                prevButton.classList.toggle('opacity-50', currentReassignStep === 0);
+            }
+            
+            if (nextButton) {
+                nextButton.disabled = currentReassignStep === maxReassignSteps;
+                nextButton.classList.toggle('opacity-50', currentReassignStep === maxReassignSteps);
+            }
+            
+            // Update step indicator
+            let stepIndicator = document.getElementById('reassign-step-indicator');
+            if (stepIndicator) {
+                stepIndicator.textContent = `Step ${currentReassignStep} of ${maxReassignSteps}`;
+            }
+        }
+
+        function updateMultipleSimulation() {
+            // Hide all steps
+            for (let i = 0; i <= maxMultipleSteps; i++) {
+                let step = document.getElementById(`multiple-step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                }
+            }
+            
+            // Show current step
+            let currentStepElement = document.getElementById(`multiple-step-${currentMultipleStep}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('hidden');
+            }
+            
+            // Update buttons
+            let prevButton = document.getElementById('multiple-prev-btn');
+            let nextButton = document.getElementById('multiple-next-btn');
+            
+            if (prevButton) {
+                prevButton.disabled = currentMultipleStep === 0;
+                prevButton.classList.toggle('opacity-50', currentMultipleStep === 0);
+            }
+            
+            if (nextButton) {
+                nextButton.disabled = currentMultipleStep === maxMultipleSteps;
+                nextButton.classList.toggle('opacity-50', currentMultipleStep === maxMultipleSteps);
+            }
+            
+            // Update step indicator
+            let stepIndicator = document.getElementById('multiple-step-indicator');
+            if (stepIndicator) {
+                stepIndicator.textContent = `Step ${currentMultipleStep} of ${maxMultipleSteps}`;
+            }
+        }
+
+        function highlightSyntaxPart(id) {
+            // Reset all highlights
+            document.querySelectorAll('.syntax-part').forEach(part => {
+                part.classList.remove('bg-yellow-200');
+            });
+            
+            // Highlight selected part
+            let part = document.getElementById(id);
+            if (part) {
+                part.classList.add('bg-yellow-200');
+            }
+        }
+        
+        // Type demo functions
+        function changeType(type) {
+            const valueField = document.getElementById('type-demo-value');
+            const typeField = document.getElementById('type-demo-type');
+            const containerField = document.getElementById('type-demo-container');
+            
+            let newValue = '';
+            let newType = '';
+            
+            // Reset classes
+            containerField.className = 'bg-white p-6 rounded-lg shadow-md';
+            containerField.classList.add('border-l-4');
+            
+            switch(type) {
+                case 'int':
+                    newValue = '42';
+                    newType = 'int';
+                    containerField.classList.add('border-blue-500');
+                    break;
+                case 'float':
+                    newValue = '3.14159';
+                    newType = 'float';
+                    containerField.classList.add('border-purple-500');
+                    break;
+                case 'str':
+                    newValue = '"Hello, world!"';
+                    newType = 'str';
+                    containerField.classList.add('border-red-500');
+                    break;
+                case 'bool':
+                    newValue = 'True';
+                    newType = 'bool';
+                    containerField.classList.add('border-green-500');
+                    break;
+                case 'list':
+                    newValue = '[1, 2, 3, 4]';
+                    newType = 'list';
+                    containerField.classList.add('border-yellow-500');
+                    break;
+            }
+            
+            valueField.textContent = newValue;
+            typeField.textContent = newType;
+            
+            // Animation effect
+            valueField.style.transition = 'transform 0.3s, color 0.3s';
+            valueField.style.transform = 'scale(1.2)';
+            
+            setTimeout(function() {
+                valueField.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        // Memory visualization demo
+        let currentMemoryState = 1;
+        
+        function nextMemoryState() {
+            currentMemoryState = Math.min(4, currentMemoryState + 1);
+            updateMemoryVisualization();
+        }
+        
+        function prevMemoryState() {
+            currentMemoryState = Math.max(1, currentMemoryState - 1);
+            updateMemoryVisualization();
+        }
+        
+        function updateMemoryVisualization() {
+            // Update the memory visuals based on the current state
+            const nameCell = document.getElementById('memory-name');
+            const ageCell = document.getElementById('memory-age');
+            const nameArrow = document.getElementById('name-arrow');
+            const ageArrow = document.getElementById('age-arrow');
+            const nameValueCell = document.getElementById('memory-name-value');
+            const ageValueCell = document.getElementById('memory-age-value');
+            const codeDisplay = document.getElementById('memory-code');
+            const stateHeading = document.getElementById('memory-state-heading');
+            
+            // Clear previous styles
+            [nameCell, ageCell, nameValueCell, ageValueCell].forEach(el => {
+                el.style.boxShadow = 'none';
+            });
+            
+            if (stateHeading) {
+                stateHeading.textContent = `State ${currentMemoryState}`;
+            }
+            
+            // Set appropriate values for the current state
+            switch(currentMemoryState) {
+                case 1:
+                    // Initial state
+                    nameValueCell.innerHTML = '<span class="memory-value">None</span>';
+                    ageValueCell.innerHTML = '<span class="memory-value">None</span>';
+                    nameCell.style.left = '60px';
+                    nameCell.style.top = '30px';
+                    ageCell.style.left = '60px';
+                    ageCell.style.top = '120px';
+                    nameValueCell.style.left = '300px';
+                    nameValueCell.style.top = '30px';
+                    ageValueCell.style.left = '300px';
+                    ageValueCell.style.top = '120px';
+                    
+                    // Arrows are hidden
+                    nameArrow.style.width = '0';
+                    ageArrow.style.width = '0';
+                    
+                    if (codeDisplay) {
+                        codeDisplay.innerHTML = '# No variables initialized yet';
+                    }
+                    break;
+                    
+                case 2:
+                    // After name = "Alice"
+                    nameValueCell.innerHTML = '<span class="memory-value">"Alice"</span>';
+                    ageValueCell.innerHTML = '<span class="memory-value">None</span>';
+                    
+                    // Highlight the name variable
+                    nameCell.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.7)';
+                    nameValueCell.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.7)';
+                    
+                    // Add arrow from name to its value
+                    nameArrow.style.width = '80px';
+                    nameArrow.style.transform = 'rotate(0deg)';
+                    nameArrow.style.left = '210px';
+                    nameArrow.style.top = '45px';
+                    
+                    if (codeDisplay) {
+                        codeDisplay.innerHTML = '# Variable declaration\nname = "Alice"';
+                    }
+                    break;
+                    
+                case 3:
+                    // After age = 25
+                    nameValueCell.innerHTML = '<span class="memory-value">"Alice"</span>';
+                    ageValueCell.innerHTML = '<span class="memory-value">25</span>';
+                    
+                    // Add arrow from age to its value
+                    ageArrow.style.width = '80px';
+                    ageArrow.style.transform = 'rotate(0deg)';
+                    ageArrow.style.left = '210px';
+                    ageArrow.style.top = '135px';
+                    
+                    // Highlight the age variable
+                    ageCell.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.7)';
+                    ageValueCell.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.7)';
+                    
+                    if (codeDisplay) {
+                        codeDisplay.innerHTML = '# Second variable declaration\nage = 25';
+                    }
+                    break;
+                    
+                case 4:
+                    // After name = "Bob"
+                    nameValueCell.innerHTML = '<span class="memory-value">"Bob"</span>';
+                    ageValueCell.innerHTML = '<span class="memory-value">25</span>';
+                    
+                    // Highlight the updated variable
+                    nameCell.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.7)';
+                    nameValueCell.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.7)';
+                    
+                    if (codeDisplay) {
+                        codeDisplay.innerHTML = '# Variable reassignment\nname = "Bob"';
+                    }
+                    break;
+            }
+            
+            // Update the navigation buttons
+            const prevButton = document.getElementById('memory-prev-btn');
+            const nextButton = document.getElementById('memory-next-btn');
+            
+            if (prevButton) {
+                prevButton.disabled = currentMemoryState === 1;
+                prevButton.classList.toggle('opacity-50', currentMemoryState === 1);
+            }
+            
+            if (nextButton) {
+                nextButton.disabled = currentMemoryState === 4;
+                nextButton.classList.toggle('opacity-50', currentMemoryState === 4);
             }
         }
     </script>
@@ -217,7 +819,7 @@
 <body class="bg-gray-100 min-h-screen flex">
     <!-- Sidebar Navigation -->
     <div class="w-[180px] bg-sidebar text-white min-h-screen flex flex-col fixed">
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="home">
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer border-b border-gray-600" onclick="window.location.href='index.html'">
             <div class="text-center">
                 <div class="flex justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -227,138 +829,166 @@
                 <span class="block mt-1 text-center">HOME</span>
             </div>
         </div>
+        
+        <div class="mt-4"></div>
+        
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="lisc">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">LI / SC</span>
+            </div>
+        </div>
         <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="intro">
             <div class="text-center">
                 <div class="flex justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
                 <span class="block mt-1 text-center">INTRO</span>
             </div>
         </div>
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="types">
-            <div class="text-center">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
-                </div>
-                <span class="block mt-1 text-center">TYPES</span>
-            </div>
-        </div>
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="using">
-            <div class="text-center">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                    </svg>
-                </div>
-                <span class="block mt-1 text-center">USING</span>
-            </div>
-        </div>
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="examples">
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="syntax">
             <div class="text-center">
                 <div class="flex justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                 </div>
-                <span class="block mt-1 text-center">EXAMPLES</span>
+                <span class="block mt-1 text-center">SYNTAX</span>
             </div>
         </div>
-
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="types">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">TYPES</span>
+            </div>
+        </div>
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="operations">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">OPERATIONS</span>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content Area -->
     <div class="ml-[180px] w-full p-8">
-        <!-- Home section -->
-        <section id="home" class="content-section active animate-fade-in">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">WELCOME TO VARIABLES!</h1>
+        <!-- Learning Intentions and Success Criteria section -->
+        <section id="lisc" class="content-section active animate-fade-in">
+            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">LEARNING INTENTIONS & SUCCESS CRITERIA</h1>
             
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6 animate-slide-in" style="animation-delay: 0.1s;">
-                <h2 class="text-2xl font-bold mb-4 text-accent">What We'll Learn</h2>
-                <p class="mb-4">Welcome to your first step in learning programming! Today, we're going to explore one of the most important building blocks in coding: <span class="font-bold text-highlight">Variables</span>.</p>
-                <div class="flex flex-wrap gap-4 mt-6">
-                    <div class="bg-blue-50 rounded-lg p-4 flex-1 min-w-[200px] variable-box">
-                        <h3 class="font-bold text-accent">What are variables?</h3>
-                        <p>The foundation of programming</p>
-                    </div>
-                    <div class="bg-green-50 rounded-lg p-4 flex-1 min-w-[200px] variable-box">
-                        <h3 class="font-bold text-accent">Different types</h3>
-                        <p>Numbers, text, and more</p>
-                    </div>
-                    <div class="bg-yellow-50 rounded-lg p-4 flex-1 min-w-[200px] variable-box">
-                        <h3 class="font-bold text-accent">Using variables</h3>
-                        <p>How to create and use them</p>
-                    </div>
-                    <div class="bg-purple-50 rounded-lg p-4 flex-1 min-w-[200px] variable-box">
-                        <h3 class="font-bold text-accent">Try it yourself</h3>
-                        <p>Interactive examples</p>
-                    </div>
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6 animate-slide-in">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <h2 class="text-2xl font-bold text-accent">Learning Intentions</h2>
                 </div>
+                
+                <ul class="list-disc pl-8 space-y-3">
+                    <li class="text-lg">Understand what variables are and why they're fundamental in programming</li>
+                    <li class="text-lg">Learn how to create, name, and assign values to variables in Python</li>
+                    <li class="text-lg">Recognize different data types that can be stored in variables</li>
+                    <li class="text-lg">Learn how to perform operations on variables and change their values</li>
+                </ul>
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.2s;">
                 <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <h2 class="text-2xl font-bold text-accent">Why This Matters</h2>
+                    <h2 class="text-2xl font-bold text-accent">Success Criteria</h2>
                 </div>
-                <p class="mb-4">Variables are the building blocks for <span class="font-bold">all programming languages</span>, not just Python! Learning about variables will help you:</p>
-                <ul class="list-disc pl-6 space-y-2">
-                    <li class="transition-transform hover:translate-x-1">Create games and apps that remember information</li>
-                    <li class="transition-transform hover:translate-x-1">Solve math problems more easily</li>
-                    <li class="transition-transform hover:translate-x-1">Store and work with different types of information</li>
-                    <li class="transition-transform hover:translate-x-1">Build a foundation for more advanced programming concepts</li>
+                
+                <p class="mb-4">By the end of this lesson, you should be able to:</p>
+                
+                <ul class="list-disc pl-8 space-y-3">
+                    <li class="text-lg">Create a variable with an appropriate name and assign it a value</li>
+                    <li class="text-lg">Change the value of a variable during a program's execution</li>
+                    <li class="text-lg">Identify the data type of a variable using the type() function</li>
+                    <li class="text-lg">Perform basic operations on variables (arithmetic, string concatenation)</li>
+                    <li class="text-lg">Create a program that uses variables to store and manipulate data</li>
                 </ul>
-                <div class="mt-6 bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                    <p class="italic">Click through the sections in the sidebar to learn all about variables!</p>
-                </div>
             </div>
         </section>
 
         <!-- Intro section -->
         <section id="intro" class="content-section">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">WHAT IS A VARIABLE?</h1>
+            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">WHAT ARE VARIABLES?</h1>
             
             <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
-                <p class="text-lg mb-6">A variable is like a special container that can store information in your program. Think of it as a labeled box where you can put different things and find them later. Variables are one of the most important tools in programming!</p>
+                <p class="text-lg mb-6">A variable is a named container that stores data in a computer program. Think of it like a labeled box where you can put information and retrieve it later by referring to its name.</p>
                 
-                <div class="relative bg-gray-50 rounded-lg p-6 mt-8 mb-4 overflow-hidden shadow-inner">
-                    <div class="absolute top-0 right-0 bg-accent text-white px-3 py-1 text-sm rounded-bl-lg">Interactive Example</div>
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="flex-1 min-w-[250px]">
-                            <div class="variable-animation bg-yellow-100 border-2 border-yellow-300 rounded-lg p-4 text-center relative transition-all hover:shadow-lg">
-                                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-white px-2 py-1 rounded text-sm">
-                                    score
+                <!-- Interactive Variable Example -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Counter Example -->
+                    <div class="relative bg-gray-50 rounded-lg p-6 overflow-hidden shadow-inner">
+                        <div class="absolute top-0 right-0 bg-accent text-white px-3 py-1 text-sm rounded-bl-lg">Counter Example</div>
+                        <div class="variable-animation bg-blue-50 border-2 border-blue-200 rounded-lg p-4 text-center relative transition-all hover:shadow-lg">
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-white px-2 py-1 rounded text-sm">
+                                Integer Variable: counter
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-sm text-gray-600 mb-1">Current Value:</p>
+                                <p id="counter-value" class="text-4xl font-bold">0</p>
+                                <p class="text-sm text-gray-600 mt-1">Type: <span id="counter-type">number</span></p>
+                                <div class="flex justify-center gap-2 mt-2">
+                                    <button id="decrease-counter" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition-transform hover:scale-105" onclick="decrementCounter()">
+                                        -1
+                                    </button>
+                                    <button id="increase-counter" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-transform hover:scale-105" onclick="incrementCounter()">
+                                        +1
+                                    </button>
                                 </div>
-                                <p id="score-value" class="text-3xl font-bold mt-2">42</p>
-                                <p class="text-sm text-gray-600 mt-2">Player's current score</p>
-                                <div class="flex justify-center gap-4 mt-4">
-                                    <button id="decrease-score" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-transform hover:scale-105" onclick="decreaseScore()">
-                                        -5
-                                    </button>
-                                    <button id="increase-score" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-transform hover:scale-105" onclick="increaseScore()">
-                                        +10
-                                    </button>
+                            </div>
+                            <div class="border-t-2 border-blue-200 pt-3">
+                                <p class="text-sm text-gray-600 mb-1">Python Code:</p>
+                                <div id="code-display" class="bg-gray-800 text-white p-2 rounded-lg text-sm font-mono text-left">
+                                    <p># Create a variable</p>
+                                    <p>counter = 0</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex-1">
-                            <h3 class="text-xl font-bold text-accent mb-2">How it works:</h3>
-                            <p class="mb-2">In this example, <code class="bg-gray-200 px-1 rounded">score</code> is a variable that holds the value shown above.</p>
-                            <div id="code-display" class="bg-gray-800 text-white p-4 rounded-lg text-sm font-mono mb-4">
-                                <p># Initial value</p>
-                                <p>score = 42</p>
+                    </div>
+                    
+                    <!-- String Example -->
+                    <div class="relative bg-gray-50 rounded-lg p-6 overflow-hidden shadow-inner">
+                        <div class="absolute top-0 right-0 bg-accent text-white px-3 py-1 text-sm rounded-bl-lg">String Example</div>
+                        <div class="variable-animation bg-purple-50 border-2 border-purple-200 rounded-lg p-4 text-center relative transition-all hover:shadow-lg">
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-2 py-1 rounded text-sm">
+                                String Variable: fruit
                             </div>
-                            <p class="mb-2">Try clicking the buttons to change the score variable!</p>
-                            <ul class="list-disc pl-6 space-y-1">
-                                <li>The variable's value updates when you click</li>
-                                <li>The code updates to show what's happening</li>
-                                <li>This shows how variables can change during a program</li>
-                            </ul>
+                            <div class="mb-4">
+                                <p class="text-sm text-gray-600 mb-1">Current Value:</p>
+                                <p id="fruit-value" class="text-4xl font-bold">apple</p>
+                                <p class="text-sm text-gray-600 mt-1">Type: <span id="fruit-type">string</span></p>
+                                <div class="flex justify-center mt-2">
+                                    <button id="change-fruit" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded transition-transform hover:scale-105" onclick="changeFruit()">
+                                        Change Fruit
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="border-t-2 border-purple-200 pt-3">
+                                <p class="text-sm text-gray-600 mb-1">Python Code:</p>
+                                <div id="fruit-code" class="bg-gray-800 text-white p-2 rounded-lg text-sm font-mono text-left">
+                                    <p># Create a variable</p>
+                                    <p>fruit = "apple"</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -367,20 +997,20 @@
                     <h3 class="text-xl font-bold text-accent mb-4">Why Variables Are Important</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">They make programs flexible</h4>
-                            <p>Instead of using fixed values, you can use variables that can change</p>
+                            <h4 class="font-bold">Store and remember data</h4>
+                            <p>Variables let programs remember values that can be used later</p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">They help remember things</h4>
-                            <p>Programs can keep track of information like scores, names, or settings</p>
+                            <h4 class="font-bold">Make code reusable</h4>
+                            <p>By storing values in variables, you can reuse them many times</p>
                         </div>
                         <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">They make code readable</h4>
-                            <p>Descriptive variable names explain what your code is doing</p>
+                            <h4 class="font-bold">Use meaningful names</h4>
+                            <p>Variables make code readable by using descriptive names</p>
                         </div>
                         <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">They prevent repetition</h4>
-                            <p>You can define information once and use it many times</p>
+                            <h4 class="font-bold">Change values during execution</h4>
+                            <p>Variables can be updated as your program runs</p>
                         </div>
                     </div>
                 </div>
@@ -394,105 +1024,745 @@
                     <h2 class="text-2xl font-bold text-accent">Think of it like...</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
-                    <div class="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-all relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-12 h-12 bg-accent rounded-bl-full opacity-10"></div>
-                        <h3 class="font-bold mb-2">A Backpack</h3>
-                        <p>You put things in it and take them out when needed</p>
+                    <div class="bg-blue-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-blue-500">
+                        <h3 class="font-bold mb-3 text-lg">A Labeled Box</h3>
+                        <p class="text-gray-700">A container with a name where you store and retrieve data</p>
                     </div>
-                    <div class="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-all relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-12 h-12 bg-accent rounded-bl-full opacity-10"></div>
-                        <h3 class="font-bold mb-2">A Labeled Container</h3>
-                        <p>Each variable has a name and can hold specific contents</p>
+                    <div class="bg-purple-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-purple-500">
+                        <h3 class="font-bold mb-3 text-lg">A Name Tag</h3>
+                        <p class="text-gray-700">Variables give names to data so you can refer to it later</p>
                     </div>
-                    <div class="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-all relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-12 h-12 bg-accent rounded-bl-full opacity-10"></div>
-                        <h3 class="font-bold mb-2">A Scoreboard</h3>
-                        <p>It shows a value that can change throughout the game</p>
+                    <div class="bg-green-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-green-500">
+                        <h3 class="font-bold mb-3 text-lg">A Sticky Note</h3>
+                        <p class="text-gray-700">Variables let you write down values and update them when needed</p>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Memory Model Visualization -->
+            <div class="bg-white p-6 rounded-lg shadow-md mt-8 animate-slide-in" style="animation-delay: 0.2s;">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    <h2 class="text-2xl font-bold text-accent">How Variables Work in Memory</h2>
+                </div>
+                
+                <p class="mb-6">When you create a variable, Python sets aside a piece of memory to store its value. The variable name points to that memory location.</p>
+                
+                <div class="relative bg-gray-50 p-6 rounded-lg mb-6">
+                    <div class="flex justify-between mb-4">
+                        <h3 id="memory-state-heading" class="text-lg font-bold text-accent">State 1</h3>
+                        <div class="flex gap-2">
+                            <button id="memory-prev-btn" class="bg-gray-500 text-white px-3 py-1 rounded disabled:opacity-50 disabled:cursor-not-allowed" onclick="prevMemoryState()" disabled>Previous</button>
+                            <button id="memory-next-btn" class="bg-blue-500 text-white px-3 py-1 rounded" onclick="nextMemoryState()">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Memory visualization -->
+                    <div class="memory-box">
+                        <!-- Variable names -->
+                        <div id="memory-name" class="memory-cell" style="left: 60px; top: 30px;">
+                            <span class="memory-label">name</span>
+                        </div>
+                        
+                        <div id="memory-age" class="memory-cell" style="left: 60px; top: 120px;">
+                            <span class="memory-label">age</span>
+                        </div>
+                        
+                        <!-- Arrows that will connect variables to values -->
+                        <div id="name-arrow" class="memory-arrow" style="width: 0; left: 210px; top: 45px;"></div>
+                        <div id="age-arrow" class="memory-arrow" style="width: 0; left: 210px; top: 135px;"></div>
+                        
+                        <!-- Memory values -->
+                        <div id="memory-name-value" class="memory-cell" style="left: 300px; top: 30px;">
+                            <span class="memory-value">None</span>
+                        </div>
+                        
+                        <div id="memory-age-value" class="memory-cell" style="left: 300px; top: 120px;">
+                            <span class="memory-value">None</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 bg-gray-800 p-3 rounded-lg text-white">
+                        <code id="memory-code" class="text-sm font-mono"># No variables initialized yet</code>
+                    </div>
+                </div>
+                
+                <p class="text-sm text-gray-600 italic">Click the Next button to see how variables are stored in memory as they're created and changed.</p>
             </div>
         </section>
 
         <!-- Types section -->
         <section id="types" class="content-section">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">VARIABLE TYPES</h1>
+            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">VARIABLE DATA TYPES</h1>
             
             <div class="bg-white p-6 rounded-lg shadow-md mb-6 animate-slide-in">
-                <p class="text-lg mb-6">Variables can store different kinds of information. Just like containers can hold different items (like a water bottle for liquids or a box for solid objects), variables are designed to store specific types of data.</p>
+                <p class="text-lg mb-6">In Python, variables can store different types of data. Each type has its own characteristics and operations that can be performed on it.</p>
+                
+                <!-- Interactive Type Explorer -->
+                <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                    <h3 class="text-xl font-bold text-accent mb-4">Explore Data Types</h3>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Type buttons -->
+                        <div>
+                            <p class="mb-3">Click the buttons below to see different data types:</p>
+                            <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+                                <button onclick="changeType('int')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded shadow-sm">Integer</button>
+                                <button onclick="changeType('float')" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded shadow-sm">Float</button>
+                                <button onclick="changeType('str')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded shadow-sm">String</button>
+                                <button onclick="changeType('bool')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded shadow-sm">Boolean</button>
+                                <button onclick="changeType('list')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded shadow-sm">List</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Type display -->
+                        <div id="type-demo-container" class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                            <h4 class="font-bold mb-3">Current Type:</h4>
+                            <p class="text-sm text-gray-600 mb-1">Value:</p>
+                            <p id="type-demo-value" class="text-2xl font-mono">42</p>
+                            <p class="text-sm text-gray-600 mt-3 mb-1">Python Type:</p>
+                            <p id="type-demo-type" class="text-lg font-bold">int</p>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-blue-50 rounded-lg shadow-md overflow-hidden type-card">
+                    <div class="bg-blue-50 rounded-lg shadow-md overflow-hidden example-card">
                         <div class="bg-blue-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Numbers</h3>
+                            <h3 class="text-xl font-bold">Integers (int)</h3>
                         </div>
                         <div class="p-4">
-                            <p class="mb-3">Store numeric values like:</p>
-                            <ul class="space-y-1">
-                                <li class="flex items-center">
-                                    <span class="bg-blue-200 px-2 py-1 rounded-full text-xs mr-2">integer</span>
-                                    Whole numbers (42)
-                                </li>
-                                <li class="flex items-center">
-                                    <span class="bg-blue-200 px-2 py-1 rounded-full text-xs mr-2">float</span>
-                                    Decimal numbers (3.14)
-                                </li>
-                            </ul>
-                            <div class="mt-4 bg-white p-3 rounded border border-gray-200">
-                                <code class="text-sm">score = 10<br>temperature = 98.6</code>
+                            <p class="mb-3">Whole numbers without decimal points.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
+                                <code class="text-sm">age = 25</code>
                             </div>
+                            <p class="text-sm text-gray-600">Operations: Addition, subtraction, multiplication, division, etc.</p>
                         </div>
                     </div>
                     
-                    <div class="bg-green-50 rounded-lg shadow-md overflow-hidden type-card">
+                    <div class="bg-purple-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-purple-500 text-white p-3">
+                            <h3 class="text-xl font-bold">Floating Point (float)</h3>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-3">Numbers with decimal points.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
+                                <code class="text-sm">price = 19.99</code>
+                            </div>
+                            <p class="text-sm text-gray-600">Operations: Same as integers, plus precise decimal calculations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-red-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-red-500 text-white p-3">
+                            <h3 class="text-xl font-bold">Strings (str)</h3>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-3">Text enclosed in quotes.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
+                                <code class="text-sm">name = "Alice"</code>
+                            </div>
+                            <p class="text-sm text-gray-600">Operations: Concatenation, slicing, methods like upper(), lower(), etc.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-green-50 rounded-lg shadow-md overflow-hidden example-card">
                         <div class="bg-green-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Strings</h3>
+                            <h3 class="text-xl font-bold">Booleans (bool)</h3>
                         </div>
                         <div class="p-4">
-                            <p class="mb-3">Store text values like:</p>
-                            <ul class="space-y-1">
-                                <li>Words or sentences</li>
-                                <li>Names or messages</li>
-                                <li>Any text in quotes</li>
+                            <p class="mb-3">Either True or False.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
+                                <code class="text-sm">is_active = True</code>
+                            </div>
+                            <p class="text-sm text-gray-600">Operations: Logical operations (and, or, not) and comparisons.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-yellow-500 text-white p-3">
+                            <h3 class="text-xl font-bold">Lists</h3>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-3">Ordered collections of items.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
+                                <code class="text-sm">scores = [95, 87, 92]</code>
+                            </div>
+                            <p class="text-sm text-gray-600">Operations: Indexing, slicing, appending, sorting, etc.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-cyan-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-cyan-500 text-white p-3">
+                            <h3 class="text-xl font-bold">Other Data Types</h3>
+                        </div>
+                        <div class="p-4">
+                            <ul class="list-disc pl-4 space-y-2 text-sm">
+                                <li>Dictionaries (dict): Key-value pairs</li>
+                                <li>Tuples: Immutable ordered collections</li>
+                                <li>Sets: Unordered collections of unique items</li>
+                                <li>None: Represents the absence of a value</li>
                             </ul>
-                            <div class="mt-4 bg-white p-3 rounded border border-gray-200">
-                                <code class="text-sm">name = "Alex"<br>message = "Hello world!"</code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-100 p-6 rounded-lg shadow-md mt-8">
+                    <h3 class="text-xl font-bold text-accent mb-4">Checking Variable Types</h3>
+                    <p class="mb-4">You can discover a variable's type using the <code class="bg-blue-200 px-1 rounded">type()</code> function:</p>
+                    
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <pre class="text-sm font-mono whitespace-pre">age = 25
+name = "Alice"
+price = 19.99
+
+print(type(age))    # <class 'int'>
+print(type(name))   # <class 'str'>
+print(type(price))  # <class 'float'></pre>
+                    </div>
+                    
+                    <p class="mt-4">Python is a <span class="font-bold">dynamically typed</span> language, which means variable types are determined automatically based on the assigned value.</p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.1s;">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <h2 class="text-2xl font-bold text-accent">Watch Out!</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                        <h4 class="font-bold">Type Conversion Errors</h4>
+                        <p class="mb-2">Be careful when mixing different types in operations!</p>
+                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
+                            <code class="text-sm text-red-500">"age: " + 25  # Error! Can't add string and integer</code>
+                        </div>
+                        <div class="bg-white p-2 rounded border border-gray-200">
+                            <code class="text-sm text-green-500">"age: " + str(25)  # Correct! Convert int to string first</code>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-bold">Don't Forget String Quotes</h4>
+                        <p class="mb-2">Strings must always be enclosed in quotes!</p>
+                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
+                            <code class="text-sm text-red-500">name = Alice  # Error! Python thinks Alice is a variable</code>
+                        </div>
+                        <div class="bg-white p-2 rounded border border-gray-200">
+                            <code class="text-sm text-green-500">name = "Alice"  # Correct! Use quotes for text</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Variable Operations section -->
+        <section id="operations" class="content-section">
+            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">VARIABLE OPERATIONS</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
+                <p class="text-lg mb-6">Once you have variables, you can perform various operations on them to manipulate their values.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-blue-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-blue-500 text-white p-3">
+                            <h3 class="text-xl font-bold">Arithmetic Operations</h3>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-3">Mathematical operations on number variables.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
+                                <pre class="text-sm font-mono">x = 10
+y = 5
+
+addition = x + y      # 15
+subtraction = x - y   # 5
+multiply = x * y      # 50
+division = x / y      # 2.0
+exponent = x ** y     # 100000
+remainder = x % y     # 0</pre>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-yellow-50 rounded-lg shadow-md overflow-hidden type-card">
-                        <div class="bg-yellow-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Booleans</h3>
+                    <div class="bg-purple-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-purple-500 text-white p-3">
+                            <h3 class="text-xl font-bold">String Operations</h3>
                         </div>
                         <div class="p-4">
-                            <p class="mb-3">Store true/false values:</p>
-                            <ul class="space-y-1">
-                                <li>Yes or no answers</li>
-                                <li>On or off states</li>
-                                <li>Condition results</li>
-                            </ul>
-                            <div class="mt-4 bg-white p-3 rounded border border-gray-200">
-                                <code class="text-sm">is_game_over = False<br>player_has_key = True</code>
+                            <p class="mb-3">Working with text variables.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
+                                <pre class="text-sm font-mono">first = "Hello"
+last = "World"
+
+# Concatenation
+full = first + " " + last  # "Hello World"
+
+# Repetition
+repeated = first * 3  # "HelloHelloHello"
+
+# Methods
+uppercase = first.upper()  # "HELLO"
+length = len(first)  # 5</pre>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="border-t-2 border-gray-100 pt-6 mt-8">
-                    <h3 class="text-xl font-bold text-accent mb-4">Other Types</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">Lists</h4>
-                            <p>Store collections of items in order</p>
-                            <div class="mt-2 bg-white p-2 rounded border border-gray-200">
-                                <code class="text-sm">fruits = ["apple", "banana", "cherry"]</code>
+                <div class="bg-green-100 p-6 rounded-xl shadow-md mb-8">
+                    <h3 class="text-xl font-bold text-accent mb-4">Compound Assignment Operators</h3>
+                    <p class="mb-4">These operators perform an operation and assign the result back to the variable in one step:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold mb-2">Numeric Examples</h4>
+                            <pre class="text-sm font-mono mb-4">x = 10
+
+x += 5    # Same as: x = x + 5 (x is now 15)
+x -= 3    # Same as: x = x - 3 (x is now 12)
+x *= 2    # Same as: x = x * 2 (x is now 24)
+x /= 4    # Same as: x = x / 4 (x is now 6.0)</pre>
+                            <p class="text-sm text-gray-600">These operators are shortcuts that make your code more concise.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold mb-2">String Examples</h4>
+                            <pre class="text-sm font-mono mb-4">message = "Hello"
+
+# Add to the existing string
+message += " there"   # message is now "Hello there"
+message += "!"        # message is now "Hello there!"</pre>
+                            <p class="text-sm text-gray-600">The += operator is commonly used to build strings incrementally.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-100 p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-accent mb-4">Type Conversion</h3>
+                    <p class="mb-4">You can convert between different data types using conversion functions:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold mb-2">String ↔ Number Conversion</h4>
+                            <pre class="text-sm font-mono mb-4"># String to number
+age_str = "25"
+age_num = int(age_str)    # 25 (as integer)
+
+price_str = "19.99"
+price_num = float(price_str)  # 19.99 (as float)
+
+# Number to string
+count = 42
+count_str = str(count)    # "42" (as string)</pre>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold mb-2">Between Numeric Types</h4>
+                            <pre class="text-sm font-mono mb-4"># Integer to float
+x = 10
+x_float = float(x)    # 10.0
+
+# Float to integer (truncates decimal)
+y = 7.8
+y_int = int(y)        # 7 (decimal part is removed)
+
+# Round a float
+z = 7.8
+z_rounded = round(z)  # 8</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+                        <h4 class="font-bold">Conversion Warnings</h4>
+                        <ul class="list-disc pl-5 mt-2">
+                            <li class="mb-1">Not all strings can be converted to numbers (e.g., <code>int("hello")</code> will cause an error)</li>
+                            <li class="mb-1">Converting from float to int truncates the decimal part without rounding</li>
+                            <li>Boolean conversions: Any non-zero number or non-empty string converts to <code>True</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Syntax section -->
+        <section id="syntax" class="content-section">
+            <h1 class="text-4xl font-bold mb-6 pb-2 border-b-2 border-accent">VARIABLE SYNTAX</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
+                <!-- Variable Declaration Section -->
+                <div class="syntax-section declaration-section mb-12">
+                    <div class="section-title-badge declaration-badge">Variable Declaration</div>
+                    <div class="flex justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-accent mt-3">Step-by-Step Syntax Breakdown</h2>
+                        <div id="step-indicator" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 6</div>
+                    </div>
+                    
+                    <!-- Step 0: Initial -->
+                    <div id="syntax-step-0" class="syntax-step">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">We'll examine each element of a variable declaration:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span>Let's create a variable to store a player's score.</span>
                             </div>
                         </div>
-                        <div class="bg-pink-50 p-4 rounded-lg border-l-4 border-pink-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">Dictionaries</h4>
-                            <p>Store data in key-value pairs</p>
-                            <div class="mt-2 bg-white p-2 rounded border border-gray-200">
-                                <code class="text-sm">person = {"name": "Alex", "age": 12}</code>
+                    </div>
+                    
+                    <!-- Step 1: Variable Name -->
+                    <div id="syntax-step-1" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">First, you choose a <span class="font-bold text-accent">variable name</span>:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-yellow-200 syntax-part" id="var-name" onclick="highlightSyntaxPart('var-name')">player_score<span class="syntax-tooltip" id="var-name-tip">The variable name is what you'll use to reference this data later. Use descriptive names that explain what the variable contains.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Assignment Operator -->
+                    <div id="syntax-step-2" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Next, we add the <span class="font-bold text-accent">assignment operator (=)</span>:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-blue-100" id="var-name-part">player_score</span> <span class="bg-yellow-200 syntax-part" id="assignment" onclick="highlightSyntaxPart('assignment')"><span class="syntax-tooltip" id="assignment-tip">The equals sign (=) is the assignment operator. It tells Python to assign the value on the right to the variable on the left.</span>=</span>                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Value -->
+                    <div id="syntax-step-3" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Finally, we add the <span class="font-bold text-accent">value</span> we want to store:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-blue-100">player_score =</span> <span class="bg-yellow-200 syntax-part" id="value" onclick="highlightSyntaxPart('value')">100<span class="syntax-tooltip" id="value-tip">The value is the data you want to store in the variable. It can be a number, string, boolean, or other data type.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Complete Statement -->
+                    <div id="syntax-step-4" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The <span class="font-bold text-accent">complete variable declaration</span>:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-yellow-200 syntax-part" id="complete" onclick="highlightSyntaxPart('complete')">player_score = 100<span class="syntax-tooltip" id="complete-tip">The complete statement creates a variable named player_score and assigns it the value 100.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 5: Multiple Variables -->
+                    <div id="syntax-step-5" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">You can declare <span class="font-bold text-accent">multiple variables</span> in a single line:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-yellow-200 syntax-part" id="multi-var" onclick="highlightSyntaxPart('multi-var')">x, y, z = 10, 20, 30<span class="syntax-tooltip" id="multi-var-tip">This creates three variables (x, y, and z) with values 10, 20, and 30 respectively.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 6: Comments -->
+                    <div id="syntax-step-6" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">It's good practice to add <span class="font-bold text-accent">comments</span> explaining your variables:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-yellow-200 syntax-part" id="comment" onclick="highlightSyntaxPart('comment')">player_score = 100  # Initial score for the player<span class="syntax-tooltip" id="comment-tip">Comments (starting with #) help explain what a variable is for. They are ignored by Python when running the code.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="navigation-controls">
+                        <button id="syntax-prev-btn" class="btn-declaration px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevSyntaxStep()" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Previous
+                        </button>
+                        <div class="text-sm text-gray-500 hidden md:block">Navigate through the variable declaration syntax</div>
+                        <button id="syntax-next-btn" class="btn-declaration px-4 py-2 rounded-lg flex items-center" onclick="nextSyntaxStep()">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Variable Reassignment Section -->
+                <div class="syntax-section reassignment-section mb-12">
+                    <div class="section-title-badge reassignment-badge">Variable Reassignment</div>
+                    <div class="flex justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-accent mt-3">Changing Variable Values</h2>
+                        <div id="reassign-step-indicator" class="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 4</div>
+                    </div>
+                    
+                    <!-- Reassign Step 0: Introduction -->
+                    <div id="reassign-step-0" class="reassign-step">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Once a variable is created, you can change its value later in your program:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span>Let's update the player's score after winning a level.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reassign Step 1: Original Value -->
+                    <div id="reassign-step-1" class="reassign-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">First, we have our original variable:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="bg-yellow-200 syntax-part" id="orig-var" onclick="highlightSyntaxPart('orig-var')">player_score = 100<span class="syntax-tooltip" id="orig-var-tip">This is the initial value of the variable when it was first created.</span></span>
+
+# Some game code happens here...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reassign Step 2: Reassignment -->
+                    <div id="reassign-step-2" class="reassign-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">To change the value, we simply <span class="font-bold text-accent">assign a new value</span> to the same variable name:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span>player_score = 100</span>
+
+<span># Some game code happens here...</span>
+
+<span class="bg-yellow-200 syntax-part" id="reassign" onclick="highlightSyntaxPart('reassign')">player_score = 150<span class="syntax-tooltip" id="reassign-tip">The same variable name now refers to a new value (150). The old value (100) is no longer accessible.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reassign Step 3: Calculation -->
+                    <div id="reassign-step-3" class="reassign-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Often, you'll calculate the new value based on the current value:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span>player_score = 100</span>
+
+<span># Player scores 50 more points</span>
+
+<span class="bg-yellow-200 syntax-part" id="calc-reassign" onclick="highlightSyntaxPart('calc-reassign')">player_score = player_score + 50<span class="syntax-tooltip" id="calc-reassign-tip">This takes the current value of player_score (100), adds 50, and stores the result (150) back in player_score.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reassign Step 4: Shorthand -->
+                    <div id="reassign-step-4" class="reassign-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">For common operations, Python has <span class="font-bold text-accent">shorthand operators</span>:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span>player_score = 100</span>
+
+<span># These are equivalent:</span>
+<span>player_score = player_score + 50</span>
+<span class="bg-yellow-200 syntax-part" id="shorthand" onclick="highlightSyntaxPart('shorthand')">player_score += 50<span class="syntax-tooltip" id="shorthand-tip">The += operator is shorthand for "add and assign." Similar operators include -=, *=, /=, etc.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="navigation-controls">
+                        <button id="reassign-prev-btn" class="btn-reassignment px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevReassignStep()" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Previous
+                        </button>
+                        <div class="text-sm text-gray-500 hidden md:block">Navigate through variable reassignment examples</div>
+                        <button id="reassign-next-btn" class="btn-reassignment px-4 py-2 rounded-lg flex items-center" onclick="nextReassignStep()">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Multiple Variables Section -->
+                <div class="syntax-section multiple-section">
+                    <div class="section-title-badge multiple-badge">Multiple Variables</div>
+                    <div class="flex justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-accent mt-3">Working with Multiple Variables</h2>
+                        <div id="multiple-step-indicator" class="bg-red-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 3</div>
+                    </div>
+                    
+                    <!-- Multiple Step 0: Introduction -->
+                    <div id="multiple-step-0" class="multiple-step">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Python provides several ways to work with multiple variables efficiently:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span>Let's explore how to create and update multiple variables at once.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Multiple Step 1: Multiple Assignment -->
+                    <div id="multiple-step-1" class="multiple-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">You can <span class="font-bold text-accent">assign values to multiple variables</span> in a single line:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="bg-yellow-200 syntax-part" id="multi-assign" onclick="highlightSyntaxPart('multi-assign')">x, y, z = 10, 20, 30<span class="syntax-tooltip" id="multi-assign-tip">This assigns 10 to x, 20 to y, and 30 to z, all in one line.</span></span>
+
+<span># You can check each value</span>
+<span>print(x)  # 10</span>
+<span>print(y)  # 20</span>
+<span>print(z)  # 30</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Multiple Step 2: Same Value -->
+                    <div id="multiple-step-2" class="multiple-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Assign the <span class="font-bold text-accent">same value to multiple variables</span>:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="bg-yellow-200 syntax-part" id="same-value" onclick="highlightSyntaxPart('same-value')">width = height = depth = 10<span class="syntax-tooltip" id="same-value-tip">This creates three variables (width, height, and depth) and assigns the value 10 to all of them.</span></span>
+
+<span># All variables have the same value</span>
+<span>print(width)   # 10</span>
+<span>print(height)  # 10</span>
+<span>print(depth)   # 10</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Multiple Step 3: Swapping Values -->
+                    <div id="multiple-step-3" class="multiple-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Python makes it easy to <span class="font-bold text-accent">swap variable values</span>:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span># Initialize variables</span>
+<span>a = 5</span>
+<span>b = 10</span>
+
+<span># In other languages, you need a temporary variable</span>
+<span># temp = a</span>
+<span># a = b</span>
+<span># b = temp</span>
+
+<span># In Python, you can swap in one line</span>
+<span class="bg-yellow-200 syntax-part" id="swap" onclick="highlightSyntaxPart('swap')">a, b = b, a<span class="syntax-tooltip" id="swap-tip">This swaps the values of a and b. After this line, a will be 10 and b will be 5.</span></span>
+
+<span>print(a)  # 10</span>
+<span>print(b)  # 5</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="navigation-controls">
+                        <button id="multiple-prev-btn" class="btn-multiple px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevMultipleStep()" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Previous
+                        </button>
+                        <div class="text-sm text-gray-500 hidden md:block">Navigate through multiple variable examples</div>
+                        <button id="multiple-next-btn" class="btn-multiple px-4 py-2 rounded-lg flex items-center" onclick="nextMultipleStep()">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg mt-8 mb-8">
+                    <h3 class="text-xl font-bold text-accent mb-4">Variable Naming Rules</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold mb-3 text-green-600">Valid Variable Names:</h4>
+                            <ul class="space-y-2">
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
+                                    <code class="text-sm">score</code> - Simple, one word
+                                </li>
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
+                                    <code class="text-sm">player_score</code> - Words separated by underscore
+                                </li>
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
+                                    <code class="text-sm">playerScore</code> - Camel case (second word capitalized)
+                                </li>
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
+                                    <code class="text-sm">score1</code> - Letters and numbers
+                                </li>
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
+                                    <code class="text-sm">_hidden</code> - Can start with underscore
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold mb-3 text-red-600">Invalid Variable Names:</h4>
+                            <ul class="space-y-2">
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
+                                    <code class="text-sm">123score</code> - Cannot start with a number
+                                </li>
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
+                                    <code class="text-sm">player-score</code> - Cannot use hyphens
+                                </li>
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
+                                    <code class="text-sm">if</code> - Cannot use reserved keywords
+                                </li>
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
+                                    <code class="text-sm">player score</code> - Cannot contain spaces
+                                </li>
+                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
+                                    <code class="text-sm">player@score</code> - Cannot use special characters
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-accent mb-4">Variable Naming Best Practices</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 shadow-md">
+                            <h4 class="font-bold">Be Descriptive</h4>
+                            <div class="mt-2 grid grid-cols-1 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-red-500">x = 28</code> <span class="text-xs">(Unclear what this represents)</span>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-green-500">age = 28</code> <span class="text-xs">(Clear meaning)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500 shadow-md">
+                            <h4 class="font-bold">Use Consistent Style</h4>
+                            <div class="mt-2 grid grid-cols-1 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <p class="text-sm mb-1">Snake Case (Python's preference):</p>
+                                    <code class="text-sm text-green-500">player_score = 100</code>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <p class="text-sm mb-1">Camel Case (Alternative):</p>
+                                    <code class="text-sm text-green-500">playerScore = 100</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500 shadow-md">
+                            <h4 class="font-bold">Avoid Reserved Words</h4>
+                            <p class="text-sm mt-2 mb-2">Don't use Python keywords as variable names:</p>
+                            <div class="bg-white p-3 rounded border border-gray-200">
+                                <code class="text-sm text-red-500">if = 5</code> <span class="text-xs">(Error: 'if' is a Python keyword)</span>
+                            </div>
+                            <p class="text-xs mt-2">Other reserved words: <code>for</code>, <code>while</code>, <code>class</code>, <code>return</code>, <code>True</code>, <code>None</code>, etc.</p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 shadow-md">
+                            <h4 class="font-bold">Length and Readability</h4>
+                            <div class="mt-2 grid grid-cols-1 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-red-500">a = 3.14159</code> <span class="text-xs">(Too short)</span>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-red-500">the_mathematical_constant_pi = 3.14159</code> <span class="text-xs">(Too long)</span>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-green-500">pi_value = 3.14159</code> <span class="text-xs">(Just right)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -504,638 +1774,82 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
-                    <h2 class="text-2xl font-bold text-accent">Type Matters!</h2>
+                    <h2 class="text-2xl font-bold text-accent">Common Variable Mistakes</h2>
                 </div>
-                <p class="mb-4">The type of a variable determines what you can do with it:</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h4 class="font-bold mb-2">You can add numbers</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                        <h4 class="font-bold">Forgetting to Initialize</h4>
+                        <p class="mb-2">Variables must be assigned a value before they're used!</p>
+                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
+                            <code class="text-sm text-red-500">print(score)  # Error if score hasn't been created</code>
+                        </div>
                         <div class="bg-white p-2 rounded border border-gray-200">
-                            <code class="text-sm">x = 5<br>y = 3<br>sum = x + y  # Result: 8</code>
+                            <code class="text-sm text-green-500">score = 0<br>print(score)  # Correct: initialize first</code>
                         </div>
                     </div>
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h4 class="font-bold mb-2">You can join strings</h4>
-                        <div class="bg-white p-2 rounded border border-gray-200">
-                            <code class="text-sm">first = "Hello"<br>last = "World"<br>message = first + " " + last  # "Hello World"</code>
+                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-bold">Case Sensitivity</h4>
+                        <p class="mb-2">Variable names are case-sensitive!</p>
+                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
+                            <code class="text-sm text-red-500">name = "Alice"<br>print(Name)  # Error: Name is not the same as name</code>
                         </div>
-                    </div>
-                </div>
-                <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-                    <h4 class="font-bold">Watch Out!</h4>
-                    <p>You can't mix types without converting them first:</p>
-                    <div class="bg-white p-2 rounded border border-gray-200 mt-2">
-                        <code class="text-sm text-red-500">age = 12<br>message = "I am " + age  # Error!</code>
-                    </div>
-                    <div class="bg-white p-2 rounded border border-gray-200 mt-2">
-                        <code class="text-sm text-green-500">age = 12<br>message = "I am " + str(age)  # Works! "I am 12"</code>
+                        <div class="bg-white p-2 rounded border border-gray-200">
+                            <code class="text-sm text-green-500">name = "Alice"<br>print(name)  # Correct: same case</code>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Using section -->
-        <section id="using" class="content-section">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">USING VARIABLES</h1>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
-                <h2 class="text-2xl font-bold text-accent mb-4">Creating Variables</h2>
-                
-                <div class="bg-gray-50 p-5 rounded-lg mb-6">
-                    <div class="flex flex-col md:flex-row gap-6">
-                        <div class="flex-1">
-                            <h3 class="font-bold mb-3">The Basic Formula:</h3>
-                            <div class="bg-white p-4 rounded shadow-inner">
-                                <div class="flex items-center mb-4 interactive-hover">
-                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded font-mono font-bold">name</span>
-                                    <span class="mx-3 text-xl">=</span>
-                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded font-mono font-bold">value</span>
-                                    <div class="tooltip">Variable names should be descriptive!</div>
-                                </div>
-                                <p class="text-sm text-gray-600">Variable Name = The Value You Want to Store</p>
-                            </div>
-                            <div class="mt-4">
-                                <h4 class="font-bold mb-2">Examples:</h4>
-                                <div class="bg-white p-3 rounded border border-gray-200 mb-2 highlight-code">
-                                    <code class="text-sm">age = 12</code>
-                                </div>
-                                <div class="bg-white p-3 rounded border border-gray-200 mb-2 highlight-code">
-                                    <code class="text-sm">name = "Jamie"</code>
-                                </div>
-                                <div class="bg-white p-3 rounded border border-gray-200 highlight-code">
-                                    <code class="text-sm">is_student = True</code>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex-1">
-                            <h3 class="font-bold mb-3">Naming Rules:</h3>
-                            <ul class="space-y-2">
-                                <li class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <span>Can use letters, numbers, and underscores</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <span>Must start with a letter or underscore</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <span>Case sensitive (<code>score</code> is different from <code>Score</code>)</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                    <span>Cannot use spaces or special characters</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                    <span>Cannot use reserved words like <code>if</code>, <code>for</code>, <code>while</code></span>
-                                </li>
-                            </ul>
-                            
-                            <div class="mt-4 bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
-                                <h4 class="font-bold">Good Names vs. Bad Names</h4>
-                                <div class="grid grid-cols-2 gap-2 mt-2">
-                                    <div>
-                                        <div class="text-green-600 font-bold text-sm mb-1">Good ✓</div>
-                                        <ul class="text-sm space-y-1">
-                                            <li>player_score</li>
-                                            <li>user_name</li>
-                                            <li>is_game_over</li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <div class="text-red-600 font-bold text-sm mb-1">Bad ✗</div>
-                                        <ul class="text-sm space-y-1">
-                                            <li>x</li>
-                                            <li>abc123</li>
-                                            <li>thisisareallylongvariablename</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <h2 class="text-2xl font-bold text-accent mb-4">Using Variables</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div class="bg-gray-50 p-5 rounded-lg">
-                        <h3 class="font-bold mb-3">Changing Values</h3>
-                        <div class="bg-white p-3 rounded border border-gray-200 mb-2">
-                            <code class="text-sm">score = 0           # Start with zero<br>score = 10          # Change to 10<br>score = score + 5    # Add 5 more (now 15)</code>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-2">Variables can be updated throughout your program</p>
-                    </div>
-                    
-                    <div class="bg-gray-50 p-5 rounded-lg">
-                        <h3 class="font-bold mb-3">Using in Expressions</h3>
-                        <div class="bg-white p-3 rounded border border-gray-200 mb-2">
-                            <code class="text-sm">width = 5<br>height = 10<br>area = width * height   # Result: 50</code>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-2">Variables can be used in calculations and expressions</p>
-                    </div>
-                </div>
-                
-                <div class="bg-gray-50 p-5 rounded-lg">
-                    <h3 class="font-bold mb-3">Putting It All Together</h3>
-                    <div class="bg-white p-4 rounded shadow-inner mb-4">
-                        <code class="text-sm">
-# Game score tracking<br>
-player_name = "Alex"<br>
-current_score = 0<br>
-level = 1<br>
-lives_remaining = 3<br>
-game_active = True<br>
-<br>
-# Player scores 100 points<br>
-current_score = current_score + 100<br>
-<br>
-# Player completes the level<br>
-level = level + 1<br>
-<br>
-# Player loses a life<br>
-lives_remaining = lives_remaining - 1<br>
-<br>
-# Check if game is over<br>
-if lives_remaining <= 0:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;game_active = False
-                        </code>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.1s;">
-                <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-purple-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                    <h2 class="text-2xl font-bold text-accent">Pro Tips!</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-purple-50 p-4 rounded-lg">
-                        <h4 class="font-bold mb-2">Shorthand for Updating</h4>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div class="bg-white p-2 rounded border border-gray-200">
-                                <code class="text-sm">score = score + 1</code>
-                            </div>
-                            <div class="bg-white p-2 rounded border border-gray-200">
-                                <code class="text-sm">score += 1</code>
-                            </div>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-2">Both do the same thing! The second way is just shorter.</p>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-bold mb-2">Multiple Variables</h4>
-                        <div class="bg-white p-2 rounded border border-gray-200">
-                            <code class="text-sm">x, y, z = 10, 20, 30</code>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-2">You can create multiple variables in one line!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Examples section -->
-        <section id="examples" class="content-section">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">REAL-WORLD EXAMPLES</h1>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in example-box">
-                    <div class="flex items-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
-                        </svg>
-                        <h2 class="text-xl font-bold text-accent">Game Score Tracker</h2>
-                    </div>
-                    <div class="mb-4">
-                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                            <code class="text-sm">
-# Initial game stats<br>
-player_name = "Alex"<br>
-score = 0<br>
-high_score = 1500<br>
-lives = 3<br>
-<br>
-# Player collects a coin<br>
-score += 100<br>
-<br>
-# Player gets hit by an enemy<br>
-lives -= 1<br>
-<br>
-# Check if it's a new high score<br>
-if score > high_score:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;high_score = score<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print("New high score: " + str(high_score))<br>
-<br>
-# Check if game is over<br>
-if lives <= 0:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print("Game Over!")<br>
-                            </code>
-                        </div>
-                        <p class="text-sm text-gray-600">This example shows how variables would be used to keep track of a player's progress in a game.</p>
-                    </div>
-                </div>
-                
-                <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in example-box" style="animation-delay: 0.1s;">
-                    <div class="flex items-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                        </svg>
-                        <h2 class="text-xl font-bold text-accent">Shopping Cart Calculator</h2>
-                    </div>
-                    <div class="mb-4">
-                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                            <code class="text-sm">
-# Shopping cart items<br>
-item1_name = "T-shirt"<br>
-item1_price = 15.99<br>
-item1_quantity = 2<br>
-<br>
-item2_name = "Jeans"<br>
-item2_price = 29.99<br>
-item2_quantity = 1<br>
-<br>
-# Calculate subtotal for each item<br>
-item1_total = item1_price * item1_quantity<br>
-item2_total = item2_price * item2_quantity<br>
-<br>
-# Calculate the cart total<br>
-subtotal = item1_total + item2_total<br>
-tax_rate = 0.08  # 8% sales tax<br>
-tax_amount = subtotal * tax_rate<br>
-total = subtotal + tax_amount<br>
-<br>
-# Display the total<br>
-print("Your total is: $" + str(round(total, 2)))<br>
-                            </code>
-                        </div>
-                        <p class="text-sm text-gray-600">This example shows how variables help calculate prices in an online shopping cart.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in example-box" style="animation-delay: 0.2s;">
-                    <div class="flex items-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        <h2 class="text-xl font-bold text-accent">User Profile Creator</h2>
-                    </div>
-                    <div class="mb-4">
-                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                            <code class="text-sm">
-# Get user information<br>
-username = "coolcoder123"<br>
-real_name = "Jordan Smith"<br>
-age = 13<br>
-grade = 7<br>
-favorite_subject = "Computer Science"<br>
-is_student = True<br>
-<br>
-# Create a user profile message<br>
-profile = "Username: " + username + "\n"<br>
-profile += "Name: " + real_name + "\n"<br>
-profile += "Age: " + str(age) + "\n"<br>
-profile += "Grade: " + str(grade) + "\n"<br>
-profile += "Favorite Subject: " + favorite_subject<br>
-<br>
-# Display the profile<br>
-print(profile)<br>
-                            </code>
-                        </div>
-                        <p class="text-sm text-gray-600">This example shows how variables store and help display user profile information.</p>
-                    </div>
-                </div>
-                
-                <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in example-box" style="animation-delay: 0.3s;">
-                    <div class="flex items-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                        </svg>
-                        <h2 class="text-xl font-bold text-accent">Grade Calculator</h2>
-                    </div>
-                    <div class="mb-4">
-                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                            <code class="text-sm">
-# Test scores<br>
-test1 = 85<br>
-test2 = 92<br>
-test3 = 78<br>
-<br>
-# Calculate the average<br>
-num_tests = 3<br>
-sum_scores = test1 + test2 + test3<br>
-average = sum_scores / num_tests<br>
-<br>
-# Determine the letter grade<br>
-if average >= 90:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;letter_grade = "A"<br>
-elif average >= 80:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;letter_grade = "B"<br>
-elif average >= 70:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;letter_grade = "C"<br>
-elif average >= 60:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;letter_grade = "D"<br>
-else:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;letter_grade = "F"<br>
-<br>
-# Display the results<br>
-print("Average score: " + str(average))<br>
-print("Letter grade: " + letter_grade)<br>
-                            </code>
-                        </div>
-                        <p class="text-sm text-gray-600">This example shows how variables can help calculate and track test scores and grades.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
     </div>
 
     <script>
         // Navigation
-        document.querySelectorAll('.sidebar-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const sectionId = this.getAttribute('data-section');
-                
-                // Hide all sections
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the first content section as active (LI/SC)
+            document.querySelector('.sidebar-item[data-section="lisc"]').classList.add('active');
+            document.getElementById('lisc').classList.add('active');
+            
+            // Add event listeners to sidebar items
+            document.querySelectorAll('.sidebar-item[data-section]').forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    
+                    // Skip if it's the home link (handled separately)
+                    if (!sectionId) return;
+                    
+                    // Hide all sections
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Remove active class from all sidebar items
+                    document.querySelectorAll('.sidebar-item').forEach(sidebarItem => {
+                        sidebarItem.classList.remove('active');
+                    });
+                    
+                    // Show the selected section
+                    document.getElementById(sectionId).classList.add('active');
+                    
+                    // Add active class to the selected sidebar item
+                    this.classList.add('active');
                 });
-                
-                // Remove active class from all sidebar items
-                document.querySelectorAll('.sidebar-item').forEach(sidebarItem => {
-                    sidebarItem.classList.remove('active');
-                });
-                
-                // Show the selected section
-                document.getElementById(sectionId).classList.add('active');
-                
-                // Add active class to the selected sidebar item
-                this.classList.add('active');
-            });
-        });
-
-        // Challenge 1
-        document.getElementById('check-challenge1').addEventListener('click', function() {
-            const codeArea = document.getElementById('code-challenge1');
-            const resultArea = document.getElementById('result-challenge1');
-            const code = codeArea.innerText.trim();
-            
-            // Check if code has the correct fixes
-            let errors = [];
-            
-            if (!code.includes('player_score = 100')) {
-                errors.push('The variable name "player score" should be "player_score" (with an underscore, no space)');
-            }
-            
-            if (!code.includes('player_name = "Jamie"') && !code.includes("player_name = 'Jamie'")) {
-                errors.push('The name Jamie should be in quotes');
-            }
-            
-            resultArea.classList.remove('hidden');
-            
-            if (errors.length === 0) {
-                resultArea.innerHTML = `
-                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4">
-                        <p class="font-bold">Great job!</p>
-                        <p>You fixed all the errors. The correct code is:</p>
-                        <pre class="mt-2 bg-white p-2 rounded">
-player_score = 100
-player_name = "Jamie"
-message = "Your score is: " + str(player_score)
-print(message)
-                        </pre>
-                    </div>
-                `;
-                
-                // Show the next challenge
-                document.getElementById('challenge1').classList.add('hidden');
-                document.getElementById('challenge2').classList.remove('hidden');
-            } else {
-                resultArea.innerHTML = `
-                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                        <p class="font-bold">Not quite right yet!</p>
-                        <p>Here are the issues to fix:</p>
-                        <ul class="list-disc pl-5 mt-2">
-                            ${errors.map(error => `<li>${error}</li>`).join('')}
-                        </ul>
-                        <p class="mt-2">Try again!</p>
-                    </div>
-                `;
-            }
-        });
-
-        // Challenge 2
-        document.getElementById('check-challenge2').addEventListener('click', function() {
-            const codeArea = document.getElementById('code-challenge2');
-            const resultArea = document.getElementById('result-challenge2');
-            const code = codeArea.innerText.trim();
-            
-            // Check if the code has the required elements
-            let hasName = /character_name|char_name|name\s*=\s*['"].+['"]/.test(code);
-            let hasHealth = /health|hp|hit_points\s*=\s*\d+/.test(code);
-            let hasWeapon = /has_weapon|weapon|armed\s*=\s*(True|False|true|false)/.test(code);
-            let hasPrint = /print\s*\(/.test(code);
-            
-            resultArea.classList.remove('hidden');
-            
-            if (hasName && hasHealth && hasWeapon && hasPrint) {
-                resultArea.innerHTML = `
-                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4">
-                        <p class="font-bold">Excellent work!</p>
-                        <p>You've created all the necessary variables and used them in a print statement.</p>
-                        <p class="mt-2">Here's an example of a complete solution:</p>
-                        <pre class="mt-2 bg-white p-2 rounded">
-# Create a variable for the character's name
-character_name = "Dragon Slayer"
-
-# Create a variable for the character's health (a number)
-health = 100
-
-# Create a variable for if the character has a weapon (true/false)
-has_weapon = True
-
-# Print out a message using your variables
-print(character_name + " has " + str(health) + " health points.")
-if has_weapon:
-    print(character_name + " is armed and ready!")
-else:
-    print(character_name + " needs a weapon!")
-                        </pre>
-                    </div>
-                `;
-                
-                // Show the next challenge
-                document.getElementById('challenge2').classList.add('hidden');
-                document.getElementById('challenge3').classList.remove('hidden');
-            } else {
-                let missing = [];
-                if (!hasName) missing.push("a character name variable with a string value");
-                if (!hasHealth) missing.push("a health variable with a numeric value");
-                if (!hasWeapon) missing.push("a weapon variable with a Boolean value (True/False)");
-                if (!hasPrint) missing.push("a print statement that uses your variables");
-                
-                resultArea.innerHTML = `
-                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                        <p class="font-bold">You're missing some parts!</p>
-                        <p>Your code needs to include:</p>
-                        <ul class="list-disc pl-5 mt-2">
-                            ${missing.map(item => `<li>${item}</li>`).join('')}
-                        </ul>
-                        <p class="mt-2">Try adding the missing parts!</p>
-                    </div>
-                `;
-            }
-        });
-
-        // Quiz
-        document.getElementById('check-quiz').addEventListener('click', function() {
-            const quizResult = document.getElementById('quiz-result');
-            const questions = document.querySelectorAll('.quiz-question');
-            let correctAnswers = 0;
-            
-            questions.forEach(question => {
-                let selectedOption = question.querySelector('.quiz-option.selected');
-                
-                if (selectedOption) {
-                    if (selectedOption.getAttribute('data-correct') === 'true') {
-                        selectedOption.classList.add('correct');
-                        correctAnswers++;
-                    } else {
-                        selectedOption.classList.add('wrong');
-                        // Show the correct answer
-                        question.querySelector('.quiz-option[data-correct="true"]').classList.add('correct');
-                    }
-                } else {
-                    // If no option was selected, highlight the correct answer
-                    question.querySelector('.quiz-option[data-correct="true"]').classList.add('correct');
-                }
             });
             
-            quizResult.classList.remove('hidden');
-            quizResult.innerHTML = `
-                <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4">
-                    <p class="font-bold">Quiz Results</p>
-                    <p>You got ${correctAnswers} out of ${questions.length} questions correct!</p>
-                    ${correctAnswers === questions.length ? 
-                      '<p class="mt-2 font-bold text-green-600">Perfect score! Great job! 🎉</p>' : 
-                      '<p class="mt-2">Review the answers above and try again!</p>'}
-                </div>
-            `;
+            // Initialize the counter and fruit displays
+            updateCounterDisplay();
+            updateFruitDisplay();
             
-            if (correctAnswers === questions.length) {
-                // Show completion message if all answers are correct
-                setTimeout(() => {
-                    document.getElementById('challenge3').classList.add('hidden');
-                    document.getElementById('challenge-complete').classList.remove('hidden');
-                }, 1500);
-            }
-        });
-
-        // Wait for the DOM to be fully loaded before running JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("DOM fully loaded, initializing score variable functionality");
+            // Initialize syntax simulations
+            updateSyntaxSimulation();
+            updateReassignSimulation();
+            updateMultipleSimulation();
             
-            // Initialize score variable
-            let playerScore = 42;
+            // Initialize type demo
+            changeType('int');
             
-            // Get DOM elements
-            const increaseBtn = document.getElementById('increase-score');
-            const decreaseBtn = document.getElementById('decrease-score');
-            const scoreValueElement = document.getElementById('score-value');
-            const codeDisplayElement = document.getElementById('code-display');
-            
-            // Debug checking if elements exist
-            console.log("Increase button:", increaseBtn);
-            console.log("Decrease button:", decreaseBtn);
-            console.log("Score value element:", scoreValueElement);
-            console.log("Code display element:", codeDisplayElement);
-            
-            // Add event listeners only if elements exist
-            if (increaseBtn) {
-                increaseBtn.addEventListener('click', function() {
-                    playerScore += 10;
-                    updateScoreDisplay();
-                    
-                    // Update the code display to show what just happened
-                    if (codeDisplayElement) {
-                        codeDisplayElement.innerHTML = `<p># Previous value: ${playerScore - 10}</p>
-<p>score = score + 10</p>
-<p># New value: ${playerScore}</p>`;
-                    }
-                    
-                    // Add animation effect
-                    animateScore('green');
-                });
-            }
-            
-            if (decreaseBtn) {
-                decreaseBtn.addEventListener('click', function() {
-                    playerScore -= 5;
-                    updateScoreDisplay();
-                    
-                    // Update the code display to show what just happened
-                    if (codeDisplayElement) {
-                        codeDisplayElement.innerHTML = `<p># Previous value: ${playerScore + 5}</p>
-<p>score = score - 5</p>
-<p># New value: ${playerScore}</p>`;
-                    }
-                    
-                    // Add animation effect
-                    animateScore('red');
-                });
-            }
-            
-            function updateScoreDisplay() {
-                if (scoreValueElement) {
-                    scoreValueElement.textContent = playerScore;
-                }
-            }
-            
-            function animateScore(color) {
-                if (scoreValueElement) {
-                    scoreValueElement.style.transition = 'transform 0.3s, color 0.3s';
-                    scoreValueElement.style.transform = 'scale(1.2)';
-                    scoreValueElement.style.color = color === 'green' ? '#22c55e' : '#ef4444';
-                    
-                    setTimeout(() => {
-                        scoreValueElement.style.transform = 'scale(1)';
-                        scoreValueElement.style.color = 'black';
-                    }, 300);
-                }
-            }
-        });
-        
-        // Initial setup
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set the first sidebar item as active
-            const homeSidebarItem = document.querySelector('.sidebar-item[data-section="home"]');
-            if (homeSidebarItem) {
-                homeSidebarItem.classList.add('active');
-            }
-        });
-
-        // Initial setup
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set the first sidebar item as active
-            document.querySelector('.sidebar-item[data-section="home"]').classList.add('active');
+            // Initialize memory visualization
+            updateMemoryVisualization();
         });
     </script>
 </body>
-</html>
+</html>                             
