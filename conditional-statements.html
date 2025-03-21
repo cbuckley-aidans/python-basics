@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Statements</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sidebar: '#0a2351',
+                        sidebarhover: '#0f3272',
+                        accent: '#0a2351',
+                        highlight: '#3b82f6',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-in': 'slideIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-item {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .sidebar-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .sidebar-item.active {
+            border-left: 4px solid white;
+        }
+        
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .condition-box {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .condition-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .example-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .highlight-code {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .highlight-code:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            background-color: #0a2351;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 12px;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #0a2351 transparent transparent transparent;
+        }
+        
+        .interactive-hover:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .example-box {
+            transition: all 0.3s ease;
+        }
+        
+        .example-box:hover {
+            transform: scale(1.02);
+        }
+        
+        .run-code-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .run-code-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+        
+        .quiz-option:hover {
+            transform: translateX(5px);
+        }
+        
+        .quiz-option.correct {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .quiz-option.wrong {
+            background-color: #ef4444;
+            color: white;
+        }
+        
+        .quiz-option.selected {
+            border-color: #3b82f6;
+            border-width: 2px;
+        }
+        
+        .condition-animation {
+            transition: all 0.5s ease;
+        }
+
+        .syntax-step {
+            transition: all 0.3s ease;
+        }
+        
+        .syntax-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .syntax-part {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .syntax-part:hover {
+            background-color: #e0f2fe;
+        }
+
+        .syntax-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #0a2351;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            width: 200px;
+            z-index: 10;
+            transition: opacity 0.3s;
+        }
+
+        .syntax-part:hover .syntax-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* New styles for syntax sections */
+        .syntax-section {
+            margin-bottom: 2.5rem;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .if-section {
+            background-color: rgba(219, 234, 254, 0.4);
+            border-left: 6px solid #3b82f6;
+        }
+
+        .elif-section {
+            background-color: rgba(237, 233, 254, 0.4);
+            border-left: 6px solid #8b5cf6;
+        }
+
+        .else-section {
+            background-color: rgba(254, 226, 226, 0.4);
+            border-left: 6px solid #ef4444;
+        }
+
+        .navigation-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .section-title-badge {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .if-badge {
+            background-color: #3b82f6;
+        }
+
+        .elif-badge {
+            background-color: #8b5cf6;
+        }
+
+        .else-badge {
+            background-color: #ef4444;
+        }
+
+        .btn-if {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-if:hover:not(:disabled) {
+            background-color: #2563eb;
+        }
+
+        .btn-elif {
+            background-color: #8b5cf6;
+            color: white;
+        }
+
+        .btn-elif:hover:not(:disabled) {
+            background-color: #7c3aed;
+        }
+
+        .btn-else {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-else:hover:not(:disabled) {
+            background-color: #dc2626;
+        }
+    </style>
+    <script>
+        // Global weather variables
+        var temperature = 24;
+        var isRaining = false;
+        
+        // Weather decision functions
+        function increaseTemp() {
+            temperature += 2;
+            document.getElementById('temp-value').textContent = temperature + "°C";
+            updateWeatherDecision();
+            
+            var codeDisplay = document.getElementById('code-display');
+            if (codeDisplay) {
+                codeDisplay.innerHTML = `<p># Previous temperature: ${temperature - 2}°C</p>
+<p>temperature = temperature + 2</p>
+<p># New temperature: ${temperature}°C</p>`;
+            }
+            
+            animateTemp('red');
+        }
+        
+        function decreaseTemp() {
+            temperature -= 2;
+            document.getElementById('temp-value').textContent = temperature + "°C";
+            updateWeatherDecision();
+            
+            var codeDisplay = document.getElementById('code-display');
+            if (codeDisplay) {
+                codeDisplay.innerHTML = `<p># Previous temperature: ${temperature + 2}°C</p>
+<p>temperature = temperature - 2</p>
+<p># New temperature: ${temperature}°C</p>`;
+            }
+            
+            animateTemp('blue');
+        }
+        
+        function toggleRain() {
+            isRaining = !isRaining;
+            document.getElementById('rain-value').textContent = isRaining ? "Yes" : "No";
+            updateWeatherDecision();
+            
+            var codeDisplay = document.getElementById('code-display');
+            if (codeDisplay) {
+                codeDisplay.innerHTML = `<p># Previous rain status: ${!isRaining}</p>
+<p>is_raining = ${isRaining}</p>`;
+            }
+            
+            animateRain();
+        }
+        
+        function updateWeatherDecision() {
+            var decisionElement = document.getElementById('weather-decision');
+            var codeDecision = document.getElementById('decision-code');
+            
+            if (decisionElement && codeDecision) {
+                if (temperature > 27 && !isRaining) {
+                    decisionElement.textContent = "Go to the beach!";
+                    codeDecision.innerHTML = `<p>if temperature > 27 and not is_raining:</p>
+<p>    print("Go to the beach!")</p>`;
+                } else if (temperature > 16 && !isRaining) {
+                    decisionElement.textContent = "Go for a hike!";
+                    codeDecision.innerHTML = `<p>elif temperature > 16 and not is_raining:</p>
+<p>    print("Go for a hike!")</p>`;
+                } else if (isRaining) {
+                    decisionElement.textContent = "Stay inside and read a book!";
+                    codeDecision.innerHTML = `<p>elif is_raining:</p>
+<p>    print("Stay inside and read a book!")</p>`;
+                } else {
+                    decisionElement.textContent = "Play video games!";
+                    codeDecision.innerHTML = `<p>else:</p>
+<p>    print("Play video games!")</p>`;
+                }
+            }
+        }
+        
+        function animateTemp(color) {
+            var tempElement = document.getElementById('temp-value');
+            if (tempElement) {
+                tempElement.style.transition = 'transform 0.3s, color 0.3s';
+                tempElement.style.transform = 'scale(1.2)';
+                tempElement.style.color = color === 'red' ? '#ef4444' : '#3b82f6';
+                
+                setTimeout(function() {
+                    tempElement.style.transform = 'scale(1)';
+                    tempElement.style.color = 'black';
+                }, 300);
+            }
+        }
+        
+        function animateRain() {
+            var rainElement = document.getElementById('rain-value');
+            if (rainElement) {
+                rainElement.style.transition = 'transform 0.3s, color 0.3s';
+                rainElement.style.transform = 'scale(1.2)';
+                rainElement.style.color = isRaining ? '#3b82f6' : '#10b981';
+                
+                setTimeout(function() {
+                    rainElement.style.transform = 'scale(1)';
+                    rainElement.style.color = 'black';
+                }, 300);
+            }
+        }
+
+        // Syntax simulation functions
+        let currentStep = 0;
+        let maxSteps = 6;
+        let currentElifStep = 0;
+        let maxElifSteps = 4;
+        let currentElseStep = 0;
+        let maxElseSteps = 3;
+
+        function nextSyntaxStep() {
+            if (currentStep < maxSteps) {
+                currentStep++;
+                updateSyntaxSimulation();
+            }
+        }
+
+        function prevSyntaxStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                updateSyntaxSimulation();
+            }
+        }
+
+        function nextElifStep() {
+            if (currentElifStep < maxElifSteps) {
+                currentElifStep++;
+                updateElifSimulation();
+            }
+        }
+
+        function prevElifStep() {
+            if (currentElifStep > 0) {
+                currentElifStep--;
+                updateElifSimulation();
+            }
+        }
+
+        function nextElseStep() {
+            if (currentElseStep < maxElseSteps) {
+                currentElseStep++;
+                updateElseSimulation();
+            }
+        }
+
+        function prevElseStep() {
+            if (currentElseStep > 0) {
+                currentElseStep--;
+                updateElseSimulation();
+            }
+        }
+
+        function updateSyntaxSimulation() {
+            // Hide all steps
+            for (let i = 0; i <= maxSteps; i++) {
+                let step = document.getElementById(`syntax-step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                }
+            }
+            
+            // Show current step
+            let currentStepElement = document.getElementById(`syntax-step-${currentStep}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('hidden');
+            }
+            
+            // Update buttons
+            let prevButton = document.getElementById('syntax-prev-btn');
+            let nextButton = document.getElementById('syntax-next-btn');
+            
+            if (prevButton) {
+                prevButton.disabled = currentStep === 0;
+                prevButton.classList.toggle('opacity-50', currentStep === 0);
+            }
+            
+            if (nextButton) {
+                nextButton.disabled = currentStep === maxSteps;
+                nextButton.classList.toggle('opacity-50', currentStep === maxSteps);
+            }
+            
+            // Update step indicator
+            let stepIndicator = document.getElementById('step-indicator');
+            if (stepIndicator) {
+                stepIndicator.textContent = `Step ${currentStep} of ${maxSteps}`;
+            }
+        }
+
+        function updateElifSimulation() {
+            // Hide all steps
+            for (let i = 0; i <= maxElifSteps; i++) {
+                let step = document.getElementById(`elif-step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                }
+            }
+            
+            // Show current step
+            let currentStepElement = document.getElementById(`elif-step-${currentElifStep}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('hidden');
+            }
+            
+            // Update buttons
+            let prevButton = document.getElementById('elif-prev-btn');
+            let nextButton = document.getElementById('elif-next-btn');
+            
+            if (prevButton) {
+                prevButton.disabled = currentElifStep === 0;
+                prevButton.classList.toggle('opacity-50', currentElifStep === 0);
+            }
+            
+            if (nextButton) {
+                nextButton.disabled = currentElifStep === maxElifSteps;
+                nextButton.classList.toggle('opacity-50', currentElifStep === maxElifSteps);
+            }
+            
+            // Update step indicator
+            let stepIndicator = document.getElementById('elif-step-indicator');
+            if (stepIndicator) {
+                stepIndicator.textContent = `Step ${currentElifStep} of ${maxElifSteps}`;
+            }
+        }
+
+        function updateElseSimulation() {
+            // Hide all steps
+            for (let i = 0; i <= maxElseSteps; i++) {
+                let step = document.getElementById(`else-step-${i}`);
+                if (step) {
+                    step.classList.add('hidden');
+                }
+            }
+            
+            // Show current step
+            let currentStepElement = document.getElementById(`else-step-${currentElseStep}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('hidden');
+            }
+            
+            // Update buttons
+            let prevButton = document.getElementById('else-prev-btn');
+            let nextButton = document.getElementById('else-next-btn');
+            
+            if (prevButton) {
+                prevButton.disabled = currentElseStep === 0;
+                prevButton.classList.toggle('opacity-50', currentElseStep === 0);
+            }
+            
+            if (nextButton) {
+                nextButton.disabled = currentElseStep === maxElseSteps;
+                nextButton.classList.toggle('opacity-50', currentElseStep === maxElseSteps);
+            }
+            
+            // Update step indicator
+            let stepIndicator = document.getElementById('else-step-indicator');
+            if (stepIndicator) {
+                stepIndicator.textContent = `Step ${currentElseStep} of ${maxElseSteps}`;
+            }
+        }
+
+        function highlightSyntaxPart(id) {
+            // Reset all highlights
+            document.querySelectorAll('.syntax-part').forEach(part => {
+                part.classList.remove('bg-yellow-200');
+            });
+            
+            // Highlight selected part
+            let part = document.getElementById(id);
+            if (part) {
+                part.classList.add('bg-yellow-200');
+            }
+        }
+        
+        // New Number Checker Interactive Example functions
+        let numberValue = 5;
+
+        function incrementNumber() {
+            numberValue += 1;
+            updateNumberExample();
+        }
+
+        function decrementNumber() {
+            numberValue -= 1;
+            updateNumberExample();
+        }
+
+        function updateNumberExample() {
+            // Update displayed number
+            const numValueElement = document.getElementById('num-value');
+            if (numValueElement) {
+                numValueElement.textContent = numberValue;
+                
+                // Animate the number change
+                numValueElement.style.transition = 'transform 0.3s, color 0.3s';
+                numValueElement.style.transform = 'scale(1.2)';
+                numValueElement.style.color = numberValue > 0 ? '#10b981' : (numberValue < 0 ? '#ef4444' : '#3b82f6');
+                
+                setTimeout(function() {
+                    numValueElement.style.transform = 'scale(1)';
+                    numValueElement.style.color = 'black';
+                }, 300);
+            }
+            
+            // Update the result
+            const resultElement = document.getElementById('number-result');
+            if (resultElement) {
+                if (numberValue > 0) {
+                    resultElement.textContent = "The number is positive!";
+                } else if (numberValue < 0) {
+                    resultElement.textContent = "The number is negative!";
+                } else {
+                    resultElement.textContent = "The number is zero!";
+                }
+            }
+            
+            // Reset all highlighted elements
+            resetHighlights();
+            
+            // Highlight code and flowchart based on the number
+            if (numberValue > 0) {
+                highlightPositivePath();
+            } else if (numberValue < 0) {
+                highlightNegativePath();
+            } else {
+                highlightZeroPath();
+            }
+        }
+
+        function resetHighlights() {
+            // Reset code highlighting
+            for (let i = 1; i <= 7; i++) {
+                const codeElement = document.getElementById(`code-line-${i}`);
+                if (codeElement) {
+                    codeElement.style.backgroundColor = 'transparent';
+                    codeElement.style.fontWeight = 'normal';
+                }
+            }
+            
+            // Reset flowchart highlighting
+            const flowchartElements = [
+                'decision-node', 'path-yes', 'path-no', 
+                'result-positive', 'decision-node-2', 
+                'path-yes-2', 'path-no-2', 
+                'result-negative', 'result-zero'
+            ];
+            
+            flowchartElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.style.boxShadow = 'none';
+                    element.style.filter = 'opacity(0.4)';
+                }
+            });
+        }
+
+        function highlightPositivePath() {
+            // Highlight code
+            document.getElementById('code-line-1').style.backgroundColor = '#374151';
+            document.getElementById('code-line-2').style.backgroundColor = '#374151';
+            document.getElementById('code-line-3').style.backgroundColor = '#10b981';
+            document.getElementById('code-line-3').style.fontWeight = 'bold';
+            
+            // Highlight flowchart
+            document.getElementById('decision-node').style.boxShadow = '0 0 8px rgba(59, 130, 246, 0.7)';
+            document.getElementById('decision-node').style.filter = 'opacity(1)';
+            document.getElementById('path-yes').style.filter = 'opacity(1)';
+            document.getElementById('result-positive').style.boxShadow = '0 0 8px rgba(16, 185, 129, 0.7)';
+            document.getElementById('result-positive').style.filter = 'opacity(1)';
+        }
+
+        function highlightNegativePath() {
+            // Highlight code
+            document.getElementById('code-line-1').style.backgroundColor = '#374151';
+            document.getElementById('code-line-2').style.backgroundColor = '#374151';
+            document.getElementById('code-line-4').style.backgroundColor = '#374151';
+            document.getElementById('code-line-5').style.backgroundColor = '#ef4444';
+            document.getElementById('code-line-5').style.fontWeight = 'bold';
+            
+            // Highlight flowchart
+            document.getElementById('decision-node').style.boxShadow = '0 0 8px rgba(59, 130, 246, 0.7)';
+            document.getElementById('decision-node').style.filter = 'opacity(1)';
+            document.getElementById('path-no').style.filter = 'opacity(1)';
+            document.getElementById('decision-node-2').style.boxShadow = '0 0 8px rgba(139, 92, 246, 0.7)';
+            document.getElementById('decision-node-2').style.filter = 'opacity(1)';
+            document.getElementById('path-yes-2').style.filter = 'opacity(1)';
+            document.getElementById('result-negative').style.boxShadow = '0 0 8px rgba(239, 68, 68, 0.7)';
+            document.getElementById('result-negative').style.filter = 'opacity(1)';
+        }
+
+        function highlightZeroPath() {
+            // Highlight code
+            document.getElementById('code-line-1').style.backgroundColor = '#374151';
+            document.getElementById('code-line-2').style.backgroundColor = '#374151';
+            document.getElementById('code-line-4').style.backgroundColor = '#374151';
+            document.getElementById('code-line-6').style.backgroundColor = '#374151';
+            document.getElementById('code-line-7').style.backgroundColor = '#3b82f6';
+            document.getElementById('code-line-7').style.fontWeight = 'bold';
+            
+            // Highlight flowchart
+            document.getElementById('decision-node').style.boxShadow = '0 0 8px rgba(59, 130, 246, 0.7)';
+            document.getElementById('decision-node').style.filter = 'opacity(1)';
+            document.getElementById('path-no').style.filter = 'opacity(1)';
+            document.getElementById('decision-node-2').style.boxShadow = '0 0 8px rgba(139, 92, 246, 0.7)';
+            document.getElementById('decision-node-2').style.filter = 'opacity(1)';
+            document.getElementById('path-no-2').style.filter = 'opacity(1)';
+            document.getElementById('result-zero').style.boxShadow = '0 0 8px rgba(59, 130, 246, 0.7)';
+            document.getElementById('result-zero').style.filter = 'opacity(1)';
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+    <!-- Sidebar Navigation -->
+    <div class="w-[180px] bg-sidebar text-white min-h-screen flex flex-col fixed">
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer border-b border-gray-600" onclick="window.location.href='index.html'">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">HOME</span>
+            </div>
+        </div>
+        
+        <div class="mt-4"></div>
+        
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="lisc">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">LI / SC</span>
+            </div>
+        </div>
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="intro">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">INTRO</span>
+            </div>
+        </div>
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="syntax">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">SYNTAX</span>
+            </div>
+        </div>
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="comparisons">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">COMPARISONS</span>
+            </div>
+        </div>
+        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="extension">
+            <div class="text-center">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <span class="block mt-1 text-center">EXTENSION</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="ml-[180px] w-full p-8">
+        <!-- Learning Intentions and Success Criteria section -->
+        <section id="lisc" class="content-section active animate-fade-in">
+            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">LEARNING INTENTIONS & SUCCESS CRITERIA</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6 animate-slide-in">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <h2 class="text-2xl font-bold text-accent">Learning Intentions</h2>
+                </div>
+                
+                <ul class="list-disc pl-8 space-y-3">
+                    <li class="text-lg">Understand what conditional statements are and why they're important in programming</li>
+                    <li class="text-lg">Learn the correct syntax for writing if, elif, and else statements in Python</li>
+                    <li class="text-lg">Understand how to use comparison operators to test conditions</li>
+                    <li class="text-lg">Learn how to combine multiple conditions using logical operators</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.2s;">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h2 class="text-2xl font-bold text-accent">Success Criteria</h2>
+                </div>
+                
+                <p class="mb-4">By the end of this lesson, you should be able to:</p>
+                
+                <ul class="list-disc pl-8 space-y-3">
+                    <li class="text-lg">Write a syntactically correct if statement to control program flow</li>
+                    <li class="text-lg">Add elif and else statements to handle multiple conditions</li>
+                    <li class="text-lg">Use comparison operators (==, !=, >, <, >=, <=) correctly</li>
+                    <li class="text-lg">Combine conditions using logical operators (and, or, not)</li>
+                    <li class="text-lg">Create a program that makes decisions based on user input or variable values</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Intro section -->
+        <section id="intro" class="content-section">
+            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">WHAT ARE CONDITIONALS?</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
+                <p class="text-lg mb-6">A conditional statement tells a computer to execute different code depending on whether a condition is true or false. Think of it as a fork in the road - your program has to decide which path to take!</p>
+                
+                <!-- Improved Number Checker Interactive Example with Better Flowchart -->
+<div class="relative bg-gray-50 rounded-lg p-6 mt-8 mb-4 overflow-hidden shadow-inner">
+    <div class="absolute top-0 right-0 bg-accent text-white px-3 py-1 text-sm rounded-bl-lg">Interactive Example</div>
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <!-- Left column: Number Checker Control Panel and Code -->
+        <div class="lg:col-span-2 flex flex-col gap-4">
+            <!-- Number Checker Control Panel -->
+            <div class="condition-animation bg-blue-50 border-2 border-blue-200 rounded-lg p-4 text-center relative transition-all hover:shadow-lg">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-white px-2 py-1 rounded text-sm">
+                    Number Checker
+                </div>
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-1">Current Value:</p>
+                    <p id="num-value" class="text-4xl font-bold">5</p>
+                    <div class="flex justify-center gap-2 mt-2">
+                        <button id="decrease-num" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-transform hover:scale-105" onclick="decrementNumber()">
+                            -1
+                        </button>
+                        <button id="increase-num" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition-transform hover:scale-105" onclick="incrementNumber()">
+                            +1
+                        </button>
+                    </div>
+                </div>
+                <div class="border-t-2 border-blue-200 pt-3">
+                    <p class="text-sm text-gray-600 mb-1">Result:</p>
+                    <p id="number-result" class="text-xl font-bold">The number is positive!</p>
+                </div>
+            </div>
+            
+            <!-- Python Code Display - Now under the number checker -->
+            <div>
+                <h3 class="text-xl font-bold text-accent mb-2">Python Code:</h3>
+                <div id="flowchart-code" class="bg-gray-800 text-white p-4 rounded-lg text-sm font-mono">
+                    <p id="code-line-1">num = 5</p>
+                    <p id="code-line-2">if num > 0:</p>
+                    <p id="code-line-3">&nbsp;&nbsp;&nbsp;&nbsp;print("The number is positive!")</p>
+                    <p id="code-line-4">elif num < 0:</p>
+                    <p id="code-line-5">&nbsp;&nbsp;&nbsp;&nbsp;print("The number is negative!")</p>
+                    <p id="code-line-6">else:</p>
+                    <p id="code-line-7">&nbsp;&nbsp;&nbsp;&nbsp;print("The number is zero!")</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right column: Flowchart Visualization -->
+        <div class="lg:col-span-3">
+            <h3 class="text-xl font-bold text-accent mb-2">Flowchart Visualization:</h3>
+            <div class="bg-white p-4 rounded-lg border border-gray-200 mb-4">
+                <div class="flex flex-col items-center">
+                    <!-- Start node -->
+                    <div class="bg-gray-200 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+                        Start
+                    </div>
+                    
+                    <!-- Arrow down -->
+                    <div class="w-0.5 h-8 bg-gray-400"></div>
+                    
+                    <!-- First decision -->
+                    <div id="decision-node" class="bg-blue-100 border-2 border-blue-400 rounded-lg w-48 py-3 px-4 text-center mb-2">
+                        Is num > 0?
+                    </div>
+                    
+                    <!-- Branches with improved spacing -->
+                    <div class="flex w-full justify-center">
+                        <div class="grid grid-cols-2 gap-8 w-full max-w-2xl">
+                            <!-- Left branch (Yes) -->
+                            <div class="flex flex-col items-center">
+                                <div id="path-yes" class="text-green-600 font-bold mb-1">Yes</div>
+                                <div class="w-0.5 h-10 bg-green-500 mb-1"></div>
+                                <div id="result-positive" class="bg-green-100 border-2 border-green-400 rounded-lg w-full py-3 px-4 text-center">
+                                    Print "Positive"
+                                </div>
+                            </div>
+                            
+                            <!-- Right branch (No) -->
+                            <div class="flex flex-col items-center">
+                                <div id="path-no" class="text-red-600 font-bold mb-1">No</div>
+                                <div class="w-0.5 h-10 bg-red-500 mb-1"></div>
+                                <div id="decision-node-2" class="bg-purple-100 border-2 border-purple-400 rounded-lg w-full py-3 px-4 text-center mb-2">
+                                    Is num < 0?
+                                </div>
+                                
+                                <!-- Sub-branches with better spacing -->
+                                <div class="grid grid-cols-2 gap-4 w-full">
+                                    <!-- Left sub-branch (Yes) -->
+                                    <div class="flex flex-col items-center">
+                                        <div id="path-yes-2" class="text-green-600 font-bold mb-1">Yes</div>
+                                        <div class="w-0.5 h-10 bg-green-500 mb-1"></div>
+                                        <div id="result-negative" class="bg-red-100 border-2 border-red-400 rounded-lg w-full py-3 px-2 text-center">
+                                            Print "Negative"
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Right sub-branch (No) -->
+                                    <div class="flex flex-col items-center">
+                                        <div id="path-no-2" class="text-red-600 font-bold mb-1">No</div>
+                                        <div class="w-0.5 h-10 bg-red-500 mb-1"></div>
+                                        <div id="result-zero" class="bg-blue-100 border-2 border-blue-400 rounded-lg w-full py-3 px-2 text-center">
+                                            Print "Zero"
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-accent mb-4">Why Conditionals Are Important</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 hover:shadow-md transition-shadow">
+                            <h4 class="font-bold">They make programs smart</h4>
+                            <p>Programs can respond differently based on different conditions</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 hover:shadow-md transition-shadow">
+                            <h4 class="font-bold">They control program flow</h4>
+                            <p>Your code can take different paths depending on what's happening</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500 hover:shadow-md transition-shadow">
+                            <h4 class="font-bold">They handle different scenarios</h4>
+                            <p>Programs can deal with various user inputs and situations</p>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500 hover:shadow-md transition-shadow">
+                            <h4 class="font-bold">They validate data</h4>
+                            <p>Conditionals help check if information is correct before using it</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.1s;">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h2 class="text-2xl font-bold text-accent">Think of it like...</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
+                    <div class="bg-blue-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-blue-500">
+                        <h3 class="font-bold mb-3 text-lg">A Traffic Light</h3>
+                        <p class="text-gray-700">Different colors tell you to stop, slow down, or go</p>
+                    </div>
+                    <div class="bg-purple-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-purple-500">
+                        <h3 class="font-bold mb-3 text-lg">A Fork in the Road</h3>
+                        <p class="text-gray-700">Your program decides which path to take based on conditions</p>
+                    </div>
+                    <div class="bg-green-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-green-500">
+                        <h3 class="font-bold mb-3 text-lg">A Game Referee</h3>
+                        <p class="text-gray-700">Makes decisions based on the rules and what's happening</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparisons section -->
+        <section id="comparisons" class="content-section">
+            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">COMPARISON OPERATORS</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6 animate-slide-in">
+                <p class="text-lg mb-6">Comparison operators let you compare two values to see how they relate to each other. They are the building blocks of conditional statements.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-blue-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-blue-500 text-white p-3">
+                            <h3 class="text-xl font-bold">Equal & Not Equal</h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="mb-3 grid grid-cols-2 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm">==</code>
+                                    <p class="text-xs text-gray-600">Equal to</p>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm">!=</code>
+                                    <p class="text-xs text-gray-600">Not equal to</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-white p-3 rounded border border-gray-200">
+                                <code class="text-sm">if score == 100:<br>    print("Perfect score!")<br><br>if name != "admin":<br>    print("Access denied")</code>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-green-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-green-500 text-white p-3">
+                            <h3 class="text-xl font-bold">Greater & Less Than</h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="mb-3 grid grid-cols-2 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm">></code>
+                                    <p class="text-xs text-gray-600">Greater than</p>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm"><</code>
+                                    <p class="text-xs text-gray-600">Less than</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-white p-3 rounded border border-gray-200">
+                                <code class="text-sm">if age > 12:<br>    print("You're a teenager!")<br><br>if temperature < 0:<br>    print("It's freezing!")</code>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-yellow-500 text-white p-3">
+                            <h3 class="text-xl font-bold">Greater/Less Equal</h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="mb-3 grid grid-cols-2 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm">>=</code>
+                                    <p class="text-xs text-gray-600">Greater than or equal</p>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm"><=</code>
+                                    <p class="text-xs text-gray-600">Less than or equal</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-white p-3 rounded border border-gray-200">
+                                <code class="text-sm">if score >= 70:<br>    print("You passed!")<br><br>if lives <= 0:<br>    print("Game over!")</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t-2 border-gray-100 pt-6 mt-8">
+                    <h3 class="text-xl font-bold text-accent mb-4">How They Work</h3>
+                    <div class="bg-gray-50 p-5 rounded-lg mb-6">
+                        <h4 class="font-bold text-lg mb-3">Comparison Results</h4>
+                        <p class="mb-4">Every comparison produces a <span class="font-bold">Boolean</span> result - either <code class="bg-gray-200 px-1 rounded">True</code> or <code class="bg-gray-200 px-1 rounded">False</code>.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-3 rounded-lg shadow-sm">
+                                <h5 class="font-bold text-green-600 mb-2">True Examples</h5>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <code class="text-sm">5 > 2</code> → <span class="text-green-600">True</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <code class="text-sm">10 == 10</code> → <span class="text-green-600">True</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <code class="text-sm">7 <= 7</code> → <span class="text-green-600">True</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <code class="text-sm">"cat" != "dog"</code> → <span class="text-green-600">True</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg shadow-sm">
+                                <h5 class="font-bold text-red-600 mb-2">False Examples</h5>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <code class="text-sm">5 < 2</code> → <span class="text-red-600">False</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <code class="text-sm">10 == 5</code> → <span class="text-red-600">False</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <code class="text-sm">7 >= 10</code> → <span class="text-red-600">False</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <code class="text-sm">"hello" == "Hello"</code> → <span class="text-red-600">False</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.1s;">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <h2 class="text-2xl font-bold text-accent">Watch Out!</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                        <h4 class="font-bold">Common Mistake: = vs ==</h4>
+                        <p class="mb-2">Don't confuse assignment (=) with comparison (==)!</p>
+                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
+                            <code class="text-sm text-red-500">if score = 100:  # Wrong! This assigns 100 to score</code>
+                        </div>
+                        <div class="bg-white p-2 rounded border border-gray-200">
+                            <code class="text-sm text-green-500">if score == 100:  # Correct! This checks if score equals 100</code>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-bold">Case Sensitivity</h4>
+                        <p class="mb-2">String comparisons are case-sensitive!</p>
+                        <div class="bg-white p-2 rounded border border-gray-200">
+                            <code class="text-sm">"Python" == "python"  # False</code>
+                        </div>
+                        <p class="mt-2 text-sm">If you need to ignore case:</p>
+                        <div class="bg-white p-2 rounded border border-gray-200">
+                            <code class="text-sm">name.lower() == "python"  # Converts to lowercase first</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logic section -->
+        <section id="extension" class="content-section">
+            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">EXTENSION: COMBINING CONDITIONS</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
+                <p class="text-lg mb-6">Logical operators let you combine multiple conditions together to create more complex decision-making in your programs.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-indigo-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-indigo-500 text-white p-3">
+                            <h3 class="text-xl font-bold">and</h3>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-3">Both conditions must be True for the result to be True.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3 whitespace-pre">
+<code class="text-sm">if age >= 13 and age <= 19:
+    print("You are a teenager")</code>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div class="bg-green-50 p-2 rounded">
+                                    <p>True and True = True</p>
+                                </div>
+                                <div class="bg-red-50 p-2 rounded">
+                                    <p>True and False = False</p>
+                                </div>
+                                <div class="bg-red-50 p-2 rounded">
+                                    <p>False and True = False</p>
+                                </div>
+                                <div class="bg-red-50 p-2 rounded">
+                                    <p>False and False = False</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-rose-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-rose-500 text-white p-3">
+                            <h3 class="text-xl font-bold">or</h3>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-3">At least one condition must be True for the result to be True.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3 whitespace-pre">
+<code class="text-sm">if day == "Saturday" or day == "Sunday":
+    print("It's the weekend!")</code>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div class="bg-green-50 p-2 rounded">
+                                    <p>True or True = True</p>
+                                </div>
+                                <div class="bg-green-50 p-2 rounded">
+                                    <p>True or False = True</p>
+                                </div>
+                                <div class="bg-green-50 p-2 rounded">
+                                    <p>False or True = True</p>
+                                </div>
+                                <div class="bg-red-50 p-2 rounded">
+                                    <p>False or False = False</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-cyan-50 rounded-lg shadow-md overflow-hidden example-card">
+                        <div class="bg-cyan-500 text-white p-3">
+                            <h3 class="text-xl font-bold">not</h3>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-3">Reverses a Boolean value - True becomes False, and False becomes True.</p>
+                            <div class="bg-white p-3 rounded border border-gray-200 mb-3 whitespace-pre">
+<code class="text-sm">if not is_game_over:
+    print("Keep playing!")</code>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div class="bg-red-50 p-2 rounded">
+                                    <p>not True = False</p>
+                                </div>
+                                <div class="bg-green-50 p-2 rounded">
+                                    <p>not False = True</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-100 p-8 rounded-xl shadow-lg mt-8">
+                    <h2 class="text-2xl font-bold text-accent mb-6">Using Parentheses for Complex Conditions</h2>
+                    <p class="mb-6 text-lg">Parentheses are crucial for creating clear, complex conditions and controlling the order of operations.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="font-bold text-lg mb-3 text-blue-700">Without Parentheses</h3>
+                            <pre class="bg-gray-50 p-4 rounded whitespace-pre text-sm mb-4">if age >= 13 and age <= 19 or has_parent_permission:
+    print("You can play this game!")</pre>
+                            <p class="text-gray-700">This is ambiguous. Does the <code>or</code> apply to both conditions or just the second?</p>
+                            <div class="mt-3 bg-yellow-50 p-3 rounded-lg border-l-4 border-yellow-400">
+                                <p class="text-sm">Python's default: <code>and</code> has higher precedence than <code>or</code>, so it evaluates <code>(age >= 13 and age <= 19) or has_parent_permission</code>.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="font-bold text-lg mb-3 text-green-700">With Parentheses</h3>
+                            <pre class="bg-gray-50 p-4 rounded whitespace-pre text-sm mb-4">if (age >= 13 and age <= 19) or has_parent_permission:
+    print("You can play this game!")</pre>
+                            <p class="text-gray-700">This is clear: either you're a teenager OR you have permission.</p>
+                            <div class="mt-3 bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
+                                <p class="text-sm">Always use parentheses when combining different logical operators to make your code clear and avoid bugs.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg mb-3 text-purple-700">Multiple Levels of Nesting</h3>
+                        <pre class="bg-gray-50 p-4 rounded whitespace-pre text-sm mb-4">if (temperature < 0 and not has_coat) or (temperature > 30 and not has_water):
+    print("Weather conditions are dangerous!")
+else:
+    print("You're prepared for the weather.")</pre>
+                        <p class="mt-4">The parentheses make it clear that we're checking for two dangerous scenarios:</p>
+                        <ol class="list-decimal pl-6 mt-3 space-y-2">
+                            <li>Cold without a coat <code>(temperature < 0 and not has_coat)</code></li>
+                            <li>Hot without water <code>(temperature > 30 and not has_water)</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Syntax section - Updated with the new UI and structure -->
+        <section id="syntax" class="content-section">
+            <h1 class="text-4xl font-bold mb-6 pb-2 border-b-2 border-accent">IF STATEMENT SYNTAX</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
+                <!-- IF Section -->
+                <div class="syntax-section if-section mb-12">
+                    <div class="section-title-badge if-badge">IF Statement</div>
+                    <div class="flex justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-accent mt-3">Step-by-Step Syntax Breakdown</h2>
+                        <div id="step-indicator" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 6</div>
+                    </div>
+                    
+                    <!-- Step 0: Initial -->
+                    <div id="syntax-step-0" class="syntax-step">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">We'll examine each syntax element of a simple if statement:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span>Let's check if the player has enough points to level up.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 1: IF keyword -->
+                    <div id="syntax-step-1" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">First, we start with the <span class="font-bold text-accent">if</span> keyword:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-yellow-200 syntax-part" id="if-keyword" onclick="highlightSyntaxPart('if-keyword')">if<span class="syntax-tooltip" id="if-keyword-tip">The "if" keyword starts the conditional statement. It must be lowercase.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Condition -->
+                    <div id="syntax-step-2" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Next, we add the <span class="font-bold text-accent">condition</span> that will be evaluated:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-blue-100" id="if-part">if</span> <span class="bg-yellow-200 syntax-part" id="condition" onclick="highlightSyntaxPart('condition')">player_score >= 100<span class="syntax-tooltip" id="condition-tip">The condition is an expression that evaluates to True or False. Here we're checking if player_score is greater than or equal to 100.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Colon -->
+                    <div id="syntax-step-3" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The condition must be followed by a <span class="font-bold text-accent">colon (:)</span>:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span class="bg-blue-100">if player_score >= 100</span><span class="bg-yellow-200 syntax-part" id="colon" onclick="highlightSyntaxPart('colon')">:<span class="syntax-tooltip" id="colon-tip">The colon is required after the condition. It tells Python that a code block is coming next.</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Indentation -->
+                    <div id="syntax-step-4" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The code that should run if the condition is True must be <span class="font-bold text-accent">indented</span>:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="bg-blue-100">if player_score >= 100:</span>
+<span class="bg-yellow-200 syntax-part" id="indentation" onclick="highlightSyntaxPart('indentation')">    </span>print("Level up!")<span class="syntax-tooltip" id="indentation-tip">Indentation (usually 4 spaces) is required for all code that should execute if the condition is True. Python uses indentation to determine code blocks.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 5: Multiple Lines -->
+                    <div id="syntax-step-5" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">You can include <span class="font-bold text-accent">multiple statements</span> in the indented block:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="bg-blue-100">if player_score >= 100:</span>
+<span class="bg-yellow-200 syntax-part" id="multi-line" onclick="highlightSyntaxPart('multi-line')">    print("Level up!")
+    player_level += 1
+    player_health = 100</span><span class="syntax-tooltip" id="multi-line-tip">All statements at the same indentation level are part of the same code block and will execute if the condition is True.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 6: Complete Statement -->
+                    <div id="syntax-step-6" class="syntax-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The <span class="font-bold text-accent">complete if statement</span> with all parts:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="syntax-part" id="complete" onclick="highlightSyntaxPart('complete')">if player_score >= 100:
+    print("Level up!")
+    player_level += 1
+    player_health = 100
+print("Game continues...")  # This line is outside the if block</span><span class="syntax-tooltip" id="complete-tip">The if statement checks the condition, and if True, executes the indented code. After the indented block, code continues at the previous indentation level.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="navigation-controls">
+                        <button id="syntax-prev-btn" class="btn-if px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevSyntaxStep()" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Previous
+                        </button>
+                        <div class="text-sm text-gray-500 hidden md:block">Navigate through the IF statement syntax</div>
+                        <button id="syntax-next-btn" class="btn-if px-4 py-2 rounded-lg flex items-center" onclick="nextSyntaxStep()">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- ELIF Section -->
+                <div class="syntax-section elif-section mb-12">
+                    <div class="section-title-badge elif-badge">ELIF Statement</div>
+                    <div class="flex justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-accent mt-3">Adding ELIF Statements</h2>
+                        <div id="elif-step-indicator" class="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 4</div>
+                    </div>
+                    
+                    <!-- Elif Step 0: Introduction -->
+                    <div id="elif-step-0" class="elif-step">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Often we need to check multiple conditions in sequence. That's where <span class="font-bold text-accent">elif</span> (else if) comes in:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span>Let's categorize a player's score into different achievement levels.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elif Step 1: Basic Structure -->
+                    <div id="elif-step-1" class="elif-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The <span class="font-bold text-accent">elif</span> statement follows an if statement:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="bg-blue-100">if score >= 90:</span>
+    <span>print("You earned an A!")</span>
+<span class="bg-yellow-200 syntax-part" id="elif-keyword" onclick="highlightSyntaxPart('elif-keyword')">elif</span><span> score >= 80:</span><span class="syntax-tooltip" id="elif-keyword-tip">The "elif" keyword stands for "else if" and allows you to check another condition if the previous condition was False.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elif Step 2: Syntax Rules -->
+                    <div id="elif-step-2" class="elif-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The <span class="font-bold text-accent">elif</span> follows the same syntax rules as if:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span>if score >= 90:</span>
+    <span>print("You earned an A!")</span>
+<span class="bg-yellow-200 syntax-part" id="elif-full" onclick="highlightSyntaxPart('elif-full')">elif score >= 80:
+    print("You earned a B!")</span><span class="syntax-tooltip" id="elif-full-tip">Like if statements, elif needs a condition, a colon, and an indented code block that runs if its condition is True.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elif Step 3: Multiple elifs -->
+                    <div id="elif-step-3" class="elif-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">You can include <span class="font-bold text-accent">multiple elif statements</span> to check many conditions:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span>if score >= 90:</span>
+    <span>print("You earned an A!")</span>
+<span>elif score >= 80:</span>
+    <span>print("You earned a B!")</span>
+<span class="bg-yellow-200 syntax-part" id="multiple-elifs" onclick="highlightSyntaxPart('multiple-elifs')">elif score >= 70:
+    print("You earned a C!")
+elif score >= 60:
+    print("You earned a D!")</span><span class="syntax-tooltip" id="multiple-elifs-tip">You can have as many elif statements as you need. Python checks them in order, and executes the first one with a True condition.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elif Step 4: Flow Control -->
+                    <div id="elif-step-4" class="elif-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Python checks conditions in <span class="font-bold text-accent">sequence</span> and executes only the first matching block:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="bg-yellow-200 syntax-part" id="elif-flow" onclick="highlightSyntaxPart('elif-flow')">if score >= 90:
+    print("You earned an A!")
+elif score >= 80:
+    print("You earned a B!")
+elif score >= 70:
+    print("You earned a C!")
+elif score >= 60:
+    print("You earned a D!")</span><span class="syntax-tooltip" id="elif-flow-tip">If score is 95, only the if block runs (printing "You earned an A!"). The elif statements are skipped even though some conditions might also be True.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="navigation-controls">
+                        <button id="elif-prev-btn" class="btn-elif px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevElifStep()" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Previous
+                        </button>
+                        <div class="text-sm text-gray-500 hidden md:block">Navigate through the ELIF statement syntax</div>
+                        <button id="elif-next-btn" class="btn-elif px-4 py-2 rounded-lg flex items-center" onclick="nextElifStep()">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- ELSE Section -->
+                <div class="syntax-section else-section">
+                    <div class="section-title-badge else-badge">ELSE Statement</div>
+                    <div class="flex justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-accent mt-3">Adding ELSE Statements</h2>
+                        <div id="else-step-indicator" class="bg-red-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 3</div>
+                    </div>
+                    
+                    <!-- Else Step 0: Introduction -->
+                    <div id="else-step-0" class="else-step">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The <span class="font-bold text-accent">else</span> statement provides a default action when no conditions match:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
+                                <span>Let's complete our grading example with a default case for failing grades.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Else Step 1: Basic Structure -->
+                    <div id="else-step-1" class="else-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The <span class="font-bold text-accent">else</span> statement comes after if/elif blocks:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span>if score >= 90:</span>
+    <span>print("You earned an A!")</span>
+<span>elif score >= 80:</span>
+    <span>print("You earned a B!")</span>
+<span>elif score >= 70:</span>
+    <span>print("You earned a C!")</span>
+<span>elif score >= 60:</span>
+    <span>print("You earned a D!")</span>
+<span class="bg-yellow-200 syntax-part" id="else-keyword" onclick="highlightSyntaxPart('else-keyword')">else:</span><span class="syntax-tooltip" id="else-keyword-tip">The "else" keyword doesn't need a condition - it runs if all previous if/elif conditions were False.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Else Step 2: Indentation -->
+                    <div id="else-step-2" class="else-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">Like if and elif, the <span class="font-bold text-accent">else block</span> must be indented:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span>if score >= 90:</span>
+    <span>print("You earned an A!")</span>
+<span>elif score >= 80:</span>
+    <span>print("You earned a B!")</span>
+<span>elif score >= 70:</span>
+    <span>print("You earned a C!")</span>
+<span>elif score >= 60:</span>
+    <span>print("You earned a D!")</span>
+<span>else:</span>
+<span class="bg-yellow-200 syntax-part" id="else-block" onclick="highlightSyntaxPart('else-block')">    print("You failed the course.")
+    print("Please schedule a meeting with your teacher.")</span><span class="syntax-tooltip" id="else-block-tip">The else block can contain multiple statements, all indented at the same level.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Else Step 3: Complete Structure -->
+                    <div id="else-step-3" class="else-step hidden">
+                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
+                            <p class="mb-4">The <span class="font-bold text-accent">complete if-elif-else</span> structure:</p>
+                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
+<span class="bg-yellow-200 syntax-part" id="complete-structure" onclick="highlightSyntaxPart('complete-structure')">if score >= 90:
+    print("You earned an A!")
+elif score >= 80:
+    print("You earned a B!")
+elif score >= 70:
+    print("You earned a C!")
+elif score >= 60:
+    print("You earned a D!")
+else:
+    print("You failed the course.")
+    print("Please schedule a meeting with your teacher.")
+
+print("End of grade report.")</span><span class="syntax-tooltip" id="complete-structure-tip">This forms a complete decision structure. Only one block (if, elif, or else) will run, based on which condition matches first. After the structure, code continues at the previous indentation level.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="navigation-controls">
+                        <button id="else-prev-btn" class="btn-else px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevElseStep()" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Previous
+                        </button>
+                        <div class="text-sm text-gray-500 hidden md:block">Navigate through the ELSE statement syntax</div>
+                        <button id="else-next-btn" class="btn-else px-4 py-2 rounded-lg flex items-center" onclick="nextElseStep()">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg mt-8 mb-8">
+                    <h3 class="text-xl font-bold text-accent mb-4">Complete If Statement Anatomy</h3>
+                    
+                    <div class="bg-white p-4 rounded-lg shadow-inner mb-4 font-mono">
+                        <div class="relative">
+                            <pre class="text-md text-gray-800 leading-relaxed whitespace-pre">if condition:
+    # indented code block
+    statement 1
+    statement 2
+elif another_condition:
+    # another indented code block
+    statement 3
+    statement 4
+else:
+    # final indented code block
+    statement 5
+    statement 6</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <p>Each part of the if statement has a specific purpose and must follow exact syntax rules.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-accent mb-4">Critical Syntax Rules</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500 shadow-md">
+                            <h4 class="font-bold">The Colon is Required</h4>
+                            <div class="mt-2 grid grid-cols-1 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-red-500">if x > 10  # Error! Missing colon</code>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-green-500">if x > 10:  # Correct</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500 shadow-md">
+                            <h4 class="font-bold">Indentation Must Be Consistent</h4>
+                            <div class="mt-2 grid grid-cols-1 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200 whitespace-pre">
+<code class="text-sm text-red-500">if x > 10:
+    print("Greater")
+  print("Error")  # Wrong indentation</code>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200 whitespace-pre">
+<code class="text-sm text-green-500">if x > 10:
+    print("Greater")
+    print("Still in if block")  # Correct</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 shadow-md">
+                            <h4 class="font-bold">Case Sensitivity Matters</h4>
+                            <div class="mt-2 grid grid-cols-1 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-red-500">IF x > 10:  # Error! Python keywords are lowercase</code>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-green-500">if x > 10:  # Correct</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 shadow-md">
+                            <h4 class="font-bold">Conditions Must Evaluate to Boolean</h4>
+                            <div class="mt-2 grid grid-cols-1 gap-2">
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-green-500">if score > 0:  # Evaluates to True/False</code>
+                                </div>
+                                <div class="bg-white p-2 rounded border border-gray-200">
+                                    <code class="text-sm text-green-500">if player_name:  # Checks if not empty</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the first content section as active (LI/SC)
+            document.querySelector('.sidebar-item[data-section="lisc"]').classList.add('active');
+            document.getElementById('lisc').classList.add('active');
+            
+            // Add event listeners to sidebar items
+            document.querySelectorAll('.sidebar-item[data-section]').forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    
+                    // Skip if it's the home link (handled separately)
+                    if (!sectionId) return;
+                    
+                    // Hide all sections
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Remove active class from all sidebar items
+                    document.querySelectorAll('.sidebar-item').forEach(sidebarItem => {
+                        sidebarItem.classList.remove('active');
+                    });
+                    
+                    // Show the selected section
+                    document.getElementById(sectionId).classList.add('active');
+                    
+                    // Add active class to the selected sidebar item
+                    this.classList.add('active');
+                });
+            });
+            
+            // Initialize weather logic
+            updateWeatherDecision();
+            
+            // Initialize syntax simulations
+            updateSyntaxSimulation();
+            updateElifSimulation();
+            updateElseSimulation();
+            
+            // Initialize the interactive flowchart
+            resetHighlights();
+            updateNumberExample();
+        });
+    </script>
+</body>
+</html>
