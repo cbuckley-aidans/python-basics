@@ -3,1170 +3,1400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Syntax Cheatsheet</title>
+    <title>Python Skills Centre</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-python.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <!-- PrismJS for Syntax Highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js" defer></script> <!-- Added defer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js" defer></script> <!-- Added defer -->
+    <!-- Choose a dark theme for PrismJS that fits the background -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-okaidia.min.css">
+    <!-- Add Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
+        /* Styles adapted from the Excel Cheatsheet */
         body {
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif; /* Using a slightly more modern font */
         }
-        
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .skill-card {
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            opacity: 0; /* Start hidden for GSAP animation */
+            transform: translateY(20px); /* Start slightly lower for GSAP */
+            /* Added display: block initially for JS filtering */
+            display: block;
         }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+        /* Keep hover effect */
+        .skill-card:hover:not(.hidden) { /* Apply hover only if not hidden by search */
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
         }
-        
-        .section-nav {
-            position: sticky;
-            top: 20px;
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+            flex-shrink: 0; /* Prevent icon from shrinking */
         }
-        
-        .error-section {
+
+        /* Syntax Highlighting Block Style */
+        pre[class*="language-"] {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #1f2937; /* Slightly different dark shade */
+            padding: 1rem;
+            border-radius: 0.375rem;
+            border: 1px solid #4b5563; /* Subtle border */
+            overflow-x: auto;
+            margin-bottom: 1rem; /* Spacing */
+            font-size: 0.9em; /* Slightly smaller font for code */
+            border-left: 4px solid #4299e1; /* Blue accent */
+        }
+         /* Ensure PrismJS overrides don't add extra unwanted background */
+         :not(pre) > code[class*="language-"], pre[class*="language-"] {
+             background: none; /* Remove Prism's default background */
+         }
+         code[class*="language-"] {
+             color: #d1d5db; /* Light gray code text */
+             text-shadow: none; /* Remove text shadow if theme adds one */
+         }
+
+
+        .skill-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-out;
-        }
-        
-        .error-section.show {
-            max-height: 1000px;
-        }
-        
-        .code-container {
-            position: relative;
-            border-radius: 0.5rem;
-            background-color: #1e1e3f;
-            overflow: hidden;
-        }
-        
-        .code-toolbar {
-            display: flex;
-            justify-content: flex-end;
-            padding: 0.5rem;
-            background-color: #2d2b57;
-        }
-        
-        .run-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .run-button:hover {
-            background-color: #45a049;
-        }
-        
-        .output-container {
-            padding: 1rem;
-            background-color: #2d2b57;
-            color: white;
-            border-top: 1px solid #3e3d6b;
-            display: none;
-        }
-        
-        .output-container.show {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .syntax-breakdown {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .syntax-part {
-            border: 2px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 0.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .syntax-part:hover {
-            border-color: #3b82f6;
-            transform: translateY(-3px);
-        }
-        
-        .syntax-part:hover .syntax-tooltip {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .syntax-tooltip {
-            visibility: hidden;
-            width: 220px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 10px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -110px;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: translateY(10px);
-        }
-        
-        .syntax-tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #333 transparent transparent transparent;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        .section-card {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        
-        .section-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .editable-code {
-            white-space: pre;
-            outline: none;
-        }
-        
-        .special-char {
-            color: #f59e0b;
-            font-weight: bold;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            transition: max-height 0.6s ease-out, padding 0.4s ease-out; /* Slightly adjusted timings */
+            padding: 0 2.5rem; /* Keep horizontal padding but start with 0 vertical */
+            background-color: #374151; /* Content background - adjusted shade */
+            border-top: 1px solid #4b5563; /* Separator line */
         }
 
-        /* Special formatting for multiline syntax breakdown */
-        .syntax-block {
-            display: flex;
-            flex-direction: column;
-            margin-left: 2rem;
+        .skill-content.active {
+            max-height: 5000px; /* Increased max-height for potentially long content */
+            overflow: visible;
+            padding: 1.5rem 2.5rem; /* Add vertical padding when active */
         }
 
-        .syntax-line {
-            display: flex;
+        /* Styling for subsection blocks */
+        .subsection-block {
+            background-color: #4b5563; /* Slightly lighter background for contrast */
+            padding: 1rem 1.5rem; /* Padding inside subsection */
+            border-radius: 0.5rem; /* Rounded corners */
+            margin-bottom: 1.5rem; /* Space between subsections */
+            border: 1px solid #5a6679; /* Subtle border */
+        }
+
+        /* Styling for subsection headings */
+        .subsection-heading {
+            font-size: 1.25rem; /* Larger subheading size (text-xl) */
+            font-weight: 600; /* Semibold */
+            margin-bottom: 0.75rem; /* Space below heading */
+        }
+        /* Specific colors for subsection headings */
+        .heading-syntax { color: #93c5fd; } /* text-blue-300 */
+        .heading-examples { color: #93c5fd; } /* text-blue-300 */
+        .heading-when-to-use { color: #6ee7b7; } /* text-green-400 */
+        .heading-common-errors { color: #fca5a5; } /* text-red-300 */
+
+
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .rotate-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Common Errors Section Styling */
+        .common-errors-container {
+            background-color: #1f2937; /* Darker background for contrast */
+            border: 1px solid #4b5563;
+            border-radius: 0.5rem;
+            padding: 1.5rem; /* Increased padding */
+            margin-top: 1.5rem; /* Keep margin top */
+        }
+        .error-block {
+            background-color: rgba(239, 68, 68, 0.1); /* Red background */
+            border-left: 4px solid #ef4444; /* Red accent border */
+            padding: 1rem 1.25rem; /* Increased padding */
+            border-radius: 0.375rem;
+            margin-bottom: 1.5rem; /* Increased spacing */
+        }
+         .error-block:last-child {
+            margin-bottom: 0; /* No margin on last error block */
+        }
+
+        /* Error name header */
+        .error-block h5 {
+            color: #f87171; /* Lighter red for heading */
+            font-weight: 700; /* Bold error name */
+            margin-bottom: 0.3rem; /* Reduced spacing before description */
+            font-size: 1.1em; /* Slightly larger error name */
+        }
+        /* Description below error name */
+        .error-description {
+            font-size: 0.95rem;
+            color: #d1d5db; /* Light gray for text */
+            margin-bottom: 0.75rem; /* Spacing after description */
+            font-style: italic;
+        }
+        .error-block p:not(.error-description):not(.fix-explanation) { /* Original "Why it happens" text */
+            font-size: 0.9rem;
+            color: #d1d5db;
             margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .error-block pre {
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            border-left-color: #ef4444; /* Red border for error code */
+             background-color: #111827; /* Even darker background for code examples within error */
+        }
+         .error-block .fix-code pre {
+            border-left-color: #4ade80; /* Green border for fix code */
+         }
+        .error-block code {
+             font-size: 0.85em;
+        }
+        .error-block .fix-explanation {
+            color: #a7f3d0; /* Light green for fix explanation */
+             margin-top: 0.75rem; /* Adjusted margin */
+             font-style: italic;
+             font-size: 0.9rem;
         }
 
-        .indent {
-            margin-left: 2rem;
-        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
-        <!-- Header -->
-        <header class="mb-12 text-center">
-            <h1 class="text-4xl font-bold mb-3 text-indigo-700">Python Syntax Cheatsheet 🐍</h1>
-        </header>
-        
-        <div class="flex flex-col md:flex-row gap-8">
-            <!-- Navigation -->
-            <div class="md:w-1/4">
-                <nav class="section-nav bg-white p-4 rounded-lg shadow-md">
-                    <h2 class="text-xl font-semibold mb-4 text-indigo-600">Table of Contents</h2>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="#variables" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">1</span>
-                                Variables
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#print" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">2</span>
-                                print()
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#input" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">3</span>
-                                input()
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#if-statements" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">4</span>
-                                if/elif/else
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#booleans" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">5</span>
-                                Booleans
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#random" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">6</span>
-                                Random
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#import" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">7</span>
-                                Import
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#for-loops" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">8</span>
-                                For Loops
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#functions" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">9</span>
-                                Functions
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#turtle" class="block py-2 px-3 rounded hover:bg-indigo-100 transition-colors duration-200 flex items-center">
-                                <span class="w-8 h-8 flex items-center justify-center bg-indigo-200 text-indigo-700 rounded-full mr-2">10</span>
-                                Turtle
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+<body class="p-8 bg-gray-900 text-gray-200 min-h-screen">
+
+    <div class="max-w-4xl mx-auto"> <!-- Adjusted max-width for better readability -->
+        <h1 class="text-4xl font-bold mb-4 text-center text-blue-300">Python Skills Centre 🐍</h1>
+        <p class="text-xl text-center text-gray-400 mb-6">Quick reference guide for essential Python concepts</p> <!-- Reduced margin bottom -->
+
+        <!-- Search Input -->
+        <input type="search" id="search-input" placeholder="Search sections (e.g., loops, variables, errors)..." class="w-full p-3 mb-8 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200 placeholder-gray-400">
+
+        <div class="grid grid-cols-1 gap-6" id="skills-container">
+
+            <!-- Card 1: Variables -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-blue-500 rounded-lg p-2 flex items-center justify-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold ml-3">Variables</h3>
+                    </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                    <p class="mb-6 text-gray-300">Think of variables like boxes where you can store information (data) like words, numbers, or True/False values. You give the box a name so you can use the information later.</p>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax</h4>
+                        <pre><code class="language-python">variable_name = value</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Examples</h4>
+                        <pre><code class="language-python"># Storing text (string)
+player_name = "Sonic"
+# Storing a whole number (integer)
+score = 100
+# Storing a number with decimals (float)
+time_left = 45.5
+# Storing True or False (boolean)
+is_fast = True</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>To remember information like a player's score or name.</li>
+                            <li>To store numbers for calculations.</li>
+                            <li>To keep track of whether something is true or false (like if a game is over).</li>
+                            <li>To make your code easier to read by giving names to values.</li>
+                        </ul>
+                    </div>
+
+                    <div class="common-errors-container">
+                        <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>SyntaxError</h5>
+                            <p class="error-description">Using an Invalid Name</p>
+                            <p>Variable names can't start with numbers and can only contain letters, numbers, and underscores.</p>
+                            <pre><code class="language-python">1st_place = "Mario"  # Starts with a number (WRONG)
+player-score = 50    # Uses a hyphen (WRONG)</code></pre>
+                            <p class="fix-explanation">Fix: Start with a letter or underscore. Use underscores instead of hyphens.</p>
+                            <div class="fix-code"><pre><code class="language-python">first_place = "Mario" # CORRECT
+player_score = 50     # CORRECT</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                            <h5>SyntaxError / NameError</h5>
+                             <p class="error-description">Forgetting Quotes for Text</p>
+                             <p>Text data (called strings) needs to be inside single (' ') or double (" ") quotes. Without them, Python thinks it's a variable name.</p>
+                             <pre><code class="language-python">message = Hello      # Missing quotes (WRONG)</code></pre>
+                             <p class="fix-explanation">Fix: Put quotes around the text.</p>
+                             <div class="fix-code"><pre><code class="language-python">message = "Hello"    # CORRECT
+message = 'Hello'    # Also CORRECT</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                            <h5>NameError</h5>
+                             <p class="error-description">Using a Variable Before Creating It</p>
+                             <p>You need to give a variable a value (assign it) before you can use it.</p>
+                             <pre><code class="language-python">print(my_score)  # my_score hasn't been created yet (WRONG)
+my_score = 100</code></pre>
+                             <p class="fix-explanation">Fix: Make sure you create the variable with `=` before you try to print it or use it.</p>
+                             <div class="fix-code"><pre><code class="language-python">my_score = 100
+print(my_score)  # CORRECT</code></pre></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Main Content -->
-            <div class="md:w-3/4">
-                <!-- Variables Section -->
-                <section id="variables" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+
+            <!-- Card 2: print() Function -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                 <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-purple-500 rounded-lg p-2 flex items-center justify-center">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">Variables</h2>
+                        <h3 class="text-xl font-semibold ml-3">print() Function</h3>
                     </div>
-                    
-                    <p class="mb-4">Variables are containers for storing data values. In Python, you don't need to declare a variable type - it's determined by the value assigned.</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Syntax Breakdown:</h3>
-                        <div class="syntax-breakdown flex-col space-y-2">
-                            <div class="flex items-center">
-                                <div class="syntax-part bg-white">
-                                    <code>variable_name</code>
-                                    <div class="syntax-tooltip">Choose a descriptive name using letters, numbers, and underscores (cannot start with a number)</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code><span class="special-char">=</span></code>
-                                    <div class="syntax-tooltip">Assignment operator - stores the value on the right into the variable on the left</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code>value</code>
-                                    <div class="syntax-tooltip">The data you want to store (number, text, boolean, etc.)</div>
-                                </div>
-                            </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                     <p class="mb-6 text-gray-300">The `print()` function is how you make your program show messages, numbers, or the values stored in variables on the screen.</p>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax</h4>
+                        <pre><code class="language-python">print(value_to_show)</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Examples</h4>
+                        <pre><code class="language-python"># Printing simple text
+print("Game Over!")
+# Printing a number
+print(100)
+# Printing the value of a variable
+score = 500
+print(score)
+# Printing multiple things (they appear with spaces in between)
+level = 3
+print("Level:", level, "Score:", score) # Output: Level: 3 Score: 500</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>To show messages to the user (like instructions or results).</li>
+                            <li>To check the value of a variable while you're coding (debugging).</li>
+                            <li>To display calculations or final scores.</li>
+                            <li>To see what your program is doing step-by-step.</li>
+                        </ul>
+                    </div>
+
+                    <div class="common-errors-container">
+                        <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>SyntaxError</h5>
+                             <p class="error-description">Forgetting Parentheses `()`</p>
+                            <p>`print` is a function, and functions need parentheses `()` after their name, even if there's nothing inside (in Python 3).</p>
+                            <pre><code class="language-python">print "Hello"  # Missing parentheses (WRONG - Old Python 2 style)</code></pre>
+                            <p class="fix-explanation">Fix: Always add parentheses after `print`.</p>
+                            <div class="fix-code"><pre><code class="language-python">print("Hello") # CORRECT</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                            <h5>NameError</h5>
+                             <p class="error-description">Forgetting Quotes Around Text</p>
+                             <p>If you want to print exact text, it must be inside single `' '` or double `" "` quotes. Otherwise, Python thinks it's a variable name.</p>
+                             <pre><code class="language-python">print(Hello)   # Python thinks Hello is a variable (WRONG)</code></pre>
+                             <p class="fix-explanation">Fix: Add quotes around the text you want to display.</p>
+                             <div class="fix-code"><pre><code class="language-python">print("Hello") # CORRECT</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                            <h5>SyntaxError</h5>
+                             <p class="error-description">Mismatched Quotes</p>
+                             <p>If you start text with a double quote (`"`), you must end it with a double quote. Same for single quotes (`'`).</p>
+                             <pre><code class="language-python">print("Hello') # Started with " but ended with ' (WRONG)</code></pre>
+                             <p class="fix-explanation">Fix: Use the same type of quote at the beginning and end.</p>
+                             <div class="fix-code"><pre><code class="language-python">print("Hello") # CORRECT
+print('Hello') # Also CORRECT</code></pre></div>
                         </div>
                     </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Basic Data Types:</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-white p-3 rounded border">
-                                <h4 class="font-medium text-indigo-600">Strings (text)</h4>
-                                <pre><code class="language-python">name = "Alice"
-message = 'Hello, world!'</code></pre>
-                                <p class="text-sm mt-1">Text enclosed in quotes (single or double)</p>
-                            </div>
-                            <div class="bg-white p-3 rounded border">
-                                <h4 class="font-medium text-indigo-600">Integers (whole numbers)</h4>
-                                <pre><code class="language-python">age = 12
-count = -7</code></pre>
-                                <p class="text-sm mt-1">Whole numbers without a decimal point</p>
-                            </div>
-                            <div class="bg-white p-3 rounded border">
-                                <h4 class="font-medium text-indigo-600">Floats (decimal numbers)</h4>
-                                <pre><code class="language-python">height = 1.65
-temperature = 21.5</code></pre>
-                                <p class="text-sm mt-1">Numbers with a decimal point</p>
-                            </div>
-                            <div class="bg-white p-3 rounded border">
-                                <h4 class="font-medium text-indigo-600">Booleans (True/False)</h4>
-                                <pre><code class="language-python">is_student = True
-has_completed = False</code></pre>
-                                <p class="text-sm mt-1">Special values: either True or False</p>
-                            </div>
-                            <div class="bg-white p-3 rounded border">
-                                <h4 class="font-medium text-indigo-600">Lists (collections)</h4>
-                                <pre><code class="language-python">fruits = ["apple", "banana", "orange"]
-numbers = [1, 2, 3, 4, 5]</code></pre>
-                                <p class="text-sm mt-1">Ordered collections of items</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Type Mismatch: Trying to do math with strings</p>
-                                <pre><code class="language-python">age = "13"  # This is a string, not a number
-next_year = age + 1  # Error: Can't add a number to a string</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: TypeError: can't concatenate str and int objects</p>
-                                <p class="text-sm mt-1">✅ Fix: Convert the string to a number first: <code class="bg-gray-100 px-1 py-0.5 rounded">age = int("13")</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Invalid variable names</p>
-                                <pre><code class="language-python">1name = "Alice"  # Cannot start with a number
-my-age = 12  # Cannot use hyphens</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: SyntaxError: invalid syntax</p>
-                                <p class="text-sm mt-1">✅ Fix: Use valid names like <code class="bg-gray-100 px-1 py-0.5 rounded">name1</code> and <code class="bg-gray-100 px-1 py-0.5 rounded">my_age</code></p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Print Section -->
-                <section id="print" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </div>
+            </div>
+
+             <!-- Card 3: input() Function -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                 <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-green-500 rounded-lg p-2 flex items-center justify-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">print() Function</h2>
+                        <h3 class="text-xl font-semibold ml-3">input() Function</h3>
                     </div>
-                    
-                    <p class="mb-4">The <code class="bg-gray-100 px-1 py-0.5 rounded">print()</code> function displays text or values to the screen. It's one of the most basic and useful functions in Python!</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Syntax Breakdown:</h3>
-                        <div class="syntax-breakdown">
-                            <div class="syntax-part bg-white">
-                                <code>print<span class="special-char">(</span></code>
-                                <div class="syntax-tooltip">The function name followed by an opening parenthesis</div>
-                            </div>
-                            <div class="syntax-part bg-white">
-                                <code>"Hello, World!"</code>
-                                <div class="syntax-tooltip">The value you want to display (text requires quotes)</div>
-                            </div>
-                            <div class="syntax-part bg-white">
-                                <code><span class="special-char">)</span></code>
-                                <div class="syntax-tooltip">Closing parenthesis</div>
-                            </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                     <p class="mb-6 text-gray-300">The `input()` function lets your program pause and wait for the user to type something in. Whatever the user types is then stored (usually in a variable) as text (a string).</p>
+
+                     <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax</h4>
+                        <pre><code class="language-python">variable_name = input("Optional message to show the user: ")</code></pre>
+                    </div>
+
+                     <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Examples</h4>
+                        <pre><code class="language-python"># Ask for the user's name and store it
+name = input("What is your name? ")
+print("Hello,", name)
+
+# Ask for age (input always gives text, even if it looks like a number!)
+age_text = input("How old are you? ")
+print("You said you are", age_text)
+
+# If you need the age as a number for math, you must convert it
+try:
+    age_number = int(age_text) # int() turns text into a whole number
+    next_year_age = age_number + 1
+    print("Next year you will be", next_year_age)
+except ValueError:
+    print("That wasn't a valid number for age!")
+</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>To make your program interactive.</li>
+                            <li>To get information from the user, like their name, age, or choices.</li>
+                            <li>To ask questions in a quiz game.</li>
+                            <li>To get settings or options from the user.</li>
+                        </ul>
+                    </div>
+
+                     <div class="common-errors-container">
+                        <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>TypeError</h5>
+                             <p class="error-description">Trying Math with the Input Directly</p>
+                            <p>`input()` gives you text. You can't do math like addition (`+`) with text and numbers directly.</p>
+                            <pre><code class="language-python">age = input("How old are you? ") # age is text, e.g., "12"
+next_age = age + 1                 # Can't add "12" and 1 (WRONG)</code></pre>
+                            <p class="fix-explanation">Fix: Convert the input text to a number using `int()` (or `float()`) before doing math.</p>
+                            <div class="fix-code"><pre><code class="language-python">age_text = input("How old are you? ")
+try:
+    age_number = int(age_text)      # Convert to number
+    next_age = age_number + 1       # Now math works (CORRECT)
+    print(next_age)
+except ValueError:
+    print("Please enter a number for age.")</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                            <h5>NameError</h5>
+                             <p class="error-description">Forgetting to Store the Input</p>
+                             <p>`input()` gets the user's text, but if you don't store it in a variable using `=`, the text is lost immediately.</p>
+                             <pre><code class="language-python">input("What is your name? ") # Gets the name but doesn't save it
+print("Hello,", name)       # 'name' variable doesn't exist (WRONG)</code></pre>
+                             <p class="fix-explanation">Fix: Assign the result of `input()` to a variable.</p>
+                             <div class="fix-code"><pre><code class="language-python">name = input("What is your name? ") # Store the input in 'name'
+print("Hello,", name)              # Now 'name' has the value (CORRECT)</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                             <h5>ValueError</h5>
+                             <p class="error-description">User Enters Non-Number When Expecting Number</p>
+                             <p>If you use `int()` or `float()` to convert input, but the user types text like "twelve" or "abc", the conversion will fail and raise a `ValueError`.</p>
+                             <pre><code class="language-python">age_text = input("Age: ") # User types "ten"
+age_number = int(age_text) # Crashes here! (ValueError)</code></pre>
+                             <p class="fix-explanation">Fix: Use a `try...except ValueError` block to catch the error and handle it gracefully (e.g., ask the user again).</p>
+                             <div class="fix-code"><pre><code class="language-python">while True:
+    age_text = input("Age: ")
+    try:
+        age_number = int(age_text)
+        break # Exit loop if conversion is successful
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+print("Age entered:", age_number)</code></pre></div>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Forgetting quotes around text</p>
-                                <pre><code class="language-python">print(Hello, World!)</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: NameError: name 'Hello' is not defined</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">print("Hello, World!")</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Mismatched or missing parentheses</p>
-                                <pre><code class="language-python">print("Hello, World!"</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: SyntaxError: unexpected EOF while parsing</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">print("Hello, World!")</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Mismatched quotes</p>
-                                <pre><code class="language-python">print("Hello, World!')</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: SyntaxError: EOL while scanning string literal</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">print("Hello, World!")</code> or <code class="bg-gray-100 px-1 py-0.5 rounded">print('Hello, World!')</code></p>
-                            </div>
+                </div>
+            </div>
+
+            <!-- Card 4: if/elif/else Statements -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                 <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-yellow-500 rounded-lg p-2 flex items-center justify-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                           </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold ml-3">if / elif / else</h3>
+                    </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                     <p class="mb-6 text-gray-300">These statements let your program make choices. It checks a condition (`True` or `False`). If the `if` is true, its code runs. If not, it checks `elif` conditions. If none are true, the `else` code runs (if present).</p>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax</h4>
+                        <pre><code class="language-python">if condition_is_true:
+    # Code to run if the condition is True (must be indented!)
+elif another_condition_is_true:
+    # Code to run if the first condition was False,
+    # but this 'elif' condition is True (indented!)
+else:
+    # Code to run if NONE of the above 'if' or 'elif'
+    # conditions were True (indented!)</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Examples</h4>
+                        <pre><code class="language-python">score = 75
+
+if score >= 90:
+    print("Grade: A")
+elif score >= 80: # Only checked if score was NOT >= 90
+    print("Grade: B")
+elif score >= 70: # Only checked if score was NOT >= 80
+    print("Grade: C")
+else: # Only runs if score was < 70
+    print("Grade: Needs Improvement")
+# Output: Grade: C
+
+weather = "cloudy"
+if weather == "sunny":
+    print("Wear sunglasses!")
+elif weather == "rainy":
+    print("Bring an umbrella!")
+else: # Runs because weather is not "sunny" or "rainy"
+    print("Maybe wear a light jacket.")
+# Output: Maybe wear a light jacket.</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>To run different code based on user input or choices.</li>
+                            <li>To check if a player has enough points, lives, or items.</li>
+                            <li>To decide what message to show based on a result or status.</li>
+                            <li>To control the flow and logic of your program.</li>
+                        </ul>
+                    </div>
+
+                     <div class="common-errors-container">
+                        <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>SyntaxError</h5>
+                            <p class="error-description">Forgetting the Colon `:`</p>
+                            <p>Every `if`, `elif`, and `else` line must end with a colon `:`.</p>
+                            <pre><code class="language-python">if score > 50  # Missing colon (WRONG)
+    print("You passed!")</code></pre>
+                            <p class="fix-explanation">Fix: Add a colon `:` at the end of the condition line.</p>
+                             <div class="fix-code"><pre><code class="language-python">if score > 50: # CORRECT
+    print("You passed!")</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                             <h5>IndentationError</h5>
+                             <p class="error-description">Incorrect Indentation</p>
+                             <p>The code that should run *inside* the `if`, `elif`, or `else` must be pushed in (indented). If it's not, Python doesn't know it belongs there.</p>
+                             <pre><code class="language-python">if score > 50:
+print("You passed!") # Not indented (WRONG)</code></pre>
+                             <p class="fix-explanation">Fix: Press Tab or add 4 spaces before the code inside the block.</p>
+                             <div class="fix-code"><pre><code class="language-python">if score > 50:
+    print("You passed!") # CORRECT (Indented)</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                             <h5>SyntaxError</h5>
+                              <p class="error-description">Using `=` Instead of `==` for Checking Equality</p>
+                             <p>A single equals sign `=` is for *assigning* a value. A double equals sign `==` is for *checking* if two things are equal in conditions.</p>
+                             <pre><code class="language-python">user_input = "Admin"
+if user_input = "Admin": # Trying to assign, not check (WRONG)
+    print("Welcome, Admin!")</code></pre>
+                             <p class="fix-explanation">Fix: Use `==` when you want to compare if two things are the same inside an `if` or `elif`.</p>
+                             <div class="fix-code"><pre><code class="language-python">user_input = "Admin"
+if user_input == "Admin": # CORRECT (Checks if user_input is equal to "Admin")
+    print("Welcome, Admin!")</code></pre></div>
                         </div>
                     </div>
-                </section>
-                
-                <!-- Input Section -->
-                <section id="input" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">input() Function</h2>
-                    </div>
-                    
-                    <p class="mb-4">The <code class="bg-gray-100 px-1 py-0.5 rounded">input()</code> function allows your program to get information from the user.</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Syntax Breakdown:</h3>
-                        <div class="syntax-breakdown">
-                            <div class="syntax-part bg-white">
-                                <code>variable <span class="special-char">=</span></code>
-                                <div class="syntax-tooltip">The name where you'll store the user's input</div>
-                            </div>
-                            <div class="syntax-part bg-white">
-                                <code>input<span class="special-char">(</span></code>
-                                <div class="syntax-tooltip">The input function with opening parenthesis</div>
-                            </div>
-                            <div class="syntax-part bg-white">
-                                <code>"Enter your name: "</code>
-                                <div class="syntax-tooltip">A prompt to tell the user what to enter (optional)</div>
-                            </div>
-                            <div class="syntax-part bg-white">
-                                <code><span class="special-char">)</span></code>
-                                <div class="syntax-tooltip">Closing parenthesis</div>
-                            </div>
-                        </div>
-                    </div>
-                        
-                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
-                        <p class="text-yellow-800"><strong>Important:</strong> <code>input()</code> always returns a string, even if the user types a number.</p>
-                        <p class="text-yellow-700 text-sm mt-2">To convert the input to a number, use:</p>
-                        <pre><code class="language-python">age = int(input("How old are you? "))  # Convert to integer
-height = float(input("How tall are you? "))  # Convert to decimal</code></pre>
-                    </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Trying to do math with string inputs</p>
-                                <pre><code class="language-python">age = input("How old are you? ")  # Returns a string
-next_year = age + 1  # Error: Can't add string and number</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: TypeError: can't concatenate str and int objects</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">age = int(input("How old are you? "))</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Forgetting to store the input in a variable</p>
-                                <pre><code class="language-python">input("What's your name? ")
-print("Hello,", name)  # Error: 'name' is not defined</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: NameError: name 'name' is not defined</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">name = input("What's your name? ")</code></p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- If Statements Section -->
-                <section id="if-statements" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">if/elif/else Statements</h2>
-                    </div>
-                    
-                    <p class="mb-4">If statements let your program make decisions based on conditions.</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Syntax Breakdown:</h3>
-                        <div class="syntax-block">
-                            <div class="syntax-line">
-                                <div class="syntax-part bg-white">
-                                    <code>if condition</code>
-                                    <div class="syntax-tooltip">Test if this condition is True</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code><span class="special-char">:</span></code>
-                                    <div class="syntax-tooltip">Required colon marks the beginning of a code block</div>
-                                </div>
-                            </div>
-                            <div class="syntax-line indent">
-                                <div class="syntax-part bg-white">
-                                    <code>code block</code>
-                                    <div class="syntax-tooltip">Indented code that runs if the condition is True (use the tab key)</div>
-                                </div>
-                            </div>
-                            <div class="syntax-line">
-                                <div class="syntax-part bg-white">
-                                    <code>elif another_condition</code>
-                                    <div class="syntax-tooltip">"else if" - checks another condition if the first was False</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code><span class="special-char">:</span></code>
-                                    <div class="syntax-tooltip">Required colon marks the beginning of a code block</div>
-                                </div>
-                            </div>
-                            <div class="syntax-line indent">
-                                <div class="syntax-part bg-white">
-                                    <code>code block</code>
-                                    <div class="syntax-tooltip">Runs if this condition is True (use the tab key)</div>
-                                </div>
-                            </div>
-                            <div class="syntax-line">
-                                <div class="syntax-part bg-white">
-                                    <code>else</code>
-                                    <div class="syntax-tooltip">Runs if all conditions above were False</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code><span class="special-char">:</span></code>
-                                    <div class="syntax-tooltip">Required colon marks the beginning of a code block</div>
-                                </div>
-                            </div>
-                            <div class="syntax-line indent">
-                                <div class="syntax-part bg-white">
-                                    <code>code block</code>
-                                    <div class="syntax-tooltip">Code that runs if all conditions were False (use the tab key)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Forgetting the colon (:)</p>
-                                <pre><code class="language-python">if temperature > 30
-    print("It's hot today!")</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: SyntaxError: invalid syntax</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">if temperature > 30:</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Incorrect indentation</p>
-                                <pre><code class="language-python">if temperature > 30:
-print("It's hot today!")</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: IndentationError: expected an indented block</p>
-                                <p class="text-sm mt-1">✅ Fix: Indent the code inside the if statement with the tab key</p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Using = instead of == for comparison</p>
-                                <pre><code class="language-python">if temperature = 30:
-    print("It's exactly 30 degrees!")</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: SyntaxError: invalid syntax</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">if temperature == 30:</code></p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Booleans Section -->
-                <section id="booleans" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </div>
+            </div>
+
+             <!-- Card 5: Booleans & Comparisons -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                 <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-pink-500 rounded-lg p-2 flex items-center justify-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">Booleans</h2>
+                        <h3 class="text-xl font-semibold ml-3">Booleans & Comparisons</h3>
                     </div>
-                    
-                    <p class="mb-4">Booleans are simple values that can only be <code class="bg-gray-100 px-1 py-0.5 rounded">True</code> or <code class="bg-gray-100 px-1 py-0.5 rounded">False</code>. They're used in conditions and comparisons.</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Common Boolean Operators:</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Comparison Operators:</h4>
-                                <ul class="space-y-1 mt-2">
-                                    <li><code>==</code> Equal to</li>
-                                    <li><code>!=</code> Not equal to</li>
-                                    <li><code>&lt;</code> Less than</li>
-                                    <li><code>&gt;</code> Greater than</li>
-                                    <li><code>&lt;=</code> Less than or equal to</li>
-                                    <li><code>&gt;=</code> Greater than or equal to</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Logical Operators:</h4>
-                                <ul class="space-y-1 mt-2">
-                                    <li><code>and</code> Both conditions must be True</li>
-                                    <li><code>or</code> At least one condition must be True</li>
-                                    <li><code>not</code> Inverts a boolean (True becomes False)</li>
-                                </ul>
-                            </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                     <p class="mb-6 text-gray-300">Booleans are `True` or `False`. They result from comparisons (`==`, `>`, `<`, `!=`, etc.) and are used in `if` statements and logical operations (`and`, `or`, `not`).</p>
+
+                     <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Comparison Operators</h4>
+                        <pre><code class="language-python">x = 10
+y = 5
+z = 10
+
+# Equality
+print(x == z)  # Is x equal to z?       -> True
+print(x == y)  # Is x equal to y?       -> False
+
+# Inequality
+print(x != y)  # Is x NOT equal to y?   -> True
+print(x != z)  # Is x NOT equal to z?   -> False
+
+# Greater/Less Than
+print(x > y)   # Is x greater than y?   -> True
+print(x < y)   # Is x less than y?      -> False
+print(x >= z)  # Is x greater than or equal to z? -> True
+print(y <= 5)  # Is y less than or equal to 5?    -> True</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Logical Operators</h4>
+                         <pre><code class="language-python">age = 15
+has_permission = False
+score = 85
+
+# --- and --- : BOTH sides MUST be True for the result to be True
+can_drive = age >= 16 and has_permission
+print(f"Can drive? {can_drive}") # Output: Can drive? False (age is >=16 is False)
+
+# --- or --- : AT LEAST ONE side must be True for the result to be True
+has_high_score = score > 90 or age < 18
+print(f"High score or young? {has_high_score}") # Output: High score or young? True (age < 18 is True)
+
+# --- not --- : Flips True to False, and False to True
+is_adult = age >= 18
+is_minor = not is_adult
+print(f"Is minor? {is_minor}") # Output: Is minor? True (not False is True)</code></pre>
+                    </div>
+
+                     <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>Inside `if`, `elif` conditions to decide which code path to take.</li>
+                            <li>To store the state of something (e.g., `is_game_over = True`).</li>
+                            <li>To combine multiple checks before making a decision (e.g., `if is_logged_in and has_admin_rights:`).</li>
+                            <li>In `while` loops to decide when to stop looping (more advanced).</li>
+                        </ul>
+                    </div>
+
+                     <div class="common-errors-container">
+                        <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>SyntaxError</h5>
+                             <p class="error-description">Using `=` Instead of `==` for Comparison</p>
+                            <p>Single `=` assigns a value, double `==` checks if values are equal. This is very common in `if` statements.</p>
+                            <pre><code class="language-python">mode = "easy"
+if mode = "easy": # Assigns "easy" to mode, doesn't check! (WRONG)
+    print("Starting easy mode.")</code></pre>
+                            <p class="fix-explanation">Fix: Use `==` for checking equality in conditions.</p>
+                             <div class="fix-code"><pre><code class="language-python">mode = "easy"
+if mode == "easy": # Checks if mode is equal to "easy" (CORRECT)
+    print("Starting easy mode.")</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                             <h5>NameError</h5>
+                              <p class="error-description">Incorrect Capitalization of `True` / `False`</p>
+                             <p>Python is case-sensitive. The boolean values must be `True` and `False` (starting with a capital letter).</p>
+                             <pre><code class="language-python">is_raining = true  # Lowercase 't' (WRONG)
+if is_raining:
+    print("Bring umbrella.")</code></pre>
+                             <p class="fix-explanation">Fix: Capitalize `True` and `False`.</p>
+                             <div class="fix-code"><pre><code class="language-python">is_raining = True  # Capital 'T' (CORRECT)
+if is_raining:
+    print("Bring umbrella.")</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                            <h5>Logic Error</h5>
+                            <p class="error-description">Confusing `and` / `or` Logic</p>
+                             <p>Using `and` when `or` is needed, or vice versa, leads to incorrect results. `and` requires *all* parts to be true, `or` requires only *one* part to be true.</p>
+                             <pre><code class="language-python"># Trying to check if a number is outside the range 0-100
+value = -5
+if value >= 0 and value <= 100: # Checks if INSIDE the range (WRONG LOGIC for goal)
+    print("Value is valid.")
+else:
+    print("Value is outside the range.") # This will print for -5
+</code></pre>
+                             <p class="fix-explanation">Fix: Think carefully. To check if it's *outside* the range, you want to know if it's less than 0 *OR* greater than 100.</p>
+                             <div class="fix-code"><pre><code class="language-python">value = -5
+if value < 0 or value > 100: # Check if below 0 OR above 100 (CORRECT LOGIC)
+     print("Value is outside the range.")
+else:
+     print("Value is valid.")
+</code></pre></div>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Using = instead of == for comparison</p>
-                                <pre><code class="language-python">if x = True:
-    print("x is True")</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: SyntaxError: invalid syntax</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">if x == True:</code> or simply <code class="bg-gray-100 px-1 py-0.5 rounded">if x:</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Misunderstanding operator precedence</p>
-                                <pre><code class="language-python">if x > 5 and < 10:
-    print("x is between 5 and 10")</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: SyntaxError: invalid syntax</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">if x > 5 and x < 10:</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Capitalization matters</p>
-                                <pre><code class="language-python">is_rainy = true
-if is_rainy:
-    print("Bring an umbrella!")</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: NameError: name 'true' is not defined</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">is_rainy = True</code> (with capital T)</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Random Section -->
-                <section id="random" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                        </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">Random Module</h2>
-                    </div>
-                    
-                    <p class="mb-4">The <code class="bg-gray-100 px-1 py-0.5 rounded">random</code> module helps you generate random numbers and make random choices in Python.</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">First, you need to import it:</h3>
-                        <pre><code class="language-python">import random</code></pre>
-                        
-                        <h3 class="font-semibold text-lg mt-4 mb-2">Common Random Functions:</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">random.randint(a, b)</h4>
-                                <p class="text-sm mt-1">Returns a random integer from a to b (inclusive)</p>
-                                <pre><code class="language-python">random.randint(1, 6)  # Random dice roll</code></pre>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">random.choice(sequence)</h4>
-                                <p class="text-sm mt-1">Returns a random element from a sequence</p>
-                                <pre><code class="language-python">random.choice(["rock", "paper", "scissors"])</code></pre>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">random.random()</h4>
-                                <p class="text-sm mt-1">Returns a random float from 0.0 to 1.0</p>
-                                <pre><code class="language-python">random.random()  # Might return 0.7219...</code></pre>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">random.shuffle(list)</h4>
-                                <p class="text-sm mt-1">Shuffles the items in a list (in-place)</p>
-                                <pre><code class="language-python">cards = [1, 2, 3, 4, 5]
-random.shuffle(cards)</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Forgetting to import the random module</p>
-                                <pre><code class="language-python">dice_roll = random.randint(1, 6)
-print("You rolled:", dice_roll)</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: NameError: name 'random' is not defined</p>
-                                <p class="text-sm mt-1">✅ Fix: Add <code class="bg-gray-100 px-1 py-0.5 rounded">import random</code> at the top of your code</p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Incorrect function parameters</p>
-                                <pre><code class="language-python">import random
-dice_roll = random.randint(6)  # Missing the start parameter
-print("You rolled:", dice_roll)</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: TypeError: randint() missing 1 required positional argument: 'b'</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">random.randint(1, 6)</code> - Both parameters are required</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Import Section -->
-                <section id="import" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </div>
+            </div>
+
+            <!-- Card 6: Random Module -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                 <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-indigo-500 rounded-lg p-2 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                               <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">Import Statements</h2>
+                        <h3 class="text-xl font-semibold ml-3">Random Module</h3>
                     </div>
-                    
-                    <p class="mb-4">Import statements let you use code from other modules or libraries in your program.</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Different Ways to Import:</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Import the entire module</h4>
-                                <pre><code class="language-python">import random</code></pre>
-                                <p class="text-sm mt-1">Use with: <code>random.randint(1, 6)</code></p>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Import specific functions</h4>
-                                <pre><code class="language-python">from random import randint, choice</code></pre>
-                                <p class="text-sm mt-1">Use with: <code>randint(1, 6)</code> (no 'random.' needed)</p>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Import with a nickname (alias)</h4>
-                                <pre><code class="language-python">import random as rnd</code></pre>
-                                <p class="text-sm mt-1">Use with: <code>rnd.randint(1, 6)</code></p>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Import everything (not recommended)</h4>
-                                <pre><code class="language-python">from random import *</code></pre>
-                                <p class="text-sm mt-1">Use with: <code>randint(1, 6)</code> (but harder to tell where functions come from)</p>
-                            </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                    <p class="mb-6 text-gray-300">The `random` module provides functions for generating random numbers, choosing random items, and shuffling sequences.</p>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax (Import First!)</h4>
+                        <pre><code class="language-python">import random # You MUST do this first
+
+# --- Common Functions ---
+random_number = random.randint(start, end)   # Inclusive integer
+random_item = random.choice(list_or_sequence) # Pick one item
+random.shuffle(my_list)                      # Shuffle list in-place
+random_decimal = random.random()             # Float 0.0 <= x < 1.0</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Examples</h4>
+                        <pre><code class="language-python">import random
+
+# Roll a 6-sided die
+dice_roll = random.randint(1, 6)
+print(f"You rolled: {dice_roll}")
+
+# Pick a random color
+colors = ["red", "green", "blue", "yellow"]
+chosen_color = random.choice(colors)
+print(f"Random color: {chosen_color}")
+
+# Shuffle a list of players
+players = ["Alice", "Bob", "Charlie"]
+random.shuffle(players) # Shuffles the 'players' list in place
+print(f"Shuffled players: {players}")
+
+# Get a random float
+random_float = random.random()
+print(f"Random float: {random_float}")</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>Making games more unpredictable (dice rolls, enemy actions, random events).</li>
+                            <li>Choosing random questions in a quiz or random elements for display.</li>
+                            <li>Shuffling items in a list (like a deck of cards or player order).</li>
+                            <li>Generating random test data or sample values.</li>
+                        </ul>
+                    </div>
+
+                     <div class="common-errors-container">
+                        <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>NameError</h5>
+                             <p class="error-description">Forgetting to Import `random`</p>
+                            <p>Python doesn't automatically know about the `random` tools. You have to tell it to load them using `import random`.</p>
+                            <pre><code class="language-python">dice = random.randint(1, 6) # Forgot 'import random' first (WRONG)
+print(dice)</code></pre>
+                            <p class="fix-explanation">Fix: Add `import random` at the very beginning of your Python file.</p>
+                             <div class="fix-code"><pre><code class="language-python">import random # CORRECT
+dice = random.randint(1, 6)
+print(dice)</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                             <h5>TypeError</h5>
+                             <p class="error-description">Wrong Arguments for `randint`</p>
+                             <p>`random.randint()` needs exactly two numbers: the lowest possible number and the highest possible number (inclusive).</p>
+                             <pre><code class="language-python">import random
+# Trying to get a number up to 6
+dice = random.randint(6) # Only gave one number (WRONG)
+print(dice)</code></pre>
+                             <p class="fix-explanation">Fix: Provide both the minimum and maximum values.</p>
+                             <div class="fix-code"><pre><code class="language-python">import random
+# Get a number between 1 and 6
+dice = random.randint(1, 6) # Needs start and end values (CORRECT)
+print(dice)</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                             <h5>TypeError</h5>
+                             <p class="error-description">Using `random.choice` on Something That's Not a Sequence</p>
+                             <p>`random.choice()` needs something it can pick *from*, like a list (`[]`), a tuple (`()`), or a string. It can't pick from a single number.</p>
+                             <pre><code class="language-python">import random
+number = 10
+pick = random.choice(number) # Can't choose from a single integer (WRONG)
+print(pick)</code></pre>
+                             <p class="fix-explanation">Fix: Give `random.choice()` a list, tuple, or string.</p>
+                             <div class="fix-code"><pre><code class="language-python">import random
+options = [10, 20, 30] # A list
+pick = random.choice(options) # Choose from the list (CORRECT)
+print(pick)
+
+name = "PYTHON" # A string
+letter = random.choice(name) # Choose a random character (CORRECT)
+print(letter)</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                            <h5>Logic Error / TypeError</h5>
+                             <p class="error-description">Expecting `random.shuffle` to Return a New List</p>
+                             <p>`random.shuffle()` shuffles the list *in place* (modifies the original) and returns `None`. Assigning its result leads to `None`.</p>
+                             <pre><code class="language-python">import random
+my_list = [1, 2, 3, 4]
+shuffled = random.shuffle(my_list) # WRONG - shuffle changes my_list, returns None
+print(my_list)  # This WILL be shuffled
+print(shuffled) # This will print None</code></pre>
+                             <p class="fix-explanation">Fix: Don't assign the result. Call `random.shuffle()` on the list, then use the original (now shuffled) list variable.</p>
+                             <div class="fix-code"><pre><code class="language-python">import random
+my_list = [1, 2, 3, 4]
+random.shuffle(my_list) # Shuffles my_list directly (CORRECT)
+print(my_list) # Prints the now shuffled list, e.g., [3, 1, 4, 2]</code></pre></div>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </div>
+            </div>
+
+             <!-- Card 7: Import Statement -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                 <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-teal-500 rounded-lg p-2 flex items-center justify-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                             </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Module not found</p>
-                                <pre><code class="language-python">import maths  # Incorrect name (should be 'math')</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: ModuleNotFoundError: No module named 'maths'</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">import math</code> (check the correct module name)</p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Using a function without the module name</p>
-                                <pre><code class="language-python">import math
-print(sqrt(16))  # Missing 'math.' prefix</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: NameError: name 'sqrt' is not defined</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">print(math.sqrt(16))</code> or use <code class="bg-gray-100 px-1 py-0.5 rounded">from math import sqrt</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Import should be at the top</p>
-                                <pre><code class="language-python">print("Let's do some math!")
-import math  # Import not at the top</code></pre>
-                                <p class="text-sm mt-2 text-red-600">⚠️ This works but is bad practice</p>
-                                <p class="text-sm mt-1">✅ Fix: Put all imports at the top of your file</p>
-                            </div>
                         </div>
+                        <h3 class="text-xl font-semibold ml-3">Import Statement</h3>
                     </div>
-                </section>
-                
-                <!-- For Loops Section -->
-                <section id="for-loops" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                    <p class="mb-6 text-gray-300">The `import` statement brings external code (modules or libraries) into your program, giving it new capabilities.</p>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax (Common Ways)</h4>
+                        <pre><code class="language-python"># Method 1: Import the whole module
+import module_name
+# Usage: module_name.function()
+
+# Method 2: Import specific things
+from module_name import specific_function, specific_variable
+# Usage: specific_function()
+
+# Method 3: Import with a nickname (alias)
+import module_name as nickname
+# Usage: nickname.function()</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Examples</h4>
+                        <pre><code class="language-python"># --- Using Method 1 ---
+import math
+print(math.sqrt(16)) # Output: 4.0
+print(math.pi)       # Output: 3.14159...
+
+# --- Using Method 2 ---
+from random import randint, choice
+dice_roll = randint(1, 6) # No 'random.' prefix needed
+colors = ["red", "blue"]
+pick = choice(colors)     # No 'random.' prefix needed
+print(f"Rolled {dice_roll}, picked {pick}")
+
+# --- Using Method 3 ---
+import datetime as dt # Use 'dt' as nickname
+now = dt.datetime.now()
+print(f"Current time: {now}")</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                         <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>When you need functions not built directly into Python (like `random.randint`, `math.sqrt`).</li>
+                            <li>To use code written by others (external libraries) or code in separate files.</li>
+                            <li>To keep code organized using specialized tools from modules.</li>
+                        </ul>
+                    </div>
+
+                    <div class="common-errors-container">
+                         <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>NameError</h5>
+                             <p class="error-description">Forgetting to Import</p>
+                            <p>If you try to use a function/variable from a module without importing it first, Python won't recognize the name.</p>
+                            <pre><code class="language-python">root = math.sqrt(25) # Forgot 'import math' (WRONG)
+print(root)</code></pre>
+                            <p class="fix-explanation">Fix: Add the correct `import` statement (e.g., `import math`) at the top of your code.</p>
+                             <div class="fix-code"><pre><code class="language-python">import math # CORRECT
+root = math.sqrt(25)
+print(root)</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                            <h5>ModuleNotFoundError / AttributeError</h5>
+                            <p class="error-description">Typo in Module or Function Name</p>
+                             <p>Spelling counts! If you misspell the module name (`import maths`) or the function/variable you're using (`math.sqroot`), Python can't find it.</p>
+                             <pre><code class="language-python">import maths      # Should be 'math' (ModuleNotFoundError)
+# OR
+import math
+root = math.sqroot(9) # Should be 'sqrt' (AttributeError)</code></pre>
+                             <p class="fix-explanation">Fix: Double-check the spelling of the module and its contents.</p>
+                             <div class="fix-code"><pre><code class="language-python">import math      # CORRECT module name
+root = math.sqrt(9) # CORRECT function name</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                            <h5>NameError</h5>
+                            <p class="error-description">Forgetting the Module Name Prefix (When using `import module_name`)</p>
+                             <p>If you use `import module_name`, you MUST put `module_name.` before using anything from that module.</p>
+                             <pre><code class="language-python">import random
+dice = randint(1, 6) # Forgot 'random.' prefix (WRONG)
+print(dice)</code></pre>
+                             <p class="fix-explanation">Fix: Add `module_name.` (e.g., `random.randint(1, 6)`), OR change import to `from random import randint` and use `randint(1, 6)` directly.</p>
+                             <div class="fix-code"><pre><code class="language-python">import random
+dice = random.randint(1, 6) # CORRECT use with prefix
+print(dice)
+# --- OR ---
+from random import randint
+dice = randint(1, 6)       # CORRECT use without prefix (after 'from...import')
+print(dice)</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                             <h5>ImportError / AttributeError</h5>
+                             <p class="error-description">Circular Import</p>
+                             <p>(Advanced) Happens if file A imports file B, and file B imports file A, creating a loop Python can't resolve during import.</p>
+                             <pre><code class="language-python"># file_a.py
+import file_b # A imports B
+# ...
+# file_b.py
+import file_a # B imports A (Potential circular dependency)
+# ...</code></pre>
+                             <p class="fix-explanation">Fix: Reorganize code. Move shared elements to a third file, or import within functions instead of globally if possible.</p>
+                             </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Card 8: For Loops -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                 <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-orange-500 rounded-lg p-2 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">For Loops</h2>
+                        <h3 class="text-xl font-semibold ml-3">For Loops</h3>
                     </div>
-                    
-                    <p class="mb-4">For loops let you repeat code a specific number of times or for each item in a collection.</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Syntax Breakdown:</h3>
-                        <div class="syntax-block">
-                            <div class="syntax-line">
-                                <div class="syntax-part bg-white">
-                                    <code>for variable in collection</code>
-                                    <div class="syntax-tooltip">The variable name for each item as we loop through the collection (list, range, etc.)</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code><span class="special-char">:</span></code>
-                                    <div class="syntax-tooltip">Required colon marks the beginning of a code block</div>
-                                </div>
-                            </div>
-                            <div class="syntax-line indent">
-                                <div class="syntax-part bg-white">
-                                    <code>code block</code>
-                                    <div class="syntax-tooltip">Indented code that runs for each item (use the tab key)</div>
-                                </div>
-                            </div>
-                        </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                     <p class="mb-6 text-gray-300">A `for` loop repeats code for each item in a sequence (like a list, range of numbers, or string).</p>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax</h4>
+                        <pre><code class="language-python">for temporary_variable in sequence:
+    # Code block to repeat (must be indented!)
+    # Runs once for each item, 'temporary_variable' holds current item.</code></pre>
                     </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Common Ways to Use For Loops:</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Loop through a range of numbers</h4>
-                                <pre><code class="language-python">for i in range(5):
-    print(i)  # Prints 0, 1, 2, 3, 4</code></pre>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Loop through a list</h4>
-                                <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
-for fruit in fruits:
-    print(fruit)</code></pre>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Loop with a start and end value</h4>
-                                <pre><code class="language-python">for i in range(2, 5):
-    print(i)  # Prints 2, 3, 4</code></pre>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Loop with a step value</h4>
-                                <pre><code class="language-python">for i in range(0, 10, 2):
-    print(i)  # Prints 0, 2, 4, 6, 8</code></pre>
-                            </div>
-                        </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Examples</h4>
+                        <pre><code class="language-python"># --- Looping through numbers using range() ---
+# range(5) -> 0, 1, 2, 3, 4
+print("Counting 0 to 4:")
+for i in range(5):
+    print(i)
+
+# range(2, 6) -> 2, 3, 4, 5
+print("\nCounting 2 to 5:")
+for number in range(2, 6):
+    print(number)
+
+# range(0, 10, 2) -> 0, 2, 4, 6, 8 (start, stop, step)
+print("\nCounting evens up to 8:")
+for count in range(0, 10, 2):
+    print(count)
+
+# --- Looping through items in a list ---
+print("\nShopping List:")
+shopping_list = ["apples", "bread", "milk"]
+for item in shopping_list:
+    print(f"- Buy {item}")
+
+# --- Looping through characters in a string ---
+print("\nLetters in 'Loop':")
+word = "Loop"
+for letter in word:
+    print(letter)</code></pre>
                     </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Forgetting the colon</p>
-                                <pre><code class="language-python">for i in range(5)
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>To do the same action for every item in a list.</li>
+                            <li>To run code a specific number of times (using `range()`).</li>
+                            <li>To process each character in text individually.</li>
+                            <li>Iterating through sequences like lists, tuples, strings, dictionaries.</li>
+                        </ul>
+                    </div>
+
+                     <div class="common-errors-container">
+                         <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>SyntaxError</h5>
+                             <p class="error-description">Forgetting the Colon `:`</p>
+                            <p>The line starting with `for` must end with a colon `:`.</p>
+                            <pre><code class="language-python">for i in range(3) # Missing colon (WRONG)
     print(i)</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: SyntaxError: invalid syntax</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">for i in range(5):</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Incorrect indentation</p>
-                                <pre><code class="language-python">for i in range(5):
-print(i)</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: IndentationError: expected an indented block</p>
-                                <p class="text-sm mt-1">✅ Fix: Indent the code inside the loop with the tab key</p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">range() parameters order</p>
-                                <pre><code class="language-python">for i in range(10, 1):
-    print(i)  # This won't print anything</code></pre>
-                                <p class="text-sm mt-2 text-red-600">⚠️ This won't give an error, but it won't run at all</p>
-                                <p class="text-sm mt-1">✅ Fix: For counting down, add a negative step: <code class="bg-gray-100 px-1 py-0.5 rounded">range(10, 1, -1)</code></p>
-                            </div>
+                            <p class="fix-explanation">Fix: Add a colon `:` at the end of the `for` line.</p>
+                             <div class="fix-code"><pre><code class="language-python">for i in range(3): # CORRECT
+    print(i)</code></pre></div>
                         </div>
-                    </div>
-                </section>
-                
-                <!-- Functions Section -->
-                <section id="functions" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                            </svg>
+                        <div class="error-block">
+                            <h5>IndentationError</h5>
+                             <p class="error-description">Incorrect Indentation</p>
+                             <p>The code to be repeated inside the loop must be indented consistently.</p>
+                             <pre><code class="language-python">pets = ["cat", "dog"]
+for pet in pets:
+print(pet) # Not indented (WRONG)</code></pre>
+                             <p class="fix-explanation">Fix: Indent the code inside the loop.</p>
+                             <div class="fix-code"><pre><code class="language-python">pets = ["cat", "dog"]
+for pet in pets:
+    print(pet) # CORRECT (Indented)</code></pre></div>
                         </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">Functions</h2>
-                    </div>
-                    
-                    <p class="mb-4">Functions are reusable blocks of code that perform a specific task. They help you organize your code and avoid repetition.</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Syntax Breakdown:</h3>
-                        <div class="syntax-block">
-                            <div class="syntax-line">
-                                <div class="syntax-part bg-white">
-                                    <code>def function_name</code>
-                                    <div class="syntax-tooltip">Define a function with a descriptive name</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code><span class="special-char">(</span></code>
-                                    <div class="syntax-tooltip">Opening parenthesis for parameters</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code>parameters</code>
-                                    <div class="syntax-tooltip">Optional inputs the function can use (multiple parameters separated by commas)</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code><span class="special-char">)</span></code>
-                                    <div class="syntax-tooltip">Closing parenthesis</div>
-                                </div>
-                                <div class="syntax-part bg-white">
-                                    <code><span class="special-char">:</span></code>
-                                    <div class="syntax-tooltip">Required colon marks the beginning of a function body</div>
-                                </div>
-                            </div>
-                            <div class="syntax-line indent">
-                                <div class="syntax-part bg-white">
-                                    <code>code block</code>
-                                    <div class="syntax-tooltip">Indented code that runs when the function is called (use the tab key)</div>
-                                </div>
-                            </div>
-                            <div class="syntax-line indent">
-                                <div class="syntax-part bg-white">
-                                    <code>return value</code>
-                                    <div class="syntax-tooltip">Optional: Send a result back from the function</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Forgetting to call the function</p>
-                                <pre><code class="language-python">def say_hello():
-    print("Hello, world!")
+                         <div class="error-block">
+                            <h5>IndexError</h5>
+                            <p class="error-description">Off-by-One Errors with `range()`</p>
+                             <p>`range(n)` goes from `0` up to `n-1`. Using `range(len(list))` gives valid indices, but `range(len(list) + 1)` or trying index `n` will cause an `IndexError`.</p>
+                             <pre><code class="language-python">my_list = [10, 20, 30] # Indices are 0, 1, 2
+# range(len(my_list) + 1) is range(4) -> 0, 1, 2, 3
+for i in range(len(my_list) + 1): # WRONG - i will become 3
+    print(my_list[i]) # IndexError when i is 3</code></pre>
+                             <p class="fix-explanation">Fix: Use `range(len(my_list))`, or preferably, loop directly over items: `for item in my_list:`.</p>
+                             <div class="fix-code"><pre><code class="language-python">my_list = [10, 20, 30]
+# Correct way using range and index
+for i in range(len(my_list)): # range(3) -> 0, 1, 2
+    print(f"Index {i}: {my_list[i]}")
 
-# Nothing happens because the function isn't called</code></pre>
-                                <p class="text-sm mt-2 text-red-600">⚠️ No error, but nothing happens</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">say_hello()</code> to call the function</p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Wrong number of arguments</p>
-                                <pre><code class="language-python">def add(a, b):
-    return a + b
+# Simpler, preferred way
+for item in my_list:
+    print(f"Item: {item}")</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                            <h5>Logic Error / Unexpected Behavior</h5>
+                             <p class="error-description">Modifying a List While Looping Through It</p>
+                             <p>(Advanced) Adding/removing items from a list while iterating over that same list can confuse the loop, leading to skipped items or errors.</p>
+                             <pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
+for number in numbers:
+    if number % 2 == 0: # If number is even
+        numbers.remove(number) # Removing items while looping (RISKY!)
+print(numbers) # Output might be unexpected, e.g., [1, 3, 5]</code></pre>
+                             <p class="fix-explanation">Fix: Iterate over a *copy* (`numbers[:]`) if modifying the original, or build a *new* list instead.</p>
+                             <div class="fix-code"><pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
+odd_numbers = [] # Create a new list
+for number in numbers:
+    if number % 2 != 0: # If number is odd
+        odd_numbers.append(number) # Add to the new list
+print(odd_numbers) # Output: [1, 3, 5] (Safer)
 
-result = add(5)  # Missing one argument</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: TypeError: add() missing 1 required positional argument: 'b'</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">result = add(5, 3)</code></p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Trying to use a value without returning it</p>
-                                <pre><code class="language-python">def add(a, b):
-    a + b  # Doesn't return the result
-
-result = add(5, 3)
-print(result)  # Prints None</code></pre>
-                                <p class="text-sm mt-2 text-red-600">⚠️ No error, but result will be None</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">return a + b</code></p>
-                            </div>
+# Alternative using list comprehension (more advanced)
+odd_numbers_comp = [num for num in numbers if num % 2 != 0]
+print(odd_numbers_comp) # Output: [1, 3, 5]</code></pre></div>
                         </div>
                     </div>
-                </section>
-                
-                <!-- Turtle Section -->
-                <section id="turtle" class="section-card mb-12 bg-white p-6 rounded-lg shadow-lg">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                            </svg>
-                        </div>
-                        <h2 class="text-2xl font-bold text-indigo-700">Turtle Graphics</h2>
-                    </div>
-                    
-                    <p class="mb-4">The turtle module lets you create drawings and simple animations. It's like having a virtual turtle that carries a pen and follows your commands!</p>
-                    
-                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
-                        <h3 class="font-semibold text-lg mb-2">Getting Started:</h3>
-                        <pre><code class="language-python">import turtle
-
-# Create a turtle
-t = turtle.Turtle()
-
-# Make the turtle draw a shape
-t.forward(100)  # Move forward 100 pixels
-t.right(90)     # Turn right 90 degrees
-t.forward(100)
-t.right(90)
-t.forward(100)
-t.right(90)
-t.forward(100)
-
-# Keep the window open
-turtle.done()</code></pre>
-                        
-                        <h3 class="font-semibold text-lg mt-4 mb-2">Common Turtle Commands:</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Moving Commands:</h4>
-                                <ul class="list-disc list-inside text-sm mt-2 space-y-1">
-                                    <li><code>t.forward(distance)</code> - Move forward</li>
-                                    <li><code>t.backward(distance)</code> - Move backward</li>
-                                    <li><code>t.right(angle)</code> - Turn right by angle degrees</li>
-                                    <li><code>t.left(angle)</code> - Turn left by angle degrees</li>
-                                    <li><code>t.goto(x, y)</code> - Move to coordinates</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Pen Controls:</h4>
-                                <ul class="list-disc list-inside text-sm mt-2 space-y-1">
-                                    <li><code>t.penup()</code> - Stop drawing when moving</li>
-                                    <li><code>t.pendown()</code> - Start drawing when moving</li>
-                                    <li><code>t.pensize(width)</code> - Change line thickness</li>
-                                    <li><code>t.pencolor("red")</code> - Change pen color</li>
-                                    <li><code>t.fillcolor("blue")</code> - Set fill color</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Fill Commands:</h4>
-                                <ul class="list-disc list-inside text-sm mt-2 space-y-1">
-                                    <li><code>t.begin_fill()</code> - Start filling a shape</li>
-                                    <li><code>t.end_fill()</code> - Finish and fill the shape</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-3 rounded">
-                                <h4 class="font-medium">Other Commands:</h4>
-                                <ul class="list-disc list-inside text-sm mt-2 space-y-1">
-                                    <li><code>t.speed(speed)</code> - Set drawing speed (1-10)</li>
-                                    <li><code>t.hideturtle()</code> - Hide the turtle cursor</li>
-                                    <li><code>t.showturtle()</code> - Show the turtle cursor</li>
-                                    <li><code>t.clear()</code> - Clear the drawing</li>
-                                    <li><code>t.reset()</code> - Clear and reset position</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h3 class="font-semibold text-lg mb-2 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            Common Errors
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Forgetting to import turtle</p>
-                                <pre><code class="language-python">t = turtle.Turtle()  # Missing import</code></pre>
-                                <p class="text-sm mt-2 text-red-600">❌ Error: NameError: name 'turtle' is not defined</p>
-                                <p class="text-sm mt-1">✅ Fix: <code class="bg-gray-100 px-1 py-0.5 rounded">import turtle</code> at the top of your code</p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Forgetting turtle.done()</p>
-                                <pre><code class="language-python">import turtle
-t = turtle.Turtle()
-t.forward(100)
-# The window might close immediately</code></pre>
-                                <p class="text-sm mt-2 text-red-600">⚠️ The window might close too quickly</p>
-                                <p class="text-sm mt-1">✅ Fix: Add <code class="bg-gray-100 px-1 py-0.5 rounded">turtle.done()</code> at the end</p>
-                            </div>
-                            
-                            <div class="bg-red-50 p-3 rounded-md">
-                                <p class="font-medium text-red-800">Missing begin_fill() or end_fill()</p>
-                                <pre><code class="language-python">t.fillcolor("blue")
-# Drawing commands here
-t.end_fill()  # Missing begin_fill()</code></pre>
-                                <p class="text-sm mt-2 text-red-600">⚠️ The shape won't be filled</p>
-                                <p class="text-sm mt-1">✅ Fix: Always use <code class="bg-gray-100 px-1 py-0.5 rounded">begin_fill()</code> before drawing a shape to fill</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- JavaScript -->
+
+             <!-- Card 9: Functions -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-red-500 rounded-lg p-2 flex items-center justify-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold ml-3">Functions</h3>
+                    </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                     <p class="mb-6 text-gray-300">Functions package code into reusable blocks. Define them with `def`, give them a name, optionally specify input parameters, and optionally use `return` to send back a result.</p>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax (Defining)</h4>
+                        <pre><code class="language-python">def function_name(parameter1, parameter2, ...):
+    # Function Body (Indented!)
+    # Code to execute when called.
+    # It can use parameter values.
+    # ... some actions ...
+    return result_value # Optional: Sends value back</code></pre>
+                    </div>
+                    <div class="subsection-block">
+                         <h4 class="subsection-heading heading-syntax">Syntax (Calling)</h4>
+                        <pre><code class="language-python"># Call function (no args, no return needed)
+function_name()
+
+# Call function with arguments
+function_name(argument1, argument2)
+
+# Call function that returns a value
+result = function_name(argument1)</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-examples">Examples</h4>
+                        <pre><code class="language-python"># --- Defining Functions ---
+# 1. Simple: No inputs, no return
+def show_menu():
+    print("1. Start Game")
+    print("2. Options")
+
+# 2. With input (parameter): name
+def greet(name):
+    print(f"Hello, {name}! Welcome.")
+
+# 3. With inputs, returns a value
+def calculate_area(length, width):
+    area = length * width
+    return area
+
+# --- Calling the Functions ---
+show_menu() # Runs the print statements
+
+greet("CyberKid") # Passes "CyberKid" as argument for 'name'
+
+room_length = 10
+room_width = 5
+# Calls calculate_area, return value (50) is stored
+square_feet = calculate_area(room_length, room_width)
+print(f"Area: {square_feet} sq ft") # Output: Area: 50 sq ft</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>For code used multiple times (avoid repetition).</li>
+                            <li>To break large programs into smaller, manageable, named parts.</li>
+                            <li>To make code easier to test and debug.</li>
+                            <li>To create reusable tools.</li>
+                        </ul>
+                    </div>
+
+                     <div class="common-errors-container">
+                         <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>No Error (Code Doesn't Run)</h5>
+                             <p class="error-description">Defining a Function but Forgetting to Call It</p>
+                            <p>Defining a function with `def` only sets it up. You must call it by name `()` later to execute its code.</p>
+                            <pre><code class="language-python">def start_engine():
+    print("Engine started!")
+
+# "Engine started!" is never printed because start_engine() wasn't called.</code></pre>
+                            <p class="fix-explanation">Fix: Add a line to call the function: `start_engine()`.</p>
+                             <div class="fix-code"><pre><code class="language-python">def start_engine():
+    print("Engine started!")
+
+print("Preparing...")
+start_engine() # CORRECT - Calls the function
+print("Ready!")</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                            <h5>TypeError</h5>
+                            <p class="error-description">Wrong Number of Arguments When Calling</p>
+                             <p>If a function definition specifies parameters, you must provide the same number of arguments when calling it.</p>
+                             <pre><code class="language-python">def set_volume(level): # Defined with 1 parameter
+    print(f"Volume set to {level}")
+
+set_volume() # Called with 0 args (TypeError - missing argument)
+set_volume(10, 20) # Called with 2 args (TypeError - too many arguments)</code></pre>
+                             <p class="fix-explanation">Fix: Provide the correct number of arguments.</p>
+                             <div class="fix-code"><pre><code class="language-python">def set_volume(level):
+    print(f"Volume set to {level}")
+
+set_volume(11) # CORRECT - Called with 1 argument</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                            <h5>Logic Error / TypeError (later)</h5>
+                             <p class="error-description">Trying to Use a Result Without `return`</p>
+                             <p>If a function calculates a value but doesn't `return` it, the value is lost when the function ends. Calling the function yields `None`.</p>
+                             <pre><code class="language-python">def get_player_score(points):
+    score = points * 10
+    # Forgot to return score
+
+current_score = get_player_score(5) # current_score becomes None
+print(f"Your score is: {current_score}") # Prints: Your score is: None</code></pre>
+                             <p class="fix-explanation">Fix: Add a `return` statement to send the value back.</p>
+                             <div class="fix-code"><pre><code class="language-python">def get_player_score(points):
+    score = points * 10
+    return score # CORRECT - Sends score back
+
+current_score = get_player_score(5)
+print(f"Your score is: {current_score}") # Prints: Your score is: 50</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                             <h5>NameError</h5>
+                              <p class="error-description">Scope Issue: Variable Only Exists Inside Function</p>
+                             <p>Variables created inside a function (local variables) can't be accessed from outside that function after it finishes.</p>
+                             <pre><code class="language-python">def create_message():
+    message = "Function finished!" # 'message' is local
+    print(message)
+
+create_message()
+print(message) # Trying to access 'message' outside (NameError)</code></pre>
+                             <p class="fix-explanation">Fix: `return` the value from the function and store it outside, or use a global variable (carefully).</p>
+                             <div class="fix-code"><pre><code class="language-python">def create_message():
+    local_message = "Function finished!"
+    return local_message # Return the value
+
+msg_from_func = create_message() # Store the returned value
+print(msg_from_func) # CORRECT - Access the stored return value</code></pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Card 10: Turtle Graphics -->
+            <div class="skill-card bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                 <div class="skill-header p-4 cursor-pointer flex justify-between items-center hover:bg-gray-700 transition-colors duration-200">
+                    <div class="flex items-center">
+                        <div class="skill-icon bg-cyan-500 rounded-lg p-2 flex items-center justify-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold ml-3">Turtle Graphics</h3>
+                    </div>
+                    <svg class="w-6 h-6 toggle-arrow text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <div class="skill-content">
+                    <p class="mb-6 text-gray-300">The `turtle` module allows drawing shapes and patterns by controlling a virtual "turtle" on a screen.</p>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading heading-syntax">Syntax (Basic Setup)</h4>
+                        <pre><code class="language-python">import turtle # 1. Import
+
+screen = turtle.Screen() # 2. Create screen (optional but good practice)
+screen.bgcolor("lightblue")
+
+pen = turtle.Turtle() # 3. Create turtle
+pen.shape("turtle")
+pen.color("red")
+
+# 4. Give commands
+pen.forward(100)
+pen.left(90)
+# ... more commands ...
+
+# 5. Keep window open
+screen.exitonclick() # Or turtle.done()</code></pre>
+                    </div>
+
+                    <div class="subsection-block">
+                         <h4 class="subsection-heading heading-examples">Common Turtle Commands (`pen.`)</h4>
+                        <pre><code class="language-python"># --- Movement ---
+forward(dist); backward(dist); right(deg); left(deg); goto(x, y); setheading(deg); circle(radius)
+
+# --- Pen Control ---
+penup(); pendown(); pensize(width); pencolor("color"); speed(num)
+
+# --- Appearance & Filling ---
+shape("name"); fillcolor("color"); begin_fill(); end_fill(); hideturtle(); showturtle()
+
+# --- Screen Commands (`screen.`) ---
+bgcolor("color"); title("text"); setup(w, h); exitonclick()</code></pre>
+                    </div>
+
+                     <div class="subsection-block">
+                        <h4 class="subsection-heading heading-when-to-use">When to Use</h4>
+                        <ul class="list-disc list-inside ml-2 text-sm text-gray-300">
+                            <li>To visually learn programming concepts (loops, functions).</li>
+                            <li>To draw geometric shapes, patterns, fractals.</li>
+                            <li>For simple animations or interactive drawings.</li>
+                            <li>For fun introductory coding projects.</li>
+                        </ul>
+                    </div>
+
+                     <div class="common-errors-container">
+                         <h4 class="subsection-heading heading-common-errors">Common Errors</h4>
+                        <div class="error-block">
+                            <h5>NameError</h5>
+                             <p class="error-description">Forgetting `import turtle`</p>
+                            <p>Python doesn't know turtle commands unless the module is imported.</p>
+                            <pre><code class="language-python">t = turtle.Turtle() # Forgot 'import turtle' (NameError)
+t.forward(50)</code></pre>
+                            <p class="fix-explanation">Fix: Add `import turtle` at the top of your file.</p>
+                             <div class="fix-code"><pre><code class="language-python">import turtle # CORRECT
+t = turtle.Turtle()
+t.forward(50)</code></pre></div>
+                        </div>
+                        <div class="error-block">
+                            <h5>No Error (Window Vanishes)</h5>
+                             <p class="error-description">Window Closes Immediately</p>
+                             <p>The script finishes, closing the graphics window before you see the result.</p>
+                             <pre><code class="language-python">import turtle
+t = turtle.Turtle()
+t.circle(50)
+# Program ends, window might vanish (MISSING WAIT)</code></pre>
+                             <p class="fix-explanation">Fix: Add `screen.exitonclick()` (if using `Screen`) or `turtle.done()` at the very end.</p>
+                             <div class="fix-code"><pre><code class="language-python">import turtle
+screen = turtle.Screen() # Create screen
+t = turtle.Turtle()
+t.circle(50)
+screen.exitonclick() # CORRECT - Waits for click</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                            <h5>AttributeError / TurtleGraphicsError</h5>
+                             <p class="error-description">Typo in Command or Color Name</p>
+                             <p>Command names (`forward`, `pencolor`) and standard color names ("lightblue") must be spelled exactly correctly (case-sensitive).</p>
+                             <pre><code class="language-python">import turtle
+t = turtle.Turtle()
+t.forwad(100) # Misspelled 'forward' (AttributeError)
+t.pencolor("liteblue") # Misspelled 'lightblue' (TurtleGraphicsError)</code></pre>
+                             <p class="fix-explanation">Fix: Double-check spelling against documentation.</p>
+                             <div class="fix-code"><pre><code class="language-python">import turtle
+t = turtle.Turtle()
+t.forward(100) # CORRECT
+t.pencolor("lightblue") # CORRECT</code></pre></div>
+                        </div>
+                         <div class="error-block">
+                             <h5>AttributeError</h5>
+                              <p class="error-description">Mixing up Turtle and Screen Commands</p>
+                             <p>Some commands belong to the turtle object (`pen.forward()`), others to the screen object (`screen.bgcolor()`).</p>
+                             <pre><code class="language-python">import turtle
+t = turtle.Turtle()
+t.bgcolor("yellow") # bgcolor belongs to screen (AttributeError)</code></pre>
+                             <p class="fix-explanation">Fix: Call commands on the correct object. Create a `screen = turtle.Screen()` and use `screen.bgcolor()` etc.</p>
+                             <div class="fix-code"><pre><code class="language-python">import turtle
+screen = turtle.Screen() # Create screen object
+t = turtle.Turtle()      # Create turtle object
+
+screen.bgcolor("yellow") # CORRECT - Call bgcolor on the screen
+t.forward(100)           # CORRECT - Call forward on the turtle
+screen.exitonclick()</code></pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div> <!-- End grid -->
+    </div> <!-- End max-w -->
+
     <script>
-        // Intersection Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.section-card').forEach(card => {
-            observer.observe(card);
-        });
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 20,
-                    behavior: 'smooth'
+        document.addEventListener('DOMContentLoaded', function() {
+            // Activate PrismJS highlighting
+            setTimeout(() => {
+                 Prism.highlightAll();
+            }, 0);
+
+            const skillHeaders = document.querySelectorAll('.skill-header');
+            const searchInput = document.getElementById('search-input');
+            const skillsContainer = document.getElementById('skills-container');
+            const skillCards = skillsContainer.querySelectorAll('.skill-card'); // Get all cards once
+
+            // --- Expand/Collapse Logic ---
+            skillHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const arrow = this.querySelector('.toggle-arrow');
+                    const currentlyActive = content.classList.contains('active');
+
+                    // Close all others (optional, uncomment if desired)
+                    /*
+                    skillHeaders.forEach(otherHeader => {
+                        const otherContent = otherHeader.nextElementSibling;
+                        const otherArrow = otherHeader.querySelector('.toggle-arrow');
+                        if (otherHeader !== this && otherContent.classList.contains('active')) {
+                            otherContent.classList.remove('active');
+                            otherArrow.classList.remove('rotate-arrow');
+                        }
+                    });
+                    */
+
+                    // Toggle the clicked one
+                    if (!currentlyActive) {
+                        content.classList.add('active');
+                        arrow.classList.add('rotate-arrow');
+                         // Re-highlight content when opened (important for Prism)
+                         setTimeout(() => Prism.highlightAllUnder(content), 0);
+                    } else {
+                           content.classList.remove('active');
+                           arrow.classList.remove('rotate-arrow');
+                    }
                 });
+            });
+
+            // --- Search Filter Logic ---
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+
+                skillCards.forEach(card => {
+                    const titleElement = card.querySelector('.skill-header h3');
+                    // Include content search (optional - can be slow/broad)
+                    const contentElement = card.querySelector('.skill-content');
+                    const titleText = titleElement ? titleElement.textContent.toLowerCase() : '';
+                    const contentText = contentElement ? contentElement.textContent.toLowerCase() : ''; // Get all text content
+
+                    // Check if title OR content contains the search term
+                    if (titleText.includes(searchTerm) || contentText.includes(searchTerm)) {
+                        card.style.display = 'block'; // Show matching card
+                        card.classList.remove('hidden'); // Ensure not hidden by Tailwind class if used elsewhere
+                    } else {
+                        card.style.display = 'none'; // Hide non-matching card
+                        card.classList.add('hidden'); // Add hidden class for potential Tailwind interactions
+                    }
+                });
+
+                // Optional: Re-run GSAP stagger if you want animations on filter (more complex)
+                // If not animating on filter, ensure initial animation still works correctly.
+            });
+
+
+            // --- Initial GSAP Animation ---
+             gsap.to('.skill-card', {
+                delay: 0.1,
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power2.out'
             });
         });
     </script>
