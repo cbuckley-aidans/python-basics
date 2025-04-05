@@ -3,171 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Basics</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        sidebar: '#0a2351',
-                        sidebarhover: '#0f3272',
-                        accent: '#0a2351',
-                        highlight: '#3b82f6',
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-in-out',
-                        'slide-in': 'slideIn 0.5s ease-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideIn: {
-                            '0%': { transform: 'translateY(10px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>PYTHON BASICS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        * {
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-        }
-        
-        .tutorial-card {
-            transition: all 0.3s ease;
-        }
-        
-        .tutorial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
+        :root {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f7f7f7;
+            --accent-bg: #f0f0f0;
+            --accent-color: #0a2351;
+            --active-color: #3b82f6;
+            --outline-color: #191919;
+            --text-color: #191919;
+            --shadow-sm: 0 0.15em 0 var(--outline-color);
+            --shadow-md: 0 0.25em 0 var(--outline-color);
+            --border-radius: 0.6em;
+            --transition-time: 0.15s;
         }
 
-        .cheatsheet-button {
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            letter-spacing: -0.01em;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border: 3px solid var(--secondary-bg);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--active-color);
+            transform: scale(1.05);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-top: 0;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        h1::after {
+            content: "";
             position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 1px;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Card Design */
+        .card {
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            width: 280px;
+        }
+
+        .card:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--accent-color);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--accent-color);
+            border: 2px solid var(--outline-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+        }
+
+        .card:hover .card-icon {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            text-align: center;
+            line-height: 1.5;
+            color: var(--text-color);
+        }
+
+        /* Card color variations */
+        .card-variables::before {
+            background-color: #3b82f6;
+        }
+        .card-variables .card-icon {
+            background-color: #3b82f6;
+        }
+
+        .card-conditional::before {
+            background-color: #8b5cf6;
+        }
+        .card-conditional .card-icon {
+            background-color: #8b5cf6;
+        }
+
+        .card-loops::before {
+            background-color: #10b981;
+        }
+        .card-loops .card-icon {
+            background-color: #10b981;
+        }
+
+        .card-functions::before {
+            background-color: #f59e0b;
+        }
+        .card-functions .card-icon {
+            background-color: #f59e0b;
+        }
+
+        /* Cheatsheet Button */
+        .cheatsheet-button {
+            position: fixed;
             left: 30px;
             top: 30px;
-            transition: transform 0.3s ease;
+            z-index: 100;
+            text-decoration: none;
         }
-        
-        .cheatsheet-button:hover {
-            transform: scale(1.05);
+
+        .cheatsheet-btn {
+            display: flex;
+            align-items: center;
+            background-color: #ef4444;
+            color: white;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            font-weight: 600;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cheatsheet-btn:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cheatsheet-btn i {
+            margin-right: 8px;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 40px 15px;
+            }
+
+            .cards-container {
+                gap: 20px;
+            }
+
+            .card {
+                padding: 20px;
+                width: 240px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .cheatsheet-button {
+                left: 15px;
+                top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 280px;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <!-- Header -->
-    <header class="bg-sidebar text-white py-8">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-bold text-center">Python Basics</h1>
+<body>
+    <!-- Cheatsheet Button -->
+    <a href="cheatsheet.html" class="cheatsheet-button">
+        <div class="cheatsheet-btn">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Cheatsheet</span>
         </div>
-    </header>
+    </a>
 
-    <!-- Cheatsheet Button (top left) -->
-    <div class="cheatsheet-button">
-        <a href="cheatsheet.html" class="flex items-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg shadow-md">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <span class="font-medium">Cheatsheet</span>
-        </a>
-    </div>
+    <div class="main-container">
+        <div class="title-container">
+            <h1>PYTHON BASICS</h1>
+        </div>
 
-    <!-- Main Content - Just Tutorial Cards -->
-    <div class="container mx-auto px-4 py-12">
-        <!-- Tutorial Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
-            <!-- Variables Tutorial Card -->
-            <div class="tutorial-card bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
-                <div class="bg-blue-500 h-3"></div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <div class="flex justify-center mb-4">
-                        <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-bold text-center text-accent mb-2">Variables</h3>
-                    <div class="flex-grow"></div>
-                    <a href="variables.html" class="block bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-4 rounded-lg transition-colors font-medium mt-4">
-                        Start Learning
-                    </a>
+        <div class="cards-container">
+            <a href="variables.html" class="card card-variables">
+                <div class="card-icon">
+                    <i class="fa-solid fa-bolt"></i>
                 </div>
-            </div>
-
-            <!-- Conditional Statements Tutorial Card -->
-            <div class="tutorial-card bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
-                <div class="bg-purple-500 h-3"></div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <div class="flex justify-center mb-4">
-                        <div class="bg-purple-100 text-purple-600 w-16 h-16 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-bold text-center text-accent mb-2">Conditional Statements</h3>
-                    <div class="flex-grow"></div>
-                    <a href="conditional-statements.html" class="block bg-purple-500 hover:bg-purple-600 text-white text-center py-2 px-4 rounded-lg transition-colors font-medium mt-4">
-                        Start Learning
-                    </a>
+                <h2 class="card-title">Variables</h2>
+                <p class="card-description">Learn how to store and manipulate data with Python variables.</p>
+            </a>
+            
+            <a href="conditional-statements.html" class="card card-conditional">
+                <div class="card-icon">
+                    <i class="fa-solid fa-code-branch"></i>
                 </div>
-            </div>
-
-            <!-- Loops Tutorial Card -->
-            <div class="tutorial-card bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
-                <div class="bg-green-500 h-3"></div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <div class="flex justify-center mb-4">
-                        <div class="bg-green-100 text-green-600 w-16 h-16 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-bold text-center text-accent mb-2">Loops</h3>
-                    <div class="flex-grow"></div>
-                    <a href="loops.html" class="block bg-green-500 hover:bg-green-600 text-white text-center py-2 px-4 rounded-lg transition-colors font-medium mt-4">
-                        Start Learning
-                    </a>
+                <h2 class="card-title">Conditional Statements</h2>
+                <p class="card-description">Control program flow with if, elif, and else statements to make decisions.</p>
+            </a>
+            
+            <a href="loops.html" class="card card-loops">
+                <div class="card-icon">
+                    <i class="fa-solid fa-rotate"></i>
                 </div>
-            </div>
-
-            <!-- Functions Tutorial Card -->
-            <div class="tutorial-card bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
-                <div class="bg-amber-500 h-3"></div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <div class="flex justify-center mb-4">
-                        <div class="bg-amber-100 text-amber-600 w-16 h-16 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-bold text-center text-accent mb-2">Functions</h3>
-                    <div class="flex-grow"></div>
-                    <a href="functions.html" class="block bg-amber-500 hover:bg-amber-600 text-white text-center py-2 px-4 rounded-lg transition-colors font-medium mt-4">
-                        Start Learning
-                    </a>
+                <h2 class="card-title">Loops</h2>
+                <p class="card-description">Use for and while loops to repeat code efficiently and process collections.</p>
+            </a>
+            
+            <a href="functions.html" class="card card-functions">
+                <div class="card-icon">
+                    <i class="fa-solid fa-puzzle-piece"></i>
                 </div>
-            </div>
+                <h2 class="card-title">Functions</h2>
+                <p class="card-description">Create reusable blocks of code to organize and streamline your programs.</p>
+            </a>
         </div>
     </div>
 </body>
