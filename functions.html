@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Functions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">PYTHON FUNCTIONS</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="lisc">
+                <i class="fas fa-clipboard-list"></i>
+                LI/SC
+            </button>
+            <button class="tab-button" data-tab="chunk1">
+                <i class="fas fa-cube"></i>
+                CHUNK 1
+            </button>
+            <button class="tab-button" data-tab="chew1">
+                <i class="fas fa-utensils"></i>
+                CHEW 1
+            </button>
+            <button class="tab-button" data-tab="chunk2">
+                <i class="fas fa-cube"></i>
+                CHUNK 2
+            </button>
+            <button class="tab-button" data-tab="chew2">
+                <i class="fas fa-utensils"></i>
+                CHEW 2
+            </button>
+            <button class="tab-button" data-tab="chunk3">
+                <i class="fas fa-cube"></i>
+                CHUNK 3
+            </button>
+            <button class="tab-button" data-tab="chew3">
+                <i class="fas fa-utensils"></i>
+                CHEW 3
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Learning Intentions and Success Criteria section -->
+        <section id="lisc" class="tab-content active light-section">
+            <h1>LEARNING INTENTIONS & SUCCESS CRITERIA <i class="fas fa-bullseye" style="margin-left: 15px;"></i></h1>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">1</div>
+                    <h3>Learning Intentions <i class="fas fa-bullseye" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what functions are and why they're useful in programming</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to define and call simple functions in Python</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand how to use parameters to make functions more flexible</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to return values from functions</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">2</div>
+                    <h3>Success Criteria <i class="fas fa-trophy" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <p>By the end of this lesson, you should be able to:</p>
+                
+                <ul>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Define a simple function and call it</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create a function that accepts parameters</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Write a function that returns a value</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Use functions to make your code more organized and reusable</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create a program that uses multiple functions</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CHUNK 1: What is a Function? -->
+        <section id="chunk1" class="tab-content dark-section">
+            <h1>CHUNK 1: WHAT IS A FUNCTION? <i class="fas fa-box-open" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Functions: Reusable Code Blocks</h3>
+                
+                <p>A function is like a mini-program within your program. It's a block of code that performs a specific task, which you can use whenever you need that task done.</p>
+                
+                <div class="two-column-grid" style="margin-top: 30px;">
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <div class="element-number">1</div>
+                            <h3>Function Metaphor <i class="fas fa-lightbulb" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <div class="variable-animation" style="padding: 30px;">
+                            <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+                                <div style="text-align: center;">
+                                    <i class="fas fa-blender" style="font-size: 6em; color: var(--accent-color);"></i>
+                                </div>
+                            </div>
+                            
+                            <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Think of a function like a blender:</p>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-apple-alt"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Input (Parameters)</h4>
+                                    <p>Ingredients you put in</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Process (Function body)</h4>
+                                    <p>Blending the ingredients</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-glass-cheers"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Output (Return value)</h4>
+                                    <p>Smoothie you get out</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <div class="element-number">2</div>
+                            <h3>Basic Syntax <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 20px;">In Python, we define functions using this pattern:</p>
+                        
+                        <div class="code-block" style="text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">function_name</span>():
+    <span class="code-comment"># Indented block of code</span>
+                        </div>
+                        
+                        <p style="font-size: 1.2em; font-weight: 600; margin: 25px 0 20px 0;">For example:</p>
+                        
+                        <div class="code-block">
+<span class="highlight-operator">def</span> <span class="highlight-variable">say_hello</span>():
+    <span class="code-comment"># This is the function body</span>
+    print("Hello, World!")
+
+<span class="code-comment"># To use (call) the function:</span>
+say_hello()  
+                        </div>
+                        
+                        <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The <code style="color: #565b22; font-weight: bold;">def</code> keyword tells Python you're creating a function. The parentheses <code>()</code> can hold parameters (we'll learn about those later). The colon <code>:</code> and indentation create a code block.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Function Anatomy -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Anatomy of a Function <i class="fas fa-sitemap" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="code-step-container">
+                        <div class="code-step-header">
+                            <span>Function Anatomy</span>
+                            <span id="anatomy-step-indicator">Step 1 of 3</span>
+                        </div>
+                        
+                        <div class="code-step-content">
+                            <!-- Step 1: Function Definition -->
+                            <div id="anatomy-step-1" class="variable-update-step active">
+                                <div class="code-block" style="text-align: left;">
+<span style="background-color: rgba(255, 99, 71, 0.2);"><span class="highlight-operator">def</span> <span class="highlight-variable">greet_user</span>():</span>
+    print("Welcome to Python!")
+    print("Functions are awesome!")
+
+greet_user()
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: left; margin-top: 0;">Function Definition Line</h4>
+                                    <ul style="text-align: left;">
+                                        <li>This is where you create and name your function</li>
+                                        <li>The <code class="color: #565b22;">def</code> keyword tells Python you're creating a function</li>
+                                        <li>The function name <code class="highlight-variable">greet_user</code> should describe what the function does</li>
+                                        <li>The parentheses <code>()</code> can hold parameters (we'll learn about these later)</li>
+                                        <li>The colon <code>:</code> marks the start of the function body</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Function Body -->
+                            <div id="anatomy-step-2" class="variable-update-step">
+                                <div class="code-block" style="text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">greet_user</span>():
+<span style="background-color: rgba(0, 128, 0, 0.2);">    print("Welcome to Python!")
+    print("Functions are awesome!")</span>
+
+greet_user()
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: left; margin-top: 0;">Function Body</h4>
+                                    <ul style="text-align: left;">
+                                        <li>The indented block of code that runs when the function is called</li>
+                                        <li>It can contain multiple lines of code that perform a specific task</li>
+                                        <li>All lines must be indented (usually 4 spaces)</li>
+                                        <li>The indentation tells Python which lines belong to the function</li>
+                                        <li>When the function is called, Python executes these instructions in order</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Function Call -->
+                            <div id="anatomy-step-3" class="variable-update-step">
+                                <div class="code-block" style="text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">greet_user</span>():
+    print("Welcome to Python!")
+    print("Functions are awesome!")
+
+<span style="background-color: rgba(0, 0, 255, 0.2);">greet_user()</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: left; margin-top: 0;">Function Call</h4>
+                                    <ul style="text-align: left;">
+                                        <li>This is how you use (or "call") your function</li>
+                                        <li>The function name followed by parentheses tells Python to run the code in the function</li>
+                                        <li>When Python sees this line, it jumps to the function definition, runs the code inside, then returns to this point</li>
+                                        <li>You can call a function multiple times in your program</li>
+                                    </ul>
+                                    
+                                    <div class="result-display" style="margin-top: 15px; text-align: left;">
+Welcome to Python!
+Functions are awesome!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-navigation">
+                            <button id="prev-anatomy-btn" class="step-btn" onclick="prevAnatomyStep()" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button id="next-anatomy-btn" class="step-btn" onclick="nextAnatomyStep()">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">4</div>
+                        <h3>Function Execution <i class="fas fa-play-circle" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Let's see how Python executes functions step by step:</p>
+                    
+                    <div class="variable-animation" style="padding: 30px;">
+                        <div class="code-step-container">
+                            <div class="code-step-header">
+                                <span>Function Execution Flow</span>
+                                <span id="function-execution-indicator">Step 1 of 4</span>
+                            </div>
+                            
+                            <div class="code-step-content">
+                                <!-- Step 1: Define the function -->
+                                <div id="function-step-1" class="variable-update-step active">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<span style="background-color: rgba(255, 255, 0, 0.15);"><span class="highlight-operator">def</span> <span class="highlight-variable">say_hello</span>():
+    print("Hello! I am a function!")</span>
+
+print("Program starting...")
+say_hello()
+print("Program ending...")
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: left; margin-top: 0;">Step 1: Function Definition</h4>
+                                        <p style="text-align: left;">Python first reads the function definition but doesn't run the code inside yet. The function is stored in memory for later use.</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 2: Run the main program -->
+                                <div id="function-step-2" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">say_hello</span>():
+    print("Hello! I am a function!")
+
+<span style="background-color: rgba(255, 255, 0, 0.15);">print("Program starting...")</span>
+say_hello()
+print("Program ending...")
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: left; margin-top: 0;">Step 2: Main Program Execution Begins</h4>
+                                        <p style="text-align: left;">Python continues with the main program and prints the first message.</p>
+                                        
+                                        <div class="result-display" style="text-align: left; background-color: #272822; color: #f8f8f2; margin-top: 15px;">
+Program starting...
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 3: Call the function -->
+                                <div id="function-step-3" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">say_hello</span>():
+    print("Hello! I am a function!")
+
+print("Program starting...")
+<span style="background-color: rgba(255, 255, 0, 0.15);">say_hello()</span>
+print("Program ending...")
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: left; margin-top: 0;">Step 3: Function Call</h4>
+                                        <p style="text-align: left;">When the function is called, Python jumps to the function definition and runs the code inside. After the function completes, Python returns to where it left off.</p>
+                                        
+                                        <div class="result-display" style="text-align: left; background-color: #272822; color: #f8f8f2; margin-top: 15px;">
+Program starting...
+Hello! I am a function!
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 4: Complete the program -->
+                                <div id="function-step-4" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">say_hello</span>():
+    print("Hello! I am a function!")
+
+print("Program starting...")
+say_hello()
+<span style="background-color: rgba(255, 255, 0, 0.15);">print("Program ending...")</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: left; margin-top: 0;">Step 4: Program Completion</h4>
+                                        <p style="text-align: left;">After the function finishes, Python continues with the rest of the program.</p>
+                                        
+                                        <div class="result-display" style="text-align: left; background-color: #272822; color: #f8f8f2; margin-top: 15px;">
+Program starting...
+Hello! I am a function!
+Program ending...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button id="prev-function-btn" class="step-btn" onclick="prevFunctionStep()" disabled>
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="next-function-btn" class="step-btn" onclick="nextFunctionStep()">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Why Functions Are Important <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
+                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                    <div class="element-card" style="background-color: #f0f7ff; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">1</div>
+                            <h3>REUSE CODE <i class="fas fa-recycle" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Write once, use many times - avoid duplicating the same code</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-clone" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #f0fff4; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">2</div>
+                            <h3>ORGANIZE CODE <i class="fas fa-sitemap" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Break complex problems into smaller, manageable pieces</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-project-diagram" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #fff7f0; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">3</div>
+                            <h3>READABLE CODE <i class="fas fa-book-reader" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Functions with descriptive names make code easier to understand</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-glasses" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #f0f0ff; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">4</div>
+                            <h3>EASIER UPDATES <i class="fas fa-sync" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Change code in one place instead of throughout your program</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-edit" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 1: Concept Check -->
+        <section id="chew1" class="tab-content light-section">
+            <h1>CHEW 1: CONCEPT CHECK <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Check Your Understanding</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Write down what a function is <em>in your own words</em> on your Microsoft Whiteboard</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Pair-share to explain what parts of a function example do</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Make sure you can identify the function definition, body, and call</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Function Matching Activity <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin-bottom: 25px;">
+                        <p style="font-size: 1.3em; font-weight: 600; margin-bottom: 15px;">Using <a href="https://whiteboard.office.com/" style="color: var(--chew-color); text-decoration: underline;" target="_blank">Microsoft Whiteboard</a>:</p>
+                        <p style="font-size: 1.2em; margin-bottom: 15px;">Match each real-world example with how it relates to a function:</p>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px;">
+                            <div style="background-color: white; padding: 15px; border-radius: var(--border-radius); text-align: center; flex: 1; min-width: 200px; box-shadow: var(--shadow-sm);">
+                                <p style="font-weight: bold; margin-bottom: 5px;">FUNCTION DEFINITIONS</p>
+                                <ul style="text-align: left; list-style-type: none; padding-left: 0;">
+                                    <li style="margin-bottom: 8px;">Function name</li>
+                                    <li style="margin-bottom: 8px;">Parameters</li>
+                                    <li style="margin-bottom: 8px;">Function body</li>
+                                    <li style="margin-bottom: 8px;">Function call</li>
+                                    <li style="margin-bottom: 0;">Return value</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background-color: white; padding: 15px; border-radius: var(--border-radius); text-align: center; flex: 1; min-width: 200px; box-shadow: var(--shadow-sm);">
+                                <p style="font-weight: bold; margin-bottom: 5px;">REAL-WORLD EXAMPLES</p>
+                                <ul style="text-align: left; list-style-type: none; padding-left: 0;">
+                                    <li style="margin-bottom: 8px;">Coffee machine button</li>
+                                    <li style="margin-bottom: 8px;">Recipe ingredients</li>
+                                    <li style="margin-bottom: 8px;">The smoothie you get</li>
+                                    <li style="margin-bottom: 8px;">Recipe name</li>
+                                    <li style="margin-bottom: 0;">Steps in a recipe</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; margin-top: 20px;">
+                        <div style="text-align: center;">
+                            <i class="fas fa-people-arrows" style="font-size: 5em; color: var(--chew-color);"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Pair-Share Activity <i class="fas fa-users" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.3em; font-weight: 600; text-align: center; margin-bottom: 25px;">Turn to your partner and identify what each part of this code does:</p>
+                    
+                    <div class="code-block" style="font-size: 1.2em; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">display_score</span>(<span style="color: #FF79C6; font-weight: bold;">score</span>):
+    print("Your score is:", score)
+    
+display_score(100)
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin: 25px 0;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;">Make sure your explanation includes these terms:</p>
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px;">
+                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
+                                function definition
+                            </div>
+                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
+                                function body
+                            </div>
+                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
+                                function call
+                            </div>
+                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
+                                parameter
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 2: Function Parameters -->
+        <section id="chunk2" class="tab-content dark-section">
+            <h1>CHUNK 2: FUNCTION PARAMETERS <i class="fas fa-exchange-alt" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Making Functions Flexible with Parameters</h3>
+                
+                <p>Parameters are like inputs for your function. They allow you to pass different values to your function, making it more flexible and reusable.</p>
+                
+                <!-- Parameter Explanation -->
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Understanding Parameters <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="two-column-grid" style="margin-top: 0;">
+                        <div>
+                            <p style="font-size: 1.2em; margin-bottom: 20px;">A parameter is a variable that receives a value when the function is called:</p>
+                            
+                            <div class="code-block">
+<span class="highlight-operator">def</span> <span class="highlight-variable">greet</span>(<span style="color: #FF79C6; font-weight: bold;">name</span>):
+    print("Hello,", name)
+                            </div>
+                            
+                            <p style="margin-top: 15px; margin-bottom: 0px;">Call the function with different arguments:</p>
+                            
+                            <div class="code-block">
+greet("Alex")   <span class="code-comment"># Output: Hello, Alex</span>
+greet("Jamie")  <span class="code-comment"># Output: Hello, Jamie</span>
+                            </div>
+                            
+                            <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                                <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Here, <code>name</code> is a parameter that accepts different values each time the function is called.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; justify-content: center;">
+                            <div style="text-align: center; max-width: 400px;">
+                                <i class="fas fa-gift" style="font-size: 5em; color: var(--accent-color); margin-bottom: 20px;"></i>
+                                <div style="border: 2px solid var(--outline-color); border-radius: var(--border-radius); padding: 20px; background-color: rgba(0, 38, 84, 0.05);">
+                                    <p style="font-weight: bold; font-size: 1.2em; margin-top: 0; margin-bottom: 15px;">Parameter vs. Argument</p>
+                                    <p style="text-align: left; margin-bottom: 10px;"><strong>Parameter:</strong> The variable listed in the function definition <code>def greet(name)</code></p>
+                                    <p style="text-align: left; margin-bottom: 0;"><strong>Argument:</strong> The value passed when calling the function <code>greet("Alex")</code></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Multiple Parameters -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Multiple Parameters <i class="fas fa-list" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Functions can have multiple parameters, separated by commas:</p>
+                    
+                    <div class="code-step-container">
+                        <div class="code-step-header">
+                            <span>Multiple Parameters Example</span>
+                            <span id="parameter-step-indicator">Step 1 of 3</span>
+                        </div>
+                        
+                        <div class="code-step-content">
+                            <!-- Step 1: Define function with multiple parameters -->
+                            <div id="parameter-step-1" class="variable-update-step active">
+                                                                    <div class="code-block" style="position: relative; text-align: left;">
+<span style="background-color: rgba(255, 255, 0, 0.15);"><span class="highlight-operator">def</span> <span class="highlight-variable">calculate_rectangle_area</span>(<span style="color: #FF79C6; font-weight: bold;">length</span>, <span style="color: #FF79C6; font-weight: bold;">width</span>):
+    area = length * width
+    print("The area of the rectangle is:", area)</span>
+                                </div>
+                                
+                                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 15px; text-align: left;">
+                                    <p style="margin: 0;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> This function has two parameters: <code>length</code> and <code>width</code>. It calculates the area by multiplying them together.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: First function call -->
+                            <div id="parameter-step-2" class="variable-update-step">
+                                                                    <div class="code-block" style="position: relative; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">calculate_rectangle_area</span>(<span style="color: #FF79C6; font-weight: bold;">length</span>, <span style="color: #FF79C6; font-weight: bold;">width</span>):
+    area = length * width
+    print("The area of the rectangle is:", area)
+
+<span style="background-color: rgba(255, 255, 0, 0.15);">calculate_rectangle_area(5, 3)</span>
+                                </div>
+                                
+                                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 15px; text-align: left;">
+                                    <p style="margin: 0;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> Here we call the function with arguments 5 and 3. These values are passed to the parameters, and the function calculates: 5 × 3 = 15.</p>
+                                </div>
+                                
+                                <div class="result-display" style="margin-top: 15px; text-align: left;">
+The area of the rectangle is: 15
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Second function call -->
+                            <div id="parameter-step-3" class="variable-update-step">
+                                                                    <div class="code-block" style="position: relative; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">calculate_rectangle_area</span>(<span style="color: #FF79C6; font-weight: bold;">length</span>, <span style="color: #FF79C6; font-weight: bold;">width</span>):
+    area = length * width
+    print("The area of the rectangle is:", area)
+
+calculate_rectangle_area(5, 3)
+
+<span style="background-color: rgba(255, 255, 0, 0.15);">calculate_rectangle_area(10, 20)</span>
+                                </div>
+                                
+                                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 15px; text-align: left;">
+                                    <p style="margin: 0;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> We call the same function again with different arguments (10 and 20). This shows how functions are reusable - we use the same code with different inputs.</p>
+                                </div>
+                                
+                                <div class="result-display" style="margin-top: 15px; text-align: left;">
+The area of the rectangle is: 15
+The area of the rectangle is: 200
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-navigation">
+                            <button id="prev-parameter-btn" class="step-btn" onclick="prevParameterStep()" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button id="next-parameter-btn" class="step-btn" onclick="nextParameterStep()">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Parameter Visualization -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Parameter Visualization <i class="fas fa-eye" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Let's visualize how parameters work in memory:</p>
+                    
+                    <div class="code-step-container">
+                        <div class="code-step-header">
+                            <span>How Parameters Work</span>
+                            <span id="visual-parameter-indicator">Step 1 of 3</span>
+                        </div>
+                        
+                        <div class="code-step-content">
+                            <!-- Step 1: Function definition -->
+                            <div id="visual-parameter-1" class="variable-update-step active">
+                                <div class="code-block" style="position: relative;">
+def double_number(x):
+    result = x * 2
+    print("Double of", x, "is", result)
+
+<span class="code-comment"># Function defined but not called yet</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 0;">Program State</h4>
+                                    <div style="background-color: #f0f0f0; padding: 15px; border-radius: var(--border-radius); text-align: center;">
+                                        <p style="margin: 0;">Function is defined but no values are assigned to parameters yet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Function call -->
+                            <div id="visual-parameter-2" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+def double_number(x):
+    result = x * 2
+    print("Double of", x, "is", result)
+
+<span class="code-comment"># Function call with argument 5</span>
+double_number(5)
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 0;">Program State</h4>
+                                    <p style="text-align: center; margin-bottom: 20px;">When the function is called:</p>
+                                    
+                                    <div style="display: flex; justify-content: center; gap: 40px; align-items: center;">
+                                        <div style="text-align: center;">
+                                            <div style="background-color: #e6f7ff; padding: 15px; border-radius: var(--border-radius); border: 2px solid var(--accent-color);">
+                                                <p style="margin: 0; font-weight: bold;">Argument</p>
+                                                <p style="font-size: 2em; margin: 10px 0;">5</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="display: flex; align-items: center;">
+                                            <i class="fas fa-arrow-right" style="font-size: 2em; color: var(--accent-color);"></i>
+                                        </div>
+                                        
+                                        <div style="text-align: center;">
+                                            <div style="background-color: #e6f7ff; padding: 15px; border-radius: var(--border-radius); border: 2px solid var(--accent-color);">
+                                                <p style="margin: 0; font-weight: bold;">Parameter (x)</p>
+                                                <p style="font-size: 2em; margin: 10px 0;">5</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Function execution -->
+                            <div id="visual-parameter-3" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+def double_number(x):
+    result = x * 2
+    print("Double of", x, "is", result)
+
+<span class="code-comment"># Function call with argument 5</span>
+double_number(5)
+<span class="code-comment"># Output: Double of 5 is 10</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 0;">Program State During Execution</h4>
+                                    
+                                    <div class="computer-memory">
+                                        <div class="memory-item">
+                                            <div class="memory-item-name">x</div>
+                                            <div class="memory-item-value">5</div>
+                                        </div>
+                                        <div class="memory-item">
+                                            <div class="memory-item-name">result</div>
+                                            <div class="memory-item-value">10</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="result-display" style="margin-top: 20px;">
+Double of 5 is 10
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-navigation">
+                            <button id="prev-visual-parameter-btn" class="step-btn" onclick="prevVisualParameterStep()" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button id="next-visual-parameter-btn" class="step-btn" onclick="nextVisualParameterStep()">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Default Parameter Values <i class="fas fa-sliders-h" style="margin-left: 10px;"></i></h3>
+                
+                <p>Python allows you to set default values for parameters. If no argument is provided when calling the function, the default value is used:</p>
+                
+                <div class="code-block">
+<span class="highlight-operator">def</span> <span class="highlight-variable">greet</span>(name, greeting="Hello"):
+    print(greeting + ", " + name + "!")
+
+<span class="code-comment"># Call with both parameters</span>
+greet("Alex", "Hi")        <span class="code-comment"># Output: Hi, Alex!</span>
+
+<span class="code-comment"># Call with only required parameter, the default greeting is used</span>
+greet("Jamie")             <span class="code-comment"># Output: Hello, Jamie!</span>
+                </div>
+                
+                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
+                    <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Key Points About Parameters</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Parameters make your functions flexible and reusable</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Parameters act like variables inside the function</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> You can have multiple parameters separated by commas</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Default values can make some parameters optional</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> The order of arguments must match the order of parameters (unless you use named arguments)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 2: Try It Yourself -->
+        <section id="chew2" class="tab-content light-section">
+            <h1>CHEW 2: TRY IT YOURSELF <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Hands-On Coding Exercise</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice creating functions with parameters</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Call functions with different arguments</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Run your code and observe the output</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Exercise: Personalized Message <i class="fas fa-comment" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <i class="fas fa-laptop-code" style="font-size: 5em; color: var(--chew-color);"></i>
+                    </div>
+                    
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Open the Raspberry Pi Python editor</li>
+                        <li style="margin-bottom: 15px;">Create a function called <code>create_message</code> that accepts a name and age</li>
+                        <li>The function should print a personalized message using these parameters</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Define a function with two parameters</span>
+def create_message(name, age):
+    print("Hello " + name + "! You are " + str(age) + " years old.")
+    print("Next year you will be", age + 1, "years old.")
+
+<span class="code-comment"># Call the function with different arguments</span>
+create_message("Alex", 12)
+create_message("Jamie", 13)
+                    </div>
+                    
+                    <div class="result-display">
+Hello Alex! You are 12 years old.
+Next year you will be 13 years old.
+Hello Jamie! You are 13 years old.
+Next year you will be 14 years old.
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Extension: Default Parameters <i class="fas fa-level-up-alt" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">After your code is working, try:</p>
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Modify your function to include a third parameter for a greeting</li>
+                        <li style="margin-bottom: 15px;">Give this parameter a default value of "Hello"</li>
+                        <li>Call your function both with and without providing this parameter</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Improved function with a default parameter</span>
+def create_message(name, age, greeting="Hello"):
+    print(greeting + " " + name + "! You are " + str(age) + " years old.")
+    print("Next year you will be", age + 1, "years old.")
+
+<span class="code-comment"># Call with default greeting</span>
+create_message("Alex", 12)
+
+<span class="code-comment"># Call with custom greeting</span>
+create_message("Jamie", 13, "Hi there")
+                    </div>
+                    
+                    <div class="result-display">
+Hello Alex! You are 12 years old.
+Next year you will be 13 years old.
+Hi there Jamie! You are 13 years old.
+Next year you will be 14 years old.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Common Coding Mistakes <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
+                
+                <div class="two-column-grid">
+                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
+                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
+def greet(name):
+print("Hello, " + name)
+                        </div>
+                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> Missing indentation in the function body.</p>
+                            <p style="margin: 0;"><strong>Fix:</strong> Indent all lines in the function body.</p>
+                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
+def greet(name):
+    print("Hello, " + name)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
+                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
+def add_numbers(a, b):
+    return a + b
+
+result = add_numbers(5)  # Missing second argument
+                        </div>
+                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> Not providing all required arguments.</p>
+                            <p style="margin: 0;"><strong>Fix:</strong> Provide values for all parameters (or use default values).</p>
+                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
+def add_numbers(a, b):
+    return a + b
+
+result = add_numbers(5, 10)  # Provide both arguments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 3: Return Values -->
+        <section id="chunk3" class="tab-content dark-section">
+            <h1>CHUNK 3: RETURN VALUES <i class="fas fa-undo-alt" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Getting Results from Functions</h3>
+                
+                <p>So far, our functions have done things (like printing messages), but they haven't given us back any values. The <code>return</code> statement allows functions to send values back for use elsewhere in our program.</p>
+                
+                <!-- Return Value Basics -->
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Return Value Basics <i class="fas fa-share" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="two-column-grid" style="margin-top: 0;">
+                        <div>
+                            <p style="font-size: 1.2em; margin-bottom: 20px;">The <code>return</code> statement sends a value back to where the function was called:</p>
+                            
+                            <div class="code-block">
+<span class="highlight-operator">def</span> <span class="highlight-variable">add_numbers</span>(a, b):
+    <span class="highlight-operator">return</span> a + b  <span class="code-comment"># Send back the sum</span>
+
+<span class="code-comment"># Store the returned value in a variable</span>
+result = add_numbers(5, 3)  
+
+<span class="code-comment"># Use the returned value</span>
+print("The sum is:", result)  <span class="code-comment"># Output: The sum is: 8</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; justify-content: center;">
+                            <div style="text-align: center; max-width: 400px;">
+                                <i class="fas fa-reply-all" style="font-size: 5em; color: var(--accent-color); margin-bottom: 20px;"></i>
+                                <div style="border: 2px solid var(--outline-color); border-radius: var(--border-radius); padding: 20px; background-color: rgba(0, 38, 84, 0.05);">
+                                    <p style="font-weight: bold; font-size: 1.2em; margin-top: 0; margin-bottom: 15px;">Why Use Return Values?</p>
+                                    <ul style="text-align: left; padding-left: 20px;">
+                                        <li>Lets you use the result elsewhere in your code</li>
+                                        <li>Makes functions more reusable</li>
+                                        <li>Allows functions to work together</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Return Value Visualization -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Return Value Visualization <i class="fas fa-eye" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Let's visualize how return values work:</p>
+                    
+                    <div class="code-step-container">
+                        <div class="code-step-header">
+                            <span>Return Value Flow</span>
+                            <span id="return-step-indicator">Step 1 of 4</span>
+                        </div>
+                        
+                        <div class="code-step-content">
+                            <!-- Step 1: Define the function -->
+                            <div id="return-step-1" class="variable-update-step active">
+                                <div class="code-block" style="position: relative;">
+def square(number):
+    return number * number
+
+result = square(4)
+print("The square of 4 is:", result)
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 0;">Function Definition</h4>
+                                    <div style="background-color: #f0f0f0; padding: 15px; border-radius: var(--border-radius); text-align: center;">
+                                        <p style="margin: 0;">The <code>square</code> function is defined to multiply a number by itself and return the result</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Call the function with an argument -->
+                            <div id="return-step-2" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+def square(number):
+    return number * number
+
+<span style="background-color: rgba(255, 255, 0, 0.15);">result = square(4)</span>
+print("The square of 4 is:", result)
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 0;">Function Call</h4>
+                                    
+                                    <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+                                        <div style="background-color: #e6f7ff; padding: 15px; border-radius: var(--border-radius); text-align: center; border: 2px solid var(--accent-color);">
+                                            <p style="margin: 0; font-weight: bold;">Argument</p>
+                                            <p style="font-size: 2em; margin: 10px 0;">4</p>
+                                        </div>
+                                        <div style="font-size: 2em; color: var(--accent-color);">→</div>
+                                        <div style="background-color: #e6f7ff; padding: 15px; border-radius: var(--border-radius); text-align: center; border: 2px solid var(--accent-color);">
+                                            <p style="margin: 0; font-weight: bold;">Parameter (number)</p>
+                                            <p style="font-size: 2em; margin: 10px 0;">4</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <p style="text-align: center; margin-top: 15px;">The function is called with the value 4</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Calculate and return the result -->
+                            <div id="return-step-3" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+def square(number):
+    <span style="background-color: rgba(255, 255, 0, 0.15);">return number * number</span>
+
+result = square(4)
+print("The square of 4 is:", result)
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 0;">Calculation and Return</h4>
+                                    
+                                    <div style="display: flex; justify-content: center; align-items: center; margin: 20px 0; gap: 15px;">
+                                        <div style="background-color: #e6f7ff; padding: 15px; border-radius: var(--border-radius); text-align: center; border: 2px solid var(--accent-color);">
+                                            <p style="margin: 0; font-weight: bold;">Calculation</p>
+                                            <p style="font-size: 1.5em; margin: 10px 0;">4 * 4 = 16</p>
+                                        </div>
+                                        <div style="font-size: 2em; color: var(--accent-color);">→</div>
+                                        <div style="background-color: #e6f7ff; padding: 15px; border-radius: var(--border-radius); text-align: center; border: 2px solid var(--accent-color);">
+                                            <p style="margin: 0; font-weight: bold;">Return Value</p>
+                                            <p style="font-size: 2em; margin: 10px 0;">16</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <p style="text-align: center;">The function calculates 4 * 4 and returns 16</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: Use the returned value -->
+                            <div id="return-step-4" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+def square(number):
+    return number * number
+
+result = square(4)
+<span style="background-color: rgba(255, 255, 0, 0.15);">print("The square of 4 is:", result)</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 0;">Using the Return Value</h4>
+                                    
+                                    <div class="computer-memory">
+                                        <div class="memory-item">
+                                            <div class="memory-item-name">result</div>
+                                            <div class="memory-item-value">16</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="result-display" style="margin-top: 20px;">
+The square of 4 is: 16
+                                    </div>
+                                    
+                                    <p style="text-align: center; margin-top: 15px;">The returned value 16 is stored in the <code>result</code> variable and then printed</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-navigation">
+                            <button id="prev-return-btn" class="step-btn" onclick="prevReturnStep()" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button id="next-return-btn" class="step-btn" onclick="nextReturnStep()">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Using Return Values -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Using Return Values <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Return values make functions more powerful by letting you combine them:</p>
+                    
+                    <div class="code-block">
+<span class="highlight-operator">def</span> <span class="highlight-variable">calculate_rectangle_area</span>(length, width):
+    <span class="highlight-operator">return</span> length * width
+
+<span class="highlight-operator">def</span> <span class="highlight-variable">calculate_volume</span>(length, width, height):
+    <span class="code-comment"># Use the first function to calculate the base area</span>
+    base_area = calculate_rectangle_area(length, width)
+    <span class="code-comment"># Then calculate the volume</span>
+    <span class="highlight-operator">return</span> base_area * height
+
+<span class="code-comment"># Call the volume function</span>
+box_volume = calculate_volume(5, 3, 2)
+print("The volume is:", box_volume)  <span class="code-comment"># Output: The volume is: 30</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Notice how the second function uses the first function's return value. This makes your code more modular and easier to maintain.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Important Notes About Return Values <i class="fas fa-sticky-note" style="margin-left: 10px;"></i></h3>
+                
+                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                    <div class="element-card" style="background-color: #f0f7ff; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">1</div>
+                            <h3>EARLY RETURNS <i class="fas fa-sign-out-alt" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>A <code>return</code> statement immediately exits the function, even if there's more code after it.</p>
+                            <div class="code-block" style="font-size: 0.9em;">
+def check_age(age):
+    if age < 13:
+        return "Too young"
+    return "Old enough"  # Only reaches here if age >= 13
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #f0fff4; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">2</div>
+                            <h3>RETURN VS PRINT <i class="fas fa-print" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p><code>print()</code> displays values but doesn't make them available to your code. <code>return</code> sends values back for further use.</p>
+                            <div class="code-block" style="font-size: 0.9em; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">add1</span>(a, b):
+    print(a + b)  <span class="code-comment"># Just displays the sum</span>
+
+<span class="highlight-operator">def</span> <span class="highlight-variable">add2</span>(a, b):
+    <span class="highlight-operator">return</span> a + b  <span class="code-comment"># Returns sum for further use</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #fff7f0; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">3</div>
+                            <h3>MULTIPLE VALUES <i class="fas fa-th-list" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Python functions can return multiple values separated by commas.</p>
+                            <div class="code-block" style="font-size: 0.9em; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">get_dimensions</span>():
+    <span class="highlight-operator">return</span> 10, 20, 30
+
+length, width, height = get_dimensions()
+print(length)
+                            </div>
+                            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">The function returns 3 values that we can save in separate variables</p>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #f0f0ff; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">4</div>
+                            <h3>NO RETURN <i class="fas fa-ban" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>If a function doesn't have a <code>return</code> statement, it returns <code>None</code> by default.</p>
+                            <div class="code-block" style="font-size: 0.9em; text-align: left;">
+<span class="highlight-operator">def</span> <span class="highlight-variable">say_hi</span>():
+    print("Hi!")  <span class="code-comment"># No return statement</span>
+
+result = say_hi()
+print(result)
+                            </div>
+                            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">The function call will print "Hi!" but result will be None</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 3: Challenge Time! -->
+        <section id="chew3" class="tab-content light-section">
+            <h1>CHEW 3: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Challenge: Function-Based Calculator</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create functions with parameters that return values</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Call functions and use their return values</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create a program that combines multiple functions</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Basic Challenge <i class="fas fa-star" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <i class="fas fa-calculator" style="font-size: 5em; color: var(--chew-color);"></i>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Create a calculator program with the following functions:</p>
+                    
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Create functions for <code>add</code>, <code>subtract</code>, <code>multiply</code>, and <code>divide</code></li>
+                        <li style="margin-bottom: 15px;">Each function should take two parameters and return the result</li>
+                        <li>Test each function with different values and print the results</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Function to add two numbers</span>
+def add(a, b):
+    return a + b
+
+<span class="code-comment"># Function to subtract two numbers</span>
+def subtract(a, b):
+    return a - b
+
+<span class="code-comment"># Function to multiply two numbers</span>
+def multiply(a, b):
+    return a * b
+
+<span class="code-comment"># Function to divide two numbers</span>
+def divide(a, b):
+    return a / b
+
+<span class="code-comment"># Test each function</span>
+print("10 + 5 =", add(10, 5))
+print("10 - 5 =", subtract(10, 5))
+print("10 * 5 =", multiply(10, 5))
+print("10 / 5 =", divide(10, 5))
+                    </div>
+                    
+                    <div class="result-display">
+10 + 5 = 15
+10 - 5 = 5
+10 * 5 = 50
+10 / 5 = 2.0
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Extension Challenge <i class="fas fa-star" style="margin-left: 10px;"></i><i class="fas fa-star" style="margin-left: 5px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Create a new function that combines your calculator functions:</p>
+                    
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Create a function called <code>calculator</code> that takes three parameters: two numbers and an operation</li>
+                        <li style="margin-bottom: 15px;">The operation should be a string: 'add', 'subtract', 'multiply', or 'divide'</li>
+                        <li>The function should call the appropriate math function and return the result</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Calculator function that uses the other functions</span>
+def calculator(a, b, operation):
+    if operation == "add":
+        return add(a, b)
+    elif operation == "subtract":
+        return subtract(a, b)
+    elif operation == "multiply":
+        return multiply(a, b)
+    elif operation == "divide":
+        return divide(a, b)
+    else:
+        return "Invalid operation"
+
+<span class="code-comment"># Test the calculator function</span>
+print("Calculator: 10 + 5 =", calculator(10, 5, "add"))
+print("Calculator: 10 - 5 =", calculator(10, 5, "subtract"))
+print("Calculator: 10 * 5 =", calculator(10, 5, "multiply"))
+print("Calculator: 10 / 5 =", calculator(10, 5, "divide"))
+print("Calculator: Invalid =", calculator(10, 5, "power"))
+                    </div>
+                    
+                    <div class="result-display">
+Calculator: 10 + 5 = 15
+Calculator: 10 - 5 = 5
+Calculator: 10 * 5 = 50
+Calculator: 10 / 5 = 2.0
+Calculator: Invalid = Invalid operation
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Final Challenge: Temperature Converter <i class="fas fa-temperature-high" style="margin-left: 10px;"></i></h3>
+                
+                <p style="font-size: 1.2em; margin-bottom: 20px;">If you've completed the calculator challenge, try this temperature converter program:</p>
+                
+                <div class="code-block">
+<span class="code-comment"># Function to convert Celsius to Fahrenheit</span>
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+<span class="code-comment"># Function to convert Fahrenheit to Celsius</span>
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - 32) * 5/9
+
+<span class="code-comment"># Function to display the temperature with proper formatting</span>
+def display_temp(temp, unit):
+    return str(round(temp, 1)) + "° " + unit
+
+<span class="code-comment"># Test the functions</span>
+celsius = 25
+fahrenheit = celsius_to_fahrenheit(celsius)
+print(display_temp(celsius, "C"), "is equal to", display_temp(fahrenheit, "F"))
+
+fahrenheit = 98.6
+celsius = fahrenheit_to_celsius(fahrenheit)
+print(display_temp(fahrenheit, "F"), "is equal to", display_temp(celsius, "C"))
+                </div>
+                
+                <div class="result-display">
+25.0° C is equal to 77.0° F
+98.6° F is equal to 37.0° C
+                </div>
+                
+                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
+                    <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Key Points Learned</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Functions are reusable blocks of code that perform specific tasks</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Parameters make functions flexible by accepting different inputs</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> The <code>return</code> statement sends values back from functions</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Functions help organize code and avoid repetition</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Functions can call other functions, creating more complex behavior</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and tabs
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to selected button and tab
+                    this.classList.add('active');
+                    document.getElementById(tab).classList.add('active');
+                });
+            });
+            
+            // Function execution step navigation
+            document.getElementById('function-step-1').classList.add('active');
+            document.getElementById('function-step-2').classList.remove('active');
+            document.getElementById('function-step-3').classList.remove('active');
+            document.getElementById('function-step-4').classList.remove('active');
+            
+            document.getElementById('prev-function-btn').disabled = true;
+            document.getElementById('next-function-btn').disabled = false;
+            
+            // Parameter step navigation
+            document.getElementById('parameter-step-1').classList.add('active');
+            document.getElementById('parameter-step-2').classList.remove('active');
+            document.getElementById('parameter-step-3').classList.remove('active');
+            
+            document.getElementById('prev-parameter-btn').disabled = true;
+            document.getElementById('next-parameter-btn').disabled = false;
+            
+            // Visual parameter step navigation
+            document.getElementById('visual-parameter-1').classList.add('active');
+            document.getElementById('visual-parameter-2').classList.remove('active');
+            document.getElementById('visual-parameter-3').classList.remove('active');
+            
+            document.getElementById('prev-visual-parameter-btn').disabled = true;
+            document.getElementById('next-visual-parameter-btn').disabled = false;
+            
+            // Return value step navigation
+            document.getElementById('return-step-1').classList.add('active');
+            document.getElementById('return-step-2').classList.remove('active');
+            document.getElementById('return-step-3').classList.remove('active');
+            document.getElementById('return-step-4').classList.remove('active');
+            
+            document.getElementById('prev-return-btn').disabled = true;
+            document.getElementById('next-return-btn').disabled = false;
+            
+            // Anatomy step navigation (adding this missing functionality)
+            document.getElementById('anatomy-step-1').classList.add('active');
+            document.getElementById('anatomy-step-2').classList.remove('active');
+            document.getElementById('anatomy-step-3').classList.remove('active');
+            
+            document.getElementById('prev-anatomy-btn').disabled = true;
+            document.getElementById('next-anatomy-btn').disabled = false;
+        });
+        
+        // Syntax step by step navigation
+        let currentSyntaxStep = 1;
+        const totalSyntaxSteps = 4;
+        
+        function nextSyntaxStep() {
+            if (currentSyntaxStep < totalSyntaxSteps) {
+                // Hide current step
+                document.getElementById(`syntax-step-${currentSyntaxStep}`).classList.remove('active');
+                
+                // Show next step
+                currentSyntaxStep++;
+                document.getElementById(`syntax-step-${currentSyntaxStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('syntax-step-indicator').textContent = `Step ${currentSyntaxStep} of ${totalSyntaxSteps}`;
+                document.getElementById('prev-syntax-btn').disabled = false;
+                
+                if (currentSyntaxStep === totalSyntaxSteps) {
+                    document.getElementById('next-syntax-btn').disabled = true;
+                }
+            }
+        }
+        
+        function prevSyntaxStep() {
+            if (currentSyntaxStep > 1) {
+                // Hide current step
+                document.getElementById(`syntax-step-${currentSyntaxStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentSyntaxStep--;
+                document.getElementById(`syntax-step-${currentSyntaxStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('syntax-step-indicator').textContent = `Step ${currentSyntaxStep} of ${totalSyntaxSteps}`;
+                document.getElementById('next-syntax-btn').disabled = false;
+                
+                if (currentSyntaxStep === 1) {
+                    document.getElementById('prev-syntax-btn').disabled = true;
+                }
+            }
+        }
+        
+        // Function execution step by step navigation
+        let currentFunctionStep = 1;
+        const totalFunctionSteps = 4;
+        
+        function nextFunctionStep() {
+            if (currentFunctionStep < totalFunctionSteps) {
+                // Hide current step
+                document.getElementById(`function-step-${currentFunctionStep}`).classList.remove('active');
+                
+                // Show next step
+                currentFunctionStep++;
+                document.getElementById(`function-step-${currentFunctionStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('function-execution-indicator').textContent = `Step ${currentFunctionStep} of ${totalFunctionSteps}`;
+                document.getElementById('prev-function-btn').disabled = false;
+                
+                if (currentFunctionStep === totalFunctionSteps) {
+                    document.getElementById('next-function-btn').disabled = true;
+                }
+            }
+        }
+        
+        function prevFunctionStep() {
+            if (currentFunctionStep > 1) {
+                // Hide current step
+                document.getElementById(`function-step-${currentFunctionStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentFunctionStep--;
+                document.getElementById(`function-step-${currentFunctionStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('function-execution-indicator').textContent = `Step ${currentFunctionStep} of ${totalFunctionSteps}`;
+                document.getElementById('next-function-btn').disabled = false;
+                
+                if (currentFunctionStep === 1) {
+                    document.getElementById('prev-function-btn').disabled = true;
+                }
+            }
+        }
+        
+        // Parameter step by step navigation
+        let currentParameterStep = 1;
+        const totalParameterSteps = 3;
+        
+        function nextParameterStep() {
+            if (currentParameterStep < totalParameterSteps) {
+                // Hide current step
+                document.getElementById(`parameter-step-${currentParameterStep}`).classList.remove('active');
+                
+                // Show next step
+                currentParameterStep++;
+                document.getElementById(`parameter-step-${currentParameterStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('parameter-step-indicator').textContent = `Step ${currentParameterStep} of ${totalParameterSteps}`;
+                document.getElementById('prev-parameter-btn').disabled = false;
+                
+                if (currentParameterStep === totalParameterSteps) {
+                    document.getElementById('next-parameter-btn').disabled = true;
+                }
+            }
+        }
+        
+        function prevParameterStep() {
+            if (currentParameterStep > 1) {
+                // Hide current step
+                document.getElementById(`parameter-step-${currentParameterStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentParameterStep--;
+                document.getElementById(`parameter-step-${currentParameterStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('parameter-step-indicator').textContent = `Step ${currentParameterStep} of ${totalParameterSteps}`;
+                document.getElementById('next-parameter-btn').disabled = false;
+                
+                if (currentParameterStep === 1) {
+                    document.getElementById('prev-parameter-btn').disabled = true;
+                }
+            }
+        }
+        
+        // Visual parameter step by step navigation
+        let currentVisualParameterStep = 1;
+        const totalVisualParameterSteps = 3;
+        
+        function nextVisualParameterStep() {
+            if (currentVisualParameterStep < totalVisualParameterSteps) {
+                // Hide current step
+                document.getElementById(`visual-parameter-${currentVisualParameterStep}`).classList.remove('active');
+                
+                // Show next step
+                currentVisualParameterStep++;
+                document.getElementById(`visual-parameter-${currentVisualParameterStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('visual-parameter-indicator').textContent = `Step ${currentVisualParameterStep} of ${totalVisualParameterSteps}`;
+                document.getElementById('prev-visual-parameter-btn').disabled = false;
+                
+                if (currentVisualParameterStep === totalVisualParameterSteps) {
+                    document.getElementById('next-visual-parameter-btn').disabled = true;
+                }
+            }
+        }
+        
+        function prevVisualParameterStep() {
+            if (currentVisualParameterStep > 1) {
+                // Hide current step
+                document.getElementById(`visual-parameter-${currentVisualParameterStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentVisualParameterStep--;
+                document.getElementById(`visual-parameter-${currentVisualParameterStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('visual-parameter-indicator').textContent = `Step ${currentVisualParameterStep} of ${totalVisualParameterSteps}`;
+                document.getElementById('next-visual-parameter-btn').disabled = false;
+                
+                if (currentVisualParameterStep === 1) {
+                    document.getElementById('prev-visual-parameter-btn').disabled = true;
+                }
+            }
+        }
+        
+        // Return value step by step navigation
+        let currentReturnStep = 1;
+        const totalReturnSteps = 4;
+        
+        function nextReturnStep() {
+            if (currentReturnStep < totalReturnSteps) {
+                // Hide current step
+                document.getElementById(`return-step-${currentReturnStep}`).classList.remove('active');
+                
+                // Show next step
+                currentReturnStep++;
+                document.getElementById(`return-step-${currentReturnStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('return-step-indicator').textContent = `Step ${currentReturnStep} of ${totalReturnSteps}`;
+                document.getElementById('prev-return-btn').disabled = false;
+                
+                if (currentReturnStep === totalReturnSteps) {
+                    document.getElementById('next-return-btn').disabled = true;
+                }
+            }
+        }
+        
+        function prevReturnStep() {
+            if (currentReturnStep > 1) {
+                // Hide current step
+                document.getElementById(`return-step-${currentReturnStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentReturnStep--;
+                document.getElementById(`return-step-${currentReturnStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('return-step-indicator').textContent = `Step ${currentReturnStep} of ${totalReturnSteps}`;
+                document.getElementById('next-return-btn').disabled = false;
+                
+                if (currentReturnStep === 1) {
+                    document.getElementById('prev-return-btn').disabled = true;
+                }
+            }
+        }
+        
+        // Function anatomy step navigation (adding the missing function)
+        let currentAnatomyStep = 1;
+        const totalAnatomySteps = 3;
+        
+        function nextAnatomyStep() {
+            if (currentAnatomyStep < totalAnatomySteps) {
+                // Hide current step
+                document.getElementById(`anatomy-step-${currentAnatomyStep}`).classList.remove('active');
+                
+                // Show next step
+                currentAnatomyStep++;
+                document.getElementById(`anatomy-step-${currentAnatomyStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('anatomy-step-indicator').textContent = `Step ${currentAnatomyStep} of ${totalAnatomySteps}`;
+                document.getElementById('prev-anatomy-btn').disabled = false;
+                
+                if (currentAnatomyStep === totalAnatomySteps) {
+                    document.getElementById('next-anatomy-btn').disabled = true;
+                }
+            }
+        }
+        
+        function prevAnatomyStep() {
+            if (currentAnatomyStep > 1) {
+                // Hide current step
+                document.getElementById(`anatomy-step-${currentAnatomyStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentAnatomyStep--;
+                document.getElementById(`anatomy-step-${currentAnatomyStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('anatomy-step-indicator').textContent = `Step ${currentAnatomyStep} of ${totalAnatomySteps}`;
+                document.getElementById('next-anatomy-btn').disabled = false;
+                
+                if (currentAnatomyStep === 1) {
+                    document.getElementById('prev-anatomy-btn').disabled = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
