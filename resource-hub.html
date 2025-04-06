@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGITAL RESOURCES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        :root {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f7f7f7;
+            --accent-bg: #f0f0f0;
+            --accent-color: #FF5C00;
+            --active-color: #FF5C00;
+            --outline-color: #191919;
+            --text-color: #191919;
+            --shadow-sm: 0 0.15em 0 var(--outline-color);
+            --shadow-md: 0 0.25em 0 var(--outline-color);
+            --border-radius: 0.6em;
+            --transition-time: 0.15s;
+            --section-spacing: 80px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            letter-spacing: -0.01em;
+            line-height: 1.5;
+            min-height: 100vh;
+            max-width: 100%;
+            overflow-x: hidden;
+            padding-top: 60px;
+        }
+
+        /* FIXED Navbar Styles */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--primary-bg);
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-bottom: 2px solid var(--outline-color);
+            height: 60px;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            height: 100%;
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 40px;
+        }
+
+        .navbar-menu li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color var(--transition-time);
+            padding: 8px 0;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .navbar-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            transition: width var(--transition-time);
+            border-radius: 1.5px;
+        }
+
+        .navbar-menu li a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-menu li a:hover::after {
+            width: 100%;
+        }
+        
+        .navbar-menu li a.active {
+            color: var(--accent-color);
+        }
+        
+        .navbar-menu li a.active::after {
+            width: 100%;
+        }
+
+        /* Main content layout */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Improved section spacing */
+        .section-container {
+            width: 100%;
+            margin-bottom: var(--section-spacing);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            border: 2px solid var(--outline-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            margin: 0 0 5px 0;
+            display: inline-block;
+            padding-bottom: 5px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 1px;
+        }
+
+        /* Improved cards layout */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 360px;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        /* For single cards that need centering */
+        .cards-container.single-card {
+            grid-template-columns: 1fr;
+            justify-items: center;
+            max-width: 180px;
+        }
+
+        /* Construction message */
+        .construction-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: var(--primary-bg);
+            border: 2px dashed var(--outline-color);
+            border-radius: var(--border-radius);
+            max-width: 400px;
+        }
+
+        .construction-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .construction-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Card Design */
+        .card {
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 20px 15px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            width: 160px;
+            height: 140px;
+        }
+
+        .card:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--accent-color);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-color);
+            border: 2px solid var(--outline-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+        }
+
+        .card:hover .card-icon {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* Card color variations - with new colors */
+        /* Binary Brilliance */
+        .card-integers::before { background-color: #3498DB; }
+        .card-integers .card-icon { background-color: #3498DB; }
+        .card-text::before { background-color: #9B59B6; }
+        .card-text .card-icon { background-color: #9B59B6; }
+        .card-images::before { background-color: #2ECC71; }
+        .card-images .card-icon { background-color: #2ECC71; }
+        .card-audio::before { background-color: #F1C40F; }
+        .card-audio .card-icon { background-color: #F1C40F; }
+        
+        /* Python Basics */
+        .card-variables::before { background-color: #FF6B6B; }
+        .card-variables .card-icon { background-color: #FF6B6B; }
+        .card-conditionals::before { background-color: #4ECDC4; }
+        .card-conditionals .card-icon { background-color: #4ECDC4; }
+        .card-loops::before { background-color: #45B7D1; }
+        .card-loops .card-icon { background-color: #45B7D1; }
+        .card-functions::before { background-color: #96CEB4; }
+        .card-functions .card-icon { background-color: #96CEB4; }
+        .card-cheatsheet::before { background-color: #6C5B7B; }
+        .card-cheatsheet .card-icon { background-color: #6C5B7B; }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 15px;
+            }
+
+            .navbar-menu {
+                gap: 20px;
+            }
+
+            .cards-container {
+                gap: 15px;
+                max-width: 320px;
+            }
+            
+            .card {
+                width: 140px;
+                height: 125px;
+                padding: 15px 10px;
+            }
+            
+            .card-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 8px;
+            }
+            
+            .card-title {
+                font-size: 0.9rem;
+            }
+            
+            .section-container {
+                padding: 25px 15px;
+            }
+
+            .construction-message {
+                padding: 15px;
+                max-width: 300px;
+            }
+
+            .construction-icon {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            .construction-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 40px 15px;
+            }
+
+            .card {
+                width: 120px;
+                height: 110px;
+                padding: 12px 8px;
+            }
+            
+            .card-icon {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 8px;
+            }
+            
+            .card-icon i {
+                font-size: 1.25rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .navbar-menu {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .navbar-menu li a {
+                font-size: 0.95rem;
+            }
+            
+            .cards-container {
+                gap: 12px;
+                max-width: 260px;
+            }
+            
+            .section-container {
+                padding: 20px 15px;
+            }
+
+            .construction-message {
+                padding: 12px;
+                max-width: 250px;
+            }
+
+            .construction-icon {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+
+            .construction-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Navigation Bar -->
+    <nav id="navbar">
+        <div class="navbar-container">
+            <ul class="navbar-menu">
+                <li><a href="#binary-brilliance">Binary Brilliance</a></li>
+                <li><a href="#python-basics">Python Basics</a></li>
+                <li><a href="#python-levelup">Python: Level-Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div id="binary-brilliance" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Binary Brilliance</h2>
+            </div>
+            <div class="cards-container">
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/integers.html" class="card card-integers">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-hashtag"></i>
+                    </div>
+                    <h2 class="card-title">Integers</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/text.html" class="card card-text">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-font"></i>
+                    </div>
+                    <h2 class="card-title">Text</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/images.html" class="card card-images">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <h2 class="card-title">Images</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/audio.html" class="card card-audio">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </div>
+                    <h2 class="card-title">Audio</h2>
+                </a>
+            </div>
+        </div>
+
+        <div id="python-basics" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Python Basics</h2>
+            </div>
+            <div class="cards-container">
+                <a href="https://cbuckley-aidans.github.io/python-basics/variables.html" class="card card-variables">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h2 class="card-title">Variables</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/python-basics/conditional-statements.html" class="card card-conditionals">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <h2 class="card-title">Conditionals</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/python-basics/loops.html" class="card card-loops">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <h2 class="card-title">Loops</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/python-basics/functions.html" class="card card-functions">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h2 class="card-title">Functions</h2>
+                </a>
+            </div>
+            
+            <!-- Separate container for Cheatsheet -->
+            <div class="cards-container single-card" style="margin-top: 20px;">
+                <a href="https://cbuckley-aidans.github.io/python-basics/cheatsheet.html" class="card card-cheatsheet">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h2 class="card-title">Cheatsheet</h2>
+                </a>
+            </div>
+        </div>
+
+        <div id="python-levelup" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Python: Level-Up</h2>
+            </div>
+            <!-- Under Construction Message -->
+            <div class="construction-message">
+                <div class="construction-icon">
+                    <i class="fa-solid fa-hammer"></i>
+                </div>
+                <p class="construction-text">Under Construction!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simplified script for just highlighting the active section
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section-container');
+            const navLinks = document.querySelectorAll('.navbar-menu li a');
+            
+            function highlightActiveSection() {
+                let scrollPosition = window.scrollY + 120; // Increased offset for fixed navbar
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + sectionId) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightActiveSection);
+            highlightActiveSection(); // Call once on page load
+        });
+    </script>
+</body>
+</html>
