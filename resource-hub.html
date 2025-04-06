@@ -421,6 +421,114 @@
 .card-excel .card-icon { background-color: #27AE60; }
 .card-data-cheatsheet::before { background-color: #E74C3C; }
 .card-data-cheatsheet .card-icon { background-color: #E74C3C; }
+
+.floating-card {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    z-index: 900;
+    background-color: var(--primary-bg);
+    border: 2px solid var(--outline-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 12px;
+    transition: transform var(--transition-time), box-shadow var(--transition-time);
+    cursor: pointer;
+    overflow: visible;
+    width: 105px;
+}
+
+.floating-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #FF9500;
+}
+
+.floating-card:hover {
+    transform: translateY(-0.25em);
+    box-shadow: var(--shadow-md);
+}
+
+.floating-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+}
+
+.floating-card-icon {
+    width: 36px;
+    height: 36px;
+    background-color: #FF9500;
+    border: 2px solid var(--outline-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-card-icon i {
+    font-size: 1rem;
+    color: white;
+}
+
+.floating-card-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.floating-card-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--outline-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity var(--transition-time), transform var(--transition-time);
+    pointer-events: none;
+    white-space: nowrap;
+    margin-top: 10px;
+    z-index: 901;
+}
+
+.floating-card:hover .floating-card-tooltip {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .floating-card {
+        padding: 10px;
+        width: 90px;
+    }
+    
+    .floating-card-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .floating-card-title {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-card {
+        top: 70px;
+        left: 10px;
+    }
+}
     </style>
 </head>
 <body>
@@ -435,6 +543,16 @@
             </ul>
         </div>
     </nav>
+
+    <div class="floating-card">
+        <div class="floating-card-content">
+            <div class="floating-card-icon">
+                <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <h2 class="floating-card-title">Software Skills</h2>
+        </div>
+        <span class="floating-card-tooltip">Under Construction!</span>
+    </div>
 
     <div class="main-container">
         <div id="binary-brilliance" class="section-container">
