@@ -439,6 +439,9 @@
 <section id="chunk2" class="tab-content dark-section">
     <h1>CHUNK 2: ASSIGNING AND CHANGING VARIABLES <i class="fas fa-exchange-alt" style="margin-left: 15px;"></i></h1>
     
+    <div class="chunk-section" style="margin-top: 30px;">
+        <div class="chunk-badge">TEACHER CHUNK</div>
+        <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
     <!-- Code Execution Order Section (Now at the top) -->
     <div class="interactive-card">
         <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
@@ -494,88 +497,103 @@
     
     
     
-    <!-- Teacher Chunk Section (Remains at the bottom) -->
-    <div class="chunk-section" style="margin-top: 30px;">
-        <div class="chunk-badge">TEACHER CHUNK</div>
-        <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+    <!-- Memory Visualization -->
+    <div class="interactive-card" style="margin-top: 30px;">
+        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+            <div class="element-number">2</div>
+            <h3>Memory Visualization <i class="fas fa-memory" style="margin-left: 10px;"></i></h3>
+        </div>
         
-        <h3>How Variables Change</h3>
-        
-        <p>One of the most powerful features of variables is that they can change their values during a program's execution.</p>
+        <p style="font-size: 1.2em; text-align: center; margin-bottom: 25px;">Let's visualise how a variable's value changes in memory:</p>
         
         <div class="code-step-container">
             <div class="code-step-header">
-                <span>Variable Change Step-by-Step</span>
-                <span id="code-step-indicator">Step 1 of 3</span>
+                <span>Memory Change Visualization</span>
+                <span id="memory-step-indicator">Step 1 of 3</span>
             </div>
             
             <div class="code-step-content">
-                <!-- Step 1 -->
-                <div id="code-step-1" class="code-step" style="display: block; border: none; background: none; padding: 10px 0; margin: 0;">
-                    <h4 style="margin-top: 0;">Step 1: Create the variable</h4>
-                    
-                    <div class="code-block">
+                <!-- Memory Step 1 -->
+                <div id="memory-step-1" class="variable-update-step active">
+                    <div class="code-block" style="position: relative;">
 score = 10
-
-<span class="code-comment"># The variable 'score' now contains the value 10</span>
                     </div>
                     
-                    <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                        <p style="margin: 0;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> First, we create a variable named 'score' and assign it the initial value 10.</p>
+                    <div class="memory-visualization">
+                        <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
+                        <div class="computer-memory">
+                            <div class="memory-item">
+                                <div class="memory-item-name">score</div>
+                                <div class="memory-item-value">10</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Step 2 -->
-                <div id="code-step-2" class="code-step" style="display: none; border: none; background: none; padding: 10px 0; margin: 0;">
-                    <h4 style="margin-top: 0;">Step 2: Change the variable's value</h4>
-                    
-                    <div class="code-block">
+                <!-- Memory Step 2 -->
+                <div id="memory-step-2" class="variable-update-step">
+                    <div class="code-block" style="position: relative;">
 score = 10
-
 score = 15
-
-<span class="code-comment"># The variable 'score' now contains the value 15</span>
-<span class="code-comment"># The previous value (10) is lost</span>
                     </div>
                     
-                    <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                        <p style="margin: 0;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> Later in the program, we assign a new value (15) to the same variable. The old value is replaced.</p>
+                    <div class="memory-visualization">
+                        <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
+                        <div class="computer-memory">
+                            <div class="memory-item" style="opacity: 0.5; text-decoration: line-through;">
+                                <div class="memory-item-name">score</div>
+                                <div class="memory-item-value">10</div>
+                            </div>
+                            <div class="memory-item">
+                                <div class="memory-item-name">score</div>
+                                <div class="memory-item-value">15</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Step 3 -->
-                <div id="code-step-3" class="code-step" style="display: none; border: none; background: none; padding: 10px 0; margin: 0;">
-                    <h4 style="margin-top: 0;">Step 3: Use the variable's value</h4>
-                    
-                    <div class="code-block">
+                <!-- Memory Step 3 -->
+                <div id="memory-step-3" class="variable-update-step">
+                    <div class="code-block" style="position: relative;">
 score = 10
-
 score = 15
-
-print(score)
-<span class="code-comment"># Output: 15</span>
+print(score)  # Output: 15
                     </div>
                     
-                    <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Point:</strong> When you use the variable (e.g., in a print statement), it will always show the most recent value assigned to it.</p>
+                    <div class="memory-visualization">
+                        <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
+                        <div class="computer-memory">
+                            <div class="memory-item">
+                                <div class="memory-item-name">score</div>
+                                <div class="memory-item-value">15</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-display" style="margin-top: 20px;">
+                            15
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div class="step-navigation">
-                <button id="prev-step-btn" class="step-btn" onclick="prevCodeStep()" disabled>
+                <button id="prev-memory-btn" class="step-btn" onclick="prevMemoryStep()" disabled>
                     <i class="fas fa-chevron-left"></i> Previous
                 </button>
-                <button id="next-step-btn" class="step-btn" onclick="nextCodeStep()">
+                <button id="next-memory-btn" class="step-btn" onclick="nextMemoryStep()">
                     Next <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
         </div>
+    </div>
+    
+        
+        
         
         <!-- Interactive Variable Example -->
         <div class="interactive-card" style="margin-top: 30px;">
             <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">2</div>
+                <div class="element-number">3</div>
                 <h3>Interactive Variable Example <i class="fas fa-mouse-pointer" style="margin-left: 10px;"></i></h3>
             </div>
             
@@ -620,95 +638,7 @@ counter = counter + 1
             </div>
         </div>
         
-        <!-- Memory Visualization -->
-        <div class="interactive-card" style="margin-top: 30px;">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">3</div>
-                <h3>Memory Visualization <i class="fas fa-memory" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <p style="font-size: 1.2em; text-align: center; margin-bottom: 25px;">Let's visualise how a variable's value changes in memory:</p>
-            
-            <div class="code-step-container">
-                <div class="code-step-header">
-                    <span>Memory Change Visualization</span>
-                    <span id="memory-step-indicator">Step 1 of 3</span>
-                </div>
-                
-                <div class="code-step-content">
-                    <!-- Memory Step 1 -->
-                    <div id="memory-step-1" class="variable-update-step active">
-                        <div class="code-block" style="position: relative;">
-score = 10
-                        </div>
-                        
-                        <div class="memory-visualization">
-                            <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
-                            <div class="computer-memory">
-                                <div class="memory-item">
-                                    <div class="memory-item-name">score</div>
-                                    <div class="memory-item-value">10</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Memory Step 2 -->
-                    <div id="memory-step-2" class="variable-update-step">
-                        <div class="code-block" style="position: relative;">
-score = 10
-score = 15
-                        </div>
-                        
-                        <div class="memory-visualization">
-                            <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
-                            <div class="computer-memory">
-                                <div class="memory-item" style="opacity: 0.5; text-decoration: line-through;">
-                                    <div class="memory-item-name">score</div>
-                                    <div class="memory-item-value">10</div>
-                                </div>
-                                <div class="memory-item">
-                                    <div class="memory-item-name">score</div>
-                                    <div class="memory-item-value">15</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Memory Step 3 -->
-                    <div id="memory-step-3" class="variable-update-step">
-                        <div class="code-block" style="position: relative;">
-score = 10
-score = 15
-print(score)  # Output: 15
-                        </div>
-                        
-                        <div class="memory-visualization">
-                            <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
-                            <div class="computer-memory">
-                                <div class="memory-item">
-                                    <div class="memory-item-name">score</div>
-                                    <div class="memory-item-value">15</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-display" style="margin-top: 20px;">
-                                15
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="step-navigation">
-                    <button id="prev-memory-btn" class="step-btn" onclick="prevMemoryStep()" disabled>
-                        <i class="fas fa-chevron-left"></i> Previous
-                    </button>
-                    <button id="next-memory-btn" class="step-btn" onclick="nextMemoryStep()">
-                        Next <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </section>
 
@@ -775,19 +705,27 @@ print("Hi, my name is", name, "and I am", age, "years old.")
                     </ol>
                     
                     <div class="code-block">
-<span class="code-comment"># Updated variables</span>
+<span class="code-comment"># Start with these variables</span>
 name = "Jai"
 age = 12
-hobby = "skateboarding"
 
-<span class="code-comment"># Print with all three variables</span>
+<span class="code-comment"># Print the variables</span>
 print("Hi, my name is", name, "and I am", age, "years old.")
-print("My favourite hobby is", hobby + ".")
+
+<span class="code-comment"># Now change the values of these variables</span>
+name = "Bob"
+age = 13
+
+<span class="code-comment"># Print them again to see the change</span>
+print("Hi, my name is", name, "and I am", age, "years old.")
+
                     </div>
                     
                     <div class="result-display">
                         Hi, my name is Jai and I am 12 years old.
-                        My favourite hobby is skateboarding.
+                    </div>
+                    <div class="result-display">
+                        Hi, my name is Bob and I am 13 years old.
                     </div>
                 </div>
             </div>
