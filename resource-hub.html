@@ -529,6 +529,15 @@
         left: 10px;
     }
 }
+
+.card-branching::before { background-color: #F39C12; }
+.card-branching .card-icon { background-color: #F39C12; }
+.card-iteration::before { background-color: #16A085; }
+.card-iteration .card-icon { background-color: #16A085; }
+.card-variables-co::before { background-color: #8E44AD; }
+.card-variables-co .card-icon { background-color: #8E44AD; }
+.card-cheatsheet-co::before { background-color: #D35400; }
+.card-cheatsheet-co .card-icon { background-color: #D35400; }
     </style>
 </head>
 <body>
@@ -536,6 +545,7 @@
     <nav id="navbar">
         <div class="navbar-container">
             <ul class="navbar-menu">
+                <li><a href="#cospaces-basics">CoSpaces Basics</a></li>
                 <li><a href="#binary-brilliance">Binary Brilliance</a></li>
                 <li><a href="#power-of-data">Power of Data</a></li>
                 <li><a href="#python-basics">Python Basics</a></li>
@@ -554,7 +564,45 @@
         <span class="floating-card-tooltip">Under Construction!</span>
     </div>
 
+    
+
     <div class="main-container">
+
+        <div id="cospaces-basics" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">CoSpaces Basics</h2>
+            </div>
+            <div class="cards-container">
+                <a href="https://cbuckley-aidans.github.io/cube-project/branching.html" class="card card-branching">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <h2 class="card-title">Branching</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/cube-project/iteration.html" class="card card-iteration">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <h2 class="card-title">Iteration</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/cube-project/variables.html" class="card card-variables-co">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h2 class="card-title">Variables</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/cube-project/cheatsheet.html" class="card card-cheatsheet-co">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h2 class="card-title">Cheat Sheet</h2>
+                </a>
+            </div>
+        </div>
+
         <div id="binary-brilliance" class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Binary Brilliance</h2>
@@ -651,7 +699,7 @@
                     <div class="card-icon">
                         <i class="fa-solid fa-file-lines"></i>
                     </div>
-                    <h2 class="card-title">Cheatsheet</h2>
+                    <h2 class="card-title">Cheat Sheet</h2>
                 </a>
             </div>
         </div>
