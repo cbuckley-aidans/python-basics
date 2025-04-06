@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Variables</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Favicon Icons -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -13,387 +15,1196 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">PYTHON VARIABLES</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="lisc">
+                <i class="fas fa-clipboard-list"></i>
+                LI/SC
+            </button>
+            <button class="tab-button" data-tab="chunk1">
+                <i class="fas fa-cube"></i>
+                CHUNK 1
+            </button>
+            <button class="tab-button" data-tab="chew1">
+                <i class="fas fa-utensils"></i>
+                CHEW 1
+            </button>
+            <button class="tab-button" data-tab="chunk2">
+                <i class="fas fa-cube"></i>
+                CHUNK 2
+            </button>
+            <button class="tab-button" data-tab="chew2">
+                <i class="fas fa-utensils"></i>
+                CHEW 2
+            </button>
+            <button class="tab-button" data-tab="chunk3">
+                <i class="fas fa-cube"></i>
+                CHUNK 3
+            </button>
+            <button class="tab-button" data-tab="chew3">
+                <i class="fas fa-utensils"></i>
+                CHEW 3
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Learning Intentions and Success Criteria section -->
+        <section id="lisc" class="tab-content active light-section">
+            <h1>LEARNING INTENTIONS & SUCCESS CRITERIA <i class="fas fa-bullseye" style="margin-left: 15px;"></i></h1>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">1</div>
+                    <h3>Learning Intentions <i class="fas fa-bullseye" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what variables are and why they're fundamental in programming</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to create, name, and assign values to variables in Python</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Recognise different data types that can be stored in variables</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to perform operations on variables and change their values</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">2</div>
+                    <h3>Success Criteria <i class="fas fa-trophy" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <p>By the end of this lesson, you should be able to:</p>
+                
+                <ul>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create a variable with an appropriate name and assign it a value</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Change the value of a variable during a program's execution</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Identify the data type of a variable using the type() function</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Perform basic operations on variables (arithmetic, string concatenation)</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create a program that uses variables to store and manipulate data</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CHUNK 1: What is a Variable? -->
+        <section id="chunk1" class="tab-content dark-section">
+            <h1>CHUNK 1: WHAT IS A VARIABLE? <i class="fas fa-box-open" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Variables: The Building Blocks of Programs</h3>
+                
+                <p>A variable is like a labelled box that stores information. Just as you might label a box "TOYS" or "BOOKS" to remember what's inside, in Python we give variables descriptive names to help us remember what data they contain.</p>
+                
+                <div class="two-column-grid" style="margin-top: 30px;">
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <div class="element-number">1</div>
+                            <h3>Variable Metaphor <i class="fas fa-box" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <div class="variable-animation" style="padding: 30px;">
+                            <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+                                <div style="text-align: center;">
+                                    <i class="fas fa-box-open" style="font-size: 6em; color: var(--accent-color);"></i>
+                                </div>
+                            </div>
+                            
+                            <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Imagine variables as labelled containers:</p>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>score</h4>
+                                    <p>Stores game points (e.g., 5)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>name</h4>
+                                    <p>Stores player name (e.g., "Alex")</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-birthday-cake"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>age</h4>
+                                    <p>Stores player age (e.g., 12)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <div class="element-number">2</div>
+                            <h3>Basic Syntax <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">In Python, we create variables using this pattern:</p>
+                        
+                        <div class="code-block" style="text-align: center;">
+<span class="highlight-variable">variable_name</span> <span class="highlight-operator">=</span> <span class="highlight-value">value</span>
+                        </div>
+                        
+                        <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin: 25px 0 20px 0;">For example:</p>
+                        
+                        <div class="code-block">
+<span class="highlight-variable">score</span> <span class="highlight-operator">=</span> <span class="highlight-value">5</span>
+<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">12</span>
+                        </div>
+                        
+                        <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The equals sign (=) assigns the value on the right to the variable name on the left.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Assignment Operator Section -->
+                <div class="assignment-operator-box">
+                    <div class="assignment-operator-badge">IMPORTANT!</div>
+                    <h3 style="margin-top: 15px;"><i class="fas fa-exclamation-circle" style="color: #f59e0b; margin-right: 15px;"></i> The = Symbol in Programming</h3>
+                    
+                    <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <p style="font-weight: bold; color: #ff4d4f; font-size: 1.2em;">In maths: equals is a comparison</p>
+                            <div style="background-color: rgba(255, 77, 79, 0.1); padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #ff4d4f;">
+                                <p style="margin: 0;">x = 5 means "x equals 5" or "x is the same as 5"</p>
+                            </div>
+                        </div>
+                        
+                        <div style="flex: 1; min-width: 300px;">
+                            <p style="font-weight: bold; color: #52c41a; font-size: 1.2em;">In Python: = is an assignment operator</p>
+                            <div style="background-color: rgba(82, 196, 26, 0.1); padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #52c41a;">
+                                <p style="margin: 0;">x = 5 means "store the value 5 in the variable named x"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                <!-- New interactive variable assignment example -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Try Assigning Variables <i class="fas fa-magic" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Let's see what happens when we create and assign values to different variables:</p>
+                    
+                    <div class="variable-animation" style="padding: 30px; text-align: center;">
+                        <div class="code-step-container">
+                            <div class="code-step-header">
+                                <span>Variable Assignment in Action</span>
+                                <span id="var-assignment-indicator">Step 1 of 3</span>
+                            </div>
+                            
+                            <div class="code-step-content">
+                                <!-- Step 1: Create a string variable -->
+                                <div id="var-step-1" class="variable-update-step active">
+                                    <div class="code-block" style="position: relative;">
+<div class="execution-line active">player_name = "Jamie"</div>
+
+<span class="code-comment"># This creates a variable called player_name</span>
+<span class="code-comment"># and stores the text "Jamie" in it</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Computer Memory</h4>
+                                        <div class="computer-memory">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">player_name</div>
+                                                <div class="memory-item-value">"Jamie"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 2: Create a number variable -->
+                                <div id="var-step-2" class="variable-update-step">
+                                    <div class="code-block" style="position: relative;">
+<div class="execution-line">player_name = "Jamie"</div>
+<div class="execution-line active">player_score = 100</div>
+
+<span class="code-comment"># Now we've added a second variable called player_score</span>
+<span class="code-comment"># and stored the number 100 in it</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Computer Memory</h4>
+                                        <div class="computer-memory">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">player_name</div>
+                                                <div class="memory-item-value">"Jamie"</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">player_score</div>
+                                                <div class="memory-item-value">100</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 3: Create a boolean variable -->
+                                <div id="var-step-3" class="variable-update-step">
+                                    <div class="code-block" style="position: relative;">
+<div class="execution-line">player_name = "Jamie"</div>
+<div class="execution-line">player_score = 100</div>
+<div class="execution-line active">is_winner = True</div>
+
+<span class="code-comment"># We've added a third variable called is_winner</span>
+<span class="code-comment"># and stored a boolean value (True) in it</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Computer Memory</h4>
+                                        <div class="computer-memory">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">player_name</div>
+                                                <div class="memory-item-value">"Jamie"</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">player_score</div>
+                                                <div class="memory-item-value">100</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">is_winner</div>
+                                                <div class="memory-item-value">True</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button id="prev-var-btn" class="step-btn" onclick="prevVarStep()" disabled>
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="next-var-btn" class="step-btn" onclick="nextVarStep()">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Why Variables Are Important <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
+                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                    <div class="element-card" style="background-color: #f0f7ff; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">1</div>
+                            <h3>STORE DATA <i class="fas fa-database" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Variables let programs remember values that can be used later</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-memory" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #f0fff4; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">2</div>
+                            <h3>REUSABLE CODE <i class="fas fa-recycle" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>By storing values in variables, you can reuse them many times</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-sync" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #fff7f0; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">3</div>
+                            <h3>MEANINGFUL NAMES <i class="fas fa-tag" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Variables make code readable by using descriptive names</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-file-alt" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="background-color: #f0f0ff; transition: all 0.3s ease;">
+                        <div class="element-header">
+                            <div class="element-number">4</div>
+                            <h3>CHANGE VALUES <i class="fas fa-exchange-alt" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Variables can be updated as your program runs</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-random" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 1: Concept Check -->
+        <section id="chew1" class="tab-content light-section">
+            <h1>CHEW 1: CONCEPT CHECK <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Check Your Understanding</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Write down what a variable is <em>in your own words</em> on your Microsoft Whiteboard</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Pair-share to explain what a specific variable example does</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Make sure you can identify the variable name, value, and assignment operator</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Individual Reflection <i class="fas fa-pencil-alt" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin-bottom: 25px; text-align: center;">
+                        <p style="font-size: 1.3em; font-weight: 600; margin-bottom: 15px;">Using <a href="https://whiteboard.office.com/" style="color: var(--chew-color); text-decoration: underline;" target="_blank">Microsoft Whiteboard</a>, write down:</p>
+                        <p style="text-align: left; font-size: 1.2em; margin-left: 20px; margin-bottom: 15px;">What is a variable in your own words?</p>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; margin-top: 20px;">
+                        <div style="text-align: center;">
+                            <i class="fas fa-edit" style="font-size: 5em; color: var(--chew-color);"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Pair-Share Activity <i class="fas fa-users" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.3em; font-weight: 600; text-align: center; margin-bottom: 25px;">Turn to your partner and identify what each part of this code does:</p>
+                    
+                    <div class="code-block" style="font-size: 1.5em; text-align: center;">
+<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin: 25px 0;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;">Make sure your explanation includes these terms:</p>
+                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px;">
+                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
+                                variable name
+                            </div>
+                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
+                                value
+                            </div>
+                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
+                                assignment
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 2: Assigning and Changing Variables -->
+<section id="chunk2" class="tab-content dark-section">
+    <h1>CHUNK 2: ASSIGNING AND CHANGING VARIABLES <i class="fas fa-exchange-alt" style="margin-left: 15px;"></i></h1>
+    
+    <!-- Code Execution Order Section (Now at the top) -->
+    <div class="interactive-card">
+        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+            <div class="element-number">1</div>
+            <h3>Code Execution Order <i class="fas fa-long-arrow-alt-down" style="margin-left: 10px;"></i></h3>
+        </div>
+        
+        <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Python reads and executes code from top to bottom, one line at a time:</p>
+        
+        <div style="border: 2px solid var(--outline-color); border-radius: var(--border-radius); margin: 0 auto; max-width: 500px; overflow: hidden;">
+            <div style="background-color: var(--accent-color); color: white; padding: 10px 15px; font-weight: 600; text-align: center;">
+                Code Execution Order
+            </div>
+            
+            <div style="padding: 20px;">
+                <div style="display: flex; flex-direction: column;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 5px;">
+                        <div style="width: 30px; height: 30px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">1</div>
+                        <div style="font-family: monospace; font-size: 1.2em;">name = "Bob"</div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+                        <i class="fas fa-arrow-down" style="color: var(--accent-color); font-size: 1.5em;"></i>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 5px;">
+                        <div style="width: 30px; height: 30px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">2</div>
+                        <div style="font-family: monospace; font-size: 1.2em;">name = "Jamie"</div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+                        <i class="fas fa-arrow-down" style="color: var(--accent-color); font-size: 1.5em;"></i>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; background-color: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 5px;">
+                        <div style="width: 30px; height: 30px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">3</div>
+                        <div style="font-family: monospace; font-size: 1.2em;">print("Hello,", name)</div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; margin: 15px 0; font-size: 1.2em;">
+                        <div style="background-color: #50fa7b; color: #272822; padding: 5px 15px; border-radius: 5px; font-family: monospace;">
+                            Output: Hello, Jamie
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background-color: rgba(0,0,0,0.05); padding: 15px; border-top: 1px solid var(--outline-color);">
+                <p style="margin: 0; text-align: center;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> The computer always executes code statements in order, from top to bottom.</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <!-- Teacher Chunk Section (Remains at the bottom) -->
+    <div class="chunk-section" style="margin-top: 30px;">
+        <div class="chunk-badge">TEACHER CHUNK</div>
+        <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+        
+        <h3>How Variables Change</h3>
+        
+        <p>One of the most powerful features of variables is that they can change their values during a program's execution.</p>
+        
+        <div class="code-step-container">
+            <div class="code-step-header">
+                <span>Variable Change Step-by-Step</span>
+                <span id="code-step-indicator">Step 1 of 3</span>
+            </div>
+            
+            <div class="code-step-content">
+                <!-- Step 1 -->
+                <div id="code-step-1" class="code-step" style="display: block; border: none; background: none; padding: 10px 0; margin: 0;">
+                    <h4 style="margin-top: 0;">Step 1: Create the variable</h4>
+                    
+                    <div class="code-block">
+score = 10
+
+<span class="code-comment"># The variable 'score' now contains the value 10</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                        <p style="margin: 0;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> First, we create a variable named 'score' and assign it the initial value 10.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div id="code-step-2" class="code-step" style="display: none; border: none; background: none; padding: 10px 0; margin: 0;">
+                    <h4 style="margin-top: 0;">Step 2: Change the variable's value</h4>
+                    
+                    <div class="code-block">
+score = 10
+
+score = 15
+
+<span class="code-comment"># The variable 'score' now contains the value 15</span>
+<span class="code-comment"># The previous value (10) is lost</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                        <p style="margin: 0;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> Later in the program, we assign a new value (15) to the same variable. The old value is replaced.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div id="code-step-3" class="code-step" style="display: none; border: none; background: none; padding: 10px 0; margin: 0;">
+                    <h4 style="margin-top: 0;">Step 3: Use the variable's value</h4>
+                    
+                    <div class="code-block">
+score = 10
+
+score = 15
+
+print(score)
+<span class="code-comment"># Output: 15</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Point:</strong> When you use the variable (e.g., in a print statement), it will always show the most recent value assigned to it.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step-navigation">
+                <button id="prev-step-btn" class="step-btn" onclick="prevCodeStep()" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <button id="next-step-btn" class="step-btn" onclick="nextCodeStep()">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Interactive Variable Example -->
+        <div class="interactive-card" style="margin-top: 30px;">
+            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                <div class="element-number">2</div>
+                <h3>Interactive Variable Example <i class="fas fa-mouse-pointer" style="margin-left: 10px;"></i></h3>
+            </div>
+            
+            <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Try changing this variable's value by clicking the buttons:</p>
+            
+            <div class="variable-animation" style="padding: 30px; text-align: center;">
+                <p style="margin-bottom: 15px; color: var(--accent-color); font-weight: 600; font-size: 1.3em;">Integer Variable: counter</p>
+                
+                <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 20px;">
+                    <div style="text-align: center; border: 2px solid #eee; border-radius: 10px; padding: 15px; min-width: 120px;">
+                        <p style="font-size: 1.1em; color: #666; margin-bottom: 8px;">Previous Value:</p>
+                        <p id="previous-counter-value" style="font-size: 1.8rem; font-weight: bold; color: #888; margin: 0;">0</p>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fas fa-arrow-right" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 5px;"></i>
+                        <span style="font-size: 0.9em; color: #666;">Changes to</span>
+                    </div>
+                    
+                    <div style="text-align: center; border: 2px solid var(--accent-color); border-radius: 10px; padding: 15px; min-width: 120px; background-color: rgba(0, 38, 84, 0.05);">
+                        <p style="font-size: 1.1em; color: var(--accent-color); margin-bottom: 8px;">Current Value:</p>
+                        <p id="counter-value" style="font-size: 2.5rem; font-weight: bold; margin: 0;">0</p>
+                        <p style="font-size: 0.9em; margin: 5px 0 0 0;">Type: <span id="counter-type">number</span></p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 25px; display: flex; justify-content: center; gap: 20px;">
+                    <button id="decrease-counter" class="action-btn" style="background-color: #ff4d4f;" onclick="decrementCounter()">-1</button>
+                    <button id="increase-counter" class="action-btn" onclick="incrementCounter()">+1</button>
+                </div>
+                
+                <div style="margin-top: 30px; text-align: left;">
+                    <p style="margin-bottom: 10px; font-size: 1.2em;">What happens when you click a button:</p>
+                    <div id="code-display" class="code-block">
+<span class="code-comment"># The current value of counter is 0</span>
+counter = counter + 1
+<span class="code-comment"># This means "take the current value of counter (0),</span>
+<span class="code-comment"># add 1 to it (giving 1),</span>
+<span class="code-comment"># then store the result back in counter"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Memory Visualization -->
+        <div class="interactive-card" style="margin-top: 30px;">
+            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                <div class="element-number">3</div>
+                <h3>Memory Visualization <i class="fas fa-memory" style="margin-left: 10px;"></i></h3>
+            </div>
+            
+            <p style="font-size: 1.2em; text-align: center; margin-bottom: 25px;">Let's visualise how a variable's value changes in memory:</p>
+            
+            <div class="code-step-container">
+                <div class="code-step-header">
+                    <span>Memory Change Visualization</span>
+                    <span id="memory-step-indicator">Step 1 of 3</span>
+                </div>
+                
+                <div class="code-step-content">
+                    <!-- Memory Step 1 -->
+                    <div id="memory-step-1" class="variable-update-step active">
+                        <div class="code-block" style="position: relative;">
+score = 10
+                        </div>
+                        
+                        <div class="memory-visualization">
+                            <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
+                            <div class="computer-memory">
+                                <div class="memory-item">
+                                    <div class="memory-item-name">score</div>
+                                    <div class="memory-item-value">10</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Memory Step 2 -->
+                    <div id="memory-step-2" class="variable-update-step">
+                        <div class="code-block" style="position: relative;">
+score = 10
+score = 15
+                        </div>
+                        
+                        <div class="memory-visualization">
+                            <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
+                            <div class="computer-memory">
+                                <div class="memory-item" style="opacity: 0.5; text-decoration: line-through;">
+                                    <div class="memory-item-name">score</div>
+                                    <div class="memory-item-value">10</div>
+                                </div>
+                                <div class="memory-item">
+                                    <div class="memory-item-name">score</div>
+                                    <div class="memory-item-value">15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Memory Step 3 -->
+                    <div id="memory-step-3" class="variable-update-step">
+                        <div class="code-block" style="position: relative;">
+score = 10
+score = 15
+print(score)  # Output: 15
+                        </div>
+                        
+                        <div class="memory-visualization">
+                            <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
+                            <div class="computer-memory">
+                                <div class="memory-item">
+                                    <div class="memory-item-name">score</div>
+                                    <div class="memory-item-value">15</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-display" style="margin-top: 20px;">
+                                15
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-navigation">
+                    <button id="prev-memory-btn" class="step-btn" onclick="prevMemoryStep()" disabled>
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <button id="next-memory-btn" class="step-btn" onclick="nextMemoryStep()">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- CHEW 2: Try It Yourself -->
+        <section id="chew2" class="tab-content light-section">
+            <h1>CHEW 2: TRY IT YOURSELF <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 7 mins</div>
+                
+                <h3>Hands-On Coding Exercise</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create and use variables in a simple program</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Use string variables with the print() function</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Run your code and observe the output</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Exercise: Personal Introduction <i class="fas fa-id-card" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <i class="fas fa-laptop-code" style="font-size: 5em; color: var(--chew-color);"></i>
+                    </div>
+                    
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Open the Raspberry Pi Python editor</li>
+                        <li style="margin-bottom: 15px;">Create variables for your name and age</li>
+                        <li>Use the print() function to display a sentence using these variables</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Create variables for name and age</span>
+name = "Jai"
+age = 12
+
+<span class="code-comment"># Print a sentence using the variables</span>
+print("Hi, my name is", name, "and I am", age, "years old.")
+                    </div>
+                    
+                    <div class="result-display">
+                        Hi, my name is Jai and I am 12 years old.
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Extension: Change Your Variables <i class="fas fa-level-up-alt" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">After your code is working, try:</p>
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Changing the values of your variables</li>
+                        <li style="margin-bottom: 15px;">Adding another variable for your favourite hobby</li>
+                        <li>Updating your print statement to include the new variable</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Updated variables</span>
+name = "Jai"
+age = 12
+hobby = "skateboarding"
+
+<span class="code-comment"># Print with all three variables</span>
+print("Hi, my name is", name, "and I am", age, "years old.")
+print("My favourite hobby is", hobby + ".")
+                    </div>
+                    
+                    <div class="result-display">
+                        Hi, my name is Jai and I am 12 years old.
+                        My favourite hobby is skateboarding.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Common Coding Mistakes <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
+                
+                <div class="two-column-grid">
+                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
+                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
+name = Jai
+                        </div>
+                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> Missing quotes around a string value.</p>
+                            <p style="margin: 0;"><strong>Fix:</strong> Always put string values in quotes.</p>
+                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
+name = "Jai"
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
+                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
+                            print("I am " + age + " years old.")
+                        </div>
+                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> You cannot add strings and numbers together in Python.</p>
+                            <p style="margin-bottom: 10px;"><strong>Fix:</strong> Either use commas in print() or convert to string.</p>
+                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
+print("I am", age, "years old.")
+                            </div>
+                            <p style="margin: 5px 0 0 0;">or</p>
+                            <div class="code-block" style="color: var(--good-color); margin-top: 5px; white-space: normal; word-wrap: break-word;">
+print("I am " + str(age) + " years old.")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 3: Using Variables in Simple Problems -->
+        <section id="chunk3" class="tab-content dark-section">
+            <h1>CHUNK 3: USING VARIABLES IN PROBLEMS <i class="fas fa-tools" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Solving Problems with Variables</h3>
+                
+                <p>Variables become really powerful when we use them to solve problems. Let's explore how variables can be used in a simple calculation.</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Calculating Area <i class="fas fa-vector-square" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a program that calculates the area of a rectangle:</p>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Store the dimensions in variables</span>
+length = 8
+width = 3
+
+<span class="code-comment"># Calculate the area using the variables</span>
+area = length * width
+
+<span class="code-comment"># Display the result</span>
+print("Area:", area)  <span class="code-comment"># Output: Area: 24</span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; margin: 30px 0;">
+                        <div style="border: 2px solid var(--outline-color); padding: 15px; position: relative; width: 50%;">
+                            <p style="text-align: center; font-weight: 600; margin-bottom: 15px; font-size: 1.2em;">Rectangle Visualisation</p>
+                            <div style="width: 100%; height: 0; padding-bottom: 37.5%; background-color: rgba(59, 130, 246, 0.3); border: 2px solid var(--outline-color); position: relative; margin: 0 auto;">
+                                <!-- Width label -->
+                                <div style="position: absolute; top: 35%; left: -70px; transform: rotate(-90deg);">
+                                    <span style="background-color: white; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--outline-color); font-weight: 600;">width = 3</span>
+                                </div>
+                                
+                                <!-- Area label -->
+                                <div style="position: absolute; top: 35%; left: 0; width: 100%; text-align: center;">
+                                    <span style="background-color: white; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--outline-color); font-weight: 600; font-size: 1.2em;">area = 24</span>
+                                </div>
+                                
+                                <!-- Length label -->
+                                <div style="position: absolute; bottom: -35px; left: 0; width: 100%; text-align: center;">
+                                    <span style="background-color: white; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--outline-color); font-weight: 600;">length = 8</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>The Power of Variables <i class="fas fa-magic" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">What makes this approach powerful:</p>
+                    
+                    <div class="elements-grid" style="margin-top: 0;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <i class="fas fa-sync-alt" style="font-size: 1.5em; color: var(--accent-color);"></i>
+                                </div>
+                                <h4 style="margin: 0; font-size: 1.2em;">REUSABILITY</h4>
+                            </div>
+                            <p>We can change the values of length and width, and the program will calculate a new area</p>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <i class="fas fa-book-reader" style="font-size: 1.5em; color: var(--accent-color);"></i>
+                                </div>
+                                <h4 style="margin: 0; font-size: 1.2em;">READABILITY</h4>
+                            </div>
+                            <p>The variable names make it clear what each value represents in our calculation</p>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <i class="fas fa-random" style="font-size: 1.5em; color: var(--accent-color);"></i>
+                                </div>
+                                <h4 style="margin: 0; font-size: 1.2em;">FLEXIBILITY</h4>
+                            </div>
+                            <p>We can use the variables in multiple calculations and formulas if needed</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Point:</strong> By using variables instead of hardcoded values, we can easily modify the program to work with different inputs.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>More Variable Use Cases <i class="fas fa-project-diagram" style="margin-left: 10px;"></i></h3>
+                
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="element-card" style="margin-bottom: 25px;">
+                        <div class="element-header">
+                            <div class="element-number">1</div>
+                            <h3>TEMPERATURE CONVERTER <i class="fas fa-temperature-high" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <div class="code-block">
+<span class="code-comment"># Convert Celsius to Fahrenheit</span>
+celsius = 30
+fahrenheit = (celsius * 9/5) + 32
+print(fahrenheit)  <span class="code-comment"># 86.0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card" style="margin-bottom: 25px;">
+                        <div class="element-header">
+                            <div class="element-number">2</div>
+                            <h3>TAX CALCULATOR <i class="fas fa-receipt" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <div class="code-block">
+<span class="code-comment"># Calculate price after tax</span>
+price = 50
+tax_rate = 0.1  <span class="code-comment"># 10%</span>
+total = price + (price * tax_rate)
+print(total)  <span class="code-comment"># 55.0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">3</div>
+                            <h3>GREETING GENERATOR <i class="fas fa-comment" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <div class="code-block">
+<span class="code-comment"># Create personalised greeting</span>
+name = "Alex"
+time = "morning"
+greeting = "Good " + time + ", " + name + "!"
+print(greeting)  <span class="code-comment"># Good morning, Alex!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 3: Challenge Time! -->
+        <section id="chew3" class="tab-content light-section">
+            <h1>CHEW 3: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Challenge: Simple Calculator</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create a program that stores and manipulates numeric variables</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using variables in calculations</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Display results using print()</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Basic Challenge <i class="fas fa-star" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <i class="fas fa-calculator" style="font-size: 5em; color: var(--chew-color);"></i>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Write a program that:</p>
+                    
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Stores two numbers in variables</li>
+                        <li style="margin-bottom: 15px;">Adds them together and stores the result in a third variable</li>
+                        <li>Prints a full sentence showing the result</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Store two numbers in variables</span>
+num1 = 7
+num2 = 3
+
+<span class="code-comment"># Calculate the sum</span>
+sum_result = num1 + num2
+
+<span class="code-comment"># Print a sentence with the result</span>
+print("The sum of", num1, "and", num2, "is", sum_result)
+                    </div>
+                    
+                    <div class="result-display">
+                        The sum of 7 and 3 is 10
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Extension Challenges <i class="fas fa-star" style="margin-left: 10px;"></i><i class="fas fa-star" style="margin-left: 5px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Try these additional challenges:</p>
+                    
+                    <div class="two-column-grid" style="margin-top: 0;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
+                            <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Challenge A: Complete Calculator</h4>
+                            <p>Extend your program to also calculate and display:</p>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li><i class="fas fa-minus" style="margin-right: 10px; color: var(--chew-color);"></i> Subtraction (num1 - num2)</li>
+                                <li><i class="fas fa-times" style="margin-right: 10px; color: var(--chew-color);"></i> Multiplication (num1 * num2)</li>
+                                <li><i class="fas fa-divide" style="margin-right: 10px; color: var(--chew-color);"></i> Division (num1 / num2)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
+                            <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Challenge B: Format Output</h4>
+                            <p>Format your output to look like this:</p>
+                            <div class="result-display" style="margin-top: 15px;">
+                                CALCULATOR RESULTS:<br>
+                                ------------------<br>
+                                7 + 3 = 10<br>
+                                7 - 3 = 4<br>
+                                7 * 3 = 21<br>
+                                7 / 3 = 2.33<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Example Solution <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
+                
+                <div class="code-block">
+<span class="code-comment"># Complete calculator example</span>
+num1 = 7
+num2 = 3
+
+<span class="code-comment"># Calculate all operations</span>
+sum_result = num1 + num2
+difference = num1 - num2
+product = num1 * num2
+quotient = num1 / num2
+
+<span class="code-comment"># Display results in a nice format</span>
+print("CALCULATOR RESULTS:")
+print("------------------")
+print(num1, "+", num2, "=", sum_result)
+print(num1, "-", num2, "=", difference)
+print(num1, "*", num2, "=", product)
+print(num1, "/", num2, "=", round(quotient, 2))  <span class="code-comment"># Round to 2 decimal places</span>
+                </div>
+                
+                <div class="result-display">
+                    CALCULATOR RESULTS:<br>
+                    ------------------<br>
+                    7 + 3 = 10<br>
+                    7 - 3 = 4<br>
+                    7 * 3 = 21<br>
+                    7 / 3 = 2.33
+                </div>
+                
+                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
+                    <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Key Points Learned</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables store data that can be referenced and changed</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables are created using the assignment operator (=)</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables can store different types of data (text, numbers)</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables can be used in calculations and expressions</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables make code flexible - changing inputs gives new results</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        sidebar: '#0a2351',
-                        sidebarhover: '#0f3272',
-                        accent: '#0a2351',
-                        highlight: '#3b82f6',
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-in-out',
-                        'slide-in': 'slideIn 0.5s ease-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideIn: {
-                            '0%': { transform: 'translateY(10px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        * {
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-        }
-        
-        .sidebar-item {
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        
-        .sidebar-item:hover {
-            transform: translateX(5px);
-        }
-        
-        .sidebar-item.active {
-            border-left: 4px solid white;
-        }
-        
-        .content-section {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        
-        .content-section.active {
-            display: block;
-        }
-        
-        .variable-box {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .variable-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .example-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .example-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .highlight-code {
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .highlight-code:hover {
-            background-color: #f1f5f9;
-        }
-        
-        .tooltip {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            background-color: #0a2351;
-            color: white;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px 12px;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -80px;
-            transition: opacity 0.3s;
-        }
-        
-        .tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #0a2351 transparent transparent transparent;
-        }
-        
-        .interactive-hover:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-        
-        .example-box {
-            transition: all 0.3s ease;
-        }
-        
-        .example-box:hover {
-            transform: scale(1.02);
-        }
-        
-        .run-code-btn {
-            transition: all 0.2s ease;
-        }
-        
-        .run-code-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .quiz-option {
-            transition: all 0.2s ease;
-        }
-        
-        .quiz-option:hover {
-            transform: translateX(5px);
-        }
-        
-        .quiz-option.correct {
-            background-color: #10b981;
-            color: white;
-        }
-        
-        .quiz-option.wrong {
-            background-color: #ef4444;
-            color: white;
-        }
-        
-        .quiz-option.selected {
-            border-color: #3b82f6;
-            border-width: 2px;
-        }
-        
-        .variable-animation {
-            transition: all 0.5s ease;
-        }
-
-        .syntax-step {
-            transition: all 0.3s ease;
-        }
-        
-        .syntax-step:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .syntax-part {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .syntax-part:hover {
-            background-color: #e0f2fe;
-        }
-
-        .syntax-tooltip {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #0a2351;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            width: 200px;
-            z-index: 10;
-            transition: opacity 0.3s;
-        }
-
-        .syntax-part:hover .syntax-tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-        
-        /* Styles for syntax sections */
-        .syntax-section {
-            margin-bottom: 2.5rem;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            position: relative;
-        }
-
-        .declaration-section {
-            background-color: rgba(219, 234, 254, 0.4);
-            border-left: 6px solid #3b82f6;
-        }
-
-        .reassignment-section {
-            background-color: rgba(237, 233, 254, 0.4);
-            border-left: 6px solid #8b5cf6;
-        }
-
-        .multiple-section {
-            background-color: rgba(254, 226, 226, 0.4);
-            border-left: 6px solid #ef4444;
-        }
-
-        .navigation-controls {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.5rem;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-
-        .section-title-badge {
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .declaration-badge {
-            background-color: #3b82f6;
-        }
-
-        .reassignment-badge {
-            background-color: #8b5cf6;
-        }
-
-        .multiple-badge {
-            background-color: #ef4444;
-        }
-
-        .btn-declaration {
-            background-color: #3b82f6;
-            color: white;
-        }
-
-        .btn-declaration:hover:not(:disabled) {
-            background-color: #2563eb;
-        }
-
-        .btn-reassignment {
-            background-color: #8b5cf6;
-            color: white;
-        }
-
-        .btn-reassignment:hover:not(:disabled) {
-            background-color: #7c3aed;
-        }
-
-        .btn-multiple {
-            background-color: #ef4444;
-            color: white;
-        }
-
-        .btn-multiple:hover:not(:disabled) {
-            background-color: #dc2626;
-        }
-
-        /* Memory visualization */
-        .memory-box {
-            position: relative;
-            width: 100%;
-            height: 320px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background-color: #f8fafc;
-            overflow: hidden;
-        }
-
-        .memory-cell {
-            position: absolute;
-            width: 140px;
-            height: 70px;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            background-color: white;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.5s ease;
-        }
-
-        .memory-label {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .memory-value {
-            font-size: 16px;
-            font-family: monospace;
-        }
-
-        .memory-arrow {
-            position: absolute;
-            width: 80px;
-            height: 2px;
-            background-color: #94a3b8;
-            transform-origin: left center;
-            transition: all 0.5s ease;
-        }
-
-        .memory-arrow::after {
-            content: "";
-            position: absolute;
-            right: -8px;
-            top: -4px;
-            width: 0;
-            height: 0;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            border-left: 8px solid #94a3b8;
-        }
-
-        /* Type visualization classes */
-        .type-int { border-color: #3b82f6; }
-        .type-float { border-color: #8b5cf6; }
-        .type-str { border-color: #ef4444; }
-        .type-bool { border-color: #10b981; }
-        .type-list { border-color: #f59e0b; }
-    </style>
-    <script>
-        // Global variables for interactive examples
-        let counterValue = 0;
-        let fruitVariable = "apple";
+        // Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and tabs
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to selected button and tab
+                    this.classList.add('active');
+                    document.getElementById(tab).classList.add('active');
+                });
+            });
+            
+            // Initialize counter and memory visualization variables
+            updateCounterDisplay();
+            
+            // Initialize step navigation
+            document.getElementById('code-step-1').style.display = 'block';
+            document.getElementById('code-step-2').style.display = 'none';
+            document.getElementById('code-step-3').style.display = 'none';
+            
+            document.getElementById('prev-step-btn').disabled = true;
+            document.getElementById('next-step-btn').disabled = false;
+            
+            // Initialize new variable assignment steps
+            document.getElementById('var-step-1').classList.add('active');
+            document.getElementById('var-step-2').classList.remove('active');
+            document.getElementById('var-step-3').classList.remove('active');
+            
+            document.getElementById('prev-var-btn').disabled = true;
+            document.getElementById('next-var-btn').disabled = false;
+            
+            // Initialize memory visualization steps
+            document.getElementById('memory-step-1').classList.add('active');
+            document.getElementById('memory-step-2').classList.remove('active');
+            document.getElementById('memory-step-3').classList.remove('active');
+            
+            document.getElementById('prev-memory-btn').disabled = true;
+            document.getElementById('next-memory-btn').disabled = false;
+            
+            // Initialize variable update steps
+            document.getElementById('update-step-1').classList.add('active');
+            document.getElementById('update-step-2').classList.remove('active');
+            document.getElementById('update-step-3').classList.remove('active');
+            document.getElementById('update-step-4').classList.remove('active');
+            
+            document.getElementById('prev-update-btn').disabled = true;
+            document.getElementById('next-update-btn').disabled = false;
+        });
         
         // Counter demo functions
+        let counterValue = 0;
+        let previousValue = 0;
+        
         function incrementCounter() {
+            previousValue = counterValue;
             counterValue += 1;
             updateCounterDisplay();
             
             var codeDisplay = document.getElementById('code-display');
             if (codeDisplay) {
-                codeDisplay.innerHTML = `<p># Previous value: ${counterValue - 1}</p>
-<p>counter = counter + 1</p>
-<p># New value: ${counterValue}</p>`;
+                codeDisplay.innerHTML = `<span class="code-comment"># The current value of counter is ${previousValue}</span>\ncounter = counter + 1\n<span class="code-comment"># This means "take the current value of counter (${previousValue}),</span>\n<span class="code-comment"># add 1 to it (giving ${counterValue}),</span>\n<span class="code-comment"># then store the result back in counter"</span>`;
             }
             
             animateCounterChange('increase');
         }
         
         function decrementCounter() {
+            previousValue = counterValue;
             counterValue -= 1;
             updateCounterDisplay();
             
             var codeDisplay = document.getElementById('code-display');
             if (codeDisplay) {
-                codeDisplay.innerHTML = `<p># Previous value: ${counterValue + 1}</p>
-<p>counter = counter - 1</p>
-<p># New value: ${counterValue}</p>`;
+                codeDisplay.innerHTML = `<span class="code-comment"># The current value of counter is ${previousValue}</span>\ncounter = counter - 1\n<span class="code-comment"># This means "take the current value of counter (${previousValue}),</span>\n<span class="code-comment"># subtract 1 from it (giving ${counterValue}),</span>\n<span class="code-comment"># then store the result back in counter"</span>`;
             }
             
             animateCounterChange('decrease');
@@ -401,8 +1212,15 @@
         
         function updateCounterDisplay() {
             var valueElement = document.getElementById('counter-value');
+            var prevValueElement = document.getElementById('previous-counter-value');
+            
             if (valueElement) {
                 valueElement.textContent = counterValue;
+                
+                // Update the previous value
+                if (prevValueElement) {
+                    prevValueElement.textContent = previousValue;
+                }
                 
                 // Update the type display as well
                 var typeElement = document.getElementById('counter-type');
@@ -417,1447 +1235,182 @@
             if (valueElement) {
                 valueElement.style.transition = 'transform 0.3s, color 0.3s';
                 valueElement.style.transform = 'scale(1.2)';
-                valueElement.style.color = direction === 'increase' ? '#3b82f6' : '#ef4444';
+                valueElement.style.color = direction === 'increase' ? 'var(--accent-color)' : 'var(--bad-color)';
                 
                 setTimeout(function() {
                     valueElement.style.transform = 'scale(1)';
-                    valueElement.style.color = 'black';
+                    valueElement.style.color = 'var(--text-color)';
                 }, 300);
             }
         }
         
-        // Fruit picker functions
-        function changeFruit() {
-            const fruits = ["apple", "banana", "cherry", "date", "elderberry"];
-            let currentIndex = fruits.indexOf(fruitVariable);
-            let nextIndex = (currentIndex + 1) % fruits.length;
-            fruitVariable = fruits[nextIndex];
-            
-            updateFruitDisplay();
-            
-            var codeDisplay = document.getElementById('fruit-code');
-            if (codeDisplay) {
-                codeDisplay.innerHTML = `<p># Previous value: "${fruits[currentIndex]}"</p>
-<p>fruit = "${fruitVariable}"</p>
-<p># New value: "${fruitVariable}"</p>`;
-            }
-            
-            animateFruitChange();
-        }
+        // Code step by step navigation
+        let currentStep = 1;
+        const totalSteps = 3;
         
-        function updateFruitDisplay() {
-            var valueElement = document.getElementById('fruit-value');
-            if (valueElement) {
-                valueElement.textContent = fruitVariable;
+        function nextCodeStep() {
+            if (currentStep < totalSteps) {
+                // Hide current step
+                document.getElementById(`code-step-${currentStep}`).style.display = 'none';
                 
-                // Update the type display as well
-                var typeElement = document.getElementById('fruit-type');
-                if (typeElement) {
-                    typeElement.textContent = typeof(fruitVariable);
-                }
-            }
-        }
-        
-        function animateFruitChange() {
-            var valueElement = document.getElementById('fruit-value');
-            if (valueElement) {
-                valueElement.style.transition = 'transform 0.3s, color 0.3s';
-                valueElement.style.transform = 'scale(1.2)';
-                valueElement.style.color = '#8b5cf6';
-                
-                setTimeout(function() {
-                    valueElement.style.transform = 'scale(1)';
-                    valueElement.style.color = 'black';
-                }, 300);
-            }
-        }
-
-        // Syntax simulation functions for variable declaration
-        let currentStep = 0;
-        let maxSteps = 6;
-        let currentReassignStep = 0;
-        let maxReassignSteps = 4;
-        let currentMultipleStep = 0;
-        let maxMultipleSteps = 3;
-
-        function nextSyntaxStep() {
-            if (currentStep < maxSteps) {
+                // Show next step
                 currentStep++;
-                updateSyntaxSimulation();
+                document.getElementById(`code-step-${currentStep}`).style.display = 'block';
+                
+                // Update indicator and buttons
+                document.getElementById('code-step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+                document.getElementById('prev-step-btn').disabled = false;
+                
+                if (currentStep === totalSteps) {
+                    document.getElementById('next-step-btn').disabled = true;
+                }
             }
         }
-
-        function prevSyntaxStep() {
-            if (currentStep > 0) {
+        
+        function prevCodeStep() {
+            if (currentStep > 1) {
+                // Hide current step
+                document.getElementById(`code-step-${currentStep}`).style.display = 'none';
+                
+                // Show previous step
                 currentStep--;
-                updateSyntaxSimulation();
-            }
-        }
-
-        function nextReassignStep() {
-            if (currentReassignStep < maxReassignSteps) {
-                currentReassignStep++;
-                updateReassignSimulation();
-            }
-        }
-
-        function prevReassignStep() {
-            if (currentReassignStep > 0) {
-                currentReassignStep--;
-                updateReassignSimulation();
-            }
-        }
-
-        function nextMultipleStep() {
-            if (currentMultipleStep < maxMultipleSteps) {
-                currentMultipleStep++;
-                updateMultipleSimulation();
-            }
-        }
-
-        function prevMultipleStep() {
-            if (currentMultipleStep > 0) {
-                currentMultipleStep--;
-                updateMultipleSimulation();
-            }
-        }
-
-        function updateSyntaxSimulation() {
-            // Hide all steps
-            for (let i = 0; i <= maxSteps; i++) {
-                let step = document.getElementById(`syntax-step-${i}`);
-                if (step) {
-                    step.classList.add('hidden');
+                document.getElementById(`code-step-${currentStep}`).style.display = 'block';
+                
+                // Update indicator and buttons
+                document.getElementById('code-step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+                document.getElementById('next-step-btn').disabled = false;
+                
+                if (currentStep === 1) {
+                    document.getElementById('prev-step-btn').disabled = true;
                 }
             }
-            
-            // Show current step
-            let currentStepElement = document.getElementById(`syntax-step-${currentStep}`);
-            if (currentStepElement) {
-                currentStepElement.classList.remove('hidden');
-            }
-            
-            // Update buttons
-            let prevButton = document.getElementById('syntax-prev-btn');
-            let nextButton = document.getElementById('syntax-next-btn');
-            
-            if (prevButton) {
-                prevButton.disabled = currentStep === 0;
-                prevButton.classList.toggle('opacity-50', currentStep === 0);
-            }
-            
-            if (nextButton) {
-                nextButton.disabled = currentStep === maxSteps;
-                nextButton.classList.toggle('opacity-50', currentStep === maxSteps);
-            }
-            
-            // Update step indicator
-            let stepIndicator = document.getElementById('step-indicator');
-            if (stepIndicator) {
-                stepIndicator.textContent = `Step ${currentStep} of ${maxSteps}`;
-            }
         }
-
-        function updateReassignSimulation() {
-            // Hide all steps
-            for (let i = 0; i <= maxReassignSteps; i++) {
-                let step = document.getElementById(`reassign-step-${i}`);
-                if (step) {
-                    step.classList.add('hidden');
+        
+        // Variable assignment step by step navigation
+        let currentVarStep = 1;
+        const totalVarSteps = 3;
+        
+        function nextVarStep() {
+            if (currentVarStep < totalVarSteps) {
+                // Hide current step
+                document.getElementById(`var-step-${currentVarStep}`).classList.remove('active');
+                
+                // Show next step
+                currentVarStep++;
+                document.getElementById(`var-step-${currentVarStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('var-assignment-indicator').textContent = `Step ${currentVarStep} of ${totalVarSteps}`;
+                document.getElementById('prev-var-btn').disabled = false;
+                
+                if (currentVarStep === totalVarSteps) {
+                    document.getElementById('next-var-btn').disabled = true;
                 }
             }
-            
-            // Show current step
-            let currentStepElement = document.getElementById(`reassign-step-${currentReassignStep}`);
-            if (currentStepElement) {
-                currentStepElement.classList.remove('hidden');
-            }
-            
-            // Update buttons
-            let prevButton = document.getElementById('reassign-prev-btn');
-            let nextButton = document.getElementById('reassign-next-btn');
-            
-            if (prevButton) {
-                prevButton.disabled = currentReassignStep === 0;
-                prevButton.classList.toggle('opacity-50', currentReassignStep === 0);
-            }
-            
-            if (nextButton) {
-                nextButton.disabled = currentReassignStep === maxReassignSteps;
-                nextButton.classList.toggle('opacity-50', currentReassignStep === maxReassignSteps);
-            }
-            
-            // Update step indicator
-            let stepIndicator = document.getElementById('reassign-step-indicator');
-            if (stepIndicator) {
-                stepIndicator.textContent = `Step ${currentReassignStep} of ${maxReassignSteps}`;
-            }
         }
-
-        function updateMultipleSimulation() {
-            // Hide all steps
-            for (let i = 0; i <= maxMultipleSteps; i++) {
-                let step = document.getElementById(`multiple-step-${i}`);
-                if (step) {
-                    step.classList.add('hidden');
+        
+        function prevVarStep() {
+            if (currentVarStep > 1) {
+                // Hide current step
+                document.getElementById(`var-step-${currentVarStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentVarStep--;
+                document.getElementById(`var-step-${currentVarStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('var-assignment-indicator').textContent = `Step ${currentVarStep} of ${totalVarSteps}`;
+                document.getElementById('next-var-btn').disabled = false;
+                
+                if (currentVarStep === 1) {
+                    document.getElementById('prev-var-btn').disabled = true;
                 }
             }
-            
-            // Show current step
-            let currentStepElement = document.getElementById(`multiple-step-${currentMultipleStep}`);
-            if (currentStepElement) {
-                currentStepElement.classList.remove('hidden');
-            }
-            
-            // Update buttons
-            let prevButton = document.getElementById('multiple-prev-btn');
-            let nextButton = document.getElementById('multiple-next-btn');
-            
-            if (prevButton) {
-                prevButton.disabled = currentMultipleStep === 0;
-                prevButton.classList.toggle('opacity-50', currentMultipleStep === 0);
-            }
-            
-            if (nextButton) {
-                nextButton.disabled = currentMultipleStep === maxMultipleSteps;
-                nextButton.classList.toggle('opacity-50', currentMultipleStep === maxMultipleSteps);
-            }
-            
-            // Update step indicator
-            let stepIndicator = document.getElementById('multiple-step-indicator');
-            if (stepIndicator) {
-                stepIndicator.textContent = `Step ${currentMultipleStep} of ${maxMultipleSteps}`;
-            }
         }
-
-        function highlightSyntaxPart(id) {
-            // Reset all highlights
-            document.querySelectorAll('.syntax-part').forEach(part => {
-                part.classList.remove('bg-yellow-200');
-            });
-            
-            // Highlight selected part
-            let part = document.getElementById(id);
-            if (part) {
-                part.classList.add('bg-yellow-200');
+        
+        // Memory visualization step by step navigation
+        let currentMemoryStep = 1;
+        const totalMemorySteps = 3;
+        
+        function nextMemoryStep() {
+            if (currentMemoryStep < totalMemorySteps) {
+                // Hide current step
+                document.getElementById(`memory-step-${currentMemoryStep}`).classList.remove('active');
+                
+                // Show next step
+                currentMemoryStep++;
+                document.getElementById(`memory-step-${currentMemoryStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('memory-step-indicator').textContent = `Step ${currentMemoryStep} of ${totalMemorySteps}`;
+                document.getElementById('prev-memory-btn').disabled = false;
+                
+                if (currentMemoryStep === totalMemorySteps) {
+                    document.getElementById('next-memory-btn').disabled = true;
+                }
             }
         }
         
-        // Type demo functions
-        function changeType(type) {
-            const valueField = document.getElementById('type-demo-value');
-            const typeField = document.getElementById('type-demo-type');
-            const containerField = document.getElementById('type-demo-container');
-            
-            let newValue = '';
-            let newType = '';
-            
-            // Reset classes
-            containerField.className = 'bg-white p-6 rounded-lg shadow-md';
-            containerField.classList.add('border-l-4');
-            
-            switch(type) {
-                case 'int':
-                    newValue = '42';
-                    newType = 'int';
-                    containerField.classList.add('border-blue-500');
-                    break;
-                case 'float':
-                    newValue = '3.14159';
-                    newType = 'float';
-                    containerField.classList.add('border-purple-500');
-                    break;
-                case 'str':
-                    newValue = '"Hello, world!"';
-                    newType = 'str';
-                    containerField.classList.add('border-red-500');
-                    break;
-                case 'bool':
-                    newValue = 'True';
-                    newType = 'bool';
-                    containerField.classList.add('border-green-500');
-                    break;
-                case 'list':
-                    newValue = '[1, 2, 3, 4]';
-                    newType = 'list';
-                    containerField.classList.add('border-yellow-500');
-                    break;
-            }
-            
-            valueField.textContent = newValue;
-            typeField.textContent = newType;
-            
-            // Animation effect
-            valueField.style.transition = 'transform 0.3s, color 0.3s';
-            valueField.style.transform = 'scale(1.2)';
-            
-            setTimeout(function() {
-                valueField.style.transform = 'scale(1)';
-            }, 300);
-        }
-        
-        // Memory visualization demo
-        let currentMemoryState = 1;
-        
-        function nextMemoryState() {
-            currentMemoryState = Math.min(4, currentMemoryState + 1);
-            updateMemoryVisualization();
-        }
-        
-        function prevMemoryState() {
-            currentMemoryState = Math.max(1, currentMemoryState - 1);
-            updateMemoryVisualization();
-        }
-        
-        function updateMemoryVisualization() {
-            // Update the memory visuals based on the current state
-            const nameCell = document.getElementById('memory-name');
-            const ageCell = document.getElementById('memory-age');
-            const nameArrow = document.getElementById('name-arrow');
-            const ageArrow = document.getElementById('age-arrow');
-            const nameValueCell = document.getElementById('memory-name-value');
-            const ageValueCell = document.getElementById('memory-age-value');
-            const codeDisplay = document.getElementById('memory-code');
-            const stateHeading = document.getElementById('memory-state-heading');
-            
-            // Clear previous styles
-            [nameCell, ageCell, nameValueCell, ageValueCell].forEach(el => {
-                el.style.boxShadow = 'none';
-            });
-            
-            if (stateHeading) {
-                stateHeading.textContent = `State ${currentMemoryState}`;
-            }
-            
-            // Set appropriate values for the current state
-            switch(currentMemoryState) {
-                case 1:
-                    // Initial state
-                    nameValueCell.innerHTML = '<span class="memory-value">None</span>';
-                    ageValueCell.innerHTML = '<span class="memory-value">None</span>';
-                    nameCell.style.left = '60px';
-                    nameCell.style.top = '30px';
-                    ageCell.style.left = '60px';
-                    ageCell.style.top = '120px';
-                    nameValueCell.style.left = '300px';
-                    nameValueCell.style.top = '30px';
-                    ageValueCell.style.left = '300px';
-                    ageValueCell.style.top = '120px';
-                    
-                    // Arrows are hidden
-                    nameArrow.style.width = '0';
-                    ageArrow.style.width = '0';
-                    
-                    if (codeDisplay) {
-                        codeDisplay.innerHTML = '# No variables initialized yet';
-                    }
-                    break;
-                    
-                case 2:
-                    // After name = "Alice"
-                    nameValueCell.innerHTML = '<span class="memory-value">"Alice"</span>';
-                    ageValueCell.innerHTML = '<span class="memory-value">None</span>';
-                    
-                    // Highlight the name variable
-                    nameCell.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.7)';
-                    nameValueCell.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.7)';
-                    
-                    // Add arrow from name to its value
-                    nameArrow.style.width = '80px';
-                    nameArrow.style.transform = 'rotate(0deg)';
-                    nameArrow.style.left = '210px';
-                    nameArrow.style.top = '45px';
-                    
-                    if (codeDisplay) {
-                        codeDisplay.innerHTML = '# Variable declaration\nname = "Alice"';
-                    }
-                    break;
-                    
-                case 3:
-                    // After age = 25
-                    nameValueCell.innerHTML = '<span class="memory-value">"Alice"</span>';
-                    ageValueCell.innerHTML = '<span class="memory-value">25</span>';
-                    
-                    // Add arrow from age to its value
-                    ageArrow.style.width = '80px';
-                    ageArrow.style.transform = 'rotate(0deg)';
-                    ageArrow.style.left = '210px';
-                    ageArrow.style.top = '135px';
-                    
-                    // Highlight the age variable
-                    ageCell.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.7)';
-                    ageValueCell.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.7)';
-                    
-                    if (codeDisplay) {
-                        codeDisplay.innerHTML = '# Second variable declaration\nage = 25';
-                    }
-                    break;
-                    
-                case 4:
-                    // After name = "Bob"
-                    nameValueCell.innerHTML = '<span class="memory-value">"Bob"</span>';
-                    ageValueCell.innerHTML = '<span class="memory-value">25</span>';
-                    
-                    // Highlight the updated variable
-                    nameCell.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.7)';
-                    nameValueCell.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.7)';
-                    
-                    if (codeDisplay) {
-                        codeDisplay.innerHTML = '# Variable reassignment\nname = "Bob"';
-                    }
-                    break;
-            }
-            
-            // Update the navigation buttons
-            const prevButton = document.getElementById('memory-prev-btn');
-            const nextButton = document.getElementById('memory-next-btn');
-            
-            if (prevButton) {
-                prevButton.disabled = currentMemoryState === 1;
-                prevButton.classList.toggle('opacity-50', currentMemoryState === 1);
-            }
-            
-            if (nextButton) {
-                nextButton.disabled = currentMemoryState === 4;
-                nextButton.classList.toggle('opacity-50', currentMemoryState === 4);
+        function prevMemoryStep() {
+            if (currentMemoryStep > 1) {
+                // Hide current step
+                document.getElementById(`memory-step-${currentMemoryStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentMemoryStep--;
+                document.getElementById(`memory-step-${currentMemoryStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('memory-step-indicator').textContent = `Step ${currentMemoryStep} of ${totalMemorySteps}`;
+                document.getElementById('next-memory-btn').disabled = false;
+                
+                if (currentMemoryStep === 1) {
+                    document.getElementById('prev-memory-btn').disabled = true;
+                }
             }
         }
-    </script>
-</head>
-<body class="bg-gray-100 min-h-screen flex">
-    <!-- Sidebar Navigation -->
-    <div class="w-[180px] bg-sidebar text-white min-h-screen flex flex-col fixed">
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer border-b border-gray-600" onclick="window.location.href='index.html'">
-            <div class="text-center">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                </div>
-                <span class="block mt-1 text-center">HOME</span>
-            </div>
-        </div>
         
-        <div class="mt-4"></div>
+        // Variable updating step by step navigation
+        let currentUpdateStep = 1;
+        const totalUpdateSteps = 4;
         
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="lisc">
-            <div class="text-center">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                    </svg>
-                </div>
-                <span class="block mt-1 text-center">LI / SC</span>
-            </div>
-        </div>
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="intro">
-            <div class="text-center">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                <span class="block mt-1 text-center">INTRO</span>
-            </div>
-        </div>
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="syntax">
-            <div class="text-center">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                </div>
-                <span class="block mt-1 text-center">SYNTAX</span>
-            </div>
-        </div>
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="types">
-            <div class="text-center">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-                    </svg>
-                </div>
-                <span class="block mt-1 text-center">TYPES</span>
-            </div>
-        </div>
-        <div class="sidebar-item p-5 flex items-center justify-center hover:bg-sidebarhover cursor-pointer" data-section="operations">
-            <div class="text-center">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                    </svg>
-                </div>
-                <span class="block mt-1 text-center">OPERATIONS</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content Area -->
-    <div class="ml-[180px] w-full p-8">
-        <!-- Learning Intentions and Success Criteria section -->
-        <section id="lisc" class="content-section active animate-fade-in">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">LEARNING INTENTIONS & SUCCESS CRITERIA</h1>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6 animate-slide-in">
-                <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    <h2 class="text-2xl font-bold text-accent">Learning Intentions</h2>
-                </div>
+        function nextUpdateStep() {
+            if (currentUpdateStep < totalUpdateSteps) {
+                // Hide current step
+                document.getElementById(`update-step-${currentUpdateStep}`).classList.remove('active');
                 
-                <ul class="list-disc pl-8 space-y-3">
-                    <li class="text-lg">Understand what variables are and why they're fundamental in programming</li>
-                    <li class="text-lg">Learn how to create, name, and assign values to variables in Python</li>
-                    <li class="text-lg">Recognize different data types that can be stored in variables</li>
-                    <li class="text-lg">Learn how to perform operations on variables and change their values</li>
-                </ul>
-            </div>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.2s;">
-                <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h2 class="text-2xl font-bold text-accent">Success Criteria</h2>
-                </div>
+                // Show next step
+                currentUpdateStep++;
+                document.getElementById(`update-step-${currentUpdateStep}`).classList.add('active');
                 
-                <p class="mb-4">By the end of this lesson, you should be able to:</p>
+                // Update indicator and buttons
+                document.getElementById('update-step-indicator').textContent = `Step ${currentUpdateStep} of ${totalUpdateSteps}`;
+                document.getElementById('prev-update-btn').disabled = false;
                 
-                <ul class="list-disc pl-8 space-y-3">
-                    <li class="text-lg">Create a variable with an appropriate name and assign it a value</li>
-                    <li class="text-lg">Change the value of a variable during a program's execution</li>
-                    <li class="text-lg">Identify the data type of a variable using the type() function</li>
-                    <li class="text-lg">Perform basic operations on variables (arithmetic, string concatenation)</li>
-                    <li class="text-lg">Create a program that uses variables to store and manipulate data</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Intro section -->
-        <section id="intro" class="content-section">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">WHAT ARE VARIABLES?</h1>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
-                <p class="text-lg mb-6">A variable is a named container that stores data in a computer program. Think of it like a labeled box where you can put information and retrieve it later by referring to its name.</p>
+                if (currentUpdateStep === totalUpdateSteps) {
+                    document.getElementById('next-update-btn').disabled = true;
+                }
+            }
+        }
+        
+        function prevUpdateStep() {
+            if (currentUpdateStep > 1) {
+                // Hide current step
+                document.getElementById(`update-step-${currentUpdateStep}`).classList.remove('active');
                 
-                <!-- Interactive Variable Example -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                    <!-- Counter Example -->
-                    <div class="relative bg-gray-50 rounded-lg p-6 overflow-hidden shadow-inner">
-                        <div class="absolute top-0 right-0 bg-accent text-white px-3 py-1 text-sm rounded-bl-lg">Counter Example</div>
-                        <div class="variable-animation bg-blue-50 border-2 border-blue-200 rounded-lg p-4 text-center relative transition-all hover:shadow-lg">
-                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-white px-2 py-1 rounded text-sm">
-                                Integer Variable: counter
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-sm text-gray-600 mb-1">Current Value:</p>
-                                <p id="counter-value" class="text-4xl font-bold">0</p>
-                                <p class="text-sm text-gray-600 mt-1">Type: <span id="counter-type">number</span></p>
-                                <div class="flex justify-center gap-2 mt-2">
-                                    <button id="decrease-counter" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition-transform hover:scale-105" onclick="decrementCounter()">
-                                        -1
-                                    </button>
-                                    <button id="increase-counter" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-transform hover:scale-105" onclick="incrementCounter()">
-                                        +1
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="border-t-2 border-blue-200 pt-3">
-                                <p class="text-sm text-gray-600 mb-1">Python Code:</p>
-                                <div id="code-display" class="bg-gray-800 text-white p-2 rounded-lg text-sm font-mono text-left">
-                                    <p># Create a variable</p>
-                                    <p>counter = 0</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- String Example -->
-                    <div class="relative bg-gray-50 rounded-lg p-6 overflow-hidden shadow-inner">
-                        <div class="absolute top-0 right-0 bg-accent text-white px-3 py-1 text-sm rounded-bl-lg">String Example</div>
-                        <div class="variable-animation bg-purple-50 border-2 border-purple-200 rounded-lg p-4 text-center relative transition-all hover:shadow-lg">
-                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-2 py-1 rounded text-sm">
-                                String Variable: fruit
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-sm text-gray-600 mb-1">Current Value:</p>
-                                <p id="fruit-value" class="text-4xl font-bold">apple</p>
-                                <p class="text-sm text-gray-600 mt-1">Type: <span id="fruit-type">string</span></p>
-                                <div class="flex justify-center mt-2">
-                                    <button id="change-fruit" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded transition-transform hover:scale-105" onclick="changeFruit()">
-                                        Change Fruit
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="border-t-2 border-purple-200 pt-3">
-                                <p class="text-sm text-gray-600 mb-1">Python Code:</p>
-                                <div id="fruit-code" class="bg-gray-800 text-white p-2 rounded-lg text-sm font-mono text-left">
-                                    <p># Create a variable</p>
-                                    <p>fruit = "apple"</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                // Show previous step
+                currentUpdateStep--;
+                document.getElementById(`update-step-${currentUpdateStep}`).classList.add('active');
                 
-                <div class="mt-8">
-                    <h3 class="text-xl font-bold text-accent mb-4">Why Variables Are Important</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">Store and remember data</h4>
-                            <p>Variables let programs remember values that can be used later</p>
-                        </div>
-                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">Make code reusable</h4>
-                            <p>By storing values in variables, you can reuse them many times</p>
-                        </div>
-                        <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">Use meaningful names</h4>
-                            <p>Variables make code readable by using descriptive names</p>
-                        </div>
-                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500 hover:shadow-md transition-shadow">
-                            <h4 class="font-bold">Change values during execution</h4>
-                            <p>Variables can be updated as your program runs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.1s;">
-                <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h2 class="text-2xl font-bold text-accent">Think of it like...</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
-                    <div class="bg-blue-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-blue-500">
-                        <h3 class="font-bold mb-3 text-lg">A Labeled Box</h3>
-                        <p class="text-gray-700">A container with a name where you store and retrieve data</p>
-                    </div>
-                    <div class="bg-purple-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-purple-500">
-                        <h3 class="font-bold mb-3 text-lg">A Name Tag</h3>
-                        <p class="text-gray-700">Variables give names to data so you can refer to it later</p>
-                    </div>
-                    <div class="bg-green-50 p-5 rounded-lg shadow-md hover:shadow-lg transition-all relative overflow-hidden border-l-4 border-green-500">
-                        <h3 class="font-bold mb-3 text-lg">A Sticky Note</h3>
-                        <p class="text-gray-700">Variables let you write down values and update them when needed</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Memory Model Visualization -->
-            <div class="bg-white p-6 rounded-lg shadow-md mt-8 animate-slide-in" style="animation-delay: 0.2s;">
-                <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                    </svg>
-                    <h2 class="text-2xl font-bold text-accent">How Variables Work in Memory</h2>
-                </div>
+                // Update indicator and buttons
+                document.getElementById('update-step-indicator').textContent = `Step ${currentUpdateStep} of ${totalUpdateSteps}`;
+                document.getElementById('next-update-btn').disabled = false;
                 
-                <p class="mb-6">When you create a variable, Python sets aside a piece of memory to store its value. The variable name points to that memory location.</p>
-                
-                <div class="relative bg-gray-50 p-6 rounded-lg mb-6">
-                    <div class="flex justify-between mb-4">
-                        <h3 id="memory-state-heading" class="text-lg font-bold text-accent">State 1</h3>
-                        <div class="flex gap-2">
-                            <button id="memory-prev-btn" class="bg-gray-500 text-white px-3 py-1 rounded disabled:opacity-50 disabled:cursor-not-allowed" onclick="prevMemoryState()" disabled>Previous</button>
-                            <button id="memory-next-btn" class="bg-blue-500 text-white px-3 py-1 rounded" onclick="nextMemoryState()">Next</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Memory visualization -->
-                    <div class="memory-box">
-                        <!-- Variable names -->
-                        <div id="memory-name" class="memory-cell" style="left: 60px; top: 30px;">
-                            <span class="memory-label">name</span>
-                        </div>
-                        
-                        <div id="memory-age" class="memory-cell" style="left: 60px; top: 120px;">
-                            <span class="memory-label">age</span>
-                        </div>
-                        
-                        <!-- Arrows that will connect variables to values -->
-                        <div id="name-arrow" class="memory-arrow" style="width: 0; left: 210px; top: 45px;"></div>
-                        <div id="age-arrow" class="memory-arrow" style="width: 0; left: 210px; top: 135px;"></div>
-                        
-                        <!-- Memory values -->
-                        <div id="memory-name-value" class="memory-cell" style="left: 300px; top: 30px;">
-                            <span class="memory-value">None</span>
-                        </div>
-                        
-                        <div id="memory-age-value" class="memory-cell" style="left: 300px; top: 120px;">
-                            <span class="memory-value">None</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4 bg-gray-800 p-3 rounded-lg text-white">
-                        <code id="memory-code" class="text-sm font-mono"># No variables initialized yet</code>
-                    </div>
-                </div>
-                
-                <p class="text-sm text-gray-600 italic">Click the Next button to see how variables are stored in memory as they're created and changed.</p>
-            </div>
-        </section>
-
-        <!-- Types section -->
-        <section id="types" class="content-section">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">VARIABLE DATA TYPES</h1>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6 animate-slide-in">
-                <p class="text-lg mb-6">In Python, variables can store different types of data. Each type has its own characteristics and operations that can be performed on it.</p>
-                
-                <!-- Interactive Type Explorer -->
-                <div class="bg-gray-50 rounded-lg p-6 mb-8">
-                    <h3 class="text-xl font-bold text-accent mb-4">Explore Data Types</h3>
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <!-- Type buttons -->
-                        <div>
-                            <p class="mb-3">Click the buttons below to see different data types:</p>
-                            <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-                                <button onclick="changeType('int')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded shadow-sm">Integer</button>
-                                <button onclick="changeType('float')" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded shadow-sm">Float</button>
-                                <button onclick="changeType('str')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded shadow-sm">String</button>
-                                <button onclick="changeType('bool')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded shadow-sm">Boolean</button>
-                                <button onclick="changeType('list')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded shadow-sm">List</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Type display -->
-                        <div id="type-demo-container" class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
-                            <h4 class="font-bold mb-3">Current Type:</h4>
-                            <p class="text-sm text-gray-600 mb-1">Value:</p>
-                            <p id="type-demo-value" class="text-2xl font-mono">42</p>
-                            <p class="text-sm text-gray-600 mt-3 mb-1">Python Type:</p>
-                            <p id="type-demo-type" class="text-lg font-bold">int</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-blue-50 rounded-lg shadow-md overflow-hidden example-card">
-                        <div class="bg-blue-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Integers (int)</h3>
-                        </div>
-                        <div class="p-4">
-                            <p class="mb-3">Whole numbers without decimal points.</p>
-                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
-                                <code class="text-sm">age = 25</code>
-                            </div>
-                            <p class="text-sm text-gray-600">Operations: Addition, subtraction, multiplication, division, etc.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-purple-50 rounded-lg shadow-md overflow-hidden example-card">
-                        <div class="bg-purple-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Floating Point (float)</h3>
-                        </div>
-                        <div class="p-4">
-                            <p class="mb-3">Numbers with decimal points.</p>
-                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
-                                <code class="text-sm">price = 19.99</code>
-                            </div>
-                            <p class="text-sm text-gray-600">Operations: Same as integers, plus precise decimal calculations.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-red-50 rounded-lg shadow-md overflow-hidden example-card">
-                        <div class="bg-red-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Strings (str)</h3>
-                        </div>
-                        <div class="p-4">
-                            <p class="mb-3">Text enclosed in quotes.</p>
-                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
-                                <code class="text-sm">name = "Alice"</code>
-                            </div>
-                            <p class="text-sm text-gray-600">Operations: Concatenation, slicing, methods like upper(), lower(), etc.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-green-50 rounded-lg shadow-md overflow-hidden example-card">
-                        <div class="bg-green-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Booleans (bool)</h3>
-                        </div>
-                        <div class="p-4">
-                            <p class="mb-3">Either True or False.</p>
-                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
-                                <code class="text-sm">is_active = True</code>
-                            </div>
-                            <p class="text-sm text-gray-600">Operations: Logical operations (and, or, not) and comparisons.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-yellow-50 rounded-lg shadow-md overflow-hidden example-card">
-                        <div class="bg-yellow-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Lists</h3>
-                        </div>
-                        <div class="p-4">
-                            <p class="mb-3">Ordered collections of items.</p>
-                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
-                                <code class="text-sm">scores = [95, 87, 92]</code>
-                            </div>
-                            <p class="text-sm text-gray-600">Operations: Indexing, slicing, appending, sorting, etc.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-cyan-50 rounded-lg shadow-md overflow-hidden example-card">
-                        <div class="bg-cyan-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Other Data Types</h3>
-                        </div>
-                        <div class="p-4">
-                            <ul class="list-disc pl-4 space-y-2 text-sm">
-                                <li>Dictionaries (dict): Key-value pairs</li>
-                                <li>Tuples: Immutable ordered collections</li>
-                                <li>Sets: Unordered collections of unique items</li>
-                                <li>None: Represents the absence of a value</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-blue-100 p-6 rounded-lg shadow-md mt-8">
-                    <h3 class="text-xl font-bold text-accent mb-4">Checking Variable Types</h3>
-                    <p class="mb-4">You can discover a variable's type using the <code class="bg-blue-200 px-1 rounded">type()</code> function:</p>
-                    
-                    <div class="bg-white p-4 rounded-lg shadow-sm">
-                        <pre class="text-sm font-mono whitespace-pre">age = 25
-name = "Alice"
-price = 19.99
-
-print(type(age))    # <class 'int'>
-print(type(name))   # <class 'str'>
-print(type(price))  # <class 'float'></pre>
-                    </div>
-                    
-                    <p class="mt-4">Python is a <span class="font-bold">dynamically typed</span> language, which means variable types are determined automatically based on the assigned value.</p>
-                </div>
-            </div>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.1s;">
-                <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <h2 class="text-2xl font-bold text-accent">Watch Out!</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-                        <h4 class="font-bold">Type Conversion Errors</h4>
-                        <p class="mb-2">Be careful when mixing different types in operations!</p>
-                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
-                            <code class="text-sm text-red-500">"age: " + 25  # Error! Can't add string and integer</code>
-                        </div>
-                        <div class="bg-white p-2 rounded border border-gray-200">
-                            <code class="text-sm text-green-500">"age: " + str(25)  # Correct! Convert int to string first</code>
-                        </div>
-                    </div>
-                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
-                        <h4 class="font-bold">Don't Forget String Quotes</h4>
-                        <p class="mb-2">Strings must always be enclosed in quotes!</p>
-                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
-                            <code class="text-sm text-red-500">name = Alice  # Error! Python thinks Alice is a variable</code>
-                        </div>
-                        <div class="bg-white p-2 rounded border border-gray-200">
-                            <code class="text-sm text-green-500">name = "Alice"  # Correct! Use quotes for text</code>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Variable Operations section -->
-        <section id="operations" class="content-section">
-            <h1 class="text-4xl font-bold mb-8 pb-2 border-b-2 border-accent">VARIABLE OPERATIONS</h1>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
-                <p class="text-lg mb-6">Once you have variables, you can perform various operations on them to manipulate their values.</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-blue-50 rounded-lg shadow-md overflow-hidden example-card">
-                        <div class="bg-blue-500 text-white p-3">
-                            <h3 class="text-xl font-bold">Arithmetic Operations</h3>
-                        </div>
-                        <div class="p-4">
-                            <p class="mb-3">Mathematical operations on number variables.</p>
-                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
-                                <pre class="text-sm font-mono">x = 10
-y = 5
-
-addition = x + y      # 15
-subtraction = x - y   # 5
-multiply = x * y      # 50
-division = x / y      # 2.0
-exponent = x ** y     # 100000
-remainder = x % y     # 0</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-purple-50 rounded-lg shadow-md overflow-hidden example-card">
-                        <div class="bg-purple-500 text-white p-3">
-                            <h3 class="text-xl font-bold">String Operations</h3>
-                        </div>
-                        <div class="p-4">
-                            <p class="mb-3">Working with text variables.</p>
-                            <div class="bg-white p-3 rounded border border-gray-200 mb-3">
-                                <pre class="text-sm font-mono">first = "Hello"
-last = "World"
-
-# Concatenation
-full = first + " " + last  # "Hello World"
-
-# Repetition
-repeated = first * 3  # "HelloHelloHello"
-
-# Methods
-uppercase = first.upper()  # "HELLO"
-length = len(first)  # 5</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-green-100 p-6 rounded-xl shadow-md mb-8">
-                    <h3 class="text-xl font-bold text-accent mb-4">Compound Assignment Operators</h3>
-                    <p class="mb-4">These operators perform an operation and assign the result back to the variable in one step:</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white p-4 rounded-lg shadow-sm">
-                            <h4 class="font-bold mb-2">Numeric Examples</h4>
-                            <pre class="text-sm font-mono mb-4">x = 10
-
-x += 5    # Same as: x = x + 5 (x is now 15)
-x -= 3    # Same as: x = x - 3 (x is now 12)
-x *= 2    # Same as: x = x * 2 (x is now 24)
-x /= 4    # Same as: x = x / 4 (x is now 6.0)</pre>
-                            <p class="text-sm text-gray-600">These operators are shortcuts that make your code more concise.</p>
-                        </div>
-                        
-                        <div class="bg-white p-4 rounded-lg shadow-sm">
-                            <h4 class="font-bold mb-2">String Examples</h4>
-                            <pre class="text-sm font-mono mb-4">message = "Hello"
-
-# Add to the existing string
-message += " there"   # message is now "Hello there"
-message += "!"        # message is now "Hello there!"</pre>
-                            <p class="text-sm text-gray-600">The += operator is commonly used to build strings incrementally.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-yellow-100 p-6 rounded-xl shadow-md">
-                    <h3 class="text-xl font-bold text-accent mb-4">Type Conversion</h3>
-                    <p class="mb-4">You can convert between different data types using conversion functions:</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white p-4 rounded-lg shadow-sm">
-                            <h4 class="font-bold mb-2">String ↔ Number Conversion</h4>
-                            <pre class="text-sm font-mono mb-4"># String to number
-age_str = "25"
-age_num = int(age_str)    # 25 (as integer)
-
-price_str = "19.99"
-price_num = float(price_str)  # 19.99 (as float)
-
-# Number to string
-count = 42
-count_str = str(count)    # "42" (as string)</pre>
-                        </div>
-                        
-                        <div class="bg-white p-4 rounded-lg shadow-sm">
-                            <h4 class="font-bold mb-2">Between Numeric Types</h4>
-                            <pre class="text-sm font-mono mb-4"># Integer to float
-x = 10
-x_float = float(x)    # 10.0
-
-# Float to integer (truncates decimal)
-y = 7.8
-y_int = int(y)        # 7 (decimal part is removed)
-
-# Round a float
-z = 7.8
-z_rounded = round(z)  # 8</pre>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
-                        <h4 class="font-bold">Conversion Warnings</h4>
-                        <ul class="list-disc pl-5 mt-2">
-                            <li class="mb-1">Not all strings can be converted to numbers (e.g., <code>int("hello")</code> will cause an error)</li>
-                            <li class="mb-1">Converting from float to int truncates the decimal part without rounding</li>
-                            <li>Boolean conversions: Any non-zero number or non-empty string converts to <code>True</code></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Syntax section -->
-        <section id="syntax" class="content-section">
-            <h1 class="text-4xl font-bold mb-6 pb-2 border-b-2 border-accent">VARIABLE SYNTAX</h1>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md mb-8 animate-slide-in">
-                <!-- Variable Declaration Section -->
-                <div class="syntax-section declaration-section mb-12">
-                    <div class="section-title-badge declaration-badge">Variable Declaration</div>
-                    <div class="flex justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-accent mt-3">Step-by-Step Syntax Breakdown</h2>
-                        <div id="step-indicator" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 6</div>
-                    </div>
-                    
-                    <!-- Step 0: Initial -->
-                    <div id="syntax-step-0" class="syntax-step">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">We'll examine each element of a variable declaration:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span>Let's create a variable to store a player's score.</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 1: Variable Name -->
-                    <div id="syntax-step-1" class="syntax-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">First, you choose a <span class="font-bold text-accent">variable name</span>:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span class="bg-yellow-200 syntax-part" id="var-name" onclick="highlightSyntaxPart('var-name')">player_score<span class="syntax-tooltip" id="var-name-tip">The variable name is what you'll use to reference this data later. Use descriptive names that explain what the variable contains.</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 2: Assignment Operator -->
-                    <div id="syntax-step-2" class="syntax-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">Next, we add the <span class="font-bold text-accent">assignment operator (=)</span>:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span class="bg-blue-100" id="var-name-part">player_score</span> <span class="bg-yellow-200 syntax-part" id="assignment" onclick="highlightSyntaxPart('assignment')"><span class="syntax-tooltip" id="assignment-tip">The equals sign (=) is the assignment operator. It tells Python to assign the value on the right to the variable on the left.</span>=</span>                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 3: Value -->
-                    <div id="syntax-step-3" class="syntax-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">Finally, we add the <span class="font-bold text-accent">value</span> we want to store:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span class="bg-blue-100">player_score =</span> <span class="bg-yellow-200 syntax-part" id="value" onclick="highlightSyntaxPart('value')">100<span class="syntax-tooltip" id="value-tip">The value is the data you want to store in the variable. It can be a number, string, boolean, or other data type.</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 4: Complete Statement -->
-                    <div id="syntax-step-4" class="syntax-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">The <span class="font-bold text-accent">complete variable declaration</span>:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span class="bg-yellow-200 syntax-part" id="complete" onclick="highlightSyntaxPart('complete')">player_score = 100<span class="syntax-tooltip" id="complete-tip">The complete statement creates a variable named player_score and assigns it the value 100.</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 5: Multiple Variables -->
-                    <div id="syntax-step-5" class="syntax-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">You can declare <span class="font-bold text-accent">multiple variables</span> in a single line:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span class="bg-yellow-200 syntax-part" id="multi-var" onclick="highlightSyntaxPart('multi-var')">x, y, z = 10, 20, 30<span class="syntax-tooltip" id="multi-var-tip">This creates three variables (x, y, and z) with values 10, 20, and 30 respectively.</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 6: Comments -->
-                    <div id="syntax-step-6" class="syntax-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">It's good practice to add <span class="font-bold text-accent">comments</span> explaining your variables:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span class="bg-yellow-200 syntax-part" id="comment" onclick="highlightSyntaxPart('comment')">player_score = 100  # Initial score for the player<span class="syntax-tooltip" id="comment-tip">Comments (starting with #) help explain what a variable is for. They are ignored by Python when running the code.</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="navigation-controls">
-                        <button id="syntax-prev-btn" class="btn-declaration px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevSyntaxStep()" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                            Previous
-                        </button>
-                        <div class="text-sm text-gray-500 hidden md:block">Navigate through the variable declaration syntax</div>
-                        <button id="syntax-next-btn" class="btn-declaration px-4 py-2 rounded-lg flex items-center" onclick="nextSyntaxStep()">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Variable Reassignment Section -->
-                <div class="syntax-section reassignment-section mb-12">
-                    <div class="section-title-badge reassignment-badge">Variable Reassignment</div>
-                    <div class="flex justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-accent mt-3">Changing Variable Values</h2>
-                        <div id="reassign-step-indicator" class="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 4</div>
-                    </div>
-                    
-                    <!-- Reassign Step 0: Introduction -->
-                    <div id="reassign-step-0" class="reassign-step">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">Once a variable is created, you can change its value later in your program:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span>Let's update the player's score after winning a level.</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Reassign Step 1: Original Value -->
-                    <div id="reassign-step-1" class="reassign-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">First, we have our original variable:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
-<span class="bg-yellow-200 syntax-part" id="orig-var" onclick="highlightSyntaxPart('orig-var')">player_score = 100<span class="syntax-tooltip" id="orig-var-tip">This is the initial value of the variable when it was first created.</span></span>
-
-# Some game code happens here...
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Reassign Step 2: Reassignment -->
-                    <div id="reassign-step-2" class="reassign-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">To change the value, we simply <span class="font-bold text-accent">assign a new value</span> to the same variable name:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
-<span>player_score = 100</span>
-
-<span># Some game code happens here...</span>
-
-<span class="bg-yellow-200 syntax-part" id="reassign" onclick="highlightSyntaxPart('reassign')">player_score = 150<span class="syntax-tooltip" id="reassign-tip">The same variable name now refers to a new value (150). The old value (100) is no longer accessible.</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Reassign Step 3: Calculation -->
-                    <div id="reassign-step-3" class="reassign-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">Often, you'll calculate the new value based on the current value:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
-<span>player_score = 100</span>
-
-<span># Player scores 50 more points</span>
-
-<span class="bg-yellow-200 syntax-part" id="calc-reassign" onclick="highlightSyntaxPart('calc-reassign')">player_score = player_score + 50<span class="syntax-tooltip" id="calc-reassign-tip">This takes the current value of player_score (100), adds 50, and stores the result (150) back in player_score.</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Reassign Step 4: Shorthand -->
-                    <div id="reassign-step-4" class="reassign-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">For common operations, Python has <span class="font-bold text-accent">shorthand operators</span>:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
-<span>player_score = 100</span>
-
-<span># These are equivalent:</span>
-<span>player_score = player_score + 50</span>
-<span class="bg-yellow-200 syntax-part" id="shorthand" onclick="highlightSyntaxPart('shorthand')">player_score += 50<span class="syntax-tooltip" id="shorthand-tip">The += operator is shorthand for "add and assign." Similar operators include -=, *=, /=, etc.</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="navigation-controls">
-                        <button id="reassign-prev-btn" class="btn-reassignment px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevReassignStep()" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                            Previous
-                        </button>
-                        <div class="text-sm text-gray-500 hidden md:block">Navigate through variable reassignment examples</div>
-                        <button id="reassign-next-btn" class="btn-reassignment px-4 py-2 rounded-lg flex items-center" onclick="nextReassignStep()">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Multiple Variables Section -->
-                <div class="syntax-section multiple-section">
-                    <div class="section-title-badge multiple-badge">Multiple Variables</div>
-                    <div class="flex justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-accent mt-3">Working with Multiple Variables</h2>
-                        <div id="multiple-step-indicator" class="bg-red-600 text-white px-3 py-1 rounded-lg text-sm">Step 0 of 3</div>
-                    </div>
-                    
-                    <!-- Multiple Step 0: Introduction -->
-                    <div id="multiple-step-0" class="multiple-step">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">Python provides several ways to work with multiple variables efficiently:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 text-md">
-                                <span>Let's explore how to create and update multiple variables at once.</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Multiple Step 1: Multiple Assignment -->
-                    <div id="multiple-step-1" class="multiple-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">You can <span class="font-bold text-accent">assign values to multiple variables</span> in a single line:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
-<span class="bg-yellow-200 syntax-part" id="multi-assign" onclick="highlightSyntaxPart('multi-assign')">x, y, z = 10, 20, 30<span class="syntax-tooltip" id="multi-assign-tip">This assigns 10 to x, 20 to y, and 30 to z, all in one line.</span></span>
-
-<span># You can check each value</span>
-<span>print(x)  # 10</span>
-<span>print(y)  # 20</span>
-<span>print(z)  # 30</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Multiple Step 2: Same Value -->
-                    <div id="multiple-step-2" class="multiple-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">Assign the <span class="font-bold text-accent">same value to multiple variables</span>:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
-<span class="bg-yellow-200 syntax-part" id="same-value" onclick="highlightSyntaxPart('same-value')">width = height = depth = 10<span class="syntax-tooltip" id="same-value-tip">This creates three variables (width, height, and depth) and assigns the value 10 to all of them.</span></span>
-
-<span># All variables have the same value</span>
-<span>print(width)   # 10</span>
-<span>print(height)  # 10</span>
-<span>print(depth)   # 10</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Multiple Step 3: Swapping Values -->
-                    <div id="multiple-step-3" class="multiple-step hidden">
-                        <div class="bg-gray-50 p-5 rounded-lg mb-4">
-                            <p class="mb-4">Python makes it easy to <span class="font-bold text-accent">swap variable values</span>:</p>
-                            <div class="font-mono bg-white p-4 rounded-lg border border-gray-200 whitespace-pre text-md">
-<span># Initialize variables</span>
-<span>a = 5</span>
-<span>b = 10</span>
-
-<span># In other languages, you need a temporary variable</span>
-<span># temp = a</span>
-<span># a = b</span>
-<span># b = temp</span>
-
-<span># In Python, you can swap in one line</span>
-<span class="bg-yellow-200 syntax-part" id="swap" onclick="highlightSyntaxPart('swap')">a, b = b, a<span class="syntax-tooltip" id="swap-tip">This swaps the values of a and b. After this line, a will be 10 and b will be 5.</span></span>
-
-<span>print(a)  # 10</span>
-<span>print(b)  # 5</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="navigation-controls">
-                        <button id="multiple-prev-btn" class="btn-multiple px-4 py-2 rounded-lg opacity-50 disabled:cursor-not-allowed flex items-center" onclick="prevMultipleStep()" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                            Previous
-                        </button>
-                        <div class="text-sm text-gray-500 hidden md:block">Navigate through multiple variable examples</div>
-                        <button id="multiple-next-btn" class="btn-multiple px-4 py-2 rounded-lg flex items-center" onclick="nextMultipleStep()">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bg-gray-50 p-6 rounded-lg mt-8 mb-8">
-                    <h3 class="text-xl font-bold text-accent mb-4">Variable Naming Rules</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold mb-3 text-green-600">Valid Variable Names:</h4>
-                            <ul class="space-y-2">
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
-                                    <code class="text-sm">score</code> - Simple, one word
-                                </li>
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
-                                    <code class="text-sm">player_score</code> - Words separated by underscore
-                                </li>
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
-                                    <code class="text-sm">playerScore</code> - Camel case (second word capitalized)
-                                </li>
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
-                                    <code class="text-sm">score1</code> - Letters and numbers
-                                </li>
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow">
-                                    <code class="text-sm">_hidden</code> - Can start with underscore
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <div>
-                            <h4 class="font-bold mb-3 text-red-600">Invalid Variable Names:</h4>
-                            <ul class="space-y-2">
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
-                                    <code class="text-sm">123score</code> - Cannot start with a number
-                                </li>
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
-                                    <code class="text-sm">player-score</code> - Cannot use hyphens
-                                </li>
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
-                                    <code class="text-sm">if</code> - Cannot use reserved keywords
-                                </li>
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
-                                    <code class="text-sm">player score</code> - Cannot contain spaces
-                                </li>
-                                <li class="bg-white p-3 rounded-lg border-l-4 border-red-500 shadow">
-                                    <code class="text-sm">player@score</code> - Cannot use special characters
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-accent mb-4">Variable Naming Best Practices</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 shadow-md">
-                            <h4 class="font-bold">Be Descriptive</h4>
-                            <div class="mt-2 grid grid-cols-1 gap-2">
-                                <div class="bg-white p-2 rounded border border-gray-200">
-                                    <code class="text-sm text-red-500">x = 28</code> <span class="text-xs">(Unclear what this represents)</span>
-                                </div>
-                                <div class="bg-white p-2 rounded border border-gray-200">
-                                    <code class="text-sm text-green-500">age = 28</code> <span class="text-xs">(Clear meaning)</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500 shadow-md">
-                            <h4 class="font-bold">Use Consistent Style</h4>
-                            <div class="mt-2 grid grid-cols-1 gap-2">
-                                <div class="bg-white p-2 rounded border border-gray-200">
-                                    <p class="text-sm mb-1">Snake Case (Python's preference):</p>
-                                    <code class="text-sm text-green-500">player_score = 100</code>
-                                </div>
-                                <div class="bg-white p-2 rounded border border-gray-200">
-                                    <p class="text-sm mb-1">Camel Case (Alternative):</p>
-                                    <code class="text-sm text-green-500">playerScore = 100</code>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500 shadow-md">
-                            <h4 class="font-bold">Avoid Reserved Words</h4>
-                            <p class="text-sm mt-2 mb-2">Don't use Python keywords as variable names:</p>
-                            <div class="bg-white p-3 rounded border border-gray-200">
-                                <code class="text-sm text-red-500">if = 5</code> <span class="text-xs">(Error: 'if' is a Python keyword)</span>
-                            </div>
-                            <p class="text-xs mt-2">Other reserved words: <code>for</code>, <code>while</code>, <code>class</code>, <code>return</code>, <code>True</code>, <code>None</code>, etc.</p>
-                        </div>
-                        
-                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 shadow-md">
-                            <h4 class="font-bold">Length and Readability</h4>
-                            <div class="mt-2 grid grid-cols-1 gap-2">
-                                <div class="bg-white p-2 rounded border border-gray-200">
-                                    <code class="text-sm text-red-500">a = 3.14159</code> <span class="text-xs">(Too short)</span>
-                                </div>
-                                <div class="bg-white p-2 rounded border border-gray-200">
-                                    <code class="text-sm text-red-500">the_mathematical_constant_pi = 3.14159</code> <span class="text-xs">(Too long)</span>
-                                </div>
-                                <div class="bg-white p-2 rounded border border-gray-200">
-                                    <code class="text-sm text-green-500">pi_value = 3.14159</code> <span class="text-xs">(Just right)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white p-6 rounded-lg shadow-md animate-slide-in" style="animation-delay: 0.1s;">
-                <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <h2 class="text-2xl font-bold text-accent">Common Variable Mistakes</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-                        <h4 class="font-bold">Forgetting to Initialize</h4>
-                        <p class="mb-2">Variables must be assigned a value before they're used!</p>
-                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
-                            <code class="text-sm text-red-500">print(score)  # Error if score hasn't been created</code>
-                        </div>
-                        <div class="bg-white p-2 rounded border border-gray-200">
-                            <code class="text-sm text-green-500">score = 0<br>print(score)  # Correct: initialize first</code>
-                        </div>
-                    </div>
-                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
-                        <h4 class="font-bold">Case Sensitivity</h4>
-                        <p class="mb-2">Variable names are case-sensitive!</p>
-                        <div class="bg-white p-2 rounded border border-gray-200 mb-2">
-                            <code class="text-sm text-red-500">name = "Alice"<br>print(Name)  # Error: Name is not the same as name</code>
-                        </div>
-                        <div class="bg-white p-2 rounded border border-gray-200">
-                            <code class="text-sm text-green-500">name = "Alice"<br>print(name)  # Correct: same case</code>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <script>
-        // Navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set the first content section as active (LI/SC)
-            document.querySelector('.sidebar-item[data-section="lisc"]').classList.add('active');
-            document.getElementById('lisc').classList.add('active');
-            
-            // Add event listeners to sidebar items
-            document.querySelectorAll('.sidebar-item[data-section]').forEach(item => {
-                item.addEventListener('click', function() {
-                    const sectionId = this.getAttribute('data-section');
-                    
-                    // Skip if it's the home link (handled separately)
-                    if (!sectionId) return;
-                    
-                    // Hide all sections
-                    document.querySelectorAll('.content-section').forEach(section => {
-                        section.classList.remove('active');
-                    });
-                    
-                    // Remove active class from all sidebar items
-                    document.querySelectorAll('.sidebar-item').forEach(sidebarItem => {
-                        sidebarItem.classList.remove('active');
-                    });
-                    
-                    // Show the selected section
-                    document.getElementById(sectionId).classList.add('active');
-                    
-                    // Add active class to the selected sidebar item
-                    this.classList.add('active');
-                });
-            });
-            
-            // Initialize the counter and fruit displays
-            updateCounterDisplay();
-            updateFruitDisplay();
-            
-            // Initialize syntax simulations
-            updateSyntaxSimulation();
-            updateReassignSimulation();
-            updateMultipleSimulation();
-            
-            // Initialize type demo
-            changeType('int');
-            
-            // Initialize memory visualization
-            updateMemoryVisualization();
-        });
+                if (currentUpdateStep === 1) {
+                    document.getElementById('prev-update-btn').disabled = true;
+                }
+            }
+        }
     </script>
 </body>
-</html>                             
+</html>
