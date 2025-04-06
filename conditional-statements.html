@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Include Mermaid JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js"></script>
+    <!-- Include Flowchart.js dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.15.0/flowchart.min.js"></script>
     <!-- Favicon Icons -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -581,15 +582,8 @@
                     </div>
                     
                     <div style="max-width: 700px; margin: 0 auto;">
-                        <div class="mermaid-container" style="text-align: center; margin: 30px 0;">
-                            <div id="if-else-flowchart" class="mermaid">
-graph TD
-    A[Start] --> B{Condition<br>True or False?}
-    B -->|True| C[Run 'if' code block]
-    B -->|False| D[Run 'else' code block]
-    C --> E[Continue program]
-    D --> E
-                            </div>
+                        <div style="text-align: center; margin: 30px 0;">
+                            <div id="if-else-flowchart" style="height: 300px;"></div>
                         </div>
                     </div>
                 </div>
@@ -1073,14 +1067,7 @@ It's not too hot today.</pre>
                     </div>
                     
                     <div id="flowchart-example1" style="margin-top: 20px; display: none; text-align: center;">
-                        <pre id="if-else-flowchart" class="mermaid">
-graph TD
-    A[Start] --> B{Condition<br>True or False?}
-    B -->|True| C[Run 'if' code block]
-    B -->|False| D[Run 'else' code block]
-    C --> E[Continue program]
-    D --> E
-</pre>
+                        <div id="flowchart1" style="height: 300px;"></div>
                     </div>
                 </div>
                 
@@ -1110,21 +1097,7 @@ graph TD
                     </div>
                     
                     <div id="flowchart-example2" style="margin-top: 20px; display: none; text-align: center;">
-                        <div class="mermaid">
-graph TD
-    A[Start] --> B[grade = 75]
-    B --> C{grade >= 90?}
-    C -->|Yes| D[Print "A grade"]
-    C -->|No| E{grade >= 80?}
-    E -->|Yes| F[Print "B grade"]
-    E -->|No| G{grade >= 70?}
-    G -->|Yes| H[Print "C grade"]
-    G -->|No| I[Print "F grade"]
-    D --> J[End]
-    F --> J
-    H --> J
-    I --> J
-                        </div>
+                        <div id="flowchart2" style="height: 400px;"></div>
                     </div>
                 </div>
             </div>
@@ -1148,17 +1121,42 @@ graph TD
     </main>
 
     <script>
-        // Initialize Mermaid.js
-        mermaid.initialize({ 
-            startOnLoad: true,
-            theme: 'neutral',
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true,
-                curve: 'basis'
-            }
-        });
-        
+        // Define improved flowchart code for if-else with better layout
+        const ifElseFlowchartCode = `
+st=>start: Start
+cond=>condition: Condition
+True or False?
+if_block=>operation: Run 'if' code block
+else_block=>operation: Run 'else' code block
+end=>end: Continue program
+
+st->cond
+cond(yes, right)->if_block->end
+cond(no, bottom)->else_block(right)->end
+`;
+
+        // Define improved flowchart code for if-elif-else with better layout
+        const ifElifElseFlowchartCode = `
+st=>start: Start
+init=>operation: grade = 75
+cond1=>condition: grade >= 90?
+cond2=>condition: grade >= 80?
+cond3=>condition: grade >= 70?
+op1=>operation: Print "A grade"
+op2=>operation: Print "B grade"
+op3=>operation: Print "C grade"
+op4=>operation: Print "F grade"
+end=>end: End
+
+st->init->cond1
+cond1(yes, right)->op1->end
+cond1(no, bottom)->cond2
+cond2(yes, right)->op2->end
+cond2(no, bottom)->cond3
+cond3(yes, right)->op3->end
+cond3(no, bottom)->op4(right)->end
+`;
+
         // Navigation
         document.addEventListener('DOMContentLoaded', function() {
             // Tab switching
@@ -1177,6 +1175,16 @@ graph TD
                     // Add active class to selected button and tab
                     this.classList.add('active');
                     document.getElementById(tab).classList.add('active');
+
+                    // Redraw flowcharts when switching to their tabs
+                    if (tab === 'chunk2') {
+                        setTimeout(() => {
+                            if (document.getElementById('if-else-flowchart')) {
+                                document.getElementById('if-else-flowchart').innerHTML = '';
+                                renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
+                            }
+                        }, 100);
+                    }
                 });
             });
             
@@ -1187,7 +1195,110 @@ graph TD
             
             document.getElementById('prev-conditional-btn').disabled = true;
             document.getElementById('next-conditional-btn').disabled = false;
+            
+            // Render the if-else flowchart with a slight delay to ensure container is ready
+            setTimeout(() => {
+                if (document.getElementById('if-else-flowchart')) {
+                    renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
+                }
+            }, 100);
         });
+        
+        // Function to render flowcharts with improved styling
+        function renderFlowchart(containerId, code) {
+            try {
+                const diagram = flowchart.parse(code);
+                
+                // Clear any existing content
+                const container = document.getElementById(containerId);
+                if (container) {
+                    container.innerHTML = '';
+                    
+                    // Get container width to scale appropriately
+                    const containerWidth = container.offsetWidth || 600;
+                    const scale = containerWidth > 500 ? 1.0 : containerWidth / 500;
+                    
+                    diagram.drawSVG(containerId, {
+                        'line-width': 2,
+                        'line-length': 50,
+                        'text-margin': 10,
+                        'font-size': 14,
+                        'font-color': '#333',
+                        'line-color': '#002654',
+                        'element-color': '#002654',
+                        'fill': 'white',
+                        'yes-text': 'True',
+                        'no-text': 'False',
+                        'arrow-end': 'block',
+                        'scale': scale,
+                        'flowstate': {
+                            'past': { 'fill': '#CFCFCF', 'font-size': 12 },
+                            'current': { 'fill': '#008489', 'font-color': 'white', 'font-weight': 'bold' },
+                            'future': { 'fill': '#FFFF99' },
+                            'request': { 'fill': '#999999' },
+                            'invalid': { 'fill': '#FFCCCC' },
+                            'approved': { 'fill': '#CCFFCC', 'font-color': '#006600', 'border-color': '#006600' },
+                            'rejected': { 'fill': '#FFCCCC', 'font-color': '#CC0000', 'border-color': '#CC0000' }
+                        },
+                        'symbols': {
+                            'start': {
+                                'font-color': 'green',
+                                'element-color': '#002654',
+                                'fill': '#002654'
+                            },
+                            'end': {
+                                'font-color': 'red',
+                                'element-color': '#002654',
+                                'fill': '#002654'
+                            },
+                            'condition': {
+                                'element-color': '#002654',
+                                'fill': 'white'
+                            },
+                            'operation': {
+                                'element-color': '#002654',
+                                'fill': 'white'
+                            }
+                        }
+                    });
+                    
+                    // Ensure SVG fits container height
+                    const svg = container.querySelector('svg');
+                    if (svg) {
+                        svg.style.maxWidth = '100%';
+                        svg.style.height = '100%';
+                        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                    }
+                }
+            } catch (error) {
+                console.error('Error rendering flowchart:', error);
+                document.getElementById(containerId).innerHTML = 
+                    '<div style="color:red; padding:20px;">Error rendering flowchart. Please check the console for details.</div>';
+            }
+        }
+        
+        // Toggle answer visibility with improved flowchart handling
+        function toggleAnswer(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === 'none') {
+                element.style.display = 'block';
+                
+                // If it's a flowchart example, render it with a delay to ensure container is ready
+                if (id === 'flowchart-example1') {
+                    setTimeout(function() {
+                        document.getElementById('flowchart1').innerHTML = '';
+                        renderFlowchart('flowchart1', ifElseFlowchartCode);
+                    }, 100);
+                } else if (id === 'flowchart-example2') {
+                    setTimeout(function() {
+                        document.getElementById('flowchart2').innerHTML = '';
+                        renderFlowchart('flowchart2', ifElifElseFlowchartCode);
+                    }, 100);
+                }
+            } else {
+                element.style.display = 'none';
+            }
+        }
         
         // Conditional step by step navigation
         let currentConditionalStep = 1;
@@ -1251,21 +1362,6 @@ graph TD
             }
             
             answerElement.style.display = 'block';
-        }
-        
-        // Toggle answer visibility
-        function toggleAnswer(id) {
-            const element = document.getElementById(id);
-            if (element.style.display === 'none') {
-                element.style.display = 'block';
-                
-                // If it's a flowchart example, render it
-                if (id === 'flowchart-example1' || id === 'flowchart-example2') {
-                    mermaid.init(undefined, document.querySelector(`#${id} .mermaid`));
-                }
-            } else {
-                element.style.display = 'none';
-            }
         }
         
         // Pass/Fail Interactive Demo
