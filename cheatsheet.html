@@ -298,6 +298,67 @@
             display: block;
             opacity: 1;
         }
+
+        /* Add this to the <style> section */
+.light-section {
+    padding: 40px 20px 20px 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.search-container {
+    margin: 0 auto 40px auto;
+    max-width: 1100px; /* Slightly less than main container */
+    padding: 0 20px;
+}
+
+.skill-card {
+    background-color: var(--primary-bg);
+    border: 2px solid var(--outline-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-time), box-shadow var(--transition-time);
+    overflow: hidden;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#skills-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.results-info {
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1100px;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    display: none;
+}
+
+/* Ensure responsiveness */
+@media (max-width: 1240px) {
+    .light-section,
+    #skills-container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .light-section,
+    #skills-container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
     </style>
 </head>
 <body>
