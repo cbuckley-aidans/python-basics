@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python's Random Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for multiple choice questions */
+        .matching-option {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            background-color: white;
+            text-align: left;
+            font-size: 1.1em;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .matching-option:hover {
+            background-color: rgba(0, 38, 84, 0.05);
+            border-color: var(--accent-color);
+        }
+        
+        .matching-question {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(0, 38, 84, 0.05);
+            border-radius: var(--border-radius);
+        }
+        
+        .matching-options {
+            margin-bottom: 15px;
+        }
+        
+        .matching-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .matching-item:last-child {
+            border-bottom: none;
+        }
+        
+        .matching-feedback {
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Step-by-step styles */
+        .step-container {
+            border: 1px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .step-header {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .step-content {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Function demonstration styles */
+        .function-demo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .function-part {
+            padding: 12px 18px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .function-name {
+            background-color: #ffec3d;
+            color: #5c4c00;
+        }
+        
+        .function-params {
+            background-color: #ff7a45;
+            color: #5c2500;
+        }
+        
+        .function-description {
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">PYTHON RANDOMNESS</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="lisc">
+                <i class="fas fa-clipboard-list"></i>
+                LI/SC
+            </button>
+            <button class="tab-button" data-tab="chunk1">
+                <i class="fas fa-cube"></i>
+                CHUNK 1
+            </button>
+            <button class="tab-button" data-tab="chew1">
+                <i class="fas fa-utensils"></i>
+                CHEW 1
+            </button>
+            <button class="tab-button" data-tab="chunk2">
+                <i class="fas fa-cube"></i>
+                CHUNK 2
+            </button>
+            <button class="tab-button" data-tab="chew2">
+                <i class="fas fa-utensils"></i>
+                CHEW 2
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Learning Intentions and Success Criteria section -->
+        <section id="lisc" class="tab-content active light-section">
+            <h1>LEARNING INTENTIONS & SUCCESS CRITERIA <i class="fas fa-bullseye" style="margin-left: 15px;"></i></h1>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">1</div>
+                    <h3>Learning Intentions <i class="fas fa-bullseye" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what libraries are in Python and how to import them</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to use Python's random library to generate random numbers</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">2</div>
+                    <h3>Success Criteria <i class="fas fa-trophy" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <p>By the end of this lesson, you should be able to:</p>
+                
+                <ul>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Import the random library in Python</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Generate random numbers using randint() and explain how it works</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CHUNK 1: Python Libraries and Importing -->
+        <section id="chunk1" class="tab-content dark-section">
+            <h1>CHUNK 1: PYTHON LIBRARIES AND IMPORTING <i class="fas fa-book" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>What Are Python Libraries?</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Understanding Libraries <i class="fas fa-book-open" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Python libraries are like toolboxes filled with useful tools (functions) that help us solve specific problems.</p>
+                    
+                    <div class="step-container">
+                        <div class="step-header">
+                            <i class="fas fa-question-circle"></i> What is a Library?
+                        </div>
+                        <div class="step-content">
+                            <div class="two-column-grid">
+                                <div style="display: flex; align-items: center; justify-content: center;">
+                                    <div style="text-align: center;">
+                                        <i class="fas fa-toolbox" style="font-size: 4em; color: var(--accent-color); margin-bottom: 15px;"></i>
+                                        <p style="font-weight: 600;">A collection of pre-written code</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <ul style="margin-top: 0;">
+                                        <li>Saves time - use code others have already written</li>
+                                        <li>Solves common problems without starting from scratch</li>
+                                        <li>Tested and reliable code you can trust</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-container">
+                        <div class="step-header">
+                            <i class="fas fa-lightbulb"></i> Examples of Popular Python Libraries
+                        </div>
+                        <div class="step-content">
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+                                <div class="icon-box" style="flex: 1; min-width: 200px;">
+                                    <div class="icon-container">
+                                        <i class="fas fa-calculator"></i>
+                                    </div>
+                                    <div class="icon-text">
+                                        <h4>Math Library</h4>
+                                        <p>Contains functions for mathematical operations</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="icon-box" style="flex: 1; min-width: 200px;">
+                                    <div class="icon-container">
+                                        <i class="fas fa-dice"></i>
+                                    </div>
+                                    <div class="icon-text">
+                                        <h4>Random Library</h4>
+                                        <p>Generates random numbers and makes random choices</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="icon-box" style="flex: 1; min-width: 200px;">
+                                    <div class="icon-container">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="icon-text">
+                                        <h4>Datetime Library</h4>
+                                        <p>Works with dates and times</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>How to Import Libraries <i class="fas fa-file-import" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Before we can use a library, we need to import it. There are different ways to import libraries in Python:</p>
+                    
+                    <div class="code-block">
+<span class="highlight-comment"># Method 1: Import the entire library</span>
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span>
+
+<span class="highlight-comment"># Method 2: Import specific functions</span>
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-comment"># Method 3: Import with an alias</span>
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span> <span class="highlight-variable">as</span> <span class="highlight-value">rnd</span>
+                    </div>
+                    
+                    <p style="margin-top: 15px;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> Import statements should always be at the beginning of your Python file.</p>
+                    
+                    <div class="two-column-grid" style="margin-top: 20px;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <h4><i class="fas fa-code" style="margin-right: 12px;"></i> Example: Using Method 1</h4>
+                            
+                            <div class="code-block">
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">random</span><span class="highlight-operator">.</span><span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">10</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-variable">random_number</span><span class="highlight-operator">)</span>
+                            </div>
+                            
+                            <p style="margin-top: 10px;">When using the full library name, we need to use the library name followed by a dot, then the function name.</p>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <h4><i class="fas fa-code" style="margin-right: 12px;"></i> Example: Using Method 2</h4>
+                            
+                            <div class="code-block">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">10</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-variable">random_number</span><span class="highlight-operator">)</span>
+                            </div>
+                            
+                            <p style="margin-top: 10px;">When importing a specific function, we can use it directly without the library name.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>What are Functions and Parameters? <i class="fas fa-cogs" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="step-container">
+                        <div class="step-header">
+                            <i class="fas fa-cube"></i> Step 1: Understanding Functions
+                        </div>
+                        <div class="step-content">
+                            <div class="two-column-grid">
+                                <div>
+                                    <h4><i class="fas fa-cog" style="margin-right: 10px;"></i> What is a Function?</h4>
+                                    <p>A function is a block of code that performs a specific task.</p>
+                                    <p>Think of a function like a mini-program that does one job really well.</p>
+                                </div>
+                                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px;">
+                                    <h4><i class="fas fa-lightbulb" style="margin-right: 10px; color: var(--accent-color);"></i> Real-World Example</h4>
+                                    <p>A microwave has functions like "defrost" or "reheat" that perform specific tasks when you press a button.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-container" style="margin-top: 15px;">
+                        <div class="step-header">
+                            <i class="fas fa-cube"></i> Step 2: Understanding Parameters
+                        </div>
+                        <div class="step-content">
+                            <div class="two-column-grid">
+                                <div>
+                                    <h4><i class="fas fa-sliders-h" style="margin-right: 10px;"></i> What are Parameters?</h4>
+                                    <p>Parameters are values that we pass to a function to customize how it works.</p>
+                                    <p>They're like the settings or inputs that the function needs to do its job.</p>
+                                </div>
+                                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px;">
+                                    <h4><i class="fas fa-lightbulb" style="margin-right: 10px; color: var(--accent-color);"></i> Real-World Example</h4>
+                                    <p>Setting the time on a microwave is like passing a parameter - it tells the microwave how long to run.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-container" style="margin-top: 15px;">
+                        <div class="step-header">
+                            <i class="fas fa-cube"></i> Step 3: Function Syntax
+                        </div>
+                        <div class="step-content">
+                            <div class="code-block">
+<span class="highlight-variable">function_name</span><span class="highlight-operator">(</span><span class="highlight-value">parameter1</span><span class="highlight-operator">,</span> <span class="highlight-value">parameter2</span><span class="highlight-operator">)</span>
+                            </div>
+                            
+                            <div class="function-demo">
+                                <div>
+                                    <div class="function-part function-name">function_name</div>
+                                    <div class="function-description">The name of the function</div>
+                                </div>
+                                
+                                <div style="font-size: 1.5em;">+</div>
+                                
+                                <div>
+                                    <div class="function-part function-params">(parameter1, parameter2)</div>
+                                    <div class="function-description">Input values inside parentheses</div>
+                                </div>
+                            </div>
+                            
+                            <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 15px;">
+                                <p style="margin: 0;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Calling a function</strong> means using it in your code by writing the function name followed by parentheses with any required parameters.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 1: Practice Import Statements -->
+        <section id="chew1" class="tab-content light-section">
+            <h1>CHEW 1: PRACTICE IMPORT STATEMENTS <i class="fas fa-file-import" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Check Your Understanding</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice writing import statements</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Understand the difference between importing an entire library and specific functions</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Import Practice <i class="fas fa-keyboard" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Match each task with the correct import statement:</p>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="matching-item">
+                            <div class="matching-question">1. Import the entire math library</div>
+                            <div class="matching-options">
+                                <button class="matching-option" onclick="checkAnswer(1, 'A')">A. import math</button>
+                                <button class="matching-option" onclick="checkAnswer(1, 'B')">B. from math import *</button>
+                                <button class="matching-option" onclick="checkAnswer(1, 'C')">C. import maths</button>
+                            </div>
+                            <div id="answer1" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="matching-item">
+                            <div class="matching-question">2. Import only the randint function from the random library</div>
+                            <div class="matching-options">
+                                <button class="matching-option" onclick="checkAnswer(2, 'A')">A. import random.randint</button>
+                                <button class="matching-option" onclick="checkAnswer(2, 'B')">B. from random import randint</button>
+                                <button class="matching-option" onclick="checkAnswer(2, 'C')">C. import randint from random</button>
+                            </div>
+                            <div id="answer2" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="matching-item">
+                            <div class="matching-question">3. Import the random library and give it the alias 'r'</div>
+                            <div class="matching-options">
+                                <button class="matching-option" onclick="checkAnswer(3, 'A')">A. import 'r' from random</button>
+                                <button class="matching-option" onclick="checkAnswer(3, 'B')">B. import random as r</button>
+                                <button class="matching-option" onclick="checkAnswer(3, 'C')">C. from random import r</button>
+                            </div>
+                            <div id="answer3" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Using Functions After Importing <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Complete the code to use the functions correctly based on how they were imported:</p>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="code-completion">
+                            <div class="code-question">
+                                <div class="code-block">
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span>
+
+<span class="highlight-comment"># Generate a random number between 1 and 100</span>
+<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
+                                </div>
+                            </div>
+                            
+                            <div class="code-options">
+                                <button class="matching-option" onclick="checkCodeAnswer(1, 'A')">A. random.randint(1, 100)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(1, 'B')">B. randint(1, 100)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(1, 'C')">C. random(1, 100)</button>
+                            </div>
+                            <div id="code-answer1" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="code-completion" style="margin-top: 20px;">
+                            <div class="code-question">
+                                <div class="code-block">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-comment"># Generate a random number between 1 and 10</span>
+<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
+                                </div>
+                            </div>
+                            
+                            <div class="code-options">
+                                <button class="matching-option" onclick="checkCodeAnswer(2, 'A')">A. random.randint(1, 10)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(2, 'B')">B. randint(1, 10)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(2, 'C')">C. random(1, 10)</button>
+                            </div>
+                            <div id="code-answer2" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="code-completion" style="margin-top: 20px;">
+                            <div class="code-question">
+                                <div class="code-block">
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span> <span class="highlight-variable">as</span> <span class="highlight-value">rnd</span>
+
+<span class="highlight-comment"># Generate a random number between 5 and 15</span>
+<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
+                                </div>
+                            </div>
+                            
+                            <div class="code-options">
+                                <button class="matching-option" onclick="checkCodeAnswer(3, 'A')">A. rnd.randint(5, 15)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(3, 'B')">B. random.randint(5, 15)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(3, 'C')">C. randint(5, 15)</button>
+                            </div>
+                            <div id="code-answer3" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 2: Using the Random Library -->
+        <section id="chunk2" class="tab-content dark-section">
+            <h1>CHUNK 2: USING THE RANDOM LIBRARY <i class="fas fa-dice" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Generating Random Numbers with randint()</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Understanding randint() <i class="fas fa-random" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>The <code>randint()</code> function from the random library lets us generate a random integer between two values (inclusive).</p>
+                    
+                    <div class="code-block">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">minimum</span><span class="highlight-operator">,</span> <span class="highlight-value">maximum</span><span class="highlight-operator">)</span>
+                    </div>
+                    
+                    <div class="two-column-grid" style="margin-top: 20px;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <h4><i class="fas fa-info-circle" style="margin-right: 12px;"></i> Parameters Explained</h4>
+                            
+                            <ul>
+                                <li><strong>minimum</strong>: The smallest possible number that can be generated</li>
+                                <li><strong>maximum</strong>: The largest possible number that can be generated</li>
+                            </ul>
+                            
+                            <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 15px;">
+                                <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Important:</strong> Both the minimum and maximum values are included in the possible results!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <h4><i class="fas fa-code" style="margin-right: 12px;"></i> Example</h4>
+                            
+                            <div class="code-block">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-comment"># Generate a random number between 1 and 6</span>
+<span class="highlight-variable">dice_roll</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">6</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"You rolled:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">dice_roll</span><span class="highlight-operator">)</span>
+                            </div>
+                            
+                            <div style="margin-top: 15px; text-align: center;">
+                                <p>Possible results: 1, 2, 3, 4, 5, or 6</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>How randint() Works <i class="fas fa-cogs" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="variable-animation">
+                        <div class="code-step-container">
+                            <div class="code-step-header">
+                                <span>randint() in Action</span>
+                                <span id="randint-step-indicator">Step 1 of 3</span>
+                            </div>
+                            
+                            <div class="code-step-content">
+                                <!-- Step 1: Import the library -->
+                                <div id="randint-step-1" class="variable-update-step active">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active"><span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span></div>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">What's Happening</h4>
+                                        <p>We're importing just the <code>randint()</code> function from the random library.</p>
+                                        <p>This is like taking just one tool out of a big toolbox, so we can use it easily.</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 2: Call the function -->
+                                <div id="randint-step-2" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<div class="execution-line active"><span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">10</span><span class="highlight-operator">)</span></div>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">What's Happening</h4>
+                                        <div style="display: flex; align-items: center; justify-content: center; margin: 15px 0;">
+                                            <div style="background-color: #f0f0f0; padding: 10px 20px; border-radius: var(--border-radius);">
+                                                <code>randint(1, 10)</code>
+                                            </div>
+                                            <div style="margin: 0 15px;">
+                                                <i class="fas fa-arrow-right" style="font-size: 1.5em;"></i>
+                                            </div>
+                                            <div style="background-color: #d9f7be; padding: 10px 20px; border-radius: var(--border-radius);">
+                                                <span id="random-result">7</span>
+                                            </div>
+                                        </div>
+                                        <p>The <code>randint()</code> function picks a random number between 1 and 10.</p>
+                                        <p>It's like rolling a 10-sided die - we don't know which number we'll get until we roll!</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 3: Use the result -->
+                                <div id="randint-step-3" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">10</span><span class="highlight-operator">)</span>
+
+<div class="execution-line active"><span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"The random number is:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">random_number</span><span class="highlight-operator">)</span></div>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">What's Happening</h4>
+                                        <div class="computer-memory">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">random_number</div>
+                                                <div class="memory-item-value" id="memory-random-value">7</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="result-display" style="margin-top: 15px;">
+                                            The random number is: <span id="output-random-value">7</span>
+                                        </div>
+                                        
+                                        <p style="margin-top: 15px;">We store the random value in a variable called <code>random_number</code> and then print it out.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button id="prev-randint-btn" class="step-btn" onclick="prevRandintStep()" disabled>
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="next-randint-btn" class="step-btn" onclick="nextRandintStep()">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Try It Yourself! <i class="fas fa-hands" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="variable-animation" style="padding: 30px; text-align: center;">
+                        <p style="margin-bottom: 15px; color: var(--accent-color); font-weight: 600; font-size: 1.3em;">Random Number Generator</p>
+                        
+                        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px;">
+                            <div>
+                                <label for="min-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Min:</label>
+                                <input type="number" id="min-input" value="1" min="-100" max="100" style="font-size: 1.2em; padding: 8px; width: 80px; border-radius: var(--border-radius); border: 2px solid var(--outline-color);">
+                            </div>
+                            
+                            <div style="margin: 0 20px;">
+                                <label for="max-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Max:</label>
+                                <input type="number" id="max-input" value="10" min="-100" max="100" style="font-size: 1.2em; padding: 8px; width: 80px; border-radius: var(--border-radius); border: 2px solid var(--outline-color);">
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <button id="generate-btn" class="action-btn" style="padding: 10px 30px; font-size: 1.2em;" onclick="generateRandomNumber()">
+                                Generate Random Number
+                            </button>
+                        </div>
+                        
+                        <div id="result-container" style="display: none;">
+                            <div style="font-size: 1.8em; margin-bottom: 20px;">
+                                Your random number is:
+                            </div>
+                            
+                            <div id="random-display" style="font-size: 3em; font-weight: bold; color: var(--accent-color); background-color: rgba(0, 0, 0, 0.05); padding: 15px 0; border-radius: var(--border-radius); margin-bottom: 20px;">
+                                7
+                            </div>
+                            
+                            <div class="code-block" style="text-align: left; margin-top: 30px;">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-variable" id="code-min-value">1</span><span class="highlight-operator">,</span> <span class="highlight-variable" id="code-max-value">10</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Your random number is:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">random_number</span><span class="highlight-operator">)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 2: Apply Your Knowledge -->
+        <section id="chew2" class="tab-content light-section">
+            <h1>CHEW 2: APPLY YOUR KNOWLEDGE <i class="fas fa-hands-helping" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Practice Using randint()</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using randint() with different parameters</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create simple programs using random numbers</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Fix the Code <i class="fas fa-bug" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Each of these code examples has an error. Can you find and fix them?</p>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="code-fix">
+                            <div class="code-question">
+                                <p><strong>Example 1:</strong></p>
+                                <div class="code-block" style="color: var(--bad-color);">
+<span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-variable">dice_roll</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">6</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"You rolled:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">dice_roll</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                            
+                            <button class="action-btn" onclick="toggleCodeAnswer('code-fix-1')">Show Solution</button>
+                            
+                            <div id="code-fix-1" style="display: none; margin-top: 15px;">
+                                <p><i class="fas fa-check-circle" style="color: var(--good-color); margin-right: 10px;"></i> <strong>Problem:</strong> We can't import randint directly, it's inside the random module.</p>
+                                <div class="code-block" style="color: var(--good-color);">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-variable">dice_roll</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">6</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"You rolled:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">dice_roll</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="code-fix" style="margin-top: 30px;">
+                            <div class="code-question">
+                                <p><strong>Example 2:</strong></p>
+                                <div class="code-block" style="color: var(--bad-color);">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">10</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-variable">random_number</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                            
+                            <button class="action-btn" onclick="toggleCodeAnswer('code-fix-2')">Show Solution</button>
+                            
+                            <div id="code-fix-2" style="display: none; margin-top: 15px;">
+                                <p><i class="fas fa-check-circle" style="color: var(--good-color); margin-right: 10px;"></i> <strong>Problem:</strong> randint() requires two parameters (min and max), not just one.</p>
+                                <div class="code-block" style="color: var(--good-color);">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">10</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-variable">random_number</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="code-fix" style="margin-top: 30px;">
+                            <div class="code-question">
+                                <p><strong>Example 3:</strong></p>
+                                <div class="code-block" style="color: var(--bad-color);">
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">100</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Random number:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">random_number</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                            
+                            <button class="action-btn" onclick="toggleCodeAnswer('code-fix-3')">Show Solution</button>
+                            
+                            <div id="code-fix-3" style="display: none; margin-top: 15px;">
+                                <p><i class="fas fa-check-circle" style="color: var(--good-color); margin-right: 10px;"></i> <strong>Problem:</strong> When importing the whole random module, we need to use random.randint().</p>
+                                <div class="code-block" style="color: var(--good-color);">
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span>
+
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">random</span><span class="highlight-operator">.</span><span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">100</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Random number:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">random_number</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Mini Challenges <i class="fas fa-trophy" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Complete these mini challenges using randint(). Work with a partner or on your own.</p>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="challenge-card">
+                            <h4>Challenge 1: Dice Roll Simulator</h4>
+                            <p>Write code to simulate rolling two dice and print the sum.</p>
+                            
+                            <button class="action-btn" onclick="toggleCodeAnswer('challenge-1')">Show Solution</button>
+                            
+                            <div id="challenge-1" style="display: none; margin-top: 15px;">
+                                <div class="code-block" style="color: var(--good-color);">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-comment"># Roll two dice</span>
+<span class="highlight-variable">dice1</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">6</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">dice2</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">6</span><span class="highlight-operator">)</span>
+
+<span class="highlight-comment"># Calculate the sum</span>
+<span class="highlight-variable">total</span> <span class="highlight-operator">=</span> <span class="highlight-variable">dice1</span> <span class="highlight-operator">+</span> <span class="highlight-variable">dice2</span>
+
+<span class="highlight-comment"># Print the results</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"First die:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">dice1</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Second die:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">dice2</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Total:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">total</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="challenge-card" style="margin-top: 20px;">
+                            <h4>Challenge 2: Number Guessing Game</h4>
+                            <p>Write code for a simple number guessing game where the computer picks a number between 1 and 10, and the player tries to guess it.</p>
+                            
+                            <button class="action-btn" onclick="toggleCodeAnswer('challenge-2')">Show Solution</button>
+                            
+                            <div id="challenge-2" style="display: none; margin-top: 15px;">
+                                <div class="code-block" style="color: var(--good-color);">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-comment"># Computer picks a random number</span>
+<span class="highlight-variable">secret_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">10</span><span class="highlight-operator">)</span>
+
+<span class="highlight-comment"># Get player's guess</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"I'm thinking of a number between 1 and 10."</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">guess</span> <span class="highlight-operator">=</span> <span class="highlight-variable">int</span><span class="highlight-operator">(</span><span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"What's your guess? "</span><span class="highlight-operator">)</span><span class="highlight-operator">)</span>
+
+<span class="highlight-comment"># Check if guess is correct</span>
+<span class="highlight-variable">if</span> <span class="highlight-variable">guess</span> <span class="highlight-operator">==</span> <span class="highlight-variable">secret_number</span><span class="highlight-operator">:</span>
+    <span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"You got it! The number was"</span><span class="highlight-operator">,</span> <span class="highlight-variable">secret_number</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">else</span><span class="highlight-operator">:</span>
+    <span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Sorry! The number was"</span><span class="highlight-operator">,</span> <span class="highlight-variable">secret_number</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="challenge-card" style="margin-top: 20px;">
+                            <h4>Challenge 3: Rock, Paper, Scissors Game</h4>
+                            <p>Write code for a Rock, Paper, Scissors game where the computer randomly chooses rock, paper, or scissors.</p>
+                            
+                            <button class="action-btn" onclick="toggleCodeAnswer('challenge-3')">Show Solution</button>
+                            
+                            <div id="challenge-3" style="display: none; margin-top: 15px;">
+                                <div class="code-block" style="color: var(--good-color);">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-comment"># Get player's choice</span>
+<span class="highlight-variable">player</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"Choose rock (r), paper (p), or scissors (s): "</span><span class="highlight-operator">)</span>
+
+<span class="highlight-comment"># Computer makes a random choice</span>
+<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">3</span><span class="highlight-operator">)</span>
+
+<span class="highlight-comment"># Convert random number to choice</span>
+<span class="highlight-variable">if</span> <span class="highlight-variable">random_number</span> <span class="highlight-operator">==</span> <span class="highlight-value">1</span><span class="highlight-operator">:</span>
+    <span class="highlight-variable">computer</span> <span class="highlight-operator">=</span> <span class="highlight-value">"r"</span>  <span class="highlight-comment"># Rock</span>
+<span class="highlight-variable">elif</span> <span class="highlight-variable">random_number</span> <span class="highlight-operator">==</span> <span class="highlight-value">2</span><span class="highlight-operator">:</span>
+    <span class="highlight-variable">computer</span> <span class="highlight-operator">=</span> <span class="highlight-value">"p"</span>  <span class="highlight-comment"># Paper</span>
+<span class="highlight-variable">else</span><span class="highlight-operator">:</span>
+    <span class="highlight-variable">computer</span> <span class="highlight-operator">=</span> <span class="highlight-value">"s"</span>  <span class="highlight-comment"># Scissors</span>
+
+<span class="highlight-comment"># Print computer's choice</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Computer chose:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">computer</span><span class="highlight-operator">)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Key Points <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
+                
+                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
+                    <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> What We've Learned Today</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Python libraries are collections of pre-written code we can use in our programs</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> We import libraries or specific functions from libraries to use them</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> The random library helps us generate random numbers in Python</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> The randint() function generates a random integer between two values (inclusive)</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Parameters are values we pass to functions to customize how they work</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and tabs
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to selected button and tab
+                    this.classList.add('active');
+                    document.getElementById(tab).classList.add('active');
+                });
+            });
+            
+            // Initialize randint steps
+            document.getElementById('randint-step-1').classList.add('active');
+            document.getElementById('randint-step-2').classList.remove('active');
+            document.getElementById('randint-step-3').classList.remove('active');
+            
+            document.getElementById('prev-randint-btn').disabled = true;
+            document.getElementById('next-randint-btn').disabled = false;
+        });
+        
+        // Randint step by step navigation
+        let currentRandintStep = 1;
+        const totalRandintSteps = 3;
+        
+        function nextRandintStep() {
+            if (currentRandintStep < totalRandintSteps) {
+                // Hide current step
+                document.getElementById(`randint-step-${currentRandintStep}`).classList.remove('active');
+                
+                // Show next step
+                currentRandintStep++;
+                document.getElementById(`randint-step-${currentRandintStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('randint-step-indicator').textContent = `Step ${currentRandintStep} of ${totalRandintSteps}`;
+                document.getElementById('prev-randint-btn').disabled = false;
+                
+                if (currentRandintStep === totalRandintSteps) {
+                    document.getElementById('next-randint-btn').disabled = true;
+                }
+            }
+        }
+        
+        function prevRandintStep() {
+            if (currentRandintStep > 1) {
+                // Hide current step
+                document.getElementById(`randint-step-${currentRandintStep}`).classList.remove('active');
+                
+                // Show previous step
+                currentRandintStep--;
+                document.getElementById(`randint-step-${currentRandintStep}`).classList.add('active');
+                
+                // Update indicator and buttons
+                document.getElementById('randint-step-indicator').textContent = `Step ${currentRandintStep} of ${totalRandintSteps}`;
+                document.getElementById('next-randint-btn').disabled = false;
+                
+                if (currentRandintStep === 1) {
+                    document.getElementById('prev-randint-btn').disabled = true;
+                }
+            }
+        }
+        
+        // Check answers for matching activity
+        function checkAnswer(questionNum, answer) {
+            const answerElement = document.getElementById(`answer${questionNum}`);
+            let isCorrect = false;
+            
+            // Define correct answers
+            if (questionNum === 1 && answer === 'A') isCorrect = true;  // import math
+            if (questionNum === 2 && answer === 'B') isCorrect = true;  // from random import randint
+            if (questionNum === 3 && answer === 'B') isCorrect = true;  // import random as r
+            
+            if (isCorrect) {
+                answerElement.innerHTML = '<i class="fas fa-check-circle" style="color: var(--good-color); margin-right: 10px;"></i> Correct!';
+                answerElement.style.color = 'var(--good-color)';
+            } else {
+                answerElement.innerHTML = '<i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 10px;"></i> Try again!';
+                answerElement.style.color = 'var(--bad-color)';
+            }
+            
+            answerElement.style.display = 'block';
+        }
+        
+        // Check answers for code completion
+        function checkCodeAnswer(questionNum, answer) {
+            const answerElement = document.getElementById(`code-answer${questionNum}`);
+            let isCorrect = false;
+            
+            // Define correct answers
+            if (questionNum === 1 && answer === 'A') isCorrect = true;  // random.randint(1, 100)
+            if (questionNum === 2 && answer === 'B') isCorrect = true;  // randint(1, 10)
+            if (questionNum === 3 && answer === 'A') isCorrect = true;  // rnd.randint(5, 15)
+            
+            if (isCorrect) {
+                answerElement.innerHTML = '<i class="fas fa-check-circle" style="color: var(--good-color); margin-right: 10px;"></i> Correct!';
+                answerElement.style.color = 'var(--good-color)';
+            } else {
+                answerElement.innerHTML = '<i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 10px;"></i> Try again!';
+                answerElement.style.color = 'var(--bad-color)';
+            }
+            
+            answerElement.style.display = 'block';
+        }
+        
+        // Toggle code answers
+        function toggleCodeAnswer(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === 'none') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+        
+        // Generate random number
+        function generateRandomNumber() {
+            const minValue = parseInt(document.getElementById('min-input').value);
+            const maxValue = parseInt(document.getElementById('max-input').value);
+            
+            // Make sure min is not greater than max
+            if (minValue > maxValue) {
+                alert("Minimum value cannot be greater than maximum value!");
+                return;
+            }
+            
+            // Generate a random number
+            const randomNum = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+            
+            // Update display
+            document.getElementById('random-display').innerText = randomNum;
+            document.getElementById('code-min-value').innerText = minValue;
+            document.getElementById('code-max-value').innerText = maxValue;
+            document.getElementById('result-container').style.display = 'block';
+        }
+        
+        // Update random result periodically for the randint example
+        function updateRandomExample() {
+            const newValue = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('random-result').innerText = newValue;
+            document.getElementById('memory-random-value').innerText = newValue;
+            document.getElementById('output-random-value').innerText = newValue;
+        }
+        
+        // Update the random example every 3 seconds
+        setInterval(updateRandomExample, 3000);
+    </script>
+</body>
+</html>
