@@ -110,6 +110,144 @@
             font-size: 0.9em;
             color: #666;
         }
+
+        /* Drag and drop styles */
+        .syntax-drag-drop {
+            margin: 20px 0;
+        }
+
+        .drag-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .drag-item {
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            cursor: move;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .drag-item.dragging {
+            opacity: 0.5;
+            transform: scale(1.05);
+        }
+
+        .drop-area {
+            position: relative;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(0, 38, 84, 0.05);
+            border: 2px dashed var(--outline-color);
+            border-radius: var(--border-radius);
+            min-height: 150px;
+        }
+
+        .drop-zone {
+            display: inline-block;
+            min-width: 100px;
+            height: 40px;
+            padding: 8px;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ccc;
+            border-radius: var(--border-radius);
+            vertical-align: middle;
+        }
+
+        .drop-zone.highlight {
+            border-color: var(--accent-color);
+            background-color: rgba(0, 38, 84, 0.1);
+        }
+        
+        /* Puzzle pieces style */
+        .puzzle-pieces {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+        
+        .puzzle-piece {
+            padding: 8px 12px;
+            background-color: #fff;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            cursor: grab;
+            user-select: none;
+        }
+        
+        .puzzle-piece:active {
+            cursor: grabbing;
+        }
+        
+        .puzzle-target {
+            min-height: 40px;
+            padding: 8px 12px;
+            background-color: rgba(0, 38, 84, 0.05);
+            border: 2px dashed var(--outline-color);
+            border-radius: var(--border-radius);
+            margin: 10px 0;
+        }
+        
+        .puzzle-target.highlight {
+            background-color: rgba(0, 38, 84, 0.1);
+            border-color: var(--accent-color);
+        }
+        
+        .feedback {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: var(--border-radius);
+            display: none;
+        }
+        
+        .feedback.success {
+            background-color: rgba(82, 196, 26, 0.1);
+            border-left: 4px solid #52c41a;
+        }
+        
+        .feedback.error {
+            background-color: rgba(255, 77, 79, 0.1);
+            border-left: 4px solid #ff4d4f;
+        }
+        
+        .part-label {
+            display: inline-block;
+            font-size: 0.8em;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .keyword {
+            background-color: #ff7a45;
+        }
+
+        .library {
+            background-color: #1890ff;
+        }
+
+        .alias {
+            background-color: #52c41a;
+        }
+
+        .function {
+            background-color: #722ed1;
+        }
+
+        .parameter {
+            background-color: #faad14;
+        }
     </style>
 </head>
 <body>
@@ -384,127 +522,148 @@
             </div>
         </section>
 
-        <!-- CHEW 1: Practice Import Statements -->
+        <!-- CHEW 1: Identify Import Syntax -->
         <section id="chew1" class="tab-content light-section">
-            <h1>CHEW 1: PRACTICE IMPORT STATEMENTS <i class="fas fa-file-import" style="margin-left: 15px;"></i></h1>
+            <h1>CHEW 1: IDENTIFY IMPORT SYNTAX <i class="fas fa-puzzle-piece" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
                 
-                <h3>Check Your Understanding</h3>
+                <h3>Understanding Python Import Syntax</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice writing import statements</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Understand the difference between importing an entire library and specific functions</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Identify the different parts of Python import statements</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Understand the structure of function calls with parameters</li>
                     </ul>
                 </div>
                 
                 <div class="interactive-card">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">1</div>
-                        <h3>Import Practice <i class="fas fa-keyboard" style="margin-left: 10px;"></i></h3>
+                        <h3>Identify the Parts <i class="fas fa-tags" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p>Match each task with the correct import statement:</p>
+                    <p>Drag the correct label to each part of the import statement:</p>
                     
-                    <div style="margin-top: 20px;">
-                        <div class="matching-item">
-                            <div class="matching-question">1. Import the entire math library</div>
-                            <div class="matching-options">
-                                <button class="matching-option" onclick="checkAnswer(1, 'A')">A. import math</button>
-                                <button class="matching-option" onclick="checkAnswer(1, 'B')">B. from math import *</button>
-                                <button class="matching-option" onclick="checkAnswer(1, 'C')">C. import maths</button>
-                            </div>
-                            <div id="answer1" class="matching-feedback" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="matching-item">
-                            <div class="matching-question">2. Import only the randint function from the random library</div>
-                            <div class="matching-options">
-                                <button class="matching-option" onclick="checkAnswer(2, 'A')">A. import random.randint</button>
-                                <button class="matching-option" onclick="checkAnswer(2, 'B')">B. from random import randint</button>
-                                <button class="matching-option" onclick="checkAnswer(2, 'C')">C. import randint from random</button>
-                            </div>
-                            <div id="answer2" class="matching-feedback" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="matching-item">
-                            <div class="matching-question">3. Import the random library and give it the alias 'r'</div>
-                            <div class="matching-options">
-                                <button class="matching-option" onclick="checkAnswer(3, 'A')">A. import 'r' from random</button>
-                                <button class="matching-option" onclick="checkAnswer(3, 'B')">B. import random as r</button>
-                                <button class="matching-option" onclick="checkAnswer(3, 'C')">C. from random import r</button>
-                            </div>
-                            <div id="answer3" class="matching-feedback" style="display: none;"></div>
-                        </div>
+                    <div class="puzzle-pieces" id="puzzle1-pieces">
+                        <div class="puzzle-piece" draggable="true" data-piece="Keyword" style="background-color: #ff7a45; color: #5c2500;">Keyword</div>
+                        <div class="puzzle-piece" draggable="true" data-piece="Library" style="background-color: #1890ff; color: #003a8c;">Library Name</div>
+                    </div>
+                    
+                    <div class="code-block" style="margin-top: 20px; text-align: left;">
+                        <div id="puzzle1-target1" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">import</span>
+                        <div id="puzzle1-target2" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">random</span>
+                    </div>
+                    
+                    <div id="puzzle1-feedback" class="feedback"></div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="action-btn" onclick="checkImportPuzzle(1)">Check</button>
+                        <button class="action-btn" style="background-color: #ff4d4f; margin-left: 10px;" onclick="resetImportPuzzle(1)">Reset</button>
                     </div>
                 </div>
                 
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">2</div>
-                        <h3>Using Functions After Importing <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                        <h3>From Import Syntax <i class="fas fa-exchange-alt" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p>Complete the code to use the functions correctly based on how they were imported:</p>
+                    <p>Drag the correct labels to identify the parts of this import statement:</p>
                     
-                    <div style="margin-top: 20px;">
-                        <div class="code-completion">
-                            <div class="code-question">
-                                <div class="code-block">
-<span class="highlight-variable">import</span> <span class="highlight-value">random</span>
-
-<span class="highlight-comment"># Generate a random number between 1 and 100</span>
-<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
-                                </div>
-                            </div>
-                            
-                            <div class="code-options">
-                                <button class="matching-option" onclick="checkCodeAnswer(1, 'A')">A. random.randint(1, 100)</button>
-                                <button class="matching-option" onclick="checkCodeAnswer(1, 'B')">B. randint(1, 100)</button>
-                                <button class="matching-option" onclick="checkCodeAnswer(1, 'C')">C. random(1, 100)</button>
-                            </div>
-                            <div id="code-answer1" class="matching-feedback" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="code-completion" style="margin-top: 20px;">
-                            <div class="code-question">
-                                <div class="code-block">
-<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
-
-<span class="highlight-comment"># Generate a random number between 1 and 10</span>
-<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
-                                </div>
-                            </div>
-                            
-                            <div class="code-options">
-                                <button class="matching-option" onclick="checkCodeAnswer(2, 'A')">A. random.randint(1, 10)</button>
-                                <button class="matching-option" onclick="checkCodeAnswer(2, 'B')">B. randint(1, 10)</button>
-                                <button class="matching-option" onclick="checkCodeAnswer(2, 'C')">C. random(1, 10)</button>
-                            </div>
-                            <div id="code-answer2" class="matching-feedback" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="code-completion" style="margin-top: 20px;">
-                            <div class="code-question">
-                                <div class="code-block">
-<span class="highlight-variable">import</span> <span class="highlight-value">random</span> <span class="highlight-variable">as</span> <span class="highlight-value">rnd</span>
-
-<span class="highlight-comment"># Generate a random number between 5 and 15</span>
-<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
-                                </div>
-                            </div>
-                            
-                            <div class="code-options">
-                                <button class="matching-option" onclick="checkCodeAnswer(3, 'A')">A. rnd.randint(5, 15)</button>
-                                <button class="matching-option" onclick="checkCodeAnswer(3, 'B')">B. random.randint(5, 15)</button>
-                                <button class="matching-option" onclick="checkCodeAnswer(3, 'C')">C. randint(5, 15)</button>
-                            </div>
-                            <div id="code-answer3" class="matching-feedback" style="display: none;"></div>
-                        </div>
+                    <div class="puzzle-pieces" id="puzzle2-pieces">
+                        <div class="puzzle-piece" draggable="true" data-piece="Keyword" style="background-color: #ff7a45; color: #5c2500;">Keyword</div>
+                        <div class="puzzle-piece" draggable="true" data-piece="Library" style="background-color: #1890ff; color: #003a8c;">Library Name</div>
+                        <div class="puzzle-piece" draggable="true" data-piece="Function" style="background-color: #722ed1; color: #fff;">Function Name</div>
+                    </div>
+                    
+                    <div class="code-block" style="margin-top: 20px; text-align: left;">
+                        <div id="puzzle2-target1" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">from</span>
+                        <div id="puzzle2-target2" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">random</span>
+                        <div id="puzzle2-target3" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">import</span>
+                        <div id="puzzle2-target4" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">randint</span>
+                    </div>
+                    
+                    <div id="puzzle2-feedback" class="feedback"></div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="action-btn" onclick="checkImportPuzzle(2)">Check</button>
+                        <button class="action-btn" style="background-color: #ff4d4f; margin-left: 10px;" onclick="resetImportPuzzle(2)">Reset</button>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Importing with an Alias <i class="fas fa-id-card" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Drag the correct labels to identify the parts of this import statement:</p>
+                    
+                    <div class="puzzle-pieces" id="puzzle3-pieces">
+                        <div class="puzzle-piece" draggable="true" data-piece="Keyword" style="background-color: #ff7a45; color: #5c2500;">Keyword</div>
+                        <div class="puzzle-piece" draggable="true" data-piece="Library" style="background-color: #1890ff; color: #003a8c;">Library Name</div>
+                        <div class="puzzle-piece" draggable="true" data-piece="Alias" style="background-color: #52c41a; color: #254000;">Alias</div>
+                    </div>
+                    
+                    <div class="code-block" style="margin-top: 20px; text-align: left;">
+                        <div id="puzzle3-target1" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">import</span>
+                        <div id="puzzle3-target2" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">random</span>
+                        <div id="puzzle3-target3" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">as</span>
+                        <div id="puzzle3-target4" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">rnd</span>
+                    </div>
+                    
+                    <div id="puzzle3-feedback" class="feedback"></div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="action-btn" onclick="checkImportPuzzle(3)">Check</button>
+                        <button class="action-btn" style="background-color: #ff4d4f; margin-left: 10px;" onclick="resetImportPuzzle(3)">Reset</button>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">4</div>
+                        <h3>Function Call Syntax <i class="fas fa-phone" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Drag the correct labels to identify the parts of this function call:</p>
+                    
+                    <div class="puzzle-pieces" id="puzzle4-pieces">
+                        <div class="puzzle-piece" draggable="true" data-piece="Library" style="background-color: #1890ff; color: #003a8c;">Library Name</div>
+                        <div class="puzzle-piece" draggable="true" data-piece="Function" style="background-color: #722ed1; color: #fff;">Function Name</div>
+                        <div class="puzzle-piece" draggable="true" data-piece="Parameter" style="background-color: #faad14; color: #613400;">Parameter</div>
+                        <div class="puzzle-piece" draggable="true" data-piece="Variable" style="background-color: #eb2f96; color: #fff;">Variable</div>
+                    </div>
+                    
+                    <div class="code-block" style="margin-top: 20px; text-align: left;">
+                        <div id="puzzle4-target1" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">random_number</span> =
+                        <div id="puzzle4-target2" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">random</span>.<div id="puzzle4-target3" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">randint</span>(<div id="puzzle4-target4" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">1</span>, <div id="puzzle4-target5" class="puzzle-target" style="display: inline-block; min-width: 120px; min-height: 20px;"></div>
+                        <span style="margin: 0 5px;">10</span>)
+                    </div>
+                    
+                    <div id="puzzle4-feedback" class="feedback"></div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="action-btn" onclick="checkImportPuzzle(4)">Check</button>
+                        <button class="action-btn" style="background-color: #ff4d4f; margin-left: 10px;" onclick="resetImportPuzzle(4)">Reset</button>
                     </div>
                 </div>
             </div>
@@ -662,6 +821,71 @@
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">3</div>
+                        <h3>Using Functions After Importing <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Complete the code to use the functions correctly based on how they were imported:</p>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="code-completion">
+                            <div class="code-question">
+                                <div class="code-block">
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span>
+
+<span class="highlight-comment"># Generate a random number between 1 and 100</span>
+<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
+                                </div>
+                            </div>
+                            
+                            <div class="code-options">
+                                <button class="matching-option" onclick="checkCodeAnswer(1, 'A')">A. random.randint(1, 100)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(1, 'B')">B. randint(1, 100)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(1, 'C')">C. random(1, 100)</button>
+                            </div>
+                            <div id="code-answer1" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="code-completion" style="margin-top: 20px;">
+                            <div class="code-question">
+                                <div class="code-block">
+<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
+
+<span class="highlight-comment"># Generate a random number between 1 and 10</span>
+<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
+                                </div>
+                            </div>
+                            
+                            <div class="code-options">
+                                <button class="matching-option" onclick="checkCodeAnswer(2, 'A')">A. random.randint(1, 10)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(2, 'B')">B. randint(1, 10)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(2, 'C')">C. random(1, 10)</button>
+                            </div>
+                            <div id="code-answer2" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="code-completion" style="margin-top: 20px;">
+                            <div class="code-question">
+                                <div class="code-block">
+<span class="highlight-variable">import</span> <span class="highlight-value">random</span> <span class="highlight-variable">as</span> <span class="highlight-value">rnd</span>
+
+<span class="highlight-comment"># Generate a random number between 5 and 15</span>
+<span class="highlight-variable">num</span> <span class="highlight-operator">=</span> <span class="highlight-empty">_______</span>
+                                </div>
+                            </div>
+                            
+                            <div class="code-options">
+                                <button class="matching-option" onclick="checkCodeAnswer(3, 'A')">A. rnd.randint(5, 15)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(3, 'B')">B. random.randint(5, 15)</button>
+                                <button class="matching-option" onclick="checkCodeAnswer(3, 'C')">C. randint(5, 15)</button>
+                            </div>
+                            <div id="code-answer3" class="matching-feedback" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">4</div>
                         <h3>Try It Yourself! <i class="fas fa-hands" style="margin-left: 10px;"></i></h3>
                     </div>
                     
@@ -867,36 +1091,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="challenge-card" style="margin-top: 20px;">
-                            <h4>Challenge 3: Rock, Paper, Scissors Game</h4>
-                            <p>Write code for a Rock, Paper, Scissors game where the computer randomly chooses rock, paper, or scissors.</p>
-                            
-                            <button class="action-btn" onclick="toggleCodeAnswer('challenge-3')">Show Solution</button>
-                            
-                            <div id="challenge-3" style="display: none; margin-top: 15px;">
-                                <div class="code-block" style="color: var(--good-color);">
-<span class="highlight-variable">from</span> <span class="highlight-value">random</span> <span class="highlight-variable">import</span> <span class="highlight-value">randint</span>
-
-<span class="highlight-comment"># Get player's choice</span>
-<span class="highlight-variable">player</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"Choose rock (r), paper (p), or scissors (s): "</span><span class="highlight-operator">)</span>
-
-<span class="highlight-comment"># Computer makes a random choice</span>
-<span class="highlight-variable">random_number</span> <span class="highlight-operator">=</span> <span class="highlight-value">randint</span><span class="highlight-operator">(</span><span class="highlight-value">1</span><span class="highlight-operator">,</span> <span class="highlight-value">3</span><span class="highlight-operator">)</span>
-
-<span class="highlight-comment"># Convert random number to choice</span>
-<span class="highlight-variable">if</span> <span class="highlight-variable">random_number</span> <span class="highlight-operator">==</span> <span class="highlight-value">1</span><span class="highlight-operator">:</span>
-    <span class="highlight-variable">computer</span> <span class="highlight-operator">=</span> <span class="highlight-value">"r"</span>  <span class="highlight-comment"># Rock</span>
-<span class="highlight-variable">elif</span> <span class="highlight-variable">random_number</span> <span class="highlight-operator">==</span> <span class="highlight-value">2</span><span class="highlight-operator">:</span>
-    <span class="highlight-variable">computer</span> <span class="highlight-operator">=</span> <span class="highlight-value">"p"</span>  <span class="highlight-comment"># Paper</span>
-<span class="highlight-variable">else</span><span class="highlight-operator">:</span>
-    <span class="highlight-variable">computer</span> <span class="highlight-operator">=</span> <span class="highlight-value">"s"</span>  <span class="highlight-comment"># Scissors</span>
-
-<span class="highlight-comment"># Print computer's choice</span>
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Computer chose:"</span><span class="highlight-operator">,</span> <span class="highlight-variable">computer</span><span class="highlight-operator">)</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -947,7 +1141,196 @@
             
             document.getElementById('prev-randint-btn').disabled = true;
             document.getElementById('next-randint-btn').disabled = false;
+            
+            // Generate random number once for the example
+            const randomNum = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('random-result').innerText = randomNum;
+            document.getElementById('memory-random-value').innerText = randomNum;
+            document.getElementById('output-random-value').innerText = randomNum;
+            
+            // Initialize drag and drop
+            initDragAndDrop();
         });
+        
+        // Initialize drag and drop functionality
+        function initDragAndDrop() {
+            // Get all puzzle pieces
+            const puzzlePieces = document.querySelectorAll('.puzzle-piece');
+            
+            // Get all puzzle targets
+            const puzzleTargets = document.querySelectorAll('.puzzle-target');
+            
+            // Add event listeners to puzzle pieces
+            puzzlePieces.forEach(piece => {
+                piece.addEventListener('dragstart', dragStart);
+                piece.addEventListener('dragend', dragEnd);
+            });
+            
+            // Add event listeners to puzzle targets
+            puzzleTargets.forEach(target => {
+                target.addEventListener('dragover', dragOver);
+                target.addEventListener('dragenter', dragEnter);
+                target.addEventListener('dragleave', dragLeave);
+                target.addEventListener('drop', drop);
+            });
+        }
+        
+        // Drag and drop functions
+        function dragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.getAttribute('data-piece'));
+        }
+        
+        function dragEnd() {
+            // Remove any drag styling
+        }
+        
+        function dragOver(e) {
+            e.preventDefault();
+        }
+        
+        function dragEnter(e) {
+            e.preventDefault();
+            e.target.classList.add('highlight');
+        }
+        
+        function dragLeave(e) {
+            e.target.classList.remove('highlight');
+        }
+        
+        function drop(e) {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text/plain');
+            e.target.textContent = data;
+            e.target.classList.remove('highlight');
+        }
+        
+        // Check import puzzles
+        function checkImportPuzzle(puzzleNum) {
+            let isCorrect = true;
+            let feedback = '';
+            
+            if (puzzleNum === 1) {
+                const target1 = document.getElementById('puzzle1-target1').textContent;
+                const target2 = document.getElementById('puzzle1-target2').textContent;
+                
+                if (target1 !== 'Keyword') {
+                    isCorrect = false;
+                    feedback += '"import" should be labeled as "Keyword". ';
+                }
+                
+                if (target2 !== 'Library Name') {
+                    isCorrect = false;
+                    feedback += '"random" should be labeled as "Library Name". ';
+                }
+            }
+            else if (puzzleNum === 2) {
+                const target1 = document.getElementById('puzzle2-target1').textContent;
+                const target2 = document.getElementById('puzzle2-target2').textContent;
+                const target3 = document.getElementById('puzzle2-target3').textContent;
+                const target4 = document.getElementById('puzzle2-target4').textContent;
+                
+                if (target1 !== 'Keyword') {
+                    isCorrect = false;
+                    feedback += '"from" should be labeled as "Keyword". ';
+                }
+                
+                if (target2 !== 'Library Name') {
+                    isCorrect = false;
+                    feedback += '"random" should be labeled as "Library Name". ';
+                }
+                
+                if (target3 !== 'Keyword') {
+                    isCorrect = false;
+                    feedback += '"import" should be labeled as "Keyword". ';
+                }
+                
+                if (target4 !== 'Function Name') {
+                    isCorrect = false;
+                    feedback += '"randint" should be labeled as "Function Name". ';
+                }
+            }
+            else if (puzzleNum === 3) {
+                const target1 = document.getElementById('puzzle3-target1').textContent;
+                const target2 = document.getElementById('puzzle3-target2').textContent;
+                const target3 = document.getElementById('puzzle3-target3').textContent;
+                const target4 = document.getElementById('puzzle3-target4').textContent;
+                
+                if (target1 !== 'Keyword') {
+                    isCorrect = false;
+                    feedback += '"import" should be labeled as "Keyword". ';
+                }
+                
+                if (target2 !== 'Library Name') {
+                    isCorrect = false;
+                    feedback += '"random" should be labeled as "Library Name". ';
+                }
+                
+                if (target3 !== 'Keyword') {
+                    isCorrect = false;
+                    feedback += '"as" should be labeled as "Keyword". ';
+                }
+                
+                if (target4 !== 'Alias') {
+                    isCorrect = false;
+                    feedback += '"rnd" should be labeled as "Alias". ';
+                }
+            }
+            else if (puzzleNum === 4) {
+                const target1 = document.getElementById('puzzle4-target1').textContent;
+                const target2 = document.getElementById('puzzle4-target2').textContent;
+                const target3 = document.getElementById('puzzle4-target3').textContent;
+                const target4 = document.getElementById('puzzle4-target4').textContent;
+                const target5 = document.getElementById('puzzle4-target5').textContent;
+                
+                if (target1 !== 'Variable') {
+                    isCorrect = false;
+                    feedback += '"random_number" should be labeled as "Variable". ';
+                }
+                
+                if (target2 !== 'Library Name') {
+                    isCorrect = false;
+                    feedback += '"random" should be labeled as "Library Name". ';
+                }
+                
+                if (target3 !== 'Function Name') {
+                    isCorrect = false;
+                    feedback += '"randint" should be labeled as "Function Name". ';
+                }
+                
+                if (target4 !== 'Parameter') {
+                    isCorrect = false;
+                    feedback += '"1" should be labeled as "Parameter". ';
+                }
+                
+                if (target5 !== 'Parameter') {
+                    isCorrect = false;
+                    feedback += '"10" should be labeled as "Parameter". ';
+                }
+            }
+            
+            // Show feedback
+            const feedbackElement = document.getElementById(`puzzle${puzzleNum}-feedback`);
+            if (isCorrect) {
+                feedbackElement.innerHTML = '<i class="fas fa-check-circle" style="color: var(--good-color); margin-right: 10px;"></i> Correct! Great job!';
+                feedbackElement.className = 'feedback success';
+            } else {
+                feedbackElement.innerHTML = '<i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 10px;"></i> Not quite right. ' + feedback;
+                feedbackElement.className = 'feedback error';
+            }
+            
+            feedbackElement.style.display = 'block';
+        }
+        
+        // Reset import puzzle
+        function resetImportPuzzle(puzzleNum) {
+            const targetElements = document.querySelectorAll(`[id^="puzzle${puzzleNum}-target"]`);
+            targetElements.forEach(target => {
+                target.textContent = '';
+            });
+            
+            const feedbackElement = document.getElementById(`puzzle${puzzleNum}-feedback`);
+            feedbackElement.style.display = 'none';
+        }
         
         // Randint step by step navigation
         let currentRandintStep = 1;
@@ -989,27 +1372,6 @@
                     document.getElementById('prev-randint-btn').disabled = true;
                 }
             }
-        }
-        
-        // Check answers for matching activity
-        function checkAnswer(questionNum, answer) {
-            const answerElement = document.getElementById(`answer${questionNum}`);
-            let isCorrect = false;
-            
-            // Define correct answers
-            if (questionNum === 1 && answer === 'A') isCorrect = true;  // import math
-            if (questionNum === 2 && answer === 'B') isCorrect = true;  // from random import randint
-            if (questionNum === 3 && answer === 'B') isCorrect = true;  // import random as r
-            
-            if (isCorrect) {
-                answerElement.innerHTML = '<i class="fas fa-check-circle" style="color: var(--good-color); margin-right: 10px;"></i> Correct!';
-                answerElement.style.color = 'var(--good-color)';
-            } else {
-                answerElement.innerHTML = '<i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 10px;"></i> Try again!';
-                answerElement.style.color = 'var(--bad-color)';
-            }
-            
-            answerElement.style.display = 'block';
         }
         
         // Check answers for code completion
@@ -1063,17 +1425,6 @@
             document.getElementById('code-max-value').innerText = maxValue;
             document.getElementById('result-container').style.display = 'block';
         }
-        
-        // Update random result periodically for the randint example
-        function updateRandomExample() {
-            const newValue = Math.floor(Math.random() * 10) + 1;
-            document.getElementById('random-result').innerText = newValue;
-            document.getElementById('memory-random-value').innerText = newValue;
-            document.getElementById('output-random-value').innerText = newValue;
-        }
-        
-        // Update the random example every 3 seconds
-        setInterval(updateRandomExample, 3000);
     </script>
 </body>
 </html>
