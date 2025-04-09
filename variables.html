@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Include the quiz.js file -->
+    <script src="quiz.js"></script>
     <!-- Favicon Icons -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -69,10 +71,8 @@
                 </div>
                 
                 <ul>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what variables are and why they're fundamental in programming</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to create, name, and assign values to variables in Python</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Recognise different data types that can be stored in variables</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to perform operations on variables and change their values</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what variables are and how to create them in Python</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to use and change variable values in programs</li>
                 </ul>
             </div>
             
@@ -85,11 +85,8 @@
                 <p>By the end of this lesson, you should be able to:</p>
                 
                 <ul>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create a variable with an appropriate name and assign it a value</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Change the value of a variable during a program's execution</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Identify the data type of a variable using the type() function</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Perform basic operations on variables (arithmetic, string concatenation)</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create a program that uses variables to store and manipulate data</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create and name variables with appropriate values</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Write programs that use variables to store and manipulate data</li>
                 </ul>
             </div>
         </section>
@@ -368,9 +365,9 @@
             </div>
         </section>
 
-        <!-- CHEW 1: Concept Check -->
+        <!-- CHEW 1: Variable Quiz -->
         <section id="chew1" class="tab-content light-section">
-            <h1>CHEW 1: CONCEPT CHECK <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
+            <h1>CHEW 1: VARIABLE BASICS QUIZ <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
@@ -381,33 +378,14 @@
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Write down what a variable is <em>in your own words</em> on your Microsoft Whiteboard</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Pair-share to explain what a specific variable example does</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Make sure you can identify the variable name, value, and assignment operator</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Test your understanding of variable basics</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Identify variable names, values, and assignment operators</li>
                     </ul>
                 </div>
                 
                 <div class="interactive-card">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">1</div>
-                        <h3>Individual Reflection <i class="fas fa-pencil-alt" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin-bottom: 25px; text-align: center;">
-                        <p style="font-size: 1.3em; font-weight: 600; margin-bottom: 15px;">Using <a href="https://whiteboard.office.com/" style="color: var(--chew-color); text-decoration: underline;" target="_blank">Microsoft Whiteboard</a>, write down:</p>
-                        <p style="text-align: left; font-size: 1.2em; margin-left: 20px; margin-bottom: 15px;">What is a variable in your own words?</p>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: center; margin-top: 20px;">
-                        <div style="text-align: center;">
-                            <i class="fas fa-edit" style="font-size: 5em; color: var(--chew-color);"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
                         <h3>Pair-Share Activity <i class="fas fa-users" style="margin-left: 10px;"></i></h3>
                     </div>
                     
@@ -431,6 +409,16 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Quiz container that will be populated by JavaScript -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Variable Quiz <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div id="quiz-container" class="duolingo-container"></div>
                 </div>
             </div>
         </section>
@@ -642,90 +630,88 @@ counter = counter + 1
     </div>
 </section>
 
-        <!-- CHEW 2: Try It Yourself -->
+        <!-- CHEW 2: Variable Drag and Drop Activity -->
         <section id="chew2" class="tab-content light-section">
-            <h1>CHEW 2: TRY IT YOURSELF <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+            <h1>CHEW 2: VARIABLE PRACTICE <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 7 mins</div>
                 
-                <h3>Hands-On Coding Exercise</h3>
+                <h3>Variable Drag and Drop Exercise</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create and use variables in a simple program</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Use string variables with the print() function</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Run your code and observe the output</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice creating variable assignments</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Learn how to change variable values</li>
                     </ul>
                 </div>
                 
                 <div class="interactive-card">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">1</div>
-                        <h3>Exercise: Personal Introduction <i class="fas fa-id-card" style="margin-left: 10px;"></i></h3>
+                        <h3>Build Variable Statements <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
+                        <div class="buckle-counter variable-builder-buckle-counter" style="position: absolute; top: 20px; right: 20px;">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
+                                 alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
+                            <span id="variable-builder-buckle-score">0</span>
+                        </div>
                     </div>
                     
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <i class="fas fa-laptop-code" style="font-size: 5em; color: var(--chew-color);"></i>
+                    <p>Click on the code pieces in the correct order to create valid variable assignments.</p>
+                    
+                    <div class="interactive-activity">
+                        <h4>Statement 1: Create a variable for a player's name</h4>
+                        <p>Choose the correct parts to create your variable:</p>
+                        
+                        <div class="build-sentence" id="variable1-parts">
+                            <div class="sentence-part highlight-variable" data-value="player_name">player_name</div>
+                            <div class="sentence-part highlight-operator" data-value="=">=</div>
+                            <div class="sentence-part highlight-value" data-value='"Alex"'>"Alex"</div>
+                            <div class="sentence-part highlight-value" data-value="Alex">Alex</div>
+                            <div class="sentence-part highlight-operator" data-value=":">=</div>
+                        </div>
+                        
+                        <p>Your statement:</p>
+                        <div class="sentence-result" id="variable1-result"></div>
+                        
+                        <div class="feedback-area" id="variable1-feedback"></div>
                     </div>
                     
-                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
-                        <li style="margin-bottom: 15px;">Open the Raspberry Pi Python editor</li>
-                        <li style="margin-bottom: 15px;">Create variables for your name and age</li>
-                        <li>Use the print() function to display a sentence using these variables</li>
-                    </ol>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Create variables for name and age</span>
-name = "Jai"
-age = 12
-
-<span class="code-comment"># Print a sentence using the variables</span>
-print("Hi, my name is", name, "and I am", age, "years old.")
+                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="variable2-container">
+                        <h4>Statement 2: Create a score variable</h4>
+                        <p>Choose the correct parts to create a score variable with value 100:</p>
+                        
+                        <div class="build-sentence" id="variable2-parts">
+                            <div class="sentence-part highlight-variable" data-value="score">score</div>
+                            <div class="sentence-part highlight-operator" data-value="=">=</div>
+                            <div class="sentence-part highlight-value" data-value="100">100</div>
+                            <div class="sentence-part highlight-value" data-value='"100"'>"100"</div>
+                        </div>
+                        
+                        <p>Your statement:</p>
+                        <div class="sentence-result" id="variable2-result"></div>
+                        
+                        <div class="feedback-area" id="variable2-feedback"></div>
                     </div>
                     
-                    <div class="result-display">
-                        Hi, my name is Jai and I am 12 years old.
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Extension: Change Your Variables <i class="fas fa-level-up-alt" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">After your code is working, try:</p>
-                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
-                        <li style="margin-bottom: 15px;">Changing the values of your variables</li>
-                        <li style="margin-bottom: 15px;">Adding another variable for your favourite hobby</li>
-                        <li>Updating your print statement to include the new variable</li>
-                    </ol>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Start with these variables</span>
-name = "Jai"
-age = 12
-
-<span class="code-comment"># Print the variables</span>
-print("Hi, my name is", name, "and I am", age, "years old.")
-
-<span class="code-comment"># Now change the values of these variables</span>
-name = "Bob"
-age = 13
-
-<span class="code-comment"># Print them again to see the change</span>
-print("Hi, my name is", name, "and I am", age, "years old.")
-
-                    </div>
-                    
-                    <div class="result-display">
-                        Hi, my name is Jai and I am 12 years old.
-                    </div>
-                    <div class="result-display">
-                        Hi, my name is Bob and I am 13 years old.
+                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="variable3-container">
+                        <h4>Statement 3: Change a variable's value</h4>
+                        <p>Choose the correct parts to change the score variable:</p>
+                        
+                        <div class="build-sentence" id="variable3-parts">
+                            <div class="sentence-part highlight-variable" data-value="score">score</div>
+                            <div class="sentence-part highlight-operator" data-value="=">=</div>
+                            <div class="sentence-part highlight-variable" data-value="score">score</div>
+                            <div class="sentence-part highlight-operator" data-value="+">+</div>
+                            <div class="sentence-part highlight-value" data-value="50">50</div>
+                        </div>
+                        
+                        <p>Your statement:</p>
+                        <div class="sentence-result" id="variable3-result"></div>
+                        
+                        <div class="feedback-area" id="variable3-feedback"></div>
                     </div>
                 </div>
             </div>
@@ -939,7 +925,6 @@ print(greeting)  <span class="code-comment"># Good morning, Alex!</span>
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create a program that stores and manipulates numeric variables</li>
                         <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using variables in calculations</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Display results using print()</li>
                     </ul>
                 </div>
                 
@@ -1050,15 +1035,19 @@ print(num1, "/", num2, "=", round(quotient, 2))  <span class="code-comment"># Ro
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables store data that can be referenced and changed</li>
                         <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables are created using the assignment operator (=)</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables can store different types of data (text, numbers)</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables can be used in calculations and expressions</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables make code flexible - changing inputs gives new results</li>
                     </ul>
                 </div>
             </div>
         </section>
     </main>
 
+    <div class="buckle-animation" id="variables-buckle-animation" style="display: none;">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
+             alt="Buckle" id="variables-buckle-img">
+        <div class="shine"></div>
+    </div>
+
+    <!-- JavaScript with Quiz Implementation -->
     <script>
         // Navigation
         document.addEventListener('DOMContentLoaded', function() {
@@ -1084,15 +1073,13 @@ print(num1, "/", num2, "=", round(quotient, 2))  <span class="code-comment"># Ro
             // Initialize counter and memory visualization variables
             updateCounterDisplay();
             
-            // Initialize step navigation
-            document.getElementById('code-step-1').style.display = 'block';
-            document.getElementById('code-step-2').style.display = 'none';
-            document.getElementById('code-step-3').style.display = 'none';
+            // Initialize buckle display for variable builder
+            const variableBuilderBuckleScore = document.getElementById('variable-builder-buckle-score');
+            if (variableBuilderBuckleScore) {
+                variableBuilderBuckleScore.textContent = getGlobalBuckles();
+            }
             
-            document.getElementById('prev-step-btn').disabled = true;
-            document.getElementById('next-step-btn').disabled = false;
-            
-            // Initialize new variable assignment steps
+            // Initialize variable assignment steps
             document.getElementById('var-step-1').classList.add('active');
             document.getElementById('var-step-2').classList.remove('active');
             document.getElementById('var-step-3').classList.remove('active');
@@ -1108,14 +1095,209 @@ print(num1, "/", num2, "=", round(quotient, 2))  <span class="code-comment"># Ro
             document.getElementById('prev-memory-btn').disabled = true;
             document.getElementById('next-memory-btn').disabled = false;
             
-            // Initialize variable update steps
-            document.getElementById('update-step-1').classList.add('active');
-            document.getElementById('update-step-2').classList.remove('active');
-            document.getElementById('update-step-3').classList.remove('active');
-            document.getElementById('update-step-4').classList.remove('active');
+            // Initialize quiz questions for variables quiz
+            const variableQuizQuestions = [
+                {
+                    type: "true-false",
+                    question: "In Python, variables must have values assigned when they are created.",
+                    correctAnswer: "true",
+                    feedbackCorrect: "Correct! Variables need to be assigned a value when they are created.",
+                    feedbackIncorrect: "Incorrect. In Python, you need to assign a value when creating a variable."
+                },
+                {
+                    type: "true-false",
+                    question: "The equals sign (=) in Python compares two values to see if they're equal.",
+                    correctAnswer: "false",
+                    feedbackCorrect: "Correct! In Python, the = sign is the assignment operator, not a comparison.",
+                    feedbackIncorrect: "Incorrect. The = sign in Python is the assignment operator, not for comparison (which would be ==)."
+                },
+                {
+                    type: "true-false",
+                    question: "The code <code>name = \"Alex\"</code> creates a variable that stores text.",
+                    correctAnswer: "true",
+                    feedbackCorrect: "Correct! This creates a variable called name that stores the text \"Alex\".",
+                    feedbackIncorrect: "Incorrect. This code does create a variable called name that stores the text \"Alex\"."
+                },
+                {
+                    type: "true-false",
+                    question: "Text values (strings) in Python don't need quotation marks.",
+                    correctAnswer: "false",
+                    feedbackCorrect: "Correct! Text values (strings) must be enclosed in quotation marks in Python.",
+                    feedbackIncorrect: "Incorrect. Text values (strings) must be enclosed in quotation marks in Python."
+                },
+                {
+                    type: "true-false",
+                    question: "The value of a variable can be changed after it's created.",
+                    correctAnswer: "true",
+                    feedbackCorrect: "Correct! Variables can be updated with new values during program execution.",
+                    feedbackIncorrect: "Incorrect. Variables can be updated with new values during program execution."
+                }
+            ];
             
-            document.getElementById('prev-update-btn').disabled = true;
-            document.getElementById('next-update-btn').disabled = false;
+            initializeQuiz(variableQuizQuestions, 'variables');
+            
+            // Initialize variable drag-drop activity
+            const correctVariables = {
+                "variable1": ["player_name", "=", '"Alex"'],
+                "variable2": ["score", "=", "100"],
+                "variable3": ["score", "=", "score", "+", "50"]
+            };
+            
+            // Create an object to manage the variable builder activities
+            function initVariableBuilder() {
+                // Apply syntax highlighting to all sentence parts
+                document.querySelectorAll('.sentence-part').forEach(part => {
+                    // Reset any existing highlight classes
+                    part.classList.remove('highlight-variable', 'highlight-operator', 'highlight-value', 'highlight-keyword');
+                    
+                    // Apply appropriate class based on content
+                    if (part.textContent === 'player_name' || part.textContent === 'score') {
+                        part.classList.add('highlight-variable');
+                    } else if (part.textContent === '=' || part.textContent === '+' || 
+                              part.textContent === '-' || part.textContent === '*' ||
+                              part.textContent === '/' || part.textContent === ':') {
+                        part.classList.add('highlight-operator');
+                    } else if (part.textContent.includes('"') || !isNaN(part.textContent)) {
+                        part.classList.add('highlight-value');
+                    }
+                });
+                
+                // Add click event handlers to the sentence parts
+                document.querySelectorAll('.sentence-part').forEach(part => {
+                    part.addEventListener('click', function() {
+                        if (!this.parentElement || !this.parentElement.id) return;
+                        
+                        const statementId = this.parentElement.id.split('-')[0];
+                        const resultContainer = document.getElementById(`${statementId}-result`);
+                        
+                        // Create a result part element
+                        const resultPart = document.createElement('div');
+                        resultPart.className = 'result-part';
+                        resultPart.textContent = this.textContent;
+                        resultPart.dataset.value = this.dataset.value;
+                        
+                        // Transfer the highlighting classes
+                        if (this.classList.contains('highlight-variable')) {
+                            resultPart.classList.add('highlight-variable');
+                        } else if (this.classList.contains('highlight-operator')) {
+                            resultPart.classList.add('highlight-operator');
+                        } else if (this.classList.contains('highlight-value')) {
+                            resultPart.classList.add('highlight-value');
+                        }
+                        
+                        // Add click event to remove the part when clicked
+                        resultPart.addEventListener('click', function() {
+                            this.remove();
+                            checkVariableStatement(statementId);
+                        });
+                        
+                        // Add the animation class
+                        resultPart.classList.add('slide-animation');
+                        
+                        // Append the result part to the result container
+                        resultContainer.appendChild(resultPart);
+                        
+                        // Check if the statement is correct
+                        checkVariableStatement(statementId);
+                    });
+                });
+            }
+            
+            // Function to check if a variable statement is correct
+            // Custom showBuckleAnimation function for variables page
+            function showBuckleAnimation() {
+                const animation = document.getElementById('variables-buckle-animation');
+                if (animation) {
+                    animation.style.display = 'block';
+                    
+                    // Play animation and then hide
+                    setTimeout(() => {
+                        animation.style.display = 'none';
+                    }, 2000);
+                }
+                
+                // Update all buckle displays on the page
+                const buckleCounts = document.querySelectorAll('#variable-builder-buckle-score');
+                buckleCounts.forEach(el => {
+                    el.textContent = getGlobalBuckles();
+                });
+            }
+            
+            function checkVariableStatement(statementId) {
+                const pageIdentifier = 'variables';  // Add this for buckle tracking
+                if (!correctVariables[statementId]) return;
+                
+                const resultContainer = document.getElementById(`${statementId}-result`);
+                const feedbackContainer = document.getElementById(`${statementId}-feedback`);
+                
+                if (!resultContainer || !feedbackContainer) return;
+                
+                const resultParts = Array.from(resultContainer.children);
+                
+                // Get the current statement as an array of values
+                const currentStatement = resultParts.map(part => part.dataset.value);
+                
+                // Get the expected statement length
+                const expectedLength = correctVariables[statementId].length;
+                
+                // Check if the statement matches the correct answer
+                const correct = arraysEqual(currentStatement, correctVariables[statementId]);
+                
+                // Only check for correctness if we have the exact required number of parts
+                if (resultParts.length === expectedLength) {
+                    if (correct) {
+                        feedbackContainer.className = 'feedback-area correct';
+                        feedbackContainer.innerHTML = `
+                            <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct!</h4>
+                            <p>You've created a valid variable statement.</p>
+                        `;
+                        
+                        // Award buckle if first time correct
+                        const completedKey = `completed_${pageIdentifier}_${statementId}`;
+                        if (!localStorage.getItem(completedKey)) {
+                            // Increment score
+                            updateGlobalBuckles(1);
+                            localStorage.setItem(completedKey, 'true');
+                            
+                            // Show buckle animation
+                            showBuckleAnimation();
+                        }
+                        
+                        // Show the next statement container after a delay
+                        setTimeout(() => {
+                            const nextNumber = parseInt(statementId.replace('variable', '')) + 1;
+                            const nextStatementId = `variable${nextNumber}-container`;
+                            const nextStatementContainer = document.getElementById(nextStatementId);
+                            
+                            if (nextStatementContainer) {
+                                nextStatementContainer.style.display = 'block';
+                            }
+                        }, 1000);
+                    } else {
+                        feedbackContainer.className = 'feedback-area incorrect';
+                        feedbackContainer.innerHTML = `
+                            <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Not Quite Right</h4>
+                            <p>Try again with the correct syntax.</p>
+                        `;
+                    }
+                } else {
+                    // Clear feedback if not the exact number of parts needed
+                    feedbackContainer.className = 'feedback-area';
+                    feedbackContainer.innerHTML = '';
+                }
+            }
+            
+            // Helper function to compare arrays
+            function arraysEqual(a, b) {
+                if (a.length !== b.length) return false;
+                for (let i = 0; i < a.length; i++) {
+                    if (a[i] !== b[i]) return false;
+                }
+                return true;
+            }
+            
+            // Initialize the variable builder with page identifier
+            initVariableBuilder('variables');
         });
         
         // Counter demo functions
@@ -1179,48 +1361,6 @@ print(num1, "/", num2, "=", round(quotient, 2))  <span class="code-comment"># Ro
                     valueElement.style.transform = 'scale(1)';
                     valueElement.style.color = 'var(--text-color)';
                 }, 300);
-            }
-        }
-        
-        // Code step by step navigation
-        let currentStep = 1;
-        const totalSteps = 3;
-        
-        function nextCodeStep() {
-            if (currentStep < totalSteps) {
-                // Hide current step
-                document.getElementById(`code-step-${currentStep}`).style.display = 'none';
-                
-                // Show next step
-                currentStep++;
-                document.getElementById(`code-step-${currentStep}`).style.display = 'block';
-                
-                // Update indicator and buttons
-                document.getElementById('code-step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
-                document.getElementById('prev-step-btn').disabled = false;
-                
-                if (currentStep === totalSteps) {
-                    document.getElementById('next-step-btn').disabled = true;
-                }
-            }
-        }
-        
-        function prevCodeStep() {
-            if (currentStep > 1) {
-                // Hide current step
-                document.getElementById(`code-step-${currentStep}`).style.display = 'none';
-                
-                // Show previous step
-                currentStep--;
-                document.getElementById(`code-step-${currentStep}`).style.display = 'block';
-                
-                // Update indicator and buttons
-                document.getElementById('code-step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
-                document.getElementById('next-step-btn').disabled = false;
-                
-                if (currentStep === 1) {
-                    document.getElementById('prev-step-btn').disabled = true;
-                }
             }
         }
         
@@ -1304,48 +1444,6 @@ print(num1, "/", num2, "=", round(quotient, 2))  <span class="code-comment"># Ro
                 
                 if (currentMemoryStep === 1) {
                     document.getElementById('prev-memory-btn').disabled = true;
-                }
-            }
-        }
-        
-        // Variable updating step by step navigation
-        let currentUpdateStep = 1;
-        const totalUpdateSteps = 4;
-        
-        function nextUpdateStep() {
-            if (currentUpdateStep < totalUpdateSteps) {
-                // Hide current step
-                document.getElementById(`update-step-${currentUpdateStep}`).classList.remove('active');
-                
-                // Show next step
-                currentUpdateStep++;
-                document.getElementById(`update-step-${currentUpdateStep}`).classList.add('active');
-                
-                // Update indicator and buttons
-                document.getElementById('update-step-indicator').textContent = `Step ${currentUpdateStep} of ${totalUpdateSteps}`;
-                document.getElementById('prev-update-btn').disabled = false;
-                
-                if (currentUpdateStep === totalUpdateSteps) {
-                    document.getElementById('next-update-btn').disabled = true;
-                }
-            }
-        }
-        
-        function prevUpdateStep() {
-            if (currentUpdateStep > 1) {
-                // Hide current step
-                document.getElementById(`update-step-${currentUpdateStep}`).classList.remove('active');
-                
-                // Show previous step
-                currentUpdateStep--;
-                document.getElementById(`update-step-${currentUpdateStep}`).classList.add('active');
-                
-                // Update indicator and buttons
-                document.getElementById('update-step-indicator').textContent = `Step ${currentUpdateStep} of ${totalUpdateSteps}`;
-                document.getElementById('next-update-btn').disabled = false;
-                
-                if (currentUpdateStep === 1) {
-                    document.getElementById('prev-update-btn').disabled = true;
                 }
             }
         }

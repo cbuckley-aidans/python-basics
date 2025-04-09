@@ -19,7 +19,7 @@ function updateGlobalBuckles(amount) {
 }
 
 
-function initializeQuiz(quizQuestions) {
+function initializeQuiz(quizQuestions, pageIdentifier = 'default') {
     const quizContainer = document.getElementById('quiz-container');
     let currentQuestionIndex = 0;
     let userScore = 0;
@@ -29,7 +29,7 @@ function initializeQuiz(quizQuestions) {
     function loadSavedProgress() {
         userScore = getGlobalBuckles();
         
-        const completedQuestions = localStorage.getItem('completedQuestions');
+        const completedQuestions = localStorage.getItem(`completedQuestions_${pageIdentifier}`);
         if (completedQuestions) {
             attemptedQuestions = new Set(JSON.parse(completedQuestions));
         }
@@ -37,7 +37,7 @@ function initializeQuiz(quizQuestions) {
     
     // Save score and progress to local storage
     function saveProgress() {
-        localStorage.setItem('completedQuestions', JSON.stringify([...attemptedQuestions]));
+        localStorage.setItem(`completedQuestions_${pageIdentifier}`, JSON.stringify([...attemptedQuestions]));
     }
     
     // Build the quiz HTML
@@ -257,11 +257,11 @@ function initializeQuiz(quizQuestions) {
         let isCorrect = false;
         
         // Check if this is the first attempt for this question
-        const isFirstAttempt = !localStorage.getItem(`attempted_q${currentQuestionIndex}`);
+        const isFirstAttempt = !localStorage.getItem(`attempted_${pageIdentifier}_q${currentQuestionIndex}`);
         
         // Mark as attempted immediately on first try (regardless of correctness)
         if (isFirstAttempt) {
-            localStorage.setItem(`attempted_q${currentQuestionIndex}`, 'true');
+            localStorage.setItem(`attempted_${pageIdentifier}_q${currentQuestionIndex}`, 'true');
         }
         
         if (question.type === "true-false") {
@@ -426,7 +426,7 @@ function initializeQuiz(quizQuestions) {
  * Print Statement Builder Activity
  * Interactive activity for building Python print statements
  */
-function initPrintStatementBuilder() {
+function initPrintStatementBuilder(pageIdentifier = 'intro') {
     // Define the correct answers for each statement
     const correctStatements = {
         "statement1": ["print", "(", '"Hello, Python!"', ")"],
@@ -561,7 +561,7 @@ function initPrintStatementBuilder() {
         const correct = arraysEqual(currentStatement, correctStatements[statementId]);
         
         // Check if this is the first attempt
-        const attemptKey = `attempted_${statementId}`;
+        const attemptKey = `attempted_${pageIdentifier}_${statementId}`;
         const isFirstAttempt = !localStorage.getItem(attemptKey);
         
         // Mark as attempted on first evaluation (when we have the exact required number of parts)
@@ -579,7 +579,7 @@ function initPrintStatementBuilder() {
                 `;
                 
                 // Award buckle only on first attempt
-                const completedKey = `completed_${statementId}`;
+                const completedKey = `completed_${pageIdentifier}_${statementId}`;
                 if (!localStorage.getItem(completedKey) && isFirstAttempt) {
                     // Increment score
                     updateGlobalBuckles(1);

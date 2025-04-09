@@ -1740,3 +1740,109 @@ p {
 .element-content ul li::before {
     content: none !important;
 }
+
+/* Multiple choice and buckle animation styles */
+.multiple-choice {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.choice {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--outline-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #fff;
+}
+
+.choice:hover {
+    background-color: rgba(0, 38, 84, 0.05);
+    border-color: var(--accent-color);
+}
+
+.choice-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-color);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.choice-text {
+    padding: 10px 15px;
+    flex: 1;
+}
+
+.choice-text pre {
+    margin: 0;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+/* Standardize buckle animations */
+.buckle-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+    animation: buckle-pop 1.5s ease-in-out;
+}
+
+.buckle-animation img {
+    width: 100px;
+    height: 100px;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+}
+
+.shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%);
+    animation: shine 1.5s ease-in-out;
+}
+
+@keyframes buckle-pop {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    40% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    60% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+@keyframes shine {
+    0% { opacity: 0; }
+    25% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.double-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #ff4d4f;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}

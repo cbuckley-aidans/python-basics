@@ -1,1531 +1,1515 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python For Loops</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Favicon Icons -->
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-</head>
-<body>
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
-        <div class="sidebar-logo">PYTHON FOR LOOPS</div>
-        <a href="index.html" class="home-button">
-            <i class="fas fa-home"></i>
-            HOME
-        </a>
-        <div class="sidebar-nav">
-            <button class="tab-button active" data-tab="lisc">
-                <i class="fas fa-clipboard-list"></i>
-                LI/SC
-            </button>
-            <button class="tab-button" data-tab="chunk1">
-                <i class="fas fa-cube"></i>
-                CHUNK 1
-            </button>
-            <button class="tab-button" data-tab="chew1">
-                <i class="fas fa-utensils"></i>
-                CHEW 1
-            </button>
-            <button class="tab-button" data-tab="chunk2">
-                <i class="fas fa-cube"></i>
-                CHUNK 2
-            </button>
-            <button class="tab-button" data-tab="chew2">
-                <i class="fas fa-utensils"></i>
-                CHEW 2
-            </button>
-            <button class="tab-button" data-tab="chunk3">
-                <i class="fas fa-cube"></i>
-                CHUNK 3
-            </button>
-            <button class="tab-button" data-tab="chew3">
-                <i class="fas fa-utensils"></i>
-                CHEW 3
-            </button>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Learning Intentions and Success Criteria section -->
-        <section id="lisc" class="tab-content active light-section">
-            <h1>LEARNING INTENTIONS & SUCCESS CRITERIA <i class="fas fa-bullseye" style="margin-left: 15px;"></i></h1>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Python For Loops</title>
+      <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <!-- Include the quiz.js file -->
+      <script src="quiz.js"></script>
+      <!-- Favicon Icons -->
+      <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+      <link rel="icon" type="image/x-icon" href="favicon.ico">
+      <link rel="apple-touch-icon" href="apple-touch-icon.png">
+      <link rel="manifest" href="site.webmanifest">
+      <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+      <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+  </head>
+  <body>
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+          <div class="sidebar-logo">PYTHON FOR LOOPS</div>
+          <a href="index.html" class="home-button">
+              <i class="fas fa-home"></i>
+              HOME
+          </a>
+          <div class="sidebar-nav">
+              <button class="tab-button active" data-tab="lisc">
+                  <i class="fas fa-clipboard-list"></i>
+                  LI/SC
+              </button>
+              <button class="tab-button" data-tab="chunk1">
+                  <i class="fas fa-cube"></i>
+                  CHUNK 1
+              </button>
+              <button class="tab-button" data-tab="chew1">
+                  <i class="fas fa-utensils"></i>
+                  CHEW 1
+              </button>
+              <button class="tab-button" data-tab="chunk2">
+                  <i class="fas fa-cube"></i>
+                  CHUNK 2
+              </button>
+              <button class="tab-button" data-tab="chew2">
+                  <i class="fas fa-utensils"></i>
+                  CHEW 2
+              </button>
+              <button class="tab-button" data-tab="chunk3">
+                  <i class="fas fa-cube"></i>
+                  CHUNK 3
+              </button>
+              <button class="tab-button" data-tab="chew3">
+                  <i class="fas fa-utensils"></i>
+                  CHEW 3
+              </button>
+          </div>
+      </aside>
+  
+      <!-- Main Content -->
+      <main class="main-content">
+          <!-- Learning Intentions and Success Criteria section -->
+          <section id="lisc" class="tab-content active light-section">
+              <h1>LEARNING INTENTIONS & SUCCESS CRITERIA <i class="fas fa-bullseye" style="margin-left: 15px;"></i></h1>
+              
+              <div class="card">
+                  <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                      <div class="element-number">1</div>
+                      <h3>Learning Intentions <i class="fas fa-bullseye" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                  </div>
+                  
+                  <ul>
+                      <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what loops are and why they're useful in programming</li>
+                      <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to create for loops using the range() function</li>
+                  </ul>
+              </div>
+              
+              <div class="card">
+                  <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                      <div class="element-number">2</div>
+                      <h3>Success Criteria <i class="fas fa-trophy" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                  </div>
+                  
+                  <p>By the end of this lesson, you should be able to:</p>
+                  
+                  <ul>
+                      <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Write a basic for loop that repeats code a specific number of times</li>
+                      <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Use the loop variable in calculations and operations</li>
+                  </ul>
+              </div>
+          </section>
+  
+          <!-- CHUNK 1: What are Loops? -->
+          <section id="chunk1" class="tab-content dark-section">
+              <h1>CHUNK 1: WHAT ARE LOOPS? <i class="fas fa-sync" style="margin-left: 15px;"></i></h1>
+              
+              <div class="chunk-section">
+                  <div class="chunk-badge">TEACHER CHUNK</div>
+                  <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                  
+                  <h3>Loops: When You Need to Repeat Tasks</h3>
+                  
+                  <p>A loop is a way to repeat a section of code multiple times without having to write the same code over and over again. Loops are one of the most powerful and time-saving features in programming!</p>
+                  
+                  <div class="two-column-grid" style="margin-top: 30px;">
+                      <div class="interactive-card">
+                          <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                              <div class="element-number">1</div>
+                              <h3>Real-World Loop Examples <i class="fas fa-redo" style="margin-left: 10px;"></i></h3>
+                          </div>
+                          
+                          <div class="variable-animation" style="padding: 30px;">
+                              <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Loops are all around us in daily life:</p>
+                              
+                              <div class="icon-box">
+                                  <div class="icon-container">
+                                      <i class="fas fa-music"></i>
+                                  </div>
+                                  <div class="icon-text">
+                                      <h4>Songs on Repeat</h4>
+                                      <p>Listening to a playlist of songs over and over</p>
+                                  </div>
+                              </div>
+                              
+                              <div class="icon-box">
+                                  <div class="icon-container">
+                                      <i class="fas fa-utensils"></i>
+                                  </div>
+                                  <div class="icon-text">
+                                      <h4>Following a Recipe</h4>
+                                      <p>Stirring 30 times or adding ingredients one by one</p>
+                                  </div>
+                              </div>
+                              
+                              <div class="icon-box">
+                                  <div class="icon-container">
+                                      <i class="fas fa-running"></i>
+                                  </div>
+                                  <div class="icon-text">
+                                      <h4>Exercise Routines</h4>
+                                      <p>Doing 20 jumping jacks or 3 sets of push-ups</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="interactive-card">
+                          <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                              <div class="element-number">2</div>
+                              <h3>Why Use Loops? <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
+                          </div>
+                          
+                          <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Imagine you need to print numbers 1 to 5:</p>
+                          
+                          <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                              <div>
+                                  <p style="text-align: center; font-weight: bold; color: var(--bad-color);">Without Loops 😫</p>
+                                  <div class="code-block" style="overflow-y: auto; max-height: 300px;">
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">1</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">2</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">3</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">4</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">5</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">6</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">7</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">8</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">9</span>)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">10</span>)
+                                  </div>
+                                  <p style="text-align: center; font-style: italic; color: var(--bad-color); margin-top: 10px;">10 separate lines of code! 😱</p>
+                              </div>
+                              
+                              <div>
+                                  <p style="text-align: center; font-weight: bold; color: var(--good-color);">With Loops 😎</p>
+                                  <div class="code-block">
+  <span style="color: #F92672;">for</span> number <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">11</span>):
+      <span style="color: #66D9EF;">print</span>(number)
+                                  </div>
+                                  <p style="text-align: center; font-style: italic; color: var(--good-color); margin-top: 10px;">Just 2 lines of code! 🚀</p>
+                              </div>
+                          </div>
+                          
+                          <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                              <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Imagine if you needed to print numbers 1 to 100! Loops save time and make code shorter and easier to update.</p>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- Types of Loops Section -->
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">3</div>
+                          <h3>Types of Loops in Python <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <div class="elements-grid" style="margin-top: 0;">
+                          <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                              <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                  <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                      <i class="fas fa-list-ol" style="font-size: 1.5em; color: var(--accent-color);"></i>
+                                  </div>
+                                  <h4 style="margin: 0; font-size: 1.2em;">FOR LOOPS</h4>
+                              </div>
+                              <p>Used when you know exactly how many times you want to repeat something</p>
+                              <div class="code-block" style="font-size: 0.9em;">
+  for i in range(5):
+      print("Hello!")
+                              </div>
+                              <p><strong>Focus of today's lesson!</strong></p>
+                          </div>
+                          
+                          <div class="interactive-card" style="border-left: 4px solid #6b7280; opacity: 0.7;">
+                              <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                  <div style="background-color: rgba(107, 114, 128, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                      <i class="fas fa-question" style="font-size: 1.5em; color: #6b7280;"></i>
+                                  </div>
+                                  <h4 style="margin: 0; font-size: 1.2em;">WHILE LOOPS</h4>
+                              </div>
+                              <p>Used when you want to repeat until a certain condition is met</p>
+                              <div class="code-block" style="font-size: 0.9em;">
+  while temperature > 100:
+      temperature = temperature - 5
+                              </div>
+                              <p><em>We'll learn about these in a future lesson</em></p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="card">
+                  <h3>Why Loops Matter <i class="fas fa-exclamation-circle" style="margin-left: 10px;"></i></h3>
+                  <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                      <div class="element-card" style="background-color: #f0f7ff; transition: all 0.3s ease;">
+                          <div class="element-header">
+                              <div class="element-number">1</div>
+                              <h3>EFFICIENCY <i class="fas fa-bolt" style="margin-left: 12px;"></i></h3>
+                          </div>
+                          <div class="element-content">
+                              <p>Loops reduce the amount of code you need to write, saving time and reducing errors</p>
+                              <div style="text-align: center; margin-top: 15px;">
+                                  <i class="fas fa-tachometer-alt" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="element-card" style="background-color: #f0fff4; transition: all 0.3s ease;">
+                          <div class="element-header">
+                              <div class="element-number">2</div>
+                              <h3>AUTOMATION <i class="fas fa-robot" style="margin-left: 12px;"></i></h3>
+                          </div>
+                          <div class="element-content">
+                              <p>Loops can handle repetitive tasks automatically, from simple counting to processing large datasets</p>
+                              <div style="text-align: center; margin-top: 15px;">
+                                  <i class="fas fa-cogs" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+  
+          <!-- CHEW 1: Concept Check -->
+          <section id="chew1" class="tab-content light-section">
+              <h1>CHEW 1: CONCEPT CHECK <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
+              
+              <div class="chew-section">
+                  <div class="chew-badge">STUDENT ACTIVITY</div>
+                  <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                  
+                  <h3>Check Your Understanding</h3>
+                  
+                  <div class="activity-goal">
+                      <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                      <ul style="list-style-type: none; padding-left: 0;">
+                          <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Think about what loops are and why they're useful</li>
+                          <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Share your ideas with a partner</li>
+                      </ul>
+                  </div>
+                  
+                  <div class="interactive-card">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <h3>Think-Pair-Share <i class="fas fa-users" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin-bottom: 25px; text-align: center;">
+                          <p style="font-size: 1.3em; font-weight: 600; margin-bottom: 15px;">Discuss these questions with your partner:</p>
+                          <div style="text-align: left; font-size: 1.2em; padding: 10px 20px; background-color: white; border-radius: var(--border-radius); border: 2px solid var(--chew-color);">
+                              <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">1.</span> How would you explain what a loop is to a friend?</p>
+                              <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">2.</span> What daily activities do you perform that use loops or repetition?</p>
+                              <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">3.</span> Why are loops useful in programming?</p>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- Quiz container that will be populated by JavaScript -->
+                  <div id="quiz-container" class="duolingo-container"></div>
+                  
+              </div>
+          </section>
+  
+          <!-- CHUNK 2: Understanding For Loops -->
+          <section id="chunk2" class="tab-content dark-section">
+              <h1>CHUNK 2: UNDERSTANDING FOR LOOPS <i class="fas fa-list-ol" style="margin-left: 15px;"></i></h1>
+              
+              <div class="chunk-section">
+                  <div class="chunk-badge">TEACHER CHUNK</div>
+                  <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                  
+                  <h3>The For Loop: Python's Repeating Machine</h3>
+                  
+                  <p>A <strong>for loop</strong> is a Python statement that lets you run a block of code repeatedly for a specific number of times. It's perfect when you know exactly how many repetitions you need.</p>
+                  
+                  <div class="interactive-card">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">1</div>
+                          <h3>Basic For Loop Syntax <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Here's the basic structure of a for loop in Python:</p>
+                      
+                      <div class="code-block" style="text-align: left; position: relative;">
+  <span style="color: #F92672;">for</span> variable <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(start, stop):
+      <span class="code-comment"># Code to repeat goes here</span>
+      <span class="code-comment"># This indented block will run multiple times</span>
+                      </div>
+                      
+                      <div class="code-step-container" style="margin-top: 30px;">
+                          <div class="code-step-header">
+                              <span>For Loop Syntax Breakdown</span>
+                              <span id="syntax-step-indicator">Step 1 of 5</span>
+                          </div>
+                          
+                          <div class="code-step-content">
+                              <!-- Syntax Step 1 -->
+                              <div id="syntax-step-1" class="variable-update-step active">
+                                  <div style="display: flex; align-items: center; margin: 20px 0;">
+                                      <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">1</div>
+                                      <div>
+                                          <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The <span style="color: #F92672; font-family: monospace;">for</span> Keyword</h4>
+                                          <p style="margin: 0; font-size: 1.1em;">This special word tells Python you're starting a loop. It's always the first part of any for loop.</p>
+                                      </div>
+                                  </div>
+                                  
+                                  <div class="code-block" style="margin: 20px 0;">
+  <span style="color: #F92672; background-color: rgba(249, 38, 114, 0.2); padding: 2px 4px; border-radius: 3px;">for</span> number in range(1, 6):
+      print(number)
+                                  </div>
+                              </div>
+                              
+                              <!-- Syntax Step 2 -->
+                              <div id="syntax-step-2" class="variable-update-step">
+                                  <div style="display: flex; align-items: center; margin: 20px 0;">
+                                      <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">2</div>
+                                      <div>
+                                          <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The <span style="color: #50FA7B; font-family: monospace;">variable</span> Name</h4>
+                                          <p style="margin: 0; font-size: 1.1em;">This is a container that will hold each value in turn as the loop runs. You can name it anything (e.g., number, i, item).</p>
+                                      </div>
+                                  </div>
+                                  
+                                  <div class="code-block" style="margin: 20px 0;">
+  for <span style="color: #50FA7B; background-color: rgba(80, 250, 123, 0.2); padding: 2px 4px; border-radius: 3px;">number</span> in range(1, 6):
+      print(number)
+                                  </div>
+                              </div>
+                              
+                              <!-- Syntax Step 3 -->
+                              <div id="syntax-step-3" class="variable-update-step">
+                                  <div style="display: flex; align-items: center; margin: 20px 0;">
+                                      <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">3</div>
+                                      <div>
+                                          <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The <span style="color: #F92672; font-family: monospace;">in</span> Keyword</h4>
+                                          <p style="margin: 0; font-size: 1.1em;">This word connects the variable to the sequence of values it will take during the loop.</p>
+                                      </div>
+                                  </div>
+                                  
+                                  <div class="code-block" style="margin: 20px 0;">
+  for number <span style="color: #F92672; background-color: rgba(249, 38, 114, 0.2); padding: 2px 4px; border-radius: 3px;">in</span> range(1, 6):
+      print(number)
+                                  </div>
+                              </div>
+                              
+                              <!-- Syntax Step 4 -->
+                              <div id="syntax-step-4" class="variable-update-step">
+                                  <div style="display: flex; align-items: center; margin: 20px 0;">
+                                      <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">4</div>
+                                      <div>
+                                          <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The <span style="color: #66D9EF; font-family: monospace;">range()</span> Function</h4>
+                                          <p style="margin: 0; font-size: 1.1em;">This creates a sequence of numbers for the loop to go through. range(1, 6) means "count from 1 up to, but not including, 6".</p>
+                                      </div>
+                                  </div>
+                                  
+                                  <div class="code-block" style="margin: 20px 0;">
+  for number in <span style="color: #66D9EF; background-color: rgba(102, 217, 239, 0.2); padding: 2px 4px; border-radius: 3px;">range(1, 6)</span>:
+      print(number)
+                                  </div>
+                              </div>
+                              
+                              <!-- Syntax Step 5 -->
+                              <div id="syntax-step-5" class="variable-update-step">
+                                  <div style="display: flex; align-items: center; margin: 20px 0;">
+                                      <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">5</div>
+                                      <div>
+                                          <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The Indented Code Block</h4>
+                                          <p style="margin: 0; font-size: 1.1em;">All indented lines after the colon (:) will be repeated each time the loop runs. The indentation (usually 4 spaces) is required!</p>
+                                      </div>
+                                  </div>
+                                  
+                                  <div class="code-block" style="margin: 20px 0;">
+  for number in range(1, 6):
+  <span style="background-color: rgba(255, 255, 255, 0.1); padding: 2px 4px; display: inline-block; width: 100%;">    print(number)</span>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <div class="step-navigation">
+                              <button id="prev-syntax-btn" class="step-btn" onclick="prevSyntaxStep()" disabled>
+                                  <i class="fas fa-chevron-left"></i> Previous
+                              </button>
+                              <button id="next-syntax-btn" class="step-btn" onclick="nextSyntaxStep()">
+                                  Next <i class="fas fa-chevron-right"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- Interactive For Loop Example -->
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">2</div>
+                          <h3>For Loop in Action <i class="fas fa-play" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Let's see what happens when we run a simple for loop:</p>
+                      
+                      <div class="code-step-container">
+                          <div class="code-step-header">
+                              <span>For Loop Execution</span>
+                              <span id="loop-step-indicator">Step 1 of 5</span>
+                          </div>
+                          
+                          <div class="code-step-content">
+                              <!-- Loop Step 1 -->
+                              <div id="loop-step-1" class="variable-update-step active">
+                                  <div class="code-block" style="position: relative;">
+  <span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
+      print("Loop number:", i)
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 1: Program starts, about to enter the loop</h4>
+                                      <div style="text-align: center; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                          <p style="margin: 0; font-size: 1.1em;">The loop will run 4 times (numbers 1, 2, 3, 4)</p>
+                                          <p style="margin: 5px 0 0; font-size: 0.9em;">Note: range(1, 5) means start at 1, stop before 5</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Loop Step 2 -->
+                              <div id="loop-step-2" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    print("Loop number:", i)</div>
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 2: First iteration (i = 1)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">i</div>
+                                              <div class="memory-item-value">1</div>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="result-display" style="margin-top: 20px;">
+  Loop number: 1
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Loop Step 3 -->
+                              <div id="loop-step-3" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    print("Loop number:", i)</div>
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 3: Second iteration (i = 2)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">i</div>
+                                              <div class="memory-item-value">2</div>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="result-display" style="margin-top: 20px;">
+  Loop number: 1
+  Loop number: 2
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Loop Step 4 -->
+                              <div id="loop-step-4" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    print("Loop number:", i)</div>
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 4: Third iteration (i = 3)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">i</div>
+                                              <div class="memory-item-value">3</div>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="result-display" style="margin-top: 20px;">
+  Loop number: 1
+  Loop number: 2
+  Loop number: 3
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Loop Step 5 -->
+                              <div id="loop-step-5" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    print("Loop number:", i)</div>
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 5: Fourth iteration (i = 4)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">i</div>
+                                              <div class="memory-item-value">4</div>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="result-display" style="margin-top: 20px;">
+  Loop number: 1
+  Loop number: 2
+  Loop number: 3
+  Loop number: 4
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <div class="step-navigation">
+                              <button id="prev-loop-btn" class="step-btn" onclick="prevLoopStep()" disabled>
+                                  <i class="fas fa-chevron-left"></i> Previous
+                              </button>
+                              <button id="next-loop-btn" class="step-btn" onclick="nextLoopStep()">
+                                  Next <i class="fas fa-chevron-right"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- The range() Function - IMPROVED SECTION -->
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">3</div>
+                          <h3>The range() Function <i class="fas fa-ruler" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">The range() function creates a sequence of numbers to loop through. It can be used in three ways:</p>
+                      
+                      <!-- Vertical layout for range examples -->
+                      <div class="interactive-card" style="margin-bottom: 20px;">
+                          <h4 style="text-align: center;"><i class="fas fa-hashtag" style="margin-right: 10px; color: var(--accent-color);"></i> range(stop)</h4>
+                          <div class="code-block" style="font-size: 0.9em;">
+  # One argument: start at 0, stop before 5
+  for i in range(5):
+      print(i)  # Prints: 0, 1, 2, 3, 4
+                          </div>
+                      </div>
+                      
+                      <div class="interactive-card" style="margin-bottom: 20px;">
+                          <h4 style="text-align: center;"><i class="fas fa-hashtag" style="margin-right: 10px; color: var(--accent-color);"></i> range(start, stop)</h4>
+                          <div class="code-block" style="font-size: 0.9em;">
+  # Two arguments: start at 2, stop before 7
+  for i in range(2, 7):
+      print(i)  # Prints: 2, 3, 4, 5, 6
+                          </div>
+                      </div>
+                      
+                      <div class="interactive-card">
+                          <h4 style="text-align: center;"><i class="fas fa-hashtag" style="margin-right: 10px; color: var(--accent-color);"></i> range(start, stop, step)</h4>
+                          <div class="code-block" style="font-size: 0.9em;">
+  # Three arguments: start, stop, and step
+  for i in range(1, 10, 2):
+      print(i)  # Prints: 1, 3, 5, 7, 9
+                          </div>
+                      </div>
+                      
+                      <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                          <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Important:</strong> The range() function always stops <em>before</em> the stop value. So range(1, 5) gives you 1, 2, 3, 4 (not 5).</p>
+                      </div>
+                  </div>
+                  
+              </div>
+          </section>
+  
+          <!-- CHEW 2: Try It Yourself -->
+          <section id="chew2" class="tab-content light-section">
+              <h1>CHEW 2: TRY IT YOURSELF <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+              
+              <div class="chew-section">
+                  <div class="chew-badge">STUDENT ACTIVITY</div>
+                  <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                  
+                  <h3>Common Coding Mistakes <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
+                  
+                  <div class="two-column-grid">
+                      <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                          <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
+                          <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
+  for i in range(1, 5)
+      print(i)
+                          </div>
+                          <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                              <p style="margin-bottom: 10px;"><strong>Problem:</strong> Missing colon (:) at the end of the for statement.</p>
+                              <p style="margin: 0;"><strong>Fix:</strong> Always add a colon at the end of the for line.</p>
+                              <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
+  for i in range(1, 5):
+      print(i)
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                          <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
+                          <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
+  for i in range(1, 5):
+  print(i)
+                          </div>
+                          <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                              <p style="margin-bottom: 10px;"><strong>Problem:</strong> Missing indentation for the code inside the loop.</p>
+                              <p style="margin: 0;"><strong>Fix:</strong> Indent the code inside the loop (usually 4 spaces).</p>
+                              <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
+  for i in range(1, 5):
+      print(i)
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- Drag and Drop Activity -->
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">1</div>
+                          <h3>Build a For Loop <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p>Click on the pieces in the correct order to build a valid for loop statement.</p>
+                      
+                      <div class="interactive-activity">
+                          <h4>Challenge: Create a loop that counts from 1 to 10</h4>
+                          <p>Choose the correct parts to create your for loop:</p>
+                          
+                          <div class="build-sentence" id="statement1-parts">
+                              <div class="sentence-part highlight-variable" data-value="range">range</div>
+                              <div class="sentence-part highlight-variable" data-value="for">for</div>
+                              <div class="sentence-part highlight-operator" data-value=")">)</div>
+                              <div class="sentence-part highlight-operator" data-value="in">in</div>
+                              <div class="sentence-part highlight-variable" data-value="num">num</div>
+                              <div class="sentence-part highlight-operator" data-value="(">(</div>
+                              <div class="sentence-part highlight-value" data-value="1">1</div>
+                              <div class="sentence-part highlight-operator" data-value=",">,</div>
+                              <div class="sentence-part highlight-value" data-value="11">11</div>
+                              <div class="sentence-part highlight-operator" data-value=":">:</div>
+                          </div>
+                          
+                          <p>Your statement:</p>
+                          <div class="sentence-result" id="statement1-result"></div>
+                          
+                          <div class="feedback-area" id="statement1-feedback"></div>
+                      </div>
+                  </div>
+                  
+                  <!-- Multiple Choice Quiz -->
+                  <div id="multiple-choice-quiz" class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">2</div>
+                          <h3>Loop Tracing Challenge <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p>Look at this code and predict what the variable <code>total</code> will equal at the end:</p>
+                      
+                      <div class="code-block">
+  total = 0
+  for i in range(1, 5):
+      total = total + i
+  print(total)
+                      </div>
+                      
+                      <div class="multiple-choice-container">
+                      <p style="font-weight: bold; margin-top: 20px; font-size: 1.2em;">What will be the value of total? 
+                          <span style="color: var(--accent-color); background-color: rgba(255, 215, 0, 0.15); padding: 4px 8px; border-radius: 4px; margin-left: 5px; display: inline-flex; align-items: center;">
+                          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='24' height='24'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" alt="Buckle" style="width: 20px; height: 20px; margin-right: 5px;">
+                          <strong>Worth 5 buckles!</strong>
+                      </span>
+                      </p>
+                      <div class="multiple-choice-options" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px;">
+                              <div class="multiple-choice-option" data-value="A" style="background-color: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 15px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                <span style="font-weight: bold; color: var(--accent-color);">A)</span> 5
+                            </div>
+                            <div class="multiple-choice-option" data-value="B" style="background-color: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 15px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                <span style="font-weight: bold; color: var(--accent-color);">B)</span> 10
+                            </div>
+                            <div class="multiple-choice-option" data-value="C" style="background-color: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 15px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                <span style="font-weight: bold; color: var(--accent-color);">C)</span> 15
+                            </div>
+                            <div class="multiple-choice-option" data-value="D" style="background-color: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 15px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                <span style="font-weight: bold; color: var(--accent-color);">D)</span> 4
+                            </div>
+                        </div>
+                    </div>
+                      
+                      <div id="loop-tracing-feedback" class="feedback-message"></div>
+                      
+                      <div class="buckle-animation" id="quiz-buckle-animation" style="display: none;">
+                          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
+                               alt="Buckle" id="quiz-buckle-img">
+                          <div class="shine"></div>
+                      </div>
+                  </div>
+                  
+                  <h3 style="margin-top: 30px;">Practice Exercises</h3>
+                  
+                  <div class="interactive-card">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">3</div>
+                          <h3>Exercise: Counting Loop <i class="fas fa-sort-numeric-up" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <div style="text-align: center; margin-bottom: 30px;">
+                          <i class="fas fa-laptop-code" style="font-size: 5em; color: var(--chew-color);"></i>
+                      </div>
+                      
+                      <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                          <li style="margin-bottom: 15px;">Open the Python editor on your computer</li>
+                          <li style="margin-bottom: 15px;">Type the code shown below</li>
+                          <li>Run your code and watch the numbers print</li>
+                      </ol>
+                      
+                      <div class="code-block">
+  <span class="code-comment"># My first counting loop</span>
+  <span style="color: #F92672;">for</span> count <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">11</span>):
+      <span style="color: #66D9EF;">print</span>(count)
+  
+  <span class="code-comment"># Print a message when done</span>
+  <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Counting complete!"</span>)
+                      </div>
+                      
+                      <div class="result-display">
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10
+  Counting complete!
+                      </div>
+                  </div>
+                  
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">4</div>
+                          <h3>Your Turn: Modify the Loop <i class="fas fa-edit" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; margin-bottom: 20px;">Now, try these modifications to your loop:</p>
+                      
+                      <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                          <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
+                              <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Change 1: Countdown</h4>
+                              <p>Modify your code to count from 10 down to 1</p>
+                              <div class="code-block" style="font-size: 0.9em;">
+  <span style="color: #F92672;">for</span> count <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">10</span>, <span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">-1</span>):
+      <span style="color: #66D9EF;">print</span>(count)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Blast off!"</span>)
+                              </div>
+                          </div>
+                          
+                          <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
+                              <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Change 2: Skip Numbers</h4>
+                              <p>Modify your code to count from 0 to 20 by 2s</p>
+                              <div class="code-block" style="font-size: 0.9em;">
+  <span style="color: #F92672;">for</span> number <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">21</span>, <span style="color: #AE81FF;">2</span>):
+      <span style="color: #66D9EF;">print</span>(number)
+  <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Even numbers complete!"</span>)
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+  
+          <!-- CHUNK 3: Loop Applications -->
+          <section id="chunk3" class="tab-content dark-section">
+              <h1>CHUNK 3: LOOP APPLICATIONS <i class="fas fa-lightbulb" style="margin-left: 15px;"></i></h1>
+              
+              <div class="chunk-section">
+                  <div class="chunk-badge">TEACHER CHUNK</div>
+                  <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                  
+                  <h3>Practical Applications of For Loops</h3>
+                  
+                  <p>For loops are incredibly useful for solving many different types of problems. Let's explore some common ways that programmers use loops.</p>
+                  
+                  <div class="interactive-card">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">1</div>
+                          <h3>Creating Patterns <i class="fas fa-star" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; margin-bottom: 20px;">Loops make it easy to create patterns like this:</p>
+                      
+                      <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                          <div class="code-block" style="font-size: 0.9em;">
+  <span class="code-comment"># Print a pattern of stars</span>
+  for i in range(1, 6):
+      print("*" * i)
+                          </div>
+                          
+                          <div class="result-display">
+  *
+  **
+  ***
+  ****
+  *****
+                          </div>
+                      </div>
+                      
+                      <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                          <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Insight:</strong> The <code>*</code> symbol can be multiplied by a number to repeat it. For example, <code>"*" * 3</code> gives <code>***</code>.</p>
+                      </div>
+                  </div>
+                  
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">2</div>
+                          <h3>Running Totals <i class="fas fa-calculator" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; margin-bottom: 20px;">Loops can keep a running total to calculate sums:</p>
+                      
+                      <div class="code-step-container">
+                          <div class="code-step-header">
+                              <span>Adding Numbers Example</span>
+                              <span id="sum-step-indicator">Step 1 of 6</span>
+                          </div>
+                          
+                          <div class="code-step-content">
+                              <!-- Sum Step 1 -->
+                              <div id="sum-step-1" class="variable-update-step active">
+                                  <div class="code-block" style="position: relative;">
+  <span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
+  total = 0
+  
+  for num in range(1, 6):
+      total = total + num
+      
+  print("The sum is:", total)
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 1: Initial setup</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">total</div>
+                                              <div class="memory-item-value">0</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Sum Step 2 -->
+                              <div id="sum-step-2" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
+  total = 0
+  
+  for num in range(1, 6):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
+      
+  print("The sum is:", total)
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 2: First iteration (num = 1)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">num</div>
+                                              <div class="memory-item-value">1</div>
+                                          </div>
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">total</div>
+                                              <div class="memory-item-value">1</div>
+                                          </div>
+                                      </div>
+                                      <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                          <p style="margin: 0; font-size: 1.1em;">total = 0 + 1 = 1</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Sum Step 3 -->
+                              <div id="sum-step-3" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
+  total = 0
+  
+  for num in range(1, 6):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
+      
+  print("The sum is:", total)
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 3: Second iteration (num = 2)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">num</div>
+                                              <div class="memory-item-value">2</div>
+                                          </div>
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">total</div>
+                                              <div class="memory-item-value">3</div>
+                                          </div>
+                                      </div>
+                                      <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                          <p style="margin: 0; font-size: 1.1em;">total = 1 + 2 = 3</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Sum Step 4 -->
+                              <div id="sum-step-4" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
+  total = 0
+  
+  for num in range(1, 6):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
+      
+  print("The sum is:", total)
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 4: Third iteration (num = 3)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">num</div>
+                                              <div class="memory-item-value">3</div>
+                                          </div>
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">total</div>
+                                              <div class="memory-item-value">6</div>
+                                          </div>
+                                      </div>
+                                      <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                          <p style="margin: 0; font-size: 1.1em;">total = 3 + 3 = 6</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Sum Step 5 -->
+                              <div id="sum-step-5" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
+  total = 0
+  
+  for num in range(1, 6):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
+      
+  print("The sum is:", total)
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 5: Fourth iteration (num = 4)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">num</div>
+                                              <div class="memory-item-value">4</div>
+                                          </div>
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">total</div>
+                                              <div class="memory-item-value">10</div>
+                                          </div>
+                                      </div>
+                                      <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                          <p style="margin: 0; font-size: 1.1em;">total = 6 + 4 = 10</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <!-- Sum Step 6 -->
+                              <div id="sum-step-6" class="variable-update-step">
+                                  <div class="code-block" style="position: relative;">
+  <span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
+  total = 0
+  
+  for num in range(1, 6):
+  <div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
+      
+  print("The sum is:", total)
+                                  </div>
+                                  
+                                  <div class="memory-visualization">
+                                      <h4 style="text-align: center; margin-top: 10px;">Step 6: Fifth iteration (num = 5)</h4>
+                                      <div class="computer-memory">
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">num</div>
+                                              <div class="memory-item-value">5</div>
+                                          </div>
+                                          <div class="memory-item">
+                                              <div class="memory-item-name">total</div>
+                                              <div class="memory-item-value">15</div>
+                                          </div>
+                                      </div>
+                                      <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                          <p style="margin: 0; font-size: 1.1em;">total = 10 + 5 = 15</p>
+                                      </div>
+                                      <div class="result-display" style="margin-top: 20px;">
+  The sum is: 15
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <div class="step-navigation">
+                              <button id="prev-sum-btn" class="step-btn" onclick="prevSumStep()" disabled>
+                                  <i class="fas fa-chevron-left"></i> Previous
+                              </button>
+                              <button id="next-sum-btn" class="step-btn" onclick="nextSumStep()">
+                                  Next <i class="fas fa-chevron-right"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">3</div>
+                          <h3>Interactive Text <i class="fas fa-comment" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; margin-bottom: 20px;">Loops can create interactive programs that collect data:</p>
+                      
+                      <div class="code-block">
+  <span class="code-comment"># Ask the user for 3 favorite foods</span>
+  print("Tell me your 3 favorite foods!")
+  
+  for i in range(1, 4):
+      food = input(f"Food {i}: ")
+      print(f"You entered: {food}")
+  
+  print("Thanks for sharing!")
+                      </div>
+                      
+                      <div class="result-display">
+  Tell me your 3 favorite foods!
+  Food 1: Pizza
+  You entered: Pizza
+  Food 2: Ice cream
+  You entered: Ice cream
+  Food 3: Tacos
+  You entered: Tacos
+  Thanks for sharing!
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="card">
+                  <h3>Common Loop Patterns <i class="fas fa-th" style="margin-left: 10px;"></i></h3>
+                  
+                  <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                      <div class="element-card" style="background-color: #f0f7ff; transition: all 0.3s ease;">
+                          <div class="element-header">
+                              <div class="element-number">1</div>
+                              <h3>COUNT UP <i class="fas fa-sort-numeric-up" style="margin-left: 12px;"></i></h3>
+                          </div>
+                          <div class="element-content">
+                              <div class="code-block" style="font-size: 0.9em;">
+  # Count from 1 to 5
+  for num in range(1, 6):
+      print(num)
+                              </div>
+                              <div class="result-display">
+  1
+  2
+  3
+  4
+  5
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="element-card" style="background-color: #f0fff4; transition: all 0.3s ease;">
+                          <div class="element-header">
+                              <div class="element-number">2</div>
+                              <h3>COUNT DOWN <i class="fas fa-sort-numeric-down" style="margin-left: 12px;"></i></h3>
+                          </div>
+                          <div class="element-content">
+                              <div class="code-block" style="font-size: 0.9em;">
+  # Count from 5 down to 1
+  for num in range(5, 0, -1):
+      print(num)
+                              </div>
+                              <div class="result-display">
+  5
+  4
+  3
+  2
+  1
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+  
+          <!-- CHEW 3: Challenge Time! -->
+          <section id="chew3" class="tab-content light-section">
+              <h1>CHEW 3: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
+              
+              <div class="chew-section">
+                  <div class="chew-badge">STUDENT ACTIVITY</div>
+                  <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                  
+                  <h3>For Loop Challenge Exercises</h3>
+                  
+                  <div class="activity-goal">
+                      <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                      <ul style="list-style-type: none; padding-left: 0;">
+                          <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Apply what you've learned about for loops</li>
+                          <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create and modify code to achieve specific outcomes</li>
+                      </ul>
+                  </div>
+                  
+                  <div class="interactive-card">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">1</div>
+                          <h3>Challenge: Counting Coins <i class="fas fa-coins" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <div style="text-align: center; margin-bottom: 30px;">
+                          <i class="fas fa-money-bill-wave" style="font-size: 5em; color: var(--chew-color);"></i>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Write a program that calculates how much money you have:</p>
+                      
+                      <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                          <li style="margin-bottom: 15px;">Create a program that starts with a total of $0</li>
+                          <li style="margin-bottom: 15px;">Use a for loop to add the value of 5 coins (quarters = $0.25)</li>
+                          <li>Print the running total after each coin is added</li>
+                      </ol>
+                      
+                      <div class="code-block">
+  <span class="code-comment"># Coin counter challenge</span>
+  total = <span style="color: #AE81FF;">0</span>
+  coin_value = <span style="color: #AE81FF;">0.25</span>  <span class="code-comment"># Quarter = $0.25</span>
+  
+  <span style="color: #F92672;">for</span> coin <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">6</span>):
+      total = total + coin_value
+      <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Coin"</span>, coin, <span style="color: #E6DB74;">": Total is now $"</span>, total, sep=<span style="color: #E6DB74;">""</span>)
+                      </div>
+                      
+                      <div class="result-display">
+  Coin1: Total is now $0.25
+  Coin2: Total is now $0.5
+  Coin3: Total is now $0.75
+  Coin4: Total is now $1.0
+  Coin5: Total is now $1.25
+                      </div>
+                  </div>
+                  
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">2</div>
+                          <h3>Challenge: Pattern Creator <i class="fas fa-th-large" style="margin-left: 10px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; margin-bottom: 20px;">Write a program that creates a box of asterisks:</p>
+                      
+                      <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                          <div class="code-block">
+  <span class="code-comment"># Create a box pattern</span>
+  width = 5
+  height = 4
+  
+  for row in range(height):
+      print("*" * width)
+                          </div>
+                          
+                          <div class="result-display">
+  *****
+  *****
+  *****
+  *****
+                          </div>
+                      </div>
+                      
+                      <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                          <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--chew-color); margin-right: 10px;"></i> <strong>Extension:</strong> Try changing the width and height values to create different sized boxes.</p>
+                      </div>
+                  </div>
+                  
+                  <div class="interactive-card" style="margin-top: 30px;">
+                      <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                          <div class="element-number">3</div>
+                          <h3>Challenge: FizzBuzz <i class="fas fa-star" style="margin-left: 10px;"></i><i class="fas fa-star" style="margin-left: 5px;"></i></h3>
+                      </div>
+                      
+                      <p style="font-size: 1.2em; margin-bottom: 20px;">FizzBuzz is a classic programming challenge. Create a program that:</p>
+                      
+                      <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                          <li style="margin-bottom: 15px;">Counts from 1 to 15</li>
+                          <li style="margin-bottom: 15px;">If the number is divisible by 3, print "Fizz" instead of the number</li>
+                          <li style="margin-bottom: 15px;">If the number is divisible by 5, print "Buzz" instead of the number</li>
+                          <li>If the number is divisible by both 3 and 5, print "FizzBuzz"</li>
+                      </ol>
+                      
+                      <div class="code-block">
+  <span class="code-comment"># FizzBuzz Challenge</span>
+  <span style="color: #F92672;">for</span> num <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">16</span>):
+      <span class="code-comment"># Check if divisible by both 3 and 5</span>
+      <span style="color: #F92672;">if</span> num % <span style="color: #AE81FF;">3</span> == <span style="color: #AE81FF;">0</span> <span style="color: #F92672;">and</span> num % <span style="color: #AE81FF;">5</span> == <span style="color: #AE81FF;">0</span>:
+          <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"FizzBuzz"</span>)
+      <span class="code-comment"># Check if divisible by 3</span>
+      <span style="color: #F92672;">elif</span> num % <span style="color: #AE81FF;">3</span> == <span style="color: #AE81FF;">0</span>:
+          <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Fizz"</span>)
+      <span class="code-comment"># Check if divisible by 5</span>
+      <span style="color: #F92672;">elif</span> num % <span style="color: #AE81FF;">5</span> == <span style="color: #AE81FF;">0</span>:
+          <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Buzz"</span>)
+      <span class="code-comment"># Otherwise print the number</span>
+      <span style="color: #F92672;">else</span>:
+          <span style="color: #66D9EF;">print</span>(num)
+                      </div>
+                      
+                      <div class="result-display">
+  1
+  2
+  Fizz
+  4
+  Buzz
+  Fizz
+  7
+  8
+  Fizz
+  Buzz
+  11
+  Fizz
+  13
+  14
+  FizzBuzz
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="card">
+                  <h3>Example Solution <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
+                  
+                  <div class="code-block">
+  <span class="code-comment"># Solution for Counting Coins challenge with formatted output</span>
+  total = <span style="color: #AE81FF;">0</span>
+  coin_value = <span style="color: #AE81FF;">0.25</span>  <span class="code-comment"># Quarter = $0.25</span>
+  
+  <span style="color: #F92672;">for</span> coin <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">6</span>):
+      total = total + coin_value
+      <span class="code-comment"># Format the output with 2 decimal places</span>
+      formatted_total = <span style="color: #E6DB74;">"{:.2f}"</span>.<span style="color: #66D9EF;">format</span>(total)
+      <span style="color: #66D9EF;">print</span>(<span style="color: #F92672;">f</span><span style="color: #E6DB74;">"Coin {coin}: Total is now ${formatted_total}"</span>)
+                  </div>
+                  
+                  <div class="result-display">
+  Coin 1: Total is now $0.25
+  Coin 2: Total is now $0.50
+  Coin 3: Total is now $0.75
+  Coin 4: Total is now $1.00
+  Coin 5: Total is now $1.25
+                  </div>
+                  
+                  <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
+                      <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Key Points Learned</h4>
+                      <ul style="list-style-type: none; padding-left: 0;">
+                          <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> For loops repeat code a specific number of times</li>
+                          <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> The range() function creates a sequence of numbers to loop through</li>
+                          <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Loop variables can be used in calculations inside the loop</li>
+                          <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Loops save time and make code more efficient</li>
+                      </ul>
+                  </div>
+              </div>
+          </section>
+      </main>
+  
+      <script>
+          // Navigation
+          document.addEventListener('DOMContentLoaded', function() {
+              // Tab switching
+              document.querySelectorAll('.tab-button').forEach(button => {
+                  button.addEventListener('click', function() {
+                      const tab = this.getAttribute('data-tab');
+                      
+                      // Remove active class from all buttons and tabs
+                      document.querySelectorAll('.tab-button').forEach(btn => {
+                          btn.classList.remove('active');
+                      });
+                      document.querySelectorAll('.tab-content').forEach(content => {
+                          content.classList.remove('active');
+                      });
+                      
+                      // Add active class to selected button and tab
+                      this.classList.add('active');
+                      document.getElementById(tab).classList.add('active');
+                  });
+              });
+              
+              // Initialize Loop Execution steps
+              document.getElementById('loop-step-1').classList.add('active');
+              document.getElementById('loop-step-2').classList.remove('active');
+              document.getElementById('loop-step-3').classList.remove('active');
+              document.getElementById('loop-step-4').classList.remove('active');
+              document.getElementById('loop-step-5').classList.remove('active');
+              
+              document.getElementById('prev-loop-btn').disabled = true;
+              document.getElementById('next-loop-btn').disabled = false;
+              
+              // Initialize Sum Execution steps
+              document.getElementById('sum-step-1').classList.add('active');
+              document.getElementById('sum-step-2').classList.remove('active');
+              document.getElementById('sum-step-3').classList.remove('active');
+              document.getElementById('sum-step-4').classList.remove('active');
+              document.getElementById('sum-step-5').classList.remove('active');
+              document.getElementById('sum-step-6').classList.remove('active');
+              
+              document.getElementById('prev-sum-btn').disabled = true;
+              document.getElementById('next-sum-btn').disabled = false;
+              
+              // Initialize Syntax Breakdown steps
+              document.getElementById('syntax-step-1').classList.add('active');
+              document.getElementById('syntax-step-2').classList.remove('active');
+              document.getElementById('syntax-step-3').classList.remove('active');
+              document.getElementById('syntax-step-4').classList.remove('active');
+              document.getElementById('syntax-step-5').classList.remove('active');
+              
+              document.getElementById('prev-syntax-btn').disabled = true;
+              document.getElementById('next-syntax-btn').disabled = false;
+              
+              // Initialize quiz for chew 1
+              const loopQuizQuestions = [
+                  {
+                      type: "true-false",
+                      question: "Loops help us avoid writing the same code multiple times.",
+                      correctAnswer: "true",
+                      feedbackCorrect: "Correct! Loops allow us to repeat code without having to write it over and over.",
+                      feedbackIncorrect: "Incorrect. Loops do help us avoid repetitive code by letting us repeat instructions with a single block of code."
+                  },
+                  {
+                      type: "true-false",
+                      question: "In Python, a for loop repeats code forever until stopped.",
+                      correctAnswer: "false",
+                      feedbackCorrect: "Correct! A for loop repeats a specific number of times, not forever. While loops can potentially run forever.",
+                      feedbackIncorrect: "Incorrect. A for loop runs for a specific number of iterations. While loops are the ones that can potentially run forever if their condition is always true."
+                  },
+                  {
+                      type: "true-false",
+                      question: "The code inside a for loop must be indented.",
+                      correctAnswer: "true",
+                      feedbackCorrect: "Correct! In Python, indentation is required to show which code belongs inside the loop.",
+                      feedbackIncorrect: "Incorrect. Python requires indentation to identify which code is part of the loop's body."
+                  },
+                  {
+                      type: "true-false",
+                      question: "The range(1, 5) function will generate the numbers 1, 2, 3, 4, 5.",
+                      correctAnswer: "false",
+                      feedbackCorrect: "Correct! range(1, 5) will generate 1, 2, 3, 4 - it stops before the second number.",
+                      feedbackIncorrect: "Incorrect. range(1, 5) generates 1, 2, 3, 4 - the end number is not included."
+                  }
+              ];
+              
+              initializeQuiz(loopQuizQuestions, 'loops');
+              
+              // Custom function for for-loop building challenge
+              initializeForLoopChallenge();
+              
+              // Add event listeners for tracing quiz
+              // Style for hover and selected states
+            const styleElement = document.createElement('style');
+            styleElement.innerHTML = `
+                .multiple-choice-option:hover {
+                    background-color: #e8f4ff !important;
+                    border-color: var(--accent-color) !important;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+                }
+                
+                .multiple-choice-option.selected {
+                    background-color: #e8f4ff !important;
+                    border-color: var(--accent-color) !important;
+                    box-shadow: 0 0 0 2px var(--accent-color) !important;
+                }
+            `;
+            document.head.appendChild(styleElement);
             
-            <div class="card">
-                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
-                    <div class="element-number">1</div>
-                    <h3>Learning Intentions <i class="fas fa-bullseye" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
-                </div>
-                
-                <ul>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what loops are and why they're important in programming</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to create and use for loops in Python</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to use the range() function to control loops</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Discover practical applications of loops in solving problems</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
-                    <div class="element-number">2</div>
-                    <h3>Success Criteria <i class="fas fa-trophy" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
-                </div>
-                
-                <p>By the end of this lesson, you should be able to:</p>
-                
-                <ul>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Explain why loops are useful in programming</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Write a basic for loop that repeats code a specific number of times</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Use range() to control how many times a loop repeats</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create loops that count upward and downward</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Use the loop variable within the loop to perform calculations</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- CHUNK 1: What are Loops? -->
-        <section id="chunk1" class="tab-content dark-section">
-            <h1>CHUNK 1: WHAT ARE LOOPS? <i class="fas fa-sync" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chunk-section">
-                <div class="chunk-badge">TEACHER CHUNK</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
-                
-                <h3>Loops: When You Need to Repeat Tasks</h3>
-                
-                <p>A loop is a way to repeat a section of code multiple times without having to write the same code over and over again. Loops are one of the most powerful and time-saving features in programming!</p>
-                
-                <div class="two-column-grid" style="margin-top: 30px;">
-                    <div class="interactive-card">
-                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                            <div class="element-number">1</div>
-                            <h3>Real-World Loop Examples <i class="fas fa-redo" style="margin-left: 10px;"></i></h3>
-                        </div>
-                        
-                        <div class="variable-animation" style="padding: 30px;">
-                            <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Loops are all around us in daily life:</p>
-                            
-                            <div class="icon-box">
-                                <div class="icon-container">
-                                    <i class="fas fa-music"></i>
-                                </div>
-                                <div class="icon-text">
-                                    <h4>Songs on Repeat</h4>
-                                    <p>Listening to a playlist of songs over and over</p>
-                                </div>
-                            </div>
-                            
-                            <div class="icon-box">
-                                <div class="icon-container">
-                                    <i class="fas fa-utensils"></i>
-                                </div>
-                                <div class="icon-text">
-                                    <h4>Following a Recipe</h4>
-                                    <p>Stirring 30 times or adding ingredients one by one</p>
-                                </div>
-                            </div>
-                            
-                            <div class="icon-box">
-                                <div class="icon-container">
-                                    <i class="fas fa-running"></i>
-                                </div>
-                                <div class="icon-text">
-                                    <h4>Exercise Routines</h4>
-                                    <p>Doing 20 jumping jacks or 3 sets of push-ups</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="interactive-card">
-                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                            <div class="element-number">2</div>
-                            <h3>Why Use Loops? <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
-                        </div>
-                        
-                        <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Imagine you need to print numbers 1 to 5:</p>
-                        
-                        <div class="two-column-grid" style="margin: 0; gap: 20px;">
-                            <div>
-                                <p style="text-align: center; font-weight: bold; color: var(--bad-color);">Without Loops 😫</p>
-                                <div class="code-block" style="overflow-y: auto; max-height: 300px;">
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">1</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">2</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">3</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">4</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">5</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">6</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">7</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">8</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">9</span>)
-<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">10</span>)
-                                </div>
-                                <p style="text-align: center; font-style: italic; color: var(--bad-color); margin-top: 10px;">10 separate lines of code! 😱</p>
-                            </div>
-                            
-                            <div>
-                                <p style="text-align: center; font-weight: bold; color: var(--good-color);">With Loops 😎</p>
-                                <div class="code-block">
-<span style="color: #F92672;">for</span> number <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">11</span>):
-    <span style="color: #66D9EF;">print</span>(number)
-                                </div>
-                                <p style="text-align: center; font-style: italic; color: var(--good-color); margin-top: 10px;">Just 2 lines of code! 🚀</p>
-                            </div>
-                        </div>
-                        
-                        <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Imagine if you needed to print numbers 1 to 100! Loops save time and make code shorter and easier to update.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Types of Loops Section -->
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">3</div>
-                        <h3>Types of Loops in Python <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <div class="elements-grid" style="margin-top: 0;">
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                                    <i class="fas fa-list-ol" style="font-size: 1.5em; color: var(--accent-color);"></i>
-                                </div>
-                                <h4 style="margin: 0; font-size: 1.2em;">FOR LOOPS</h4>
-                            </div>
-                            <p>Used when you know exactly how many times you want to repeat something</p>
-                            <div class="code-block" style="font-size: 0.9em;">
-for i in range(5):
-    print("Hello!")
-                            </div>
-                            <p><strong>Focus of today's lesson!</strong></p>
-                        </div>
-                        
-                        <div class="interactive-card" style="border-left: 4px solid #6b7280; opacity: 0.7;">
-                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                                <div style="background-color: rgba(107, 114, 128, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                                    <i class="fas fa-question" style="font-size: 1.5em; color: #6b7280;"></i>
-                                </div>
-                                <h4 style="margin: 0; font-size: 1.2em;">WHILE LOOPS</h4>
-                            </div>
-                            <p>Used when you want to repeat until a certain condition is met</p>
-                            <div class="code-block" style="font-size: 0.9em;">
-while temperature > 100:
-    temperature = temperature - 5
-                            </div>
-                            <p><em>We'll learn about these in a future lesson</em></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Why Loops Matter <i class="fas fa-exclamation-circle" style="margin-left: 10px;"></i></h3>
-                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
-                    <div class="element-card" style="background-color: #f0f7ff; transition: all 0.3s ease;">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>EFFICIENCY <i class="fas fa-bolt" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Loops reduce the amount of code you need to write, saving time and reducing errors</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-tachometer-alt" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card" style="background-color: #f0fff4; transition: all 0.3s ease;">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>AUTOMATION <i class="fas fa-robot" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Loops can handle repetitive tasks automatically, from simple counting to processing large datasets</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-cogs" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card" style="background-color: #fff7f0; transition: all 0.3s ease;">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>ADAPTABILITY <i class="fas fa-sliders-h" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Loops make it easy to change how many times code repeats by changing just one number</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-undo-alt" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card" style="background-color: #f0f0ff; transition: all 0.3s ease;">
-                        <div class="element-header">
-                            <div class="element-number">4</div>
-                            <h3>PATTERNS <i class="fas fa-border-all" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Loops enable creating patterns, processing lists of data, and building complex behaviors</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-th" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHEW 1: Concept Check -->
-        <section id="chew1" class="tab-content light-section">
-            <h1>CHEW 1: CONCEPT CHECK <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chew-section">
-                <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
-                
-                <h3>Check Your Understanding</h3>
-                
-                <div class="activity-goal">
-                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Think about what loops are and why they're useful</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Identify examples of loops in everyday life</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Share your ideas with a partner</li>
-                    </ul>
-                </div>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        
-                        <h3>Individual Reflection <i class="fas fa-pencil-alt" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin-bottom: 25px; text-align: center;">
-                        <p style="font-size: 1.3em; font-weight: 600; margin-bottom: 15px;">Using <a href="https://whiteboard.office.com/" style="color: var(--chew-color); text-decoration: underline;" target="_blank">Microsoft Whiteboard</a>, answer these questions:</p>
-                        <div style="text-align: left; font-size: 1.2em; padding: 10px 20px; background-color: white; border-radius: var(--border-radius); border: 2px solid var(--chew-color);">
-                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">1.</span> How would you explain what a loop is to a friend?</p>
-                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">2.</span> What are the advantages of using loops in programming?</p>
-                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">3.</span> Describe a task from your daily life that uses a repeating pattern like a loop.</p>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: center; margin-top: 20px;">
-                        <div style="text-align: center;">
-                            <i class="fas fa-edit" style="font-size: 5em; color: var(--chew-color);"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                
-            </div>
-        </section>
-
-        <!-- CHUNK 2: Understanding For Loops -->
-        <!-- CHUNK 2: Understanding For Loops -->
-<section id="chunk2" class="tab-content dark-section">
-    <h1>CHUNK 2: UNDERSTANDING FOR LOOPS <i class="fas fa-list-ol" style="margin-left: 15px;"></i></h1>
-    
-    <div class="chunk-section">
-        <div class="chunk-badge">TEACHER CHUNK</div>
-        <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
-        
-        <h3>The For Loop: Python's Repeating Machine</h3>
-        
-        <p>A <strong>for loop</strong> is a Python statement that lets you run a block of code repeatedly for a specific number of times. It's perfect when you know exactly how many repetitions you need.</p>
-        
-        <div class="interactive-card">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">1</div>
-                <h3>Basic For Loop Syntax <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Here's the basic structure of a for loop in Python:</p>
-            
-            <div class="code-block" style="text-align: left; position: relative;">
-<span style="color: #F92672;">for</span> variable <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(start, stop):
-    <span class="code-comment"># Code to repeat goes here</span>
-    <span class="code-comment"># This indented block will run multiple times</span>
-            </div>
-            
-            <div class="code-step-container" style="margin-top: 30px;">
-                <div class="code-step-header">
-                    <span>For Loop Syntax Breakdown</span>
-                    <span id="syntax-step-indicator">Step 1 of 5</span>
-                </div>
-                
-                <div class="code-step-content">
-                    <!-- Syntax Step 1 -->
-                    <div id="syntax-step-1" class="variable-update-step active">
-                        <div style="display: flex; align-items: center; margin: 20px 0;">
-                            <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">1</div>
-                            <div>
-                                <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The <span style="color: #F92672; font-family: monospace;">for</span> Keyword</h4>
-                                <p style="margin: 0; font-size: 1.1em;">This special word tells Python you're starting a loop. It's always the first part of any for loop.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="code-block" style="margin: 20px 0;">
-<span style="color: #F92672; background-color: rgba(249, 38, 114, 0.2); padding: 2px 4px; border-radius: 3px;">for</span> number in range(1, 6):
-    print(number)
-                        </div>
-                    </div>
-                    
-                    <!-- Syntax Step 2 -->
-                    <div id="syntax-step-2" class="variable-update-step">
-                        <div style="display: flex; align-items: center; margin: 20px 0;">
-                            <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">2</div>
-                            <div>
-                                <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The <span style="color: #50FA7B; font-family: monospace;">variable</span> Name</h4>
-                                <p style="margin: 0; font-size: 1.1em;">This is a container that will hold each value in turn as the loop runs. You can name it anything (e.g., number, i, item).</p>
-                            </div>
-                        </div>
-                        
-                        <div class="code-block" style="margin: 20px 0;">
-for <span style="color: #50FA7B; background-color: rgba(80, 250, 123, 0.2); padding: 2px 4px; border-radius: 3px;">number</span> in range(1, 6):
-    print(number)
-                        </div>
-                    </div>
-                    
-                    <!-- Syntax Step 3 -->
-                    <div id="syntax-step-3" class="variable-update-step">
-                        <div style="display: flex; align-items: center; margin: 20px 0;">
-                            <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">3</div>
-                            <div>
-                                <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The <span style="color: #F92672; font-family: monospace;">in</span> Keyword</h4>
-                                <p style="margin: 0; font-size: 1.1em;">This word connects the variable to the sequence of values it will take during the loop.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="code-block" style="margin: 20px 0;">
-for number <span style="color: #F92672; background-color: rgba(249, 38, 114, 0.2); padding: 2px 4px; border-radius: 3px;">in</span> range(1, 6):
-    print(number)
-                        </div>
-                    </div>
-                    
-                    <!-- Syntax Step 4 -->
-                    <div id="syntax-step-4" class="variable-update-step">
-                        <div style="display: flex; align-items: center; margin: 20px 0;">
-                            <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">4</div>
-                            <div>
-                                <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The <span style="color: #66D9EF; font-family: monospace;">range()</span> Function</h4>
-                                <p style="margin: 0; font-size: 1.1em;">This creates a sequence of numbers for the loop to go through. range(1, 6) means "count from 1 up to, but not including, 6".</p>
-                            </div>
-                        </div>
-                        
-                        <div class="code-block" style="margin: 20px 0;">
-for number in <span style="color: #66D9EF; background-color: rgba(102, 217, 239, 0.2); padding: 2px 4px; border-radius: 3px;">range(1, 6)</span>:
-    print(number)
-                        </div>
-                    </div>
-                    
-                    <!-- Syntax Step 5 -->
-                    <div id="syntax-step-5" class="variable-update-step">
-                        <div style="display: flex; align-items: center; margin: 20px 0;">
-                            <div style="background-color: var(--accent-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">5</div>
-                            <div>
-                                <h4 style="margin: 0 0 10px 0; font-size: 1.4em;">The Indented Code Block</h4>
-                                <p style="margin: 0; font-size: 1.1em;">All indented lines after the colon (:) will be repeated each time the loop runs. The indentation (usually 4 spaces) is required!</p>
-                            </div>
-                        </div>
-                        
-                        <div class="code-block" style="margin: 20px 0;">
-for number in range(1, 6):
-<span style="background-color: rgba(255, 255, 255, 0.1); padding: 2px 4px; display: inline-block; width: 100%;">    print(number)</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="step-navigation">
-                    <button id="prev-syntax-btn" class="step-btn" onclick="prevSyntaxStep()" disabled>
-                        <i class="fas fa-chevron-left"></i> Previous
-                    </button>
-                    <button id="next-syntax-btn" class="step-btn" onclick="nextSyntaxStep()">
-                        Next <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Interactive For Loop Example -->
-        <div class="interactive-card" style="margin-top: 30px;">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">2</div>
-                <h3>For Loop in Action <i class="fas fa-play" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Let's see what happens when we run a simple for loop:</p>
-            
-            <div class="code-step-container">
-                <div class="code-step-header">
-                    <span>For Loop Execution</span>
-                    <span id="loop-step-indicator">Step 1 of 5</span>
-                </div>
-                
-                <div class="code-step-content">
-                    <!-- Loop Step 1 -->
-                    <div id="loop-step-1" class="variable-update-step active">
-                        <div class="code-block" style="position: relative;">
-<span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
-    print("Loop number:", i)
-                        </div>
-                        
-                        <div class="memory-visualization">
-                            <h4 style="text-align: center; margin-top: 10px;">Step 1: Program starts, about to enter the loop</h4>
-                            <div style="text-align: center; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
-                                <p style="margin: 0; font-size: 1.1em;">The loop will run 4 times (numbers 1, 2, 3, 4)</p>
-                                <p style="margin: 5px 0 0; font-size: 0.9em;">Note: range(1, 5) means start at 1, stop before 5</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Loop Step 2 -->
-                    <div id="loop-step-2" class="variable-update-step">
-                        <div class="code-block" style="position: relative;">
-<span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    print("Loop number:", i)</div>
-                        </div>
-                        
-                        <div class="memory-visualization">
-                            <h4 style="text-align: center; margin-top: 10px;">Step 2: First iteration (i = 1)</h4>
-                            <div class="computer-memory">
-                                <div class="memory-item">
-                                    <div class="memory-item-name">i</div>
-                                    <div class="memory-item-value">1</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-display" style="margin-top: 20px;">
-Loop number: 1
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Loop Step 3 -->
-                    <div id="loop-step-3" class="variable-update-step">
-                        <div class="code-block" style="position: relative;">
-<span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    print("Loop number:", i)</div>
-                        </div>
-                        
-                        <div class="memory-visualization">
-                            <h4 style="text-align: center; margin-top: 10px;">Step 3: Second iteration (i = 2)</h4>
-                            <div class="computer-memory">
-                                <div class="memory-item">
-                                    <div class="memory-item-name">i</div>
-                                    <div class="memory-item-value">2</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-display" style="margin-top: 20px;">
-Loop number: 1
-Loop number: 2
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Loop Step 4 -->
-                    <div id="loop-step-4" class="variable-update-step">
-                        <div class="code-block" style="position: relative;">
-<span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    print("Loop number:", i)</div>
-                        </div>
-                        
-                        <div class="memory-visualization">
-                            <h4 style="text-align: center; margin-top: 10px;">Step 4: Third iteration (i = 3)</h4>
-                            <div class="computer-memory">
-                                <div class="memory-item">
-                                    <div class="memory-item-name">i</div>
-                                    <div class="memory-item-value">3</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-display" style="margin-top: 20px;">
-Loop number: 1
-Loop number: 2
-Loop number: 3
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Loop Step 5 -->
-                    <div id="loop-step-5" class="variable-update-step">
-                        <div class="code-block" style="position: relative;">
-<span style="color: #FF79C6;">for</span> i <span style="color: #F1FA8C;">in</span> range(1, 5):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    print("Loop number:", i)</div>
-                        </div>
-                        
-                        <div class="memory-visualization">
-                            <h4 style="text-align: center; margin-top: 10px;">Step 5: Fourth iteration (i = 4)</h4>
-                            <div class="computer-memory">
-                                <div class="memory-item">
-                                    <div class="memory-item-name">i</div>
-                                    <div class="memory-item-value">4</div>
-                                </div>
-                            </div>
-                            
-                            <div class="result-display" style="margin-top: 20px;">
-Loop number: 1
-Loop number: 2
-Loop number: 3
-Loop number: 4
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="step-navigation">
-                    <button id="prev-loop-btn" class="step-btn" onclick="prevLoopStep()" disabled>
-                        <i class="fas fa-chevron-left"></i> Previous
-                    </button>
-                    <button id="next-loop-btn" class="step-btn" onclick="nextLoopStep()">
-                        Next <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- The range() Function - IMPROVED SECTION -->
-        <div class="interactive-card" style="margin-top: 30px;">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">3</div>
-                <h3>The range() Function <i class="fas fa-ruler" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">The range() function creates a sequence of numbers to loop through. It can be used in three ways:</p>
-            
-            <!-- Vertical layout for range examples -->
-            <div class="interactive-card" style="margin-bottom: 20px;">
-                <h4 style="text-align: center;"><i class="fas fa-hashtag" style="margin-right: 10px; color: var(--accent-color);"></i> range(stop)</h4>
-                <div class="code-block" style="font-size: 0.9em;">
-# One argument: start at 0, stop before 5
-for i in range(5):
-    print(i)  # Prints: 0, 1, 2, 3, 4
-                </div>
-            </div>
-            
-            <div class="interactive-card" style="margin-bottom: 20px;">
-                <h4 style="text-align: center;"><i class="fas fa-hashtag" style="margin-right: 10px; color: var(--accent-color);"></i> range(start, stop)</h4>
-                <div class="code-block" style="font-size: 0.9em;">
-# Two arguments: start at 2, stop before 7
-for i in range(2, 7):
-    print(i)  # Prints: 2, 3, 4, 5, 6
-                </div>
-            </div>
-            
-            <div class="interactive-card">
-                <h4 style="text-align: center;"><i class="fas fa-hashtag" style="margin-right: 10px; color: var(--accent-color);"></i> range(start, stop, step)</h4>
-                <div class="code-block" style="font-size: 0.9em;">
-# Three arguments: start, stop, and step
-for i in range(1, 10, 2):
-    print(i)  # Prints: 1, 3, 5, 7, 9
-                </div>
-            </div>
-            
-            <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Important:</strong> The range() function always stops <em>before</em> the stop value. So range(1, 5) gives you 1, 2, 3, 4 (not 5).</p>
-            </div>
-        </div>
-        
-    </div>
-    
-    <div class="card">
-        <h3>Common Loop Patterns <i class="fas fa-th" style="margin-left: 10px;"></i></h3>
-        
-        <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
-            <div class="element-card" style="background-color: #f0f7ff; transition: all 0.3s ease;">
-                <div class="element-header">
-                    <div class="element-number">1</div>
-                    <h3>COUNT UP <i class="fas fa-sort-numeric-up" style="margin-left: 12px;"></i></h3>
-                </div>
-                <div class="element-content">
-                    <div class="code-block" style="font-size: 0.9em;">
-# Count from 1 to 5
-for num in range(1, 6):
-    print(num)
-                    </div>
-                    <div class="result-display">
-1
-2
-3
-4
-5
-                    </div>
-                </div>
-            </div>
-            
-            <div class="element-card" style="background-color: #f0fff4; transition: all 0.3s ease;">
-                <div class="element-header">
-                    <div class="element-number">2</div>
-                    <h3>COUNT DOWN <i class="fas fa-sort-numeric-down" style="margin-left: 12px;"></i></h3>
-                </div>
-                <div class="element-content">
-                    <div class="code-block" style="font-size: 0.9em;">
-# Count from 5 down to 1
-for num in range(5, 0, -1):
-    print(num)
-                    </div>
-                    <div class="result-display">
-5
-4
-3
-2
-1
-                    </div>
-                </div>
-            </div>
-            
-            <div class="element-card" style="background-color: #fff7f0; transition: all 0.3s ease;">
-                <div class="element-header">
-                    <div class="element-number">3</div>
-                    <h3>EVEN NUMBERS <i class="fas fa-calculator" style="margin-left: 12px;"></i></h3>
-                </div>
-                <div class="element-content">
-                    <div class="code-block" style="font-size: 0.9em;">
-# Print even numbers from 2 to 10
-for num in range(2, 11, 2):
-    print(num)
-                    </div>
-                    <div class="result-display">
-2
-4
-6
-8
-10
-                    </div>
-                </div>
-            </div>
-            
-            <div class="element-card" style="background-color: #f0f0ff; transition: all 0.3s ease;">
-                <div class="element-header">
-                    <div class="element-number">4</div>
-                    <h3>REPEAT ACTION <i class="fas fa-redo" style="margin-left: 12px;"></i></h3>
-                </div>
-                <div class="element-content">
-                    <div class="code-block" style="font-size: 0.9em;">
-# Repeat "Hello" 3 times
-for _ in range(3):
-    print("Hello!")
-                    </div>
-                    <div class="result-display">
-Hello!
-Hello!
-Hello!
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-        <!-- CHEW 2: Try It Yourself -->
-        <section id="chew2" class="tab-content light-section">
-            <h1>CHEW 2: TRY IT YOURSELF <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chew-section">
-                <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
-                
-                <h3>Hands-On Coding Exercise</h3>
-                
-                <div class="activity-goal">
-                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Write your first for loops in Python</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Experiment with different range values</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Use the variable inside your loop</li>
-                    </ul>
-                </div>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Exercise: Counting Loop <i class="fas fa-sort-numeric-up" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <i class="fas fa-laptop-code" style="font-size: 5em; color: var(--chew-color);"></i>
-                    </div>
-                    
-                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
-                        <li style="margin-bottom: 15px;">Open the Python editor on your computer</li>
-                        <li style="margin-bottom: 15px;">Type the code shown below</li>
-                        <li>Run your code and watch the numbers print</li>
-                    </ol>
-                    
-                    <div class="code-block">
-<span class="code-comment"># My first counting loop</span>
-<span style="color: #F92672;">for</span> count <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">11</span>):
-    <span style="color: #66D9EF;">print</span>(count)
-
-<span class="code-comment"># Print a message when done</span>
-<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Counting complete!"</span>)
-                    </div>
-                    
-                    <div class="result-display">
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-Counting complete!
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Your Turn: Modify the Loop <i class="fas fa-edit" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Now, try these modifications to your loop:</p>
-                    
-                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
-                        <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
-                            <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Change 1: Countdown</h4>
-                            <p>Modify your code to count from 10 down to 1</p>
-                            <div class="code-block" style="font-size: 0.9em;">
-<span style="color: #F92672;">for</span> count <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">10</span>, <span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">-1</span>):
-    <span style="color: #66D9EF;">print</span>(count)
-<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Blast off!"</span>)
-                            </div>
-                        </div>
-                        
-                        <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
-                            <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Change 2: Skip Numbers</h4>
-                            <p>Modify your code to count from 0 to 20 by 2s</p>
-                            <div class="code-block" style="font-size: 0.9em;">
-<span style="color: #F92672;">for</span> number <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">21</span>, <span style="color: #AE81FF;">2</span>):
-    <span style="color: #66D9EF;">print</span>(number)
-<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Even numbers complete!"</span>)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">3</div>
-                        <h3>Challenge: Use the Loop Variable <i class="fas fa-star" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Try this exercise that uses the loop variable in calculations:</p>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Print the 5 times table</span>
-<span style="color: #F92672;">for</span> num <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">11</span>):
-    result = <span style="color: #AE81FF;">5</span> * num
-    <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"5 ×"</span>, num, <span style="color: #E6DB74;">"="</span>, result)
-                    </div>
-                    
-                    <div class="result-display">
-5 × 1 = 5
-5 × 2 = 10
-5 × 3 = 15
-5 × 4 = 20
-5 × 5 = 25
-5 × 6 = 30
-5 × 7 = 35
-5 × 8 = 40
-5 × 9 = 45
-5 × 10 = 50
-                    </div>
-                    
-                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--chew-color); margin-right: 10px;"></i> <strong>Extension:</strong> Modify the code to print a different times table (e.g., 3 times table or 7 times table).</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Common Coding Mistakes <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
-                
-                <div class="two-column-grid">
-                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
-                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
-                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
-for i in range(1, 5)
-    print(i)
-                        </div>
-                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> Missing colon (:) at the end of the for statement.</p>
-                            <p style="margin: 0;"><strong>Fix:</strong> Always add a colon at the end of the for line.</p>
-                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
-for i in range(1, 5):
-    print(i)
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
-                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
-                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
-for i in range(1, 5):
-print(i)
-                        </div>
-                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> Missing indentation for the code inside the loop.</p>
-                            <p style="margin: 0;"><strong>Fix:</strong> Indent the code inside the loop (usually 4 spaces).</p>
-                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
-for i in range(1, 5):
-    print(i)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHUNK 3: Loop Applications -->
-        <section id="chunk3" class="tab-content dark-section">
-            <h1>CHUNK 3: LOOP APPLICATIONS <i class="fas fa-lightbulb" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chunk-section">
-                <div class="chunk-badge">TEACHER CHUNK</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
-                
-                <h3>Practical Applications of For Loops</h3>
-                
-                <p>For loops are incredibly useful for solving many different types of problems. Let's explore some common ways that programmers use loops.</p>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Creating Patterns <i class="fas fa-star" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Loops make it easy to create patterns like this:</p>
-                    
-                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
-                        <div class="code-block" style="font-size: 0.9em;">
-<span class="code-comment"># Print a pattern of stars</span>
-for i in range(1, 6):
-    print("*" * i)
-                        </div>
-                        
-                        <div class="result-display">
-*
-**
-***
-****
-*****
-                        </div>
-                    </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Insight:</strong> The <code>*</code> symbol can be multiplied by a number to repeat it. For example, <code>"*" * 3</code> gives <code>***</code>.</p>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Running Totals <i class="fas fa-calculator" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Loops can keep a running total to calculate sums:</p>
-                    
-                    <div class="code-step-container">
-                        <div class="code-step-header">
-                            <span>Adding Numbers Example</span>
-                            <span id="sum-step-indicator">Step 1 of 6</span>
-                        </div>
-                        
-                        <div class="code-step-content">
-                            <!-- Sum Step 1 -->
-                            <div id="sum-step-1" class="variable-update-step active">
-                                <div class="code-block" style="position: relative;">
-<span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
-total = 0
-
-for num in range(1, 6):
-    total = total + num
-    
-print("The sum is:", total)
-                                </div>
-                                
-                                <div class="memory-visualization">
-                                    <h4 style="text-align: center; margin-top: 10px;">Step 1: Initial setup</h4>
-                                    <div class="computer-memory">
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">total</div>
-                                            <div class="memory-item-value">0</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Sum Step 2 -->
-                            <div id="sum-step-2" class="variable-update-step">
-                                <div class="code-block" style="position: relative;">
-<span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
-total = 0
-
-for num in range(1, 6):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
-    
-print("The sum is:", total)
-                                </div>
-                                
-                                <div class="memory-visualization">
-                                    <h4 style="text-align: center; margin-top: 10px;">Step 2: First iteration (num = 1)</h4>
-                                    <div class="computer-memory">
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">num</div>
-                                            <div class="memory-item-value">1</div>
-                                        </div>
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">total</div>
-                                            <div class="memory-item-value">1</div>
-                                        </div>
-                                    </div>
-                                    <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
-                                        <p style="margin: 0; font-size: 1.1em;">total = 0 + 1 = 1</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Sum Step 3 -->
-                            <div id="sum-step-3" class="variable-update-step">
-                                <div class="code-block" style="position: relative;">
-<span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
-total = 0
-
-for num in range(1, 6):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
-    
-print("The sum is:", total)
-                                </div>
-                                
-                                <div class="memory-visualization">
-                                    <h4 style="text-align: center; margin-top: 10px;">Step 3: Second iteration (num = 2)</h4>
-                                    <div class="computer-memory">
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">num</div>
-                                            <div class="memory-item-value">2</div>
-                                        </div>
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">total</div>
-                                            <div class="memory-item-value">3</div>
-                                        </div>
-                                    </div>
-                                    <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
-                                        <p style="margin: 0; font-size: 1.1em;">total = 1 + 2 = 3</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Sum Step 4 -->
-                            <div id="sum-step-4" class="variable-update-step">
-                                <div class="code-block" style="position: relative;">
-<span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
-total = 0
-
-for num in range(1, 6):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
-    
-print("The sum is:", total)
-                                </div>
-                                
-                                <div class="memory-visualization">
-                                    <h4 style="text-align: center; margin-top: 10px;">Step 4: Third iteration (num = 3)</h4>
-                                    <div class="computer-memory">
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">num</div>
-                                            <div class="memory-item-value">3</div>
-                                        </div>
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">total</div>
-                                            <div class="memory-item-value">6</div>
-                                        </div>
-                                    </div>
-                                    <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
-                                        <p style="margin: 0; font-size: 1.1em;">total = 3 + 3 = 6</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Sum Step 5 -->
-                            <div id="sum-step-5" class="variable-update-step">
-                                <div class="code-block" style="position: relative;">
-<span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
-total = 0
-
-for num in range(1, 6):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
-    
-print("The sum is:", total)
-                                </div>
-                                
-                                <div class="memory-visualization">
-                                    <h4 style="text-align: center; margin-top: 10px;">Step 5: Fourth iteration (num = 4)</h4>
-                                    <div class="computer-memory">
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">num</div>
-                                            <div class="memory-item-value">4</div>
-                                        </div>
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">total</div>
-                                            <div class="memory-item-value">10</div>
-                                        </div>
-                                    </div>
-                                    <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
-                                        <p style="margin: 0; font-size: 1.1em;">total = 6 + 4 = 10</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Sum Step 6 -->
-                            <div id="sum-step-6" class="variable-update-step">
-                                <div class="code-block" style="position: relative;">
-<span class="code-comment"># Calculate the sum of numbers from 1 to 5</span>
-total = 0
-
-for num in range(1, 6):
-<div style="background-color: rgba(59, 130, 246, 0.2); padding: 0 5px;">    total = total + num</div>
-    
-print("The sum is:", total)
-                                </div>
-                                
-                                <div class="memory-visualization">
-                                    <h4 style="text-align: center; margin-top: 10px;">Step 6: Fifth iteration (num = 5)</h4>
-                                    <div class="computer-memory">
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">num</div>
-                                            <div class="memory-item-value">5</div>
-                                        </div>
-                                        <div class="memory-item">
-                                            <div class="memory-item-name">total</div>
-                                            <div class="memory-item-value">15</div>
-                                        </div>
-                                    </div>
-                                    <div style="text-align: center; padding: 10px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
-                                        <p style="margin: 0; font-size: 1.1em;">total = 10 + 5 = 15</p>
-                                    </div>
-                                    <div class="result-display" style="margin-top: 20px;">
-The sum is: 15
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="step-navigation">
-                            <button id="prev-sum-btn" class="step-btn" onclick="prevSumStep()" disabled>
-                                <i class="fas fa-chevron-left"></i> Previous
-                            </button>
-                            <button id="next-sum-btn" class="step-btn" onclick="nextSumStep()">
-                                Next <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">3</div>
-                        <h3>Interactive Text <i class="fas fa-comment" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Loops can create interactive programs that collect data:</p>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Ask the user for 3 favorite foods</span>
-print("Tell me your 3 favorite foods!")
-
-for i in range(1, 4):
-    food = input(f"Food {i}: ")
-    print(f"You entered: {food}")
-
-print("Thanks for sharing!")
-                    </div>
-                    
-                    <div class="result-display">
-Tell me your 3 favorite foods!
-Food 1: Pizza
-You entered: Pizza
-Food 2: Ice cream
-You entered: Ice cream
-Food 3: Tacos
-You entered: Tacos
-Thanks for sharing!
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>More Loop Examples <i class="fas fa-project-diagram" style="margin-left: 10px;"></i></h3>
-                
-                <div style="max-width: 800px; margin: 0 auto;">
-                    <div class="element-card" style="margin-bottom: 25px;">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>DRAWING WITH TEXT <i class="fas fa-paint-brush" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <div class="code-block">
-<span class="code-comment"># Draw a rectangle with loops</span>
-width = 5
-height = 3
-
-for i in range(height):
-    print("#" * width)
-                            </div>
-                            <div class="result-display">
-#####
-#####
-#####
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card" style="margin-bottom: 25px;">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>FINDING MIN & MAX <i class="fas fa-chart-line" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <div class="code-block">
-<span class="code-comment"># Find the largest number</span>
-numbers = [12, 45, 7, 23, 56, 9]
-largest = numbers[0]
-
-for num in numbers:
-    if num > largest:
-        largest = num
-        
-print("Largest number:", largest)
-                            </div>
-                            <div class="result-display">
-Largest number: 56
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>MULTIPLICATION TABLE <i class="fas fa-table" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <div class="code-block">
-<span class="code-comment"># Print a mini multiplication table</span>
-for i in range(1, 4):
-    for j in range(1, 4):
-        print(i * j, end=" ")
-    print()  <span class="code-comment"># Start a new line</span>
-                            </div>
-                            <div class="result-display">
-1 2 3 
-2 4 6 
-3 6 9 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHEW 3: Challenge Time! -->
-        <section id="chew3" class="tab-content light-section">
-            <h1>CHEW 3: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chew-section">
-                <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
-                
-                <h3>For Loop Challenge Exercises</h3>
-                
-                <div class="activity-goal">
-                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Apply what you've learned about for loops</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Solve progressively more challenging problems</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create and modify code to achieve specific outcomes</li>
-                    </ul>
-                </div>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Challenge: Counting Coins <i class="fas fa-coins" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <i class="fas fa-money-bill-wave" style="font-size: 5em; color: var(--chew-color);"></i>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Write a program that calculates how much money you have:</p>
-                    
-                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
-                        <li style="margin-bottom: 15px;">Create a program that starts with a total of $0</li>
-                        <li style="margin-bottom: 15px;">Use a for loop to add the value of 5 coins (quarters = $0.25)</li>
-                        <li>Print the running total after each coin is added</li>
-                    </ol>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Coin counter challenge</span>
-total = <span style="color: #AE81FF;">0</span>
-coin_value = <span style="color: #AE81FF;">0.25</span>  <span class="code-comment"># Quarter = $0.25</span>
-
-<span style="color: #F92672;">for</span> coin <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">6</span>):
-    total = total + coin_value
-    <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Coin"</span>, coin, <span style="color: #E6DB74;">": Total is now $"</span>, total, sep=<span style="color: #E6DB74;">""</span>)
-                    </div>
-                    
-                    <div class="result-display">
-Coin1: Total is now $0.25
-Coin2: Total is now $0.5
-Coin3: Total is now $0.75
-Coin4: Total is now $1.0
-Coin5: Total is now $1.25
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Challenge: Pattern Creator <i class="fas fa-th-large" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Write a program that creates a box of asterisks:</p>
-                    
-                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
-                        <div class="code-block">
-<span class="code-comment"># Create a box pattern</span>
-width = 5
-height = 4
-
-for row in range(height):
-    print("*" * width)
-                        </div>
-                        
-                        <div class="result-display">
-*****
-*****
-*****
-*****
-                        </div>
-                    </div>
-                    
-                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--chew-color); margin-right: 10px;"></i> <strong>Extension:</strong> Try changing the width and height values to create different sized boxes.</p>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">3</div>
-                        <h3>Challenge: FizzBuzz <i class="fas fa-star" style="margin-left: 10px;"></i><i class="fas fa-star" style="margin-left: 5px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">FizzBuzz is a classic programming challenge. Create a program that:</p>
-                    
-                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
-                        <li style="margin-bottom: 15px;">Counts from 1 to 15</li>
-                        <li style="margin-bottom: 15px;">If the number is divisible by 3, print "Fizz" instead of the number</li>
-                        <li style="margin-bottom: 15px;">If the number is divisible by 5, print "Buzz" instead of the number</li>
-                        <li>If the number is divisible by both 3 and 5, print "FizzBuzz"</li>
-                    </ol>
-                    
-                    <div class="code-block">
-<span class="code-comment"># FizzBuzz Challenge</span>
-<span style="color: #F92672;">for</span> num <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">16</span>):
-    <span class="code-comment"># Check if divisible by both 3 and 5</span>
-    <span style="color: #F92672;">if</span> num % <span style="color: #AE81FF;">3</span> == <span style="color: #AE81FF;">0</span> <span style="color: #F92672;">and</span> num % <span style="color: #AE81FF;">5</span> == <span style="color: #AE81FF;">0</span>:
-        <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"FizzBuzz"</span>)
-    <span class="code-comment"># Check if divisible by 3</span>
-    <span style="color: #F92672;">elif</span> num % <span style="color: #AE81FF;">3</span> == <span style="color: #AE81FF;">0</span>:
-        <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Fizz"</span>)
-    <span class="code-comment"># Check if divisible by 5</span>
-    <span style="color: #F92672;">elif</span> num % <span style="color: #AE81FF;">5</span> == <span style="color: #AE81FF;">0</span>:
-        <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Buzz"</span>)
-    <span class="code-comment"># Otherwise print the number</span>
-    <span style="color: #F92672;">else</span>:
-        <span style="color: #66D9EF;">print</span>(num)
-                    </div>
-                    
-                    <div class="result-display">
-1
-2
-Fizz
-4
-Buzz
-Fizz
-7
-8
-Fizz
-Buzz
-11
-Fizz
-13
-14
-FizzBuzz
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Example Solution <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
-                
-                <div class="code-block">
-<span class="code-comment"># Solution for Counting Coins challenge with formatted output</span>
-total = <span style="color: #AE81FF;">0</span>
-coin_value = <span style="color: #AE81FF;">0.25</span>  <span class="code-comment"># Quarter = $0.25</span>
-
-<span style="color: #F92672;">for</span> coin <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">6</span>):
-    total = total + coin_value
-    <span class="code-comment"># Format the output with 2 decimal places</span>
-    formatted_total = <span style="color: #E6DB74;">"{:.2f}"</span>.<span style="color: #66D9EF;">format</span>(total)
-    <span style="color: #66D9EF;">print</span>(<span style="color: #F92672;">f</span><span style="color: #E6DB74;">"Coin {coin}: Total is now ${formatted_total}"</span>)
-                </div>
-                
-                <div class="result-display">
-Coin 1: Total is now $0.25
-Coin 2: Total is now $0.50
-Coin 3: Total is now $0.75
-Coin 4: Total is now $1.00
-Coin 5: Total is now $1.25
-                </div>
-                
-                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
-                    <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Key Points Learned</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> For loops repeat code a specific number of times</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> The range() function creates a sequence of numbers to loop through</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Loop variables can be used in calculations inside the loop</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Loops save time and make code more efficient</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Loops can create patterns, perform calculations, and automate repetitive tasks</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        // Navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab switching
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const tab = this.getAttribute('data-tab');
-                    
-                    // Remove active class from all buttons and tabs
-                    document.querySelectorAll('.tab-button').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
+            document.querySelectorAll('.multiple-choice-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    document.querySelectorAll('.multiple-choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
                     });
                     
-                    // Add active class to selected button and tab
-                    this.classList.add('active');
-                    document.getElementById(tab).classList.add('active');
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Check answer
+                    const answer = this.getAttribute('data-value');
+                    const feedback = document.getElementById('loop-tracing-feedback');
+                    
+                    if (answer === 'B') { // 10 is the correct answer
+                        feedback.innerHTML = "<i class='fas fa-check-circle' style='color: #52c41a; margin-right: 8px;'></i> Correct! The loop adds 1 + 2 + 3 + 4 = 10 to the total variable.";
+                        feedback.className = 'feedback-message correct';
+                        
+                        // Show buckle animation
+                        const animation = document.getElementById('quiz-buckle-animation');
+                        animation.style.display = 'block';
+                        
+                        // Update buckles if first time correct
+                        if (!localStorage.getItem('loops_tracing_completed')) {
+                            localStorage.setItem('loops_tracing_completed', 'true');
+                            updateGlobalBuckles(5); // Award 5 buckles
+                        }
+                        
+                        // Hide animation after 2 seconds
+                        setTimeout(() => {
+                            animation.style.display = 'none';
+                        }, 2000);
+                    } else {
+                        feedback.innerHTML = "<i class='fas fa-times-circle' style='color: #ff4d4f; margin-right: 8px;'></i> Not quite. Try again! Think about how the values 1, 2, 3, and 4 are added to the total.";
+                        feedback.className = 'feedback-message incorrect';
+                    }
                 });
             });
-            
-            // Initialize Loop Execution steps
-            document.getElementById('loop-step-1').classList.add('active');
-            document.getElementById('loop-step-2').classList.remove('active');
-            document.getElementById('loop-step-3').classList.remove('active');
-            document.getElementById('loop-step-4').classList.remove('active');
-            document.getElementById('loop-step-5').classList.remove('active');
-            
-            document.getElementById('prev-loop-btn').disabled = true;
-            document.getElementById('next-loop-btn').disabled = false;
-            
-            // Initialize Sum Execution steps
-            document.getElementById('sum-step-1').classList.add('active');
-            document.getElementById('sum-step-2').classList.remove('active');
-            document.getElementById('sum-step-3').classList.remove('active');
-            document.getElementById('sum-step-4').classList.remove('active');
-            document.getElementById('sum-step-5').classList.remove('active');
-            document.getElementById('sum-step-6').classList.remove('active');
-            
-            document.getElementById('prev-sum-btn').disabled = true;
-            document.getElementById('next-sum-btn').disabled = false;
-            
-            // Initialize Syntax Breakdown steps
-            document.getElementById('syntax-step-1').classList.add('active');
-            document.getElementById('syntax-step-2').classList.remove('active');
-            document.getElementById('syntax-step-3').classList.remove('active');
-            document.getElementById('syntax-step-4').classList.remove('active');
-            document.getElementById('syntax-step-5').classList.remove('active');
-            
-            document.getElementById('prev-syntax-btn').disabled = true;
-            document.getElementById('next-syntax-btn').disabled = false;
-        });
-        
-        // Loop step by step navigation
-        let currentLoopStep = 1;
-        const totalLoopSteps = 5;
-        
-        function nextLoopStep() {
-            if (currentLoopStep < totalLoopSteps) {
-                // Hide current step
-                document.getElementById(`loop-step-${currentLoopStep}`).classList.remove('active');
-                
-                // Show next step
-                currentLoopStep++;
-                document.getElementById(`loop-step-${currentLoopStep}`).classList.add('active');
-                
-                // Update indicator and buttons
-                document.getElementById('loop-step-indicator').textContent = `Step ${currentLoopStep} of ${totalLoopSteps}`;
-                document.getElementById('prev-loop-btn').disabled = false;
-                
-                if (currentLoopStep === totalLoopSteps) {
-                    document.getElementById('next-loop-btn').disabled = true;
-                }
-            }
-        }
-        
-        function prevLoopStep() {
-            if (currentLoopStep > 1) {
-                // Hide current step
-                document.getElementById(`loop-step-${currentLoopStep}`).classList.remove('active');
-                
-                // Show previous step
-                currentLoopStep--;
-                document.getElementById(`loop-step-${currentLoopStep}`).classList.add('active');
-                
-                // Update indicator and buttons
-                document.getElementById('loop-step-indicator').textContent = `Step ${currentLoopStep} of ${totalLoopSteps}`;
-                document.getElementById('next-loop-btn').disabled = false;
-                
-                if (currentLoopStep === 1) {
-                    document.getElementById('prev-loop-btn').disabled = true;
-                }
-            }
-        }
-        
-        // Sum step by step navigation
-        let currentSumStep = 1;
-        const totalSumSteps = 6;
-        
-        function nextSumStep() {
-            if (currentSumStep < totalSumSteps) {
-                // Hide current step
-                document.getElementById(`sum-step-${currentSumStep}`).classList.remove('active');
-                
-                // Show next step
-                currentSumStep++;
+          });
+          
+          // Loop step by step navigation
+          let currentLoopStep = 1;
+          const totalLoopSteps = 5;
+          
+          function nextLoopStep() {
+              if (currentLoopStep < totalLoopSteps) {
+                  // Hide current step
+                  document.getElementById(`loop-step-${currentLoopStep}`).classList.remove('active');
+                  
+                  // Show next step
+                  currentLoopStep++;
+                  document.getElementById(`loop-step-${currentLoopStep}`).classList.add('active');
+                  
+                  // Update indicator and buttons
+                  document.getElementById('loop-step-indicator').textContent = `Step ${currentLoopStep} of ${totalLoopSteps}`;
+                  document.getElementById('prev-loop-btn').disabled = false;
+                  
+                  if (currentLoopStep === totalLoopSteps) {
+                      document.getElementById('next-loop-btn').disabled = true;
+                  }
+              }
+          }
+          
+          function prevLoopStep() {
+              if (currentLoopStep > 1) {
+                  // Hide current step
+                  document.getElementById(`loop-step-${currentLoopStep}`).classList.remove('active');
+                  
+                  // Show previous step
+                  currentLoopStep--;
+                  document.getElementById(`loop-step-${currentLoopStep}`).classList.add('active');
+                  
+                  // Update indicator and buttons
+                  document.getElementById('loop-step-indicator').textContent = `Step ${currentLoopStep} of ${totalLoopSteps}`;
+                  document.getElementById('next-loop-btn').disabled = false;
+                  
+                  if (currentLoopStep === 1) {
+                      document.getElementById('prev-loop-btn').disabled = true;
+                  }
+              }
+          }
+          
+          // Sum step by step navigation
+          let currentSumStep = 1;
+          const totalSumSteps = 6;
+          
+          function nextSumStep() {
+              if (currentSumStep < totalSumSteps) {
+                  // Hide current step
+                  document.getElementById(`sum-step-${currentSumStep}`).classList.remove('active');
+                  
+                  // Show next step
+                  currentSumStep++;
+                  
+                  currentSumStep++;
                 document.getElementById(`sum-step-${currentSumStep}`).classList.add('active');
                 
                 // Update indicator and buttons
@@ -1595,6 +1579,167 @@ Coin 5: Total is now $1.25
                 
                 if (currentSyntaxStep === 1) {
                     document.getElementById('prev-syntax-btn').disabled = true;
+                }
+            }
+        }
+
+        // Function to update global buckles from multiple choice quiz
+        function updateGlobalBuckles(amount) {
+            let total = getGlobalBuckles();
+            total += amount;
+            localStorage.setItem('totalPythonBuckles', total.toString());
+            
+            // Update all buckle displays on the page
+            document.querySelectorAll('[id$="buckle-score"]').forEach(el => {
+                el.textContent = total;
+            });
+        }
+
+        function getGlobalBuckles() {
+            const totalBuckles = localStorage.getItem('totalPythonBuckles') || '0';
+            return parseInt(totalBuckles);
+        }
+        
+        function initializeForLoopChallenge() {
+            // Define the correct for loop statement
+            const correctForLoop = ["for", "num", "in", "range", "(", "1", ",", "11", ")", ":"];
+            
+            // Check for buckle animation container
+            if (!document.getElementById('for-loop-buckle-animation')) {
+                const animDiv = document.createElement('div');
+                animDiv.className = 'buckle-animation';
+                animDiv.id = 'for-loop-buckle-animation';
+                animDiv.style.display = 'none';
+                animDiv.innerHTML = `
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
+                         alt="Buckle" id="for-loop-buckle-img">
+                    <div class="shine"></div>
+                `;
+                document.body.appendChild(animDiv);
+            }
+            
+            // Apply syntax highlighting to sentence parts
+            document.querySelectorAll('.sentence-part').forEach(part => {
+                // Reset highlight classes
+                part.classList.remove('highlight-variable', 'highlight-operator', 'highlight-value', 'highlight-keyword');
+                
+                const textContent = part.textContent.trim();
+                // Apply appropriate class based on content
+                if (textContent === 'for' || textContent === 'num' || textContent === 'range') {
+                    part.classList.add('highlight-variable');
+                } else if (textContent === '(' || textContent === ')' || 
+                          textContent === ',' || textContent === ':' ||
+                          textContent === 'in') {
+                    part.classList.add('highlight-operator');
+                } else if (textContent === '1' || textContent === '11') {
+                    part.classList.add('highlight-value');
+                }
+            });
+            
+            // Add click handlers to sentence parts
+            document.querySelectorAll('.sentence-part').forEach(part => {
+                part.addEventListener('click', function() {
+                    const resultContainer = document.getElementById('statement1-result');
+                    
+                    // Create a result part element
+                    const resultPart = document.createElement('div');
+                    resultPart.className = 'result-part';
+                    resultPart.textContent = this.textContent;
+                    resultPart.dataset.value = this.dataset.value;
+                    
+                    // Transfer highlighting classes
+                    if (this.classList.contains('highlight-variable')) {
+                        resultPart.classList.add('highlight-variable');
+                    } else if (this.classList.contains('highlight-operator')) {
+                        resultPart.classList.add('highlight-operator');
+                    } else if (this.classList.contains('highlight-value')) {
+                        resultPart.classList.add('highlight-value');
+                    }
+                    
+                    // Add click event to remove the part when clicked
+                    resultPart.addEventListener('click', function() {
+                        this.remove();
+                        checkForLoopStatement();
+                    });
+                    
+                    // Add animation class
+                    resultPart.classList.add('slide-animation');
+                    
+                    // Append to result container
+                    resultContainer.appendChild(resultPart);
+                    
+                    // Check if statement is correct
+                    checkForLoopStatement();
+                });
+            });
+            
+            // Function to check for loop statement
+            function checkForLoopStatement() {
+                const resultContainer = document.getElementById('statement1-result');
+                const feedbackContainer = document.getElementById('statement1-feedback');
+                const resultParts = Array.from(resultContainer.children);
+                
+                // Get current statement as array of values
+                const currentStatement = resultParts.map(part => part.textContent);
+                
+                // Check if statement matches correct answer
+                let correct = true;
+                if (currentStatement.length === correctForLoop.length) {
+                    for (let i = 0; i < correctForLoop.length; i++) {
+                        if (currentStatement[i] !== correctForLoop[i]) {
+                            correct = false;
+                            break;
+                        }
+                    }
+                } else {
+                    correct = false;
+                }
+                
+                // Check if this is first attempt
+                const attemptKey = 'attempted_loops_forloop';
+                const isFirstAttempt = !localStorage.getItem(attemptKey);
+                
+                // Mark as attempted on first evaluation with exact required parts
+                if (isFirstAttempt && resultParts.length === correctForLoop.length) {
+                    localStorage.setItem(attemptKey, 'true');
+                }
+                
+                // Only check correctness with exact required parts
+                if (resultParts.length === correctForLoop.length) {
+                    if (correct) {
+                        feedbackContainer.className = 'feedback-area correct';
+                        feedbackContainer.innerHTML = `
+                            <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct!</h4>
+                            <p>You've created a valid for loop statement: <code>${currentStatement.join(' ')}</code></p>
+                        `;
+                        
+                        // Award buckle on first attempt
+                        const completedKey = 'completed_loops_forloop';
+                        if (!localStorage.getItem(completedKey) && isFirstAttempt) {
+                            updateGlobalBuckles(1);
+                            localStorage.setItem(completedKey, 'true');
+                            
+                            // Show buckle animation
+                            const animation = document.getElementById('for-loop-buckle-animation');
+                            if (animation) {
+                                animation.style.display = 'block';
+                                
+                                setTimeout(() => {
+                                    animation.style.display = 'none';
+                                }, 2000);
+                            }
+                        }
+                    } else {
+                        feedbackContainer.className = 'feedback-area incorrect';
+                        feedbackContainer.innerHTML = `
+                            <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Not Quite Right</h4>
+                            <p>Try again! The correct statement would be: <code>for num in range(1, 11):</code></p>
+                        `;
+                    }
+                } else {
+                    // Clear feedback if not exact number of parts
+                    feedbackContainer.className = 'feedback-area';
+                    feedbackContainer.innerHTML = '';
                 }
             }
         }
