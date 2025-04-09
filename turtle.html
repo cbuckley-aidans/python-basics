@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Turtle Racing</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Include the quiz.js file -->
+    <script src="quiz.js"></script>
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">PYTHON TURTLE RACING</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="lisc">
+                <i class="fas fa-clipboard-list"></i>
+                LI/SC
+            </button>
+            <button class="tab-button" data-tab="chunk1">
+                <i class="fas fa-cube"></i>
+                CHUNK 1
+            </button>
+            <button class="tab-button" data-tab="chew1">
+                <i class="fas fa-utensils"></i>
+                CHEW 1
+            </button>
+            <button class="tab-button" data-tab="chunk2">
+                <i class="fas fa-cube"></i>
+                CHUNK 2
+            </button>
+            <button class="tab-button" data-tab="chew2">
+                <i class="fas fa-utensils"></i>
+                CHEW 2
+            </button>
+            <button class="tab-button" data-tab="chunk3">
+                <i class="fas fa-cube"></i>
+                CHUNK 3
+            </button>
+            <button class="tab-button" data-tab="chew3">
+                <i class="fas fa-utensils"></i>
+                CHEW 3
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Learning Intentions and Success Criteria section -->
+        <section id="lisc" class="tab-content active light-section">
+            <h1>LEARNING INTENTIONS & SUCCESS CRITERIA <i class="fas fa-bullseye" style="margin-left: 15px;"></i></h1>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">1</div>
+                    <h3>Learning Intentions <i class="fas fa-bullseye" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand the Python turtle module commands for controlling turtle movement and drawing</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to create multiple turtles for animations and games</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">2</div>
+                    <h3>Success Criteria <i class="fas fa-trophy" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <p>By the end of this lesson, you should be able to:</p>
+                
+                <ul>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Build a race track using turtle drawing commands</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create a multi-turtle racing game with randomised movements</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CHUNK 1: Introduction to Turtle Module -->
+        <section id="chunk1" class="tab-content dark-section">
+            <h1>CHUNK 1: MEET THE TURTLE <i class="fas fa-turtle" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Introducing the Python Turtle Module</h3>
+                
+                <p>The Python Turtle module lets you control a virtual "turtle" that moves and draws on a screen.</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Getting Started <i class="fas fa-rocket" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">To use Turtle, we first need to import it:</p>
+                    
+                    <div class="code-block">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 20px;">This gives us access to all the turtle commands without needing to type <code>turtle.</code> before each one.</p>
+                    
+                    <div class="code-block">
+<span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">100</span>)  <span style="color: #75715E;"># Move the turtle forward 100 pixels</span>
+                    </div>
+                </div>
+                
+                <!-- Basic Turtle Commands Section -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Basic Turtle Commands <i class="fas fa-directions" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="elements-grid" style="margin-top: 0;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <i class="fas fa-arrows-alt" style="font-size: 1.5em; color: var(--accent-color);"></i>
+                                </div>
+                                <h4 style="margin: 0; font-size: 1.2em;">MOVEMENT COMMANDS</h4>
+                            </div>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">100</span>)  <span style="color: #75715E;"># Move 100 pixels forward</span>
+<span style="color: #66D9EF;">backward</span>(<span style="color: #AE81FF;">50</span>)  <span style="color: #75715E;"># Move 50 pixels backward</span>
+<span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)     <span style="color: #75715E;"># Turn right 90 degrees</span>
+<span style="color: #66D9EF;">left</span>(<span style="color: #AE81FF;">45</span>)      <span style="color: #75715E;"># Turn left 45 degrees</span>
+                            </div>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <i class="fas fa-pen" style="font-size: 1.5em; color: var(--accent-color);"></i>
+                                </div>
+                                <h4 style="margin: 0; font-size: 1.2em;">PEN COMMANDS</h4>
+                            </div>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">penup</span>()    <span style="color: #75715E;"># Stop drawing when moving</span>
+<span style="color: #66D9EF;">pendown</span>()  <span style="color: #75715E;"># Start drawing when moving</span>
+<span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"Text"</span>) <span style="color: #75715E;"># Write text at the current position</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Position and Speed <i class="fas fa-map-marker-alt" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="elements-grid" style="margin-top: 0;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <i class="fas fa-map" style="font-size: 1.5em; color: var(--accent-color);"></i>
+                                </div>
+                                <h4 style="margin: 0; font-size: 1.2em;">POSITIONING</h4>
+                            </div>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-100</span>, <span style="color: #AE81FF;">50</span>)  <span style="color: #75715E;"># Move to x=-100, y=50</span>
+
+<span style="color: #75715E;"># The center of the screen is (0,0)</span>
+<span style="color: #75715E;"># Default screen is 400x400 pixels</span>
+                            </div>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                    <i class="fas fa-tachometer-alt" style="font-size: 1.5em; color: var(--accent-color);"></i>
+                                </div>
+                                <h4 style="margin: 0; font-size: 1.2em;">SPEED CONTROL</h4>
+                            </div>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">10</span>)  <span style="color: #75715E;"># Fast speed</span>
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">1</span>)   <span style="color: #75715E;"># Slow speed</span>
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">0</span>)   <span style="color: #75715E;"># Fastest speed (no animation)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Simple Turtle Example <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                
+                <div class="code-block">
+<span style="color: #75715E;"># A simple turtle program that draws a line</span>
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">100</span>)  <span style="color: #75715E;"># Move forward 100 pixels</span>
+<span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)     <span style="color: #75715E;"># Turn right 90 degrees</span>
+<span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">50</span>)   <span style="color: #75715E;"># Move forward 50 pixels</span>
+                </div>
+                
+                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                    <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Point:</strong> The turtle starts in the middle of the screen (coordinates 0,0) pointing to the right.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 1: Basic Turtle Check -->
+        <section id="chew1" class="tab-content light-section">
+            <h1>CHEW 1: FIRST TURTLE STEPS <i class="fas fa-shoe-prints" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Check Your Understanding</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Understand basic turtle commands</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice predicting turtle movements</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <h3>Think-Pair-Share <i class="fas fa-users" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin-bottom: 25px; text-align: center;">
+                        <p style="font-size: 1.3em; font-weight: 600; margin-bottom: 15px;">Discuss these questions with your partner:</p>
+                        <div style="text-align: left; font-size: 1.2em; padding: 10px 20px; background-color: white; border-radius: var(--border-radius); border: 2px solid var(--chew-color);">
+                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">1.</span> What is the purpose of <code>penup()</code> and <code>pendown()</code>?</p>
+                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">2.</span> What would happen if you ran <code>forward(100)</code> and then <code>backward(50)</code>?</p>
+                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">3.</span> How would you move the turtle to a specific location on the screen?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quiz container that will be populated by JavaScript -->
+                <div id="quiz-container" class="duolingo-container"></div>
+                
+            </div>
+        </section>
+
+        <!-- CHUNK 2: Turtle Drawing and Positioning -->
+        <section id="chunk2" class="tab-content dark-section">
+            <h1>CHUNK 2: DRAWING A RACE TRACK <i class="fas fa-road" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Creating a Race Track with Turtle</h3>
+                
+                <p>Now we'll use turtle commands to draw a race track with numbered lanes.</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>The write() Function <i class="fas fa-font" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">The <code>write()</code> function displays text at the turtle's position:</p>
+                    
+                    <div class="code-block" style="text-align: left; position: relative;">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #66D9EF;">write</span>(<span style="color: #AE81FF;">0</span>)          <span style="color: #75715E;"># Write the number 0</span>
+<span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">20</span>)       <span style="color: #75715E;"># Move forward 20 pixels</span>
+<span style="color: #66D9EF;">write</span>(<span style="color: #AE81FF;">1</span>)          <span style="color: #75715E;"># Write the number 1</span>
+                    </div>
+                    
+                    <div class="code-block" style="margin-top: 20px;">
+<span style="color: #75715E;"># Write with alignment options</span>
+<span style="color: #66D9EF;">write</span>(<span style="color: #AE81FF;">5</span>, align=<span style="color: #E6DB74;">'center'</span>)  <span style="color: #75715E;"># Center-aligned text</span>
+                    </div>
+                </div>
+                
+                <!-- Drawing with Loops -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Drawing Track Lines <i class="fas fa-ruler-horizontal" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">We can use a loop to draw evenly spaced track lines:</p>
+                    
+                    <div class="code-step-container">
+                        <div class="code-step-header">
+                            <span>Track Drawing Code Breakdown</span>
+                            <span id="track-step-indicator">Step 1 of 5</span>
+                        </div>
+                        
+                        <div class="code-step-content">
+                            <!-- Track Step 1 -->
+                            <div id="track-step-1" class="variable-update-step active">
+                                <div class="code-block" style="position: relative;">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">10</span>)  <span style="color: #75715E;"># Speed up the turtle</span>
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)  <span style="color: #75715E;"># Position in top-left</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 10px;">Step 1: Set up the turtle</h4>
+                                    <div style="text-align: center; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                        <p style="margin: 0; font-size: 1.1em;">First we set the speed and position the turtle in the top-left</p>
+                                        <p style="margin: 5px 0 0; font-size: 0.9em;">We use <code>penup()</code> so it doesn't draw while moving to the start position</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Track Step 2 -->
+                            <div id="track-step-2" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">10</span>)
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">6</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 10px;">Step 2: Write track numbers</h4>
+                                    <div style="text-align: center; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                        <p style="margin: 0; font-size: 1.1em;">We create a loop that runs 6 times (0 through 5)</p>
+                                        <p style="margin: 5px 0 0; font-size: 0.9em;">The <code>write()</code> function displays each number</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Track Step 3 -->
+                            <div id="track-step-3" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">10</span>)
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">6</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)  <span style="color: #75715E;"># Turn right 90 degrees</span>
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)  <span style="color: #75715E;"># Move forward a bit</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 10px;">Step 3: Prepare to draw lines</h4>
+                                    <div style="text-align: center; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                        <p style="margin: 0; font-size: 1.1em;">After writing each number, the turtle turns right 90 degrees</p>
+                                        <p style="margin: 5px 0 0; font-size: 0.9em;">Then moves forward 10 pixels to leave a small gap before the line</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Track Step 4 -->
+                            <div id="track-step-4" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">10</span>)
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">6</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+    <span style="color: #66D9EF;">pendown</span>()  <span style="color: #75715E;"># Start drawing</span>
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)  <span style="color: #75715E;"># Draw a vertical line</span>
+    <span style="color: #66D9EF;">penup</span>()  <span style="color: #75715E;"># Stop drawing</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 10px;">Step 4: Draw track lines</h4>
+                                    <div style="text-align: center; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                        <p style="margin: 0; font-size: 1.1em;">Now we put the pen down to start drawing</p>
+                                        <p style="margin: 5px 0 0; font-size: 0.9em;">Draw a vertical line 150 pixels long</p>
+                                        <p style="margin: 5px 0 0; font-size: 0.9em;">Then lift the pen up again</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Track Step 5 -->
+                            <div id="track-step-5" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">10</span>)
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">6</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+    <span style="color: #66D9EF;">pendown</span>()
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)
+    <span style="color: #66D9EF;">penup</span>()
+    <span style="color: #66D9EF;">backward</span>(<span style="color: #AE81FF;">160</span>)  <span style="color: #75715E;"># Move back to the top</span>
+    <span style="color: #66D9EF;">left</span>(<span style="color: #AE81FF;">90</span>)  <span style="color: #75715E;"># Turn left to face right again</span>
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">20</span>)  <span style="color: #75715E;"># Move right for the next line</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 10px;">Step 5: Reposition for next line</h4>
+                                    <div style="text-align: center; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                        <p style="margin: 0; font-size: 1.1em;">Move the turtle back to the top with <code>backward(160)</code></p>
+                                        <p style="margin: 5px 0 0; font-size: 0.9em;">Turn left 90 degrees to face right again</p>
+                                        <p style="margin: 5px 0 0; font-size: 0.9em;">Move 20 pixels to the right to position for the next line</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-navigation">
+                            <button id="prev-track-btn" class="step-btn" onclick="prevTrackStep()" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button id="next-track-btn" class="step-btn" onclick="nextTrackStep()">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modified for 16 lines -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Extending the Track <i class="fas fa-angle-double-right" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">To create a longer track with 16 lines instead of 6, we just need to change one value:</p>
+                    
+                    <div class="code-block">
+<span style="color: #75715E;"># Change from range(6) to range(16)</span>
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #75715E;"># rest of the code unchanged</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Point:</strong> This will create 16 vertical lines numbered from 0 to 15 at the top.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Complete Track Code <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
+                
+                <div class="code-block">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">10</span>)
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+    <span style="color: #66D9EF;">pendown</span>()
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)
+    <span style="color: #66D9EF;">penup</span>()
+    <span style="color: #66D9EF;">backward</span>(<span style="color: #AE81FF;">160</span>)
+    <span style="color: #66D9EF;">left</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">20</span>)
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 2: Try It Yourself -->
+        <section id="chew2" class="tab-content light-section">
+            <h1>CHEW 2: BUILD YOUR TRACK <i class="fas fa-flag-checkered" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Track Building Challenge</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Apply turtle commands to create a race track</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice with loops to repeat drawing commands</li>
+                    </ul>
+                </div>
+                
+                <!-- Common Mistakes Section -->
+                <div class="two-column-grid">
+                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
+                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)
+                        </div>
+                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> Missing <code>penup()</code> and <code>pendown()</code> commands.</p>
+                            <p style="margin: 0;"><strong>Fix:</strong> Control the pen so it only draws when intended.</p>
+                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+    <span style="color: #66D9EF;">pendown</span>()  <span style="color: #75715E;"># Start drawing here</span>
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)
+    <span style="color: #66D9EF;">penup</span>()  <span style="color: #75715E;"># Stop drawing</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
+                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+    <span style="color: #66D9EF;">pendown</span>()
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)
+    <span style="color: #75715E;"># Missing repositioning code!</span>
+                        </div>
+                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> Not moving back to the top for the next line.</p>
+                            <p style="margin: 0;"><strong>Fix:</strong> Reposition the turtle after drawing each line.</p>
+                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
+<span style="color: #75715E;"># Include these lines at the end of the loop:</span>
+    <span style="color: #66D9EF;">penup</span>()
+    <span style="color: #66D9EF;">backward</span>(<span style="color: #AE81FF;">160</span>)
+    <span style="color: #66D9EF;">left</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">20</span>)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Drag and Drop Activity -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Build a Track Drawing Loop <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Click on the pieces in the correct order to build a valid for loop for drawing 16 track lines.</p>
+                    
+                    <div class="interactive-activity">
+                        <h4>Challenge: Create a loop that draws 16 vertical lines</h4>
+                        <p>Choose the correct parts to create your loop:</p>
+                        
+                        <div class="build-sentence" id="statement1-parts">
+                            <div class="sentence-part highlight-variable" data-value="for">for</div>
+                            <div class="sentence-part highlight-value" data-value="16">16</div>
+
+                            <div class="sentence-part highlight-variable" data-value="range">range</div>
+                            <div class="sentence-part highlight-operator" data-value="(">(</div>
+                            <div class="sentence-part highlight-operator" data-value=":">:</div>
+
+                            <div class="sentence-part highlight-variable" data-value="step">step</div>
+
+                            <div class="sentence-part highlight-operator" data-value=")">)</div>
+                            <div class="sentence-part highlight-operator" data-value="in">in</div>
+
+                        </div>
+                        
+                        <p>Your statement:</p>
+                        <div class="sentence-result" id="statement1-result"></div>
+                        
+                        <div class="feedback-area" id="statement1-feedback"></div>
+                    </div>
+                </div>
+                
+                <!-- Multiple Choice Quiz -->
+                <div id="multiple-choice-quiz" class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Turtle Movement Challenge <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Look at this code and predict where the turtle will end up:</p>
+                    
+                    <div class="code-block">
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-100</span>, <span style="color: #AE81FF;">50</span>)
+<span style="color: #66D9EF;">pendown</span>()
+<span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">50</span>)
+<span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+<span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">30</span>)
+                    </div>
+                    
+                    <div class="multiple-choice-container">
+                    <p style="font-weight: bold; margin-top: 20px; font-size: 1.2em;">What will be the turtle's final coordinates? 
+                        <span style="color: var(--accent-color); background-color: rgba(255, 215, 0, 0.15); padding: 4px 8px; border-radius: 4px; margin-left: 5px; display: inline-flex; align-items: center;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='24' height='24'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" alt="Buckle" style="width: 20px; height: 20px; margin-right: 5px;">
+                        <strong>Worth 3 buckles!</strong>
+
+                    </span>
+                    </p>
+                    <div class="multiple-choice-options" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px;">
+                            <div class="multiple-choice-option" data-value="A" style="background-color: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 15px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                              <span style="font-weight: bold; color: var(--accent-color);">A)</span> (-50, 50)
+                          </div>
+                          <div class="multiple-choice-option" data-value="B" style="background-color: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 15px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                              <span style="font-weight: bold; color: var(--accent-color);">B)</span> (-50, 20)
+                          </div>
+                          <div class="multiple-choice-option" data-value="C" style="background-color: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 15px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                              <span style="font-weight: bold; color: var(--accent-color);">C)</span> (-100, 0)
+                          </div>
+                          <div class="multiple-choice-option" data-value="D" style="background-color: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 15px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                              <span style="font-weight: bold; color: var(--accent-color);">D)</span> (-50, 80)
+                          </div>
+                      </div>
+                  </div>
+                    
+                    <div id="positioning-feedback" class="feedback-message"></div>
+                    
+                    <div class="buckle-animation" id="quiz-buckle-animation" style="display: none;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
+                             alt="Buckle" id="quiz-buckle-img">
+                        <div class="shine"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 3: Multiple Turtles -->
+        <section id="chunk3" class="tab-content dark-section">
+            <h1>CHUNK 3: RACING TURTLES <i class="fas fa-users" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Creating Multiple Turtles for Racing</h3>
+                
+                <p>Now let's create multiple turtle objects for a racing game!</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Creating a Turtle Object <i class="fas fa-plus-circle" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">We can create a new turtle with a name using the <code>Turtle()</code> class:</p>
+                    
+                    <div class="code-block">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+
+<span style="color: #75715E;"># Create a new turtle named 'ada'</span>
+ada = Turtle()
+ada.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'red'</span>)  <span style="color: #75715E;"># Set the turtle's color</span>
+ada.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)  <span style="color: #75715E;"># Change shape to look like a turtle</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Point:</strong> Each turtle is independent and can be controlled separately using dot notation (e.g., <code>ada.forward(50)</code>).</p>
+                    </div>
+                </div>
+                
+                <!-- Customizing Turtles -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Positioning Turtles at Starting Line <i class="fas fa-flag" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">We'll place each turtle at a different y-coordinate, but the same x-coordinate:</p>
+                    
+                    <div class="code-block">
+<span style="color: #75715E;"># Position the first turtle at starting line</span>
+ada.<span style="color: #66D9EF;">penup</span>()
+ada.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">100</span>)  <span style="color: #75715E;"># x = -160, y = 100</span>
+ada.<span style="color: #66D9EF;">pendown</span>()
+
+<span style="color: #75715E;"># Position the second turtle below the first</span>
+bob.<span style="color: #66D9EF;">penup</span>()
+bob.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">70</span>)   <span style="color: #75715E;"># Same x, different y</span>
+bob.<span style="color: #66D9EF;">pendown</span>()
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Tip:</strong> Position the turtles with enough space between them (30 pixels here) so they don't overlap during the race.</p>
+                    </div>
+                </div>
+                
+                <!-- Making Turtles Race -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Making Turtles Race <i class="fas fa-running" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">We'll use the random module to make our turtles move a random distance each turn:</p>
+                    
+                    <div class="code-block">
+<span style="color: #F92672;">from</span> random <span style="color: #F92672;">import</span> randint  <span style="color: #75715E;"># Import random integer function</span>
+
+<span style="color: #75715E;"># Race loop - each turtle moves in each turn</span>
+<span style="color: #F92672;">for</span> turn <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">100</span>):  <span style="color: #75715E;"># 100 turns in the race</span>
+    ada.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))  <span style="color: #75715E;"># Move 1-5 pixels randomly</span>
+    bob.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+                    </div>
+                    
+                    <div class="code-step-container" style="margin-top: 30px;">
+                        <div class="code-step-header">
+                            <span>Understanding randint()</span>
+                        </div>
+                        
+                        <div style="padding: 20px; background-color: white; border-radius: var(--border-radius); margin: 20px 0; border: 1px dashed var(--outline-color);">
+                            <h4 style="margin-top: 0;"><i class="fas fa-random" style="color: var(--accent-color); margin-right: 10px;"></i> The randint() Function:</h4>
+                            <ul>
+                                <li><code>randint(a, b)</code> returns a random integer between a and b (inclusive)</li>
+                                <li>In our example, <code>randint(1, 5)</code> will return either 1, 2, 3, 4, or 5 randomly</li>
+                                <li>Each time the function is called, it returns a different random number</li>
+                                <li>This makes each turtle move a different, unpredictable distance each turn</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Complete Racing Program <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                
+                <p>Here's how all the pieces come together to create a complete turtle racing program:</p>
+                
+                <div class="code-block">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+<span style="color: #F92672;">from</span> random <span style="color: #F92672;">import</span> randint
+
+<span style="color: #75715E;"># Set up screen and drawing speed</span>
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">0</span>)
+
+<span style="color: #75715E;"># Draw race track</span>
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+    <span style="color: #66D9EF;">pendown</span>()
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)
+    <span style="color: #66D9EF;">penup</span>()
+    <span style="color: #66D9EF;">backward</span>(<span style="color: #AE81FF;">160</span>)
+    <span style="color: #66D9EF;">left</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">20</span>)
+
+<span style="color: #75715E;"># Create first turtle (red)</span>
+ada = Turtle()
+ada.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'red'</span>)
+ada.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+ada.<span style="color: #66D9EF;">penup</span>()
+ada.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">100</span>)
+ada.<span style="color: #66D9EF;">pendown</span>()
+
+<span style="color: #75715E;"># Create second turtle (blue)</span>
+bob = Turtle()
+bob.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'blue'</span>)
+bob.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+bob.<span style="color: #66D9EF;">penup</span>()
+bob.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">70</span>)
+bob.<span style="color: #66D9EF;">pendown</span>()
+
+<span style="color: #75715E;"># Race the turtles</span>
+<span style="color: #F92672;">for</span> turn <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">100</span>):
+    ada.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+    bob.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 3: Racing Challenge -->
+        <section id="chew3" class="tab-content light-section">
+            <h1>CHEW 3: RACING CHALLENGE <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Turtle Racing Challenge</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create a complete turtle racing game with multiple turtles</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Customize the game with different features</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Basic Racing Challenge <i class="fas fa-flag-checkered" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Let's create a complete turtle racing game:</p>
+                    
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Create a race track with numbers 0-15</li>
+                        <li style="margin-bottom: 15px;">Create at least 3 different colored turtles</li>
+                        <li style="margin-bottom: 15px;">Position all turtles at the starting line</li>
+                        <li>Make the turtles race with random movements</li>
+                    </ol>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 15px; margin: 25px 0;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--chew-color); margin-right: 10px;"></i> <strong>Tip:</strong> Follow the complete racing program code above as a guide.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Challenge Extensions <i class="fas fa-level-up-alt" style="margin-left: 10px;"></i><i class="fas fa-star" style="margin-left: 5px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Try these extensions to enhance your turtle racing game:</p>
+                    
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
+                            <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Extension 1: More Turtles</h4>
+                            <p>Add more turtles with different colors: orange, purple, pink, etc.</p>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #75715E;"># Create additional turtles</span>
+diana = Turtle()
+diana.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'purple'</span>)
+diana.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+diana.<span style="color: #66D9EF;">penup</span>()
+diana.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">10</span>)
+diana.<span style="color: #66D9EF;">pendown</span>()
+
+<span style="color: #75715E;"># Include in race loop:</span>
+diana.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+                            </div>
+                            <div style="text-align: center; margin-top: 10px;">
+                                <span style="color: var(--accent-color); background-color: rgba(255, 215, 0, 0.15); padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center;">
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
+                            <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Extension 2: Different Speeds</h4>
+                            <p>Make some turtles faster than others by changing their random range</p>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #75715E;"># In the race loop:</span>
+ada.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))    <span style="color: #75715E;"># Normal speed</span>
+bob.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">6</span>))    <span style="color: #75715E;"># Slightly faster</span>
+charlie.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">4</span>)) <span style="color: #75715E;"># Slightly slower</span>
+                            </div>
+                                    
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card" style="margin-top: 20px; border-left: 4px solid var(--chew-color);">
+                        <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Extension 3: Find the Winner</h4>
+                        <p>Add code that detects and announces which turtle won the race</p>
+                        <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #75715E;"># After the race loop:</span>
+ada_x = ada.<span style="color: #66D9EF;">xcor</span>()  <span style="color: #75715E;"># Get x-coordinate of ada</span>
+bob_x = bob.<span style="color: #66D9EF;">xcor</span>()  <span style="color: #75715E;"># Get x-coordinate of bob</span>
+charlie_x = charlie.<span style="color: #66D9EF;">xcor</span>()  <span style="color: #75715E;"># Get x-coordinate of charlie</span>
+
+<span style="color: #75715E;"># Find the winner</span>
+<span style="color: #F92672;">if</span> ada_x > bob_x <span style="color: #F92672;">and</span> ada_x > charlie_x:
+    <span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"Red turtle wins!"</span>, font=(<span style="color: #E6DB74;">'Arial'</span>, <span style="color: #AE81FF;">16</span>, <span style="color: #E6DB74;">'bold'</span>))
+<span style="color: #F92672;">elif</span> bob_x > ada_x <span style="color: #F92672;">and</span> bob_x > charlie_x:
+    <span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"Blue turtle wins!"</span>, font=(<span style="color: #E6DB74;">'Arial'</span>, <span style="color: #AE81FF;">16</span>, <span style="color: #E6DB74;">'bold'</span>))
+<span style="color: #F92672;">elif</span> charlie_x > ada_x <span style="color: #F92672;">and</span> charlie_x > bob_x:
+    <span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"Green turtle wins!"</span>, font=(<span style="color: #E6DB74;">'Arial'</span>, <span style="color: #AE81FF;">16</span>, <span style="color: #E6DB74;">'bold'</span>))
+<span style="color: #F92672;">else</span>:
+    <span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"It's a tie!"</span>, font=(<span style="color: #E6DB74;">'Arial'</span>, <span style="color: #AE81FF;">16</span>, <span style="color: #E6DB74;">'bold'</span>))
+                        </div>
+                        <div style="text-align: center; margin-top: 10px;">
+                                
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step by Step Syntax Breakdown -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Complete Solution Breakdown <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Let's break down the complete turtle racing solution:</p>
+                    
+                    <div class="code-step-container">
+                        <div class="code-step-header">
+                            <span>Complete Solution Syntax Breakdown</span>
+                            <span id="solution-step-indicator">Step 1 of 7</span>
+                        </div>
+                        
+                        <div class="code-step-content">
+                            <!-- Solution Step 1 -->
+                            <div id="solution-step-1" class="variable-update-step active">
+                                <div class="code-block" style="position: relative;">
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+<span style="color: #F92672;">from</span> random <span style="color: #F92672;">import</span> randint
+
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">0</span>)  <span style="color: #75715E;"># Maximum speed</span>
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 10px;">Step 1: Imports and Setup</h4>
+                                    <div style="text-align: left; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                        <p><strong>Line 1:</strong> <code>from turtle import *</code> - Imports all turtle functions</p>
+                                        <p><strong>Line 2:</strong> <code>from random import randint</code> - Imports the random integer function</p>
+                                        <p><strong>Line 4:</strong> <code>speed(0)</code> - Sets the drawing speed to maximum (0 is fastest)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Solution Step 2 -->
+                            <div id="solution-step-2" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+<span style="color: #75715E;"># Draw race track</span>
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 10px;">Step 2: Start Drawing Track</h4>
+                                    <div style="text-align: left; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                        <p><strong>Line 6:</strong> <code>penup()</code> - Lifts the pen so moving doesn't draw a line</p>
+                                        <p><strong>Line 7:</strong> <code>goto(-140, 140)</code> - Moves to top-left position</p>
+                                        <p><strong>Line 9:</strong> <code>for step in range(16):</code> - Loop 16 times (0-15)</p>
+                                        <p><strong>Line 10:</strong> <code>write(step, align='center')</code> - Writes the step number centered</p>
+                                        <p><strong>Line 11-12:</strong> <code>right(90); forward(10)</code> - Turns right and moves down a bit</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Solution Step 3 -->
+                            <div id="solution-step-3" class="variable-update-step">
+                                <div class="code-block" style="position: relative;">
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+    <span style="color: #66D9EF;">pendown</span>()
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)
+    <span style="color: #66D9EF;">penup</span>()
+    <span style="color: #66D9EF;">backward</span>(<span style="color: #AE81FF;">160</span>)
+    <span style="color: #66D9EF;">left</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">20</span>)
+                                </div>
+                                
+                                <div class="memory-visualization">
+                                    <h4 style="text-align: center; margin-top: 10px;">Step 3: Complete Track Drawing</h4>
+                                    <div style="text-align: left; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+                                        <p><strong>Line 13:</strong> <code>pendown()</code> - Puts the pen down to start drawing</p>
+                                        <p><strong>Line 14:</strong> <code>forward(150)</code> - Draws a vertical line 150 pixels long</p>
+                                        <p><strong>Line 15:</strong> <code>penup()</code> - Lifts the pen again</p>
+                                        <p><strong>Line 16:</strong> <code>backward(160)</code> - Moves back to the top</p>
+                                        <p><strong>Line 17:</strong> <code>left(90)</code> - Turns left to face right again</p>
+                                        <p><strong>Line 18:</strong> <code>forward(20)</code> - Moves right for the next line</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Solution Step 4 -->
+<div id="solution-step-4" class="variable-update-step">
+    <div class="code-block" style="position: relative;">
+<span style="color: #75715E;"># Create first turtle (red)</span>
+ada = Turtle()
+ada.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'red'</span>)
+ada.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+ada.<span style="color: #66D9EF;">penup</span>()
+ada.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">100</span>)
+ada.<span style="color: #66D9EF;">pendown</span>()
+    </div>
+    
+    <div class="memory-visualization">
+        <h4 style="text-align: center; margin-top: 10px;">Step 4: Create First Turtle</h4>
+        <div style="text-align: left; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+            <p><strong>Line 21:</strong> <code>ada = Turtle()</code> - Creates a new turtle object named 'ada'</p>
+            <p><strong>Line 22:</strong> <code>ada.color('red')</code> - Sets the turtle's color to red</p>
+            <p><strong>Line 23:</strong> <code>ada.shape('turtle')</code> - Changes the shape to look like a turtle</p>
+            <p><strong>Lines 24-26:</strong> Position 'ada' at the starting line (x=-160, y=100)</p>
+        </div>
+    </div>
+</div>
+
+<!-- Solution Step 5 -->
+<div id="solution-step-5" class="variable-update-step">
+    <div class="code-block" style="position: relative;">
+<span style="color: #75715E;"># Create second turtle (blue)</span>
+bob = Turtle()
+bob.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'blue'</span>)
+bob.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+bob.<span style="color: #66D9EF;">penup</span>()
+bob.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">70</span>)
+bob.<span style="color: #66D9EF;">pendown</span>()
+
+<span style="color: #75715E;"># Create third turtle (green)</span>
+charlie = Turtle()
+charlie.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'green'</span>)
+charlie.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+charlie.<span style="color: #66D9EF;">penup</span>()
+charlie.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">40</span>)
+charlie.<span style="color: #66D9EF;">pendown</span>()
+    </div>
+    
+    <div class="memory-visualization">
+        <h4 style="text-align: center; margin-top: 10px;">Step 5: Create More Turtles</h4>
+        <div style="text-align: left; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+            <p><strong>Lines 29-34:</strong> Creates the second turtle ('bob') with blue color</p>
+            <p><strong>Line 32:</strong> <code>bob.goto(-160, 70)</code> - Positions 'bob' below 'ada'</p>
+            <p><strong>Lines 37-42:</strong> Creates the third turtle ('charlie') with green color</p>
+            <p><strong>Line 40:</strong> <code>charlie.goto(-160, 40)</code> - Positions 'charlie' below 'bob'</p>
+        </div>
+    </div>
+</div>
+
+<!-- Solution Step 6 -->
+<div id="solution-step-6" class="variable-update-step">
+    <div class="code-block" style="position: relative;">
+<span style="color: #75715E;"># Race the turtles</span>
+<span style="color: #F92672;">for</span> turn <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">100</span>):
+    ada.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+    bob.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+    charlie.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+    </div>
+    
+    <div class="memory-visualization">
+        <h4 style="text-align: center; margin-top: 10px;">Step 6: Race Loop</h4>
+        <div style="text-align: left; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+            <p><strong>Line 45:</strong> <code>for turn in range(100):</code> - Loop 100 times for the race</p>
+            <p><strong>Line 46:</strong> <code>ada.forward(randint(1, 5))</code> - Move 'ada' forward by a random number (1-5) of pixels</p>
+            <p><strong>Line 47:</strong> <code>bob.forward(randint(1, 5))</code> - Move 'bob' forward by a random number</p>
+            <p><strong>Line 48:</strong> <code>charlie.forward(randint(1, 5))</code> - Move 'charlie' forward by a random number</p>
+        </div>
+    </div>
+</div>
+
+<!-- Solution Step 7 -->
+<div id="solution-step-7" class="variable-update-step">
+    <div class="code-block" style="position: relative;">
+<span style="color: #75715E;"># Complete solution with winner detection (Extension)</span>
+<span style="color: #F92672;">from</span> turtle <span style="color: #F92672;">import</span> *
+<span style="color: #F92672;">from</span> random <span style="color: #F92672;">import</span> randint
+
+<span style="color: #66D9EF;">speed</span>(<span style="color: #AE81FF;">0</span>)
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-140</span>, <span style="color: #AE81FF;">140</span>)
+
+<span style="color: #F92672;">for</span> step <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">16</span>):
+    <span style="color: #66D9EF;">write</span>(step, align=<span style="color: #E6DB74;">'center'</span>)
+    <span style="color: #66D9EF;">right</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">10</span>)
+    <span style="color: #66D9EF;">pendown</span>()
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">150</span>)
+    <span style="color: #66D9EF;">penup</span>()
+    <span style="color: #66D9EF;">backward</span>(<span style="color: #AE81FF;">160</span>)
+    <span style="color: #66D9EF;">left</span>(<span style="color: #AE81FF;">90</span>)
+    <span style="color: #66D9EF;">forward</span>(<span style="color: #AE81FF;">20</span>)
+
+ada = Turtle()
+ada.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'red'</span>)
+ada.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+ada.<span style="color: #66D9EF;">penup</span>()
+ada.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">100</span>)
+ada.<span style="color: #66D9EF;">pendown</span>()
+
+bob = Turtle()
+bob.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'blue'</span>)
+bob.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+bob.<span style="color: #66D9EF;">penup</span>()
+bob.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">70</span>)
+bob.<span style="color: #66D9EF;">pendown</span>()
+
+charlie = Turtle()
+charlie.<span style="color: #66D9EF;">color</span>(<span style="color: #E6DB74;">'green'</span>)
+charlie.<span style="color: #66D9EF;">shape</span>(<span style="color: #E6DB74;">'turtle'</span>)
+charlie.<span style="color: #66D9EF;">penup</span>()
+charlie.<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">-160</span>, <span style="color: #AE81FF;">40</span>)
+charlie.<span style="color: #66D9EF;">pendown</span>()
+
+<span style="color: #F92672;">for</span> turn <span style="color: #F92672;">in</span> <span style="color: #66D9EF;">range</span>(<span style="color: #AE81FF;">100</span>):
+    ada.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+    bob.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+    charlie.<span style="color: #66D9EF;">forward</span>(<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">5</span>))
+
+<span style="color: #75715E;"># Find the winner</span>
+ada_x = ada.<span style="color: #66D9EF;">xcor</span>()  <span style="color: #75715E;"># Get x-coordinate of ada</span>
+bob_x = bob.<span style="color: #66D9EF;">xcor</span>()  <span style="color: #75715E;"># Get x-coordinate of bob</span>
+charlie_x = charlie.<span style="color: #66D9EF;">xcor</span>()  <span style="color: #75715E;"># Get x-coordinate of charlie</span>
+
+<span style="color: #66D9EF;">penup</span>()
+<span style="color: #66D9EF;">goto</span>(<span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">160</span>)
+
+<span style="color: #F92672;">if</span> ada_x > bob_x <span style="color: #F92672;">and</span> ada_x > charlie_x:
+    <span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"Red turtle wins!"</span>, align=<span style="color: #E6DB74;">"center"</span>, font=(<span style="color: #E6DB74;">'Arial'</span>, <span style="color: #AE81FF;">16</span>, <span style="color: #E6DB74;">'bold'</span>))
+<span style="color: #F92672;">elif</span> bob_x > ada_x <span style="color: #F92672;">and</span> bob_x > charlie_x:
+    <span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"Blue turtle wins!"</span>, align=<span style="color: #E6DB74;">"center"</span>, font=(<span style="color: #E6DB74;">'Arial'</span>, <span style="color: #AE81FF;">16</span>, <span style="color: #E6DB74;">'bold'</span>))
+<span style="color: #F92672;">elif</span> charlie_x > ada_x <span style="color: #F92672;">and</span> charlie_x > bob_x:
+    <span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"Green turtle wins!"</span>, align=<span style="color: #E6DB74;">"center"</span>, font=(<span style="color: #E6DB74;">'Arial'</span>, <span style="color: #AE81FF;">16</span>, <span style="color: #E6DB74;">'bold'</span>))
+<span style="color: #F92672;">else</span>:
+    <span style="color: #66D9EF;">write</span>(<span style="color: #E6DB74;">"It's a tie!"</span>, align=<span style="color: #E6DB74;">"center"</span>, font=(<span style="color: #E6DB74;">'Arial'</span>, <span style="color: #AE81FF;">16</span>, <span style="color: #E6DB74;">'bold'</span>))
+    </div>
+    
+    <div class="memory-visualization">
+        <h4 style="text-align: center; margin-top: 10px;">Step 7: Complete Code with Winner Detection</h4>
+        <div style="text-align: left; padding: 15px; background-color: white; border-radius: var(--border-radius); margin: 10px 0; border: 1px dashed var(--outline-color);">
+            <p><strong>Lines 51-53:</strong> Get each turtle's x-coordinate using <code>xcor()</code> to determine how far they went</p>
+            <p><strong>Lines 55-56:</strong> Position to write the winner announcement</p>
+            <p><strong>Lines 58-65:</strong> Compare the x-coordinates to determine which turtle went furthest</p>
+            <p><strong>Result:</strong> Displays a message announcing which turtle won the race</p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="step-navigation">
+<button id="prev-solution-btn" class="step-btn" onclick="prevSolutionStep()" disabled>
+<i class="fas fa-chevron-left"></i> Previous
+</button>
+<button id="next-solution-btn" class="step-btn" onclick="nextSolutionStep()">
+Next <i class="fas fa-chevron-right"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>What We've Learned <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
+
+<div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
+<h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Key Turtle Skills Learned</h4>
+<ul style="list-style-type: none; padding-left: 0;">
+<li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Basic turtle movement with <code style="color: #66D9EF;">forward()</code>, <code style="color: #66D9EF;">backward()</code>, <code style="color: #66D9EF;">left()</code>, and <code style="color: #66D9EF;">right()</code></li>
+<li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Pen control with <code style="color: #66D9EF;">penup()</code> and <code style="color: #66D9EF;">pendown()</code></li>
+<li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Positioning turtles with <code style="color: #66D9EF;">goto(x,y)</code></li>
+<li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Text display with <code style="color: #66D9EF;">write()</code></li>
+<li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Creating multiple turtle objects with <code>Turtle()</code></li>
+<li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Using <code style="color: #66D9EF;">randint()</code> for random movements</li>
+</ul>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+<p style="font-size: 1.2em; font-weight: 600; color: var(--accent-color);">Congratulations on creating your turtle racing game!</p>
+<p>You can now use these turtle skills to create all kinds of graphics and games.</p>
+</div>
+</div>
+</section>
+</main>
+
+<script>
+// Navigation
+document.addEventListener('DOMContentLoaded', function() {
+// Tab switching
+document.querySelectorAll('.tab-button').forEach(button => {
+button.addEventListener('click', function() {
+const tab = this.getAttribute('data-tab');
+
+// Remove active class from all buttons and tabs
+document.querySelectorAll('.tab-button').forEach(btn => {
+btn.classList.remove('active');
+});
+document.querySelectorAll('.tab-content').forEach(content => {
+content.classList.remove('active');
+});
+
+// Add active class to selected button and tab
+this.classList.add('active');
+document.getElementById(tab).classList.add('active');
+});
+});
+
+// Initialize turtle quiz for chew 1
+const turtleQuizQuestions = [
+{
+type: "true-false",
+question: "The penup() command lifts the pen so the turtle doesn't draw when moving.",
+correctAnswer: "true",
+feedbackCorrect: "Correct! The penup() command stops the turtle from drawing while it moves.",
+feedbackIncorrect: "Incorrect. The penup() command does lift the pen so the turtle doesn't draw when moving."
+},
+{
+type: "true-false",
+question: "The forward(100) command moves the turtle forward 100 pixels in its current direction.",
+correctAnswer: "true",
+feedbackCorrect: "Correct! forward(100) moves the turtle 100 pixels in the direction it's facing.",
+feedbackIncorrect: "Incorrect. forward(100) does move the turtle 100 pixels in its current direction."
+},
+{
+type: "true-false",
+question: "The write() function is used to display text at the turtle's current position.",
+correctAnswer: "true",
+feedbackCorrect: "Correct! The write() function displays text at the turtle's current position.",
+feedbackIncorrect: "Incorrect. The write() function does display text at the turtle's current position."
+},
+{
+type: "true-false",
+question: "You need to use penup() before using goto() to avoid drawing a line.",
+correctAnswer: "true",
+feedbackCorrect: "Correct! If you don't use penup() before goto(), the turtle will draw a line while moving.",
+feedbackIncorrect: "Incorrect. Without penup(), the turtle will draw a line when using goto()."
+}
+];
+
+initializeQuiz(turtleQuizQuestions, 'turtle');
+
+// Initialize track step by step navigation
+let currentTrackStep = 1;
+const totalTrackSteps = 5;
+
+// Make the nextTrackStep and prevTrackStep functions globally available
+window.nextTrackStep = function() {
+if (currentTrackStep < totalTrackSteps) {
+// Hide current step
+document.getElementById(`track-step-${currentTrackStep}`).classList.remove('active');
+
+// Show next step
+currentTrackStep++;
+document.getElementById(`track-step-${currentTrackStep}`).classList.add('active');
+
+// Update indicator and buttons
+document.getElementById('track-step-indicator').textContent = `Step ${currentTrackStep} of ${totalTrackSteps}`;
+document.getElementById('prev-track-btn').disabled = false;
+
+if (currentTrackStep === totalTrackSteps) {
+document.getElementById('next-track-btn').disabled = true;
+}
+}
+};
+
+window.prevTrackStep = function() {
+if (currentTrackStep > 1) {
+// Hide current step
+document.getElementById(`track-step-${currentTrackStep}`).classList.remove('active');
+
+// Show previous step
+currentTrackStep--;
+document.getElementById(`track-step-${currentTrackStep}`).classList.add('active');
+
+// Update indicator and buttons
+document.getElementById('track-step-indicator').textContent = `Step ${currentTrackStep} of ${totalTrackSteps}`;
+document.getElementById('next-track-btn').disabled = false;
+
+if (currentTrackStep === 1) {
+document.getElementById('prev-track-btn').disabled = true;
+}
+}
+};
+
+// Initialize solution step by step navigation
+let currentSolutionStep = 1;
+const totalSolutionSteps = 7;
+
+window.nextSolutionStep = function() {
+if (currentSolutionStep < totalSolutionSteps) {
+// Hide current step
+document.getElementById(`solution-step-${currentSolutionStep}`).classList.remove('active');
+
+// Show next step
+currentSolutionStep++;
+document.getElementById(`solution-step-${currentSolutionStep}`).classList.add('active');
+
+// Update indicator and buttons
+document.getElementById('solution-step-indicator').textContent = `Step ${currentSolutionStep} of ${totalSolutionSteps}`;
+document.getElementById('prev-solution-btn').disabled = false;
+
+if (currentSolutionStep === totalSolutionSteps) {
+document.getElementById('next-solution-btn').disabled = true;
+}
+}
+};
+
+window.prevSolutionStep = function() {
+if (currentSolutionStep > 1) {
+// Hide current step
+document.getElementById(`solution-step-${currentSolutionStep}`).classList.remove('active');
+
+// Show previous step
+currentSolutionStep--;
+document.getElementById(`solution-step-${currentSolutionStep}`).classList.add('active');
+
+// Update indicator and buttons
+document.getElementById('solution-step-indicator').textContent = `Step ${currentSolutionStep} of ${totalSolutionSteps}`;
+document.getElementById('next-solution-btn').disabled = false;
+
+if (currentSolutionStep === 1) {
+document.getElementById('prev-solution-btn').disabled = true;
+}
+}
+};
+
+// Custom function for track building challenge
+function initTrackBuildingChallenge() {
+// Define the correct for loop statement
+const correctStatement = ["for", "step", "in", "range", "(", "16", ")", ":"];
+
+// Check for buckle animation container
+if (!document.getElementById('track-builder-buckle-animation')) {
+const animDiv = document.createElement('div');
+animDiv.className = 'buckle-animation';
+animDiv.id = 'track-builder-buckle-animation';
+animDiv.style.display = 'none';
+animDiv.innerHTML = `
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
+alt="Buckle" id="track-builder-buckle-img">
+<div class="shine"></div>
+`;
+document.body.appendChild(animDiv);
+}
+
+// Apply syntax highlighting to sentence parts
+document.querySelectorAll('.sentence-part').forEach(part => {
+// Reset highlight classes
+part.classList.remove('highlight-variable', 'highlight-operator', 'highlight-value', 'highlight-keyword');
+
+const textContent = part.textContent.trim();
+// Apply appropriate class based on content
+if (textContent === 'for' || textContent === 'step' || textContent === 'range') {
+part.classList.add('highlight-variable');
+} else if (textContent === '(' || textContent === ')' || 
+textContent === 'in' || textContent === ':') {
+part.classList.add('highlight-operator');
+} else if (textContent === '16') {
+part.classList.add('highlight-value');
+}
+});
+
+// Add click handlers to sentence parts
+document.querySelectorAll('.sentence-part').forEach(part => {
+part.addEventListener('click', function() {
+const resultContainer = document.getElementById('statement1-result');
+
+// Create a result part element
+const resultPart = document.createElement('div');
+resultPart.className = 'result-part';
+resultPart.textContent = this.textContent;
+resultPart.dataset.value = this.dataset.value;
+
+// Transfer highlighting classes
+if (this.classList.contains('highlight-variable')) {
+resultPart.classList.add('highlight-variable');
+} else if (this.classList.contains('highlight-operator')) {
+resultPart.classList.add('highlight-operator');
+} else if (this.classList.contains('highlight-value')) {
+resultPart.classList.add('highlight-value');
+}
+
+// Add click event to remove the part when clicked
+resultPart.addEventListener('click', function() {
+this.remove();
+checkTrackStatement();
+});
+
+// Add animation class
+resultPart.classList.add('slide-animation');
+
+// Append to result container
+resultContainer.appendChild(resultPart);
+
+// Check if statement is correct
+checkTrackStatement();
+});
+});
+
+// Function to check track statement
+function checkTrackStatement() {
+const resultContainer = document.getElementById('statement1-result');
+const feedbackContainer = document.getElementById('statement1-feedback');
+const resultParts = Array.from(resultContainer.children);
+
+// Get current statement as array of values
+const currentStatement = resultParts.map(part => part.textContent);
+
+// Check if statement matches correct answer
+let correct = true;
+if (currentStatement.length === correctStatement.length) {
+for (let i = 0; i < correctStatement.length; i++) {
+if (currentStatement[i] !== correctStatement[i]) {
+correct = false;
+break;
+}
+}
+} else {
+correct = false;
+}
+
+// Check if this is first attempt
+const attemptKey = 'attempted_turtle_track_builder';
+const isFirstAttempt = !localStorage.getItem(attemptKey);
+
+// Mark as attempted on first evaluation with exact required parts
+if (isFirstAttempt && resultParts.length === correctStatement.length) {
+localStorage.setItem(attemptKey, 'true');
+}
+
+// Only check correctness with exact required parts
+if (resultParts.length === correctStatement.length) {
+if (correct) {
+feedbackContainer.className = 'feedback-area correct';
+feedbackContainer.innerHTML = `
+<h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct!</h4>
+<p>You've created a valid for loop for the track: <code>${currentStatement.join(' ')}</code></p>
+`;
+
+// Award buckle on first attempt
+const completedKey = 'completed_turtle_track_builder';
+if (!localStorage.getItem(completedKey) && isFirstAttempt) {
+updateGlobalBuckles(3);
+localStorage.setItem(completedKey, 'true');
+
+// Show buckle animation
+const animation = document.getElementById('track-builder-buckle-animation');
+if (animation) {
+    animation.style.display = 'block';
+    
+    setTimeout(() => {
+        animation.style.display = 'none';
+    }, 2000);
+}
+}
+} else {
+feedbackContainer.className = 'feedback-area incorrect';
+feedbackContainer.innerHTML = `
+<h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Not Quite Right</h4>
+<p>Try again! The correct statement would be: <code>for step in range(16):</code></p>
+`;
+}
+} else {
+// Clear feedback if not exact number of parts
+feedbackContainer.className = 'feedback-area';
+feedbackContainer.innerHTML = '';
+}
+}
+}
+
+// Add event listeners for positioning quiz
+// Style for hover and selected states
+const styleElement = document.createElement('style');
+styleElement.innerHTML = `
+.multiple-choice-option:hover {
+background-color: #e8f4ff !important;
+border-color: var(--accent-color) !important;
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+}
+
+.multiple-choice-option.selected {
+background-color: #e8f4ff !important;
+border-color: var(--accent-color) !important;
+box-shadow: 0 0 0 2px var(--accent-color) !important;
+}
+`;
+document.head.appendChild(styleElement);
+
+document.querySelectorAll('.multiple-choice-option').forEach(option => {
+option.addEventListener('click', function() {
+// Remove selected class from all options
+document.querySelectorAll('.multiple-choice-option').forEach(opt => {
+opt.classList.remove('selected');
+});
+
+// Add selected class to clicked option
+this.classList.add('selected');
+
+// Check answer
+const answer = this.getAttribute('data-value');
+const feedback = document.getElementById('positioning-feedback');
+
+if (answer === 'B') { // (-50, 20) is the correct answer
+feedback.innerHTML = "<i class='fas fa-check-circle' style='color: #52c41a; margin-right: 8px;'></i> Correct! Starting at (-100, 50), the turtle moves right 50 pixels to (-50, 50), then turns right 90° and moves down 30 pixels to (-50, 20).";
+feedback.className = 'feedback-message correct';
+
+// Show buckle animation
+const animation = document.getElementById('quiz-buckle-animation');
+animation.style.display = 'block';
+
+// Update buckles if first time correct
+if (!localStorage.getItem('turtle_positioning_completed')) {
+localStorage.setItem('turtle_positioning_completed', 'true');
+updateGlobalBuckles(3); // Award 3 buckles
+}
+
+// Hide animation after 2 seconds
+setTimeout(() => {
+animation.style.display = 'none';
+}, 2000);
+} else {
+feedback.innerHTML = "<i class='fas fa-times-circle' style='color: #ff4d4f; margin-right: 8px;'></i> Not quite. Think about how the turtle moves from (-100, 50) - first forward 50 pixels, then turning right 90° and moving down 30 pixels.";
+feedback.className = 'feedback-message incorrect';
+}
+});
+});
+
+// Initialize track building challenge
+initTrackBuildingChallenge();
+
+// Function to update global buckles
+function updateGlobalBuckles(amount) {
+let total = getGlobalBuckles();
+total += amount;
+localStorage.setItem('totalPythonBuckles', total.toString());
+
+// Update all buckle displays on the page
+document.querySelectorAll('[id$="buckle-score"]').forEach(el => {
+el.textContent = total;
+});
+}
+
+function getGlobalBuckles() {
+const totalBuckles = localStorage.getItem('totalPythonBuckles') || '0';
+return parseInt(totalBuckles);
+}
+});
+</script>
+</body>
+</html>
