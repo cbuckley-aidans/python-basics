@@ -28,6 +28,13 @@
             overflow: hidden;
             display: flex;
             align-items: stretch;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .code-with-symbol {
+                flex-direction: column;
+            }
         }
         
         .code-area {
@@ -37,6 +44,7 @@
             font-size: 1rem;
             line-height: 1.5;
             color: #abb2bf;
+            min-width: 200px;
         }
         
         .symbol-area {
@@ -48,6 +56,15 @@
             justify-content: center;
             padding: 10px;
             border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .symbol-area {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 15px;
+            }
         }
         
         .symbol-area svg {
@@ -90,6 +107,7 @@
             line-height: 1.6;
             padding: 15px;
             font-family: 'Consolas', 'Courier New', monospace;
+            overflow-x: auto;
         }
         
         /* Highlighted keyword styles */
@@ -97,6 +115,44 @@
             background-color: rgba(79, 193, 255, 0.2);
             border-radius: 3px;
             padding: 2px 4px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .elements-grid {
+                grid-template-columns: repeat(1, 1fr) !important;
+            }
+            
+            .two-column-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .page-title h1 {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+            
+            .page-title i {
+                font-size: 1.3rem;
+                margin-left: 0;
+            }
+            
+            .card, .interactive-card {
+                padding: 20px;
+            }
+            
+            .element-header {
+                margin: -20px -20px 20px -20px !important;
+                padding: 15px !important;
+            }
         }
     </style>
 </head>
@@ -108,75 +164,97 @@
             <i class="fas fa-home"></i>
             HOME
         </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="intro">
+                <i class="fas fa-info-circle"></i>
+                INTRO
+            </button>
+            <button class="tab-button" data-tab="symbols">
+                <i class="fas fa-shapes"></i>
+                SYMBOLS
+            </button>
+            <button class="tab-button" data-tab="simple">
+                <i class="fas fa-code"></i>
+                SIMPLE
+            </button>
+            <button class="tab-button" data-tab="intermediate">
+                <i class="fas fa-sitemap"></i>
+                INTERMEDIATE
+            </button>
+        </div>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="page-title" style="background-color: var(--primary-color);">
-            <h1 style="color: black !important; display: block !important; visibility: visible !important;">FLOWCHART GUIDE <i class="fas fa-project-diagram"></i></h1>
-        </div>
-        
-        <div class="card">
-            <h3>Introduction to Flowcharts <i class="fas fa-info-circle" style="margin-left: 10px;"></i></h3>
-            <p>Flowcharts show the steps of our code using pictures. They help us see how our program will work before we write it.</p>
+        <!-- Introduction Section -->
+        <section id="intro" class="tab-content active">
+            <div class="page-title">
+                <h1>FLOWCHART GUIDE <i class="fas fa-project-diagram"></i></h1>
+            </div>
             
-            <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
-                <div class="element-card">
-                    <div class="element-header">
-                        <div class="element-number">1</div>
-                        <h3>PLANNING ALGORITHMS <i class="fas fa-lightbulb" style="margin-left: 12px;"></i></h3>
-                    </div>
-                    <div class="element-content">
-                        <p>Plan your code step by step</p>
-                        <div style="text-align: center; margin-top: 15px;">
-                            <i class="fas fa-sitemap" style="font-size: 2.5em; color: var(--accent-color);"></i>
+            <div class="card">
+                <h3>Introduction to Flowcharts <i class="fas fa-info-circle" style="margin-left: 10px;"></i></h3>
+                <p>Flowcharts show the steps of our code using pictures. They help us see how our program will work before we write it.</p>
+                
+                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">1</div>
+                            <h3>PLANNING ALGORITHMS <i class="fas fa-lightbulb" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Plan your code step by step</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-sitemap" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="element-card">
-                    <div class="element-header">
-                        <div class="element-number">2</div>
-                        <h3>UNDERSTANDING LOGIC <i class="fas fa-code-branch" style="margin-left: 12px;"></i></h3>
-                    </div>
-                    <div class="element-content">
-                        <p>See how if statements create different paths</p>
-                        <div style="text-align: center; margin-top: 15px;">
-                            <i class="fas fa-random" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">2</div>
+                            <h3>UNDERSTANDING LOGIC <i class="fas fa-code-branch" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>See how if statements create different paths</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-random" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="element-card">
-                    <div class="element-header">
-                        <div class="element-number">3</div>
-                        <h3>DEBUGGING CODE <i class="fas fa-bug" style="margin-left: 12px;"></i></h3>
-                    </div>
-                    <div class="element-content">
-                        <p>Find mistakes by following the steps</p>
-                        <div style="text-align: center; margin-top: 15px;">
-                            <i class="fas fa-search" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">3</div>
+                            <h3>DEBUGGING CODE <i class="fas fa-bug" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Find mistakes by following the steps</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-search" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="element-card">
-                    <div class="element-header">
-                        <div class="element-number">4</div>
-                        <h3>COMMUNICATION <i class="fas fa-users" style="margin-left: 12px;"></i></h3>
-                    </div>
-                    <div class="element-content">
-                        <p>Show others how your program works</p>
-                        <div style="text-align: center; margin-top: 15px;">
-                            <i class="fas fa-comments" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">4</div>
+                            <h3>COMMUNICATION <i class="fas fa-users" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Show others how your program works</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-comments" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <section class="dark-section">
-            <h1 style="display: block !important; visibility: visible !important;">FLOWCHART SYMBOLS <i class="fas fa-shapes" style="margin-left: 15px;"></i></h1>
+        <!-- Flowchart Symbols Section -->
+        <section id="symbols" class="tab-content dark-section">
+            <h1>FLOWCHART SYMBOLS <i class="fas fa-shapes" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">REFERENCE</div>
@@ -326,8 +404,9 @@
             </div>
         </section>
 
-        <section class="light-section">
-            <h1 style="display: block !important; visibility: visible !important;">SIMPLE FLOWCHARTS <i class="fas fa-code" style="margin-left: 15px;"></i></h1>
+        <!-- Simple Flowcharts Section -->
+        <section id="simple" class="tab-content light-section">
+            <h1>SIMPLE FLOWCHARTS <i class="fas fa-code" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">BEGINNER</div>
@@ -342,7 +421,7 @@
                     
                     <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a simple IF statement in Python:</p>
                     
-                    <div class="code-block" style="text-align: left; background-color: #282c34;">
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
 <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
 
 <span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
@@ -351,9 +430,9 @@
                     
                     <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's how this looks as a flowchart:</p>
                     
-                    <div style="max-width: 700px; margin: 0 auto;">
+                    <div class="flowchart-container" style="width: 100%; max-width: 700px; margin: 0 auto;">
                         <div style="text-align: center; margin: 30px 0;">
-                            <div id="simple-flowchart" style="height: 500px;"></div>
+                            <div id="simple-flowchart" style="height: 400px; max-height: 70vh;"></div>
                         </div>
                     </div>
                     
@@ -370,7 +449,7 @@
                     
                     <p style="font-size: 1.2em; margin-bottom: 20px;">Now let's see an IF-ELSE statement:</p>
                     
-                    <div class="code-block" style="text-align: left; background-color: #282c34;">
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
 <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">65</span>
 
 <span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
@@ -381,9 +460,9 @@
                     
                     <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the flowchart:</p>
                     
-                    <div style="max-width: 700px; margin: 0 auto;">
+                    <div class="flowchart-container" style="width: 100%; max-width: 700px; margin: 0 auto;">
                         <div style="text-align: center; margin: 30px 0;">
-                            <div id="if-else-flowchart" style="height: 500px;"></div>
+                            <div id="if-else-flowchart" style="height: 400px; max-height: 70vh;"></div>
                         </div>
                     </div>
                     
@@ -394,8 +473,9 @@
             </div>
         </section>
 
-        <section class="dark-section">
-            <h1 style="display: block !important; visibility: visible !important;">INTERMEDIATE FLOWCHARTS <i class="fas fa-sitemap" style="margin-left: 15px;"></i></h1>
+        <!-- Intermediate Flowcharts Section -->
+        <section id="intermediate" class="tab-content dark-section">
+            <h1>INTERMEDIATE FLOWCHARTS <i class="fas fa-sitemap" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">INTERMEDIATE</div>
@@ -410,7 +490,7 @@
                     
                     <p style="font-size: 1.2em; margin-bottom: 20px;">For more choices, we can use if-elif-else statements:</p>
                     
-                    <div class="code-block" style="text-align: left; background-color: #282c34;">
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
 <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
 
 <span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">90</span><span style="color: #56B6C2;">:</span>
@@ -425,9 +505,9 @@
                     
                     <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the flowchart:</p>
                     
-                    <div style="max-width: 700px; margin: 0 auto;">
+                    <div class="flowchart-container" style="width: 100%; max-width: 700px; margin: 0 auto;">
                         <div style="text-align: center; margin: 30px 0;">
-                            <div id="if-elif-else-flowchart" style="height: 800px;"></div>
+                            <div id="if-elif-else-flowchart" style="height: 600px; max-height: 90vh;"></div>
                         </div>
                     </div>
                     
@@ -444,7 +524,7 @@
                     
                     <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a simple program that takes input and makes a decision:</p>
                     
-                    <div class="code-block" style="text-align: left; background-color: #282c34;">
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
 <span style="color: #4FC1FF;">def</span> <span style="color: #4FC1FF;">simple_ticket_calculator</span><span style="color: #56B6C2;">(</span><span style="color: #56B6C2;">)</span><span style="color: #56B6C2;">:</span>
     <span style="color: #7F848E;"># Get user input</span>
     <span style="color: #4FC1FF;">age</span> <span style="color: #56B6C2;">=</span> <span style="color: #4FC1FF;">int</span><span style="color: #56B6C2;">(</span><span style="color: #4FC1FF;">input</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"Enter your age: "</span><span style="color: #56B6C2;">)</span><span style="color: #56B6C2;">)</span>
@@ -464,9 +544,9 @@
                     
                     <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the flowchart:</p>
                     
-                    <div style="max-width: 700px; margin: 0 auto;">
+                    <div class="flowchart-container" style="width: 100%; max-width: 700px; margin: 0 auto;">
                         <div style="text-align: center; margin: 30px 0;">
-                            <div id="simple-function-flowchart" style="height: 600px;"></div>
+                            <div id="simple-function-flowchart" style="height: 500px; max-height: 80vh;"></div>
                         </div>
                     </div>
                     
@@ -546,13 +626,23 @@ cond(no)->price2->output->end
             
             // Get container width to scale appropriately
             const container = document.getElementById(containerId);
-            const containerWidth = container.offsetWidth || 600;
-            const scale = containerWidth > 500 ? 1.2 : containerWidth / 420;  // Increased scale for larger charts
+            if (!container) return;
             
-            // Special larger scale for the if-elif-else flowchart
-            let flowchartScale = scale;
+            container.innerHTML = ''; // Clear previous content
+            
+            const containerWidth = container.offsetWidth || 600;
+            let scale = containerWidth > 500 ? 1.2 : containerWidth / 420;  // Base scale
+            
+            // Adjust scale based on container ID
             if (containerId === 'if-elif-else-flowchart') {
-                flowchartScale = scale * 1.8; // Make this flowchart significantly larger
+                scale = scale * 1.4; // Make this flowchart larger
+            } else if (containerId === 'simple-function-flowchart') {
+                scale = scale * 1.2; // Slightly larger
+            }
+            
+            // Mobile adjustments
+            if (window.innerWidth <= 768) {
+                scale = scale * 0.7; // Scale down on mobile
             }
             
             diagram.drawSVG(containerId, {
@@ -567,7 +657,7 @@ cond(no)->price2->output->end
                 'yes-text': 'Yes',  // More readable text
                 'no-text': 'No',    // More readable text
                 'arrow-end': 'block',
-                'scale': flowchartScale,
+                'scale': scale,
                 'flowstate': {
                     'current': { 'fill': '#008489', 'font-color': 'white', 'font-weight': 'bold' }
                 },
@@ -590,17 +680,75 @@ cond(no)->price2->output->end
             if (svg) {
                 svg.style.maxWidth = '100%';
                 svg.style.height = '100%';
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
             }
         }
 
-        // Render all flowcharts when the document is loaded
+        // Navigation for tabs
         document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and tabs
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to selected button and tab
+                    this.classList.add('active');
+                    document.getElementById(tab).classList.add('active');
+                    
+                    // Render flowcharts when their tabs become active
+                    if (tab === 'simple') {
+                        setTimeout(() => {
+                            renderFlowchart('simple-flowchart', simpleFlowchartCode);
+                            renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
+                        }, 100);
+                    } else if (tab === 'intermediate') {
+                        setTimeout(() => {
+                            renderFlowchart('if-elif-else-flowchart', ifElifElseFlowchartCode);
+                            renderFlowchart('simple-function-flowchart', simpleFunctionFlowchartCode);
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Render the flowcharts with a slight delay
             setTimeout(() => {
-                renderFlowchart('simple-flowchart', simpleFlowchartCode);
-                renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
-                renderFlowchart('if-elif-else-flowchart', ifElifElseFlowchartCode);
-                renderFlowchart('simple-function-flowchart', simpleFunctionFlowchartCode);
-            }, 100);
+                // Initial rendering of visible flowcharts
+                const activeTab = document.querySelector('.tab-content.active');
+                if (activeTab) {
+                    const tabId = activeTab.id;
+                    if (tabId === 'simple') {
+                        renderFlowchart('simple-flowchart', simpleFlowchartCode);
+                        renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
+                    } else if (tabId === 'intermediate') {
+                        renderFlowchart('if-elif-else-flowchart', ifElifElseFlowchartCode);
+                        renderFlowchart('simple-function-flowchart', simpleFunctionFlowchartCode);
+                    }
+                }
+            }, 300);
+        });
+
+        // Handle window resize for responsive flowcharts
+        window.addEventListener('resize', function() {
+            // Re-render active flowcharts on resize
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                const tabId = activeTab.id;
+                if (tabId === 'simple') {
+                    renderFlowchart('simple-flowchart', simpleFlowchartCode);
+                    renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
+                } else if (tabId === 'intermediate') {
+                    renderFlowchart('if-elif-else-flowchart', ifElifElseFlowchartCode);
+                    renderFlowchart('simple-function-flowchart', simpleFunctionFlowchartCode);
+                }
+            }
         });
     </script>
 </body>
