@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowchart Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Include Flowchart.js dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.15.0/flowchart.min.js"></script>
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <style>
+        /* Additional custom styles */
+        .code-with-symbol {
+            position: relative;
+            background-color: #282c34;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+        }
+        
+        .code-area {
+            flex: 1;
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #abb2bf;
+        }
+        
+        .symbol-area {
+            width: 120px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .symbol-area svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .symbol-label {
+            color: #fff;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .page-title {
+            padding: 30px 40px;
+            margin: 0 0 30px 0;
+            background-color: var(--primary-color);
+            color: black;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-title h1 {
+            margin: 0;
+            color: black !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+        
+        .page-title i {
+            font-size: 1.8rem;
+            margin-left: 15px;
+        }
+        
+        /* Enhanced code styles to match Simple If Statement section */
+        .highlighted-code {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+        
+        /* Highlighted keyword styles */
+        .keyword-highlight {
+            background-color: rgba(79, 193, 255, 0.2);
+            border-radius: 3px;
+            padding: 2px 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">FLOWCHART GUIDE</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-title" style="background-color: var(--primary-color);">
+            <h1 style="color: black !important; display: block !important; visibility: visible !important;">FLOWCHART GUIDE <i class="fas fa-project-diagram"></i></h1>
+        </div>
+        
+        <div class="card">
+            <h3>Introduction to Flowcharts <i class="fas fa-info-circle" style="margin-left: 10px;"></i></h3>
+            <p>Flowcharts show the steps of our code using pictures. They help us see how our program will work before we write it.</p>
+            
+            <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                <div class="element-card">
+                    <div class="element-header">
+                        <div class="element-number">1</div>
+                        <h3>PLANNING ALGORITHMS <i class="fas fa-lightbulb" style="margin-left: 12px;"></i></h3>
+                    </div>
+                    <div class="element-content">
+                        <p>Plan your code step by step</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <i class="fas fa-sitemap" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="element-card">
+                    <div class="element-header">
+                        <div class="element-number">2</div>
+                        <h3>UNDERSTANDING LOGIC <i class="fas fa-code-branch" style="margin-left: 12px;"></i></h3>
+                    </div>
+                    <div class="element-content">
+                        <p>See how if statements create different paths</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <i class="fas fa-random" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="element-card">
+                    <div class="element-header">
+                        <div class="element-number">3</div>
+                        <h3>DEBUGGING CODE <i class="fas fa-bug" style="margin-left: 12px;"></i></h3>
+                    </div>
+                    <div class="element-content">
+                        <p>Find mistakes by following the steps</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <i class="fas fa-search" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="element-card">
+                    <div class="element-header">
+                        <div class="element-number">4</div>
+                        <h3>COMMUNICATION <i class="fas fa-users" style="margin-left: 12px;"></i></h3>
+                    </div>
+                    <div class="element-content">
+                        <p>Show others how your program works</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <i class="fas fa-comments" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="dark-section">
+            <h1 style="display: block !important; visibility: visible !important;">FLOWCHART SYMBOLS <i class="fas fa-shapes" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">REFERENCE</div>
+                
+                <h3>Standard Flowchart Symbols</h3>
+                
+                <p>Flowcharts use different shapes to show different parts of your code:</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Basic Flowchart Symbols <i class="fas fa-shapes" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="two-column-grid">
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-play-circle" style="margin-right: 10px; color: var(--accent-color);"></i> Terminal (Oval/Rounded Rectangle)</h4>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <svg width="150" height="50" viewBox="0 0 150 50">
+                                    <rect x="10" y="10" width="130" height="30" rx="15" ry="15" fill="white" stroke="#002654" stroke-width="2"/>
+                                    <text x="75" y="30" text-anchor="middle" font-size="14">Start/End</text>
+                                </svg>
+                            </div>
+                            <p>Shows where your program starts and ends.</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-square" style="margin-right: 10px; color: var(--accent-color);"></i> Process (Rectangle)</h4>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <svg width="150" height="50" viewBox="0 0 150 50">
+                                    <rect x="10" y="10" width="130" height="30" fill="white" stroke="#002654" stroke-width="2"/>
+                                    <text x="75" y="30" text-anchor="middle" font-size="14">Process</text>
+                                </svg>
+                            </div>
+                            <p>Shows math steps and changing variables.</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-diamond" style="margin-right: 10px; color: var(--accent-color);"></i> Decision (Diamond)</h4>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <svg width="150" height="70" viewBox="0 0 150 70">
+                                    <polygon points="75,10 140,35 75,60 10,35" fill="white" stroke="#002654" stroke-width="2"/>
+                                    <text x="75" y="40" text-anchor="middle" font-size="14">Decision</text>
+                                </svg>
+                            </div>
+                            <p>Shows if statements where the program chooses between options.</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-long-arrow-alt-right" style="margin-right: 10px; color: var(--accent-color);"></i> Input/Output (Parallelogram)</h4>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <svg width="150" height="50" viewBox="0 0 150 50">
+                                    <polygon points="30,10 140,10 120,40 10,40" fill="white" stroke="#002654" stroke-width="2"/>
+                                    <text x="75" y="30" text-anchor="middle" font-size="14">Input/Output</text>
+                                </svg>
+                            </div>
+                            <p>Shows input() and print() commands.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Note:</strong> Arrows connect these symbols to show the order of steps.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Symbol Usage in Python <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <!-- Process Symbol with Code - Updated formatting -->
+                    <div class="card">
+                        <h4>Process Symbol (Rectangle)</h4>
+                        <div class="code-with-symbol">
+                            <div class="code-area highlighted-code">
+<span style="color: #4FC1FF;" class="keyword-highlight">sum = x + y</span>
+                            </div>
+                            <div class="symbol-area">
+                                <svg width="80" height="40" viewBox="0 0 80 40">
+                                    <rect x="5" y="5" width="70" height="30" fill="white" stroke="#002654" stroke-width="2"/>
+                                </svg>
+                                <div class="symbol-label">MATH STEPS</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 10px;">This is what we use for math and changing variables.</p>
+                    </div>
+                    
+                    <!-- Decision Symbol with Code - Updated formatting -->
+                    <div class="card" style="margin-top: 20px;">
+                        <h4>Decision Symbol (Diamond)</h4>
+                        <div class="code-with-symbol">
+                            <div class="code-area highlighted-code">
+<span style="color: #4FC1FF;" class="keyword-highlight">if score >= 70:</span>
+                            </div>
+                            <div class="symbol-area">
+                                <svg width="80" height="60" viewBox="0 0 80 60">
+                                    <polygon points="40,5 75,30 40,55 5,30" fill="white" stroke="#002654" stroke-width="2"/>
+                                </svg>
+                                <div class="symbol-label">DECIDE</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 10px;">This is what we use for if statements that make decisions.</p>
+                    </div>
+                    
+                    <!-- Input/Output Symbol with Code - Updated formatting -->
+                    <div class="card" style="margin-top: 20px;">
+                        <h4>Input/Output Symbol (Parallelogram)</h4>
+                        <div class="code-with-symbol">
+                            <div class="code-area highlighted-code">
+<span style="color: #4FC1FF;" class="keyword-highlight">name = input("Enter your name: ")</span>
+<br>
+<br>
+<span style="color: #4FC1FF;" class="keyword-highlight">print("Hello, " + name)</span>
+                            </div>
+                            <div class="symbol-area">
+                                <svg width="80" height="40" viewBox="0 0 80 40">
+                                    <polygon points="15,5 75,5 65,35 5,35" fill="white" stroke="#002654" stroke-width="2"/>
+                                </svg>
+                                <div class="symbol-label">INPUT/PRINT</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 10px;">This is what we use for input() and print() commands.</p>
+                    </div>
+                    
+                    <!-- Start/End Symbol with Code - Updated formatting -->
+                    <div class="card" style="margin-top: 20px;">
+                        <h4>Start/End Symbol (Rounded Rectangle)</h4>
+                        <div class="code-with-symbol">
+                            <div class="code-area highlighted-code">
+<span style="color: #7F848E;"># Start of program</span>
+<br>
+<span style="color: #7F848E;"># ...</span>
+<br>
+<span style="color: #7F848E;"># End of program</span>
+                            </div>
+                            <div class="symbol-area">
+                                <svg width="80" height="40" viewBox="0 0 80 40">
+                                    <rect x="5" y="5" width="70" height="30" rx="15" ry="15" fill="white" stroke="#002654" stroke-width="2"/>
+                                </svg>
+                                <div class="symbol-label">START/END</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 10px;">This shows where our program starts and ends.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="light-section">
+            <h1 style="display: block !important; visibility: visible !important;">SIMPLE FLOWCHARTS <i class="fas fa-code" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">BEGINNER</div>
+                
+                <h3>Basic If Statement Flowchart</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Simple If Statement <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a simple IF statement in Python:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34;">
+<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
+
+<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You passed!"</span><span style="color: #56B6C2;">)</span>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's how this looks as a flowchart:</p>
+                    
+                    <div style="max-width: 700px; margin: 0 auto;">
+                        <div style="text-align: center; margin: 30px 0;">
+                            <div id="simple-flowchart" style="height: 500px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> If the score is 70 or higher, we print "You passed!" If not, we skip that step.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>If-Else Statement <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Now let's see an IF-ELSE statement:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34;">
+<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">65</span>
+
+<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You passed!"</span><span style="color: #56B6C2;">)</span>
+<span style="color: #4FC1FF;">else</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You failed."</span><span style="color: #56B6C2;">)</span>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the flowchart:</p>
+                    
+                    <div style="max-width: 700px; margin: 0 auto;">
+                        <div style="text-align: center; margin: 30px 0;">
+                            <div id="if-else-flowchart" style="height: 500px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The diamond shape asks "is score >= 70?" If yes, go one way. If no, go the other way.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dark-section">
+            <h1 style="display: block !important; visibility: visible !important;">INTERMEDIATE FLOWCHARTS <i class="fas fa-sitemap" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">INTERMEDIATE</div>
+                
+                <h3>If-Elif-Else Flowchart</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Multiple Conditions <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">For more choices, we can use if-elif-else statements:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34;">
+<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
+
+<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">90</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"A"</span>
+<span style="color: #4FC1FF;">elif</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"B"</span>
+<span style="color: #4FC1FF;">else</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"F"</span>
+
+<span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"Your grade is: "</span> <span style="color: #56B6C2;">+</span> <span style="color: #4FC1FF;">grade</span><span style="color: #56B6C2;">)</span>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the flowchart:</p>
+                    
+                    <div style="max-width: 700px; margin: 0 auto;">
+                        <div style="text-align: center; margin: 30px 0;">
+                            <div id="if-elif-else-flowchart" style="height: 800px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Each diamond asks a question. We keep checking until one answer is "yes", or we reach the end.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Simple Ticket Calculator <i class="fas fa-ticket-alt" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a simple program that takes input and makes a decision:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34;">
+<span style="color: #4FC1FF;">def</span> <span style="color: #4FC1FF;">simple_ticket_calculator</span><span style="color: #56B6C2;">(</span><span style="color: #56B6C2;">)</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #7F848E;"># Get user input</span>
+    <span style="color: #4FC1FF;">age</span> <span style="color: #56B6C2;">=</span> <span style="color: #4FC1FF;">int</span><span style="color: #56B6C2;">(</span><span style="color: #4FC1FF;">input</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"Enter your age: "</span><span style="color: #56B6C2;">)</span><span style="color: #56B6C2;">)</span>
+    
+    <span style="color: #7F848E;"># Apply simple age-based pricing</span>
+    <span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">age</span> <span style="color: #56B6C2;"><</span> <span style="color: #98C379;">12</span><span style="color: #56B6C2;">:</span>
+        <span style="color: #4FC1FF;">price</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">5.00</span>  <span style="color: #7F848E;"># Child price</span>
+    <span style="color: #4FC1FF;">else</span><span style="color: #56B6C2;">:</span>
+        <span style="color: #4FC1FF;">price</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">10.00</span> <span style="color: #7F848E;"># Adult price</span>
+    
+    <span style="color: #7F848E;"># Output the result</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">f"Your ticket price is: ${price:.2f}"</span><span style="color: #56B6C2;">)</span>
+
+<span style="color: #7F848E;"># Call the function</span>
+<span style="color: #4FC1FF;">simple_ticket_calculator</span><span style="color: #56B6C2;">(</span><span style="color: #56B6C2;">)</span>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the flowchart:</p>
+                    
+                    <div style="max-width: 700px; margin: 0 auto;">
+                        <div style="text-align: center; margin: 30px 0;">
+                            <div id="simple-function-flowchart" style="height: 600px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Notice how we use parallelograms for input() and print(), and a diamond for the if statement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Define flowchart code for simple if statement
+        const simpleFlowchartCode = `
+st=>start: Start
+init=>operation: score = 85
+cond=>condition: score >= 70?
+pass=>operation: print("You passed!")
+end=>end: End
+
+st->init->cond
+cond(yes)->pass->end
+cond(no)->end
+`;
+
+        // Define flowchart code for if-else
+        const ifElseFlowchartCode = `
+st=>start: Start
+init=>operation: score = 65
+cond=>condition: score >= 70?
+pass=>operation: print("You passed!")
+fail=>operation: print("You failed.")
+end=>end: End
+
+st->init->cond
+cond(yes)->pass->end
+cond(no)->fail->end
+`;
+
+        // Define flowchart code for if-elif-else
+        const ifElifElseFlowchartCode = `
+st=>start: Start
+init=>operation: score = 85
+cond1=>condition: score >= 90?
+cond2=>condition: score >= 70?
+gradeA=>operation: grade = "A"
+gradeB=>operation: grade = "B"
+gradeF=>operation: grade = "F"
+print=>operation: print("Your grade is: " + grade)
+end=>end: End
+
+st->init->cond1
+cond1(yes)->gradeA->print->end
+cond1(no)->cond2
+cond2(yes)->gradeB->print->end
+cond2(no)->gradeF->print->end
+`;
+
+        // Define flowchart code for simple function with input/output
+        const simpleFunctionFlowchartCode = `
+st=>start: Start
+input=>inputoutput: User inputs age
+cond=>condition: age < 12?
+price1=>operation: price = 5.00
+price2=>operation: price = 10.00
+output=>inputoutput: Display ticket price
+end=>end: End
+
+st->input->cond
+cond(yes)->price1->output->end
+cond(no)->price2->output->end
+`;
+
+        // Function to render flowcharts
+        function renderFlowchart(containerId, code) {
+            const diagram = flowchart.parse(code);
+            
+            // Get container width to scale appropriately
+            const container = document.getElementById(containerId);
+            const containerWidth = container.offsetWidth || 600;
+            const scale = containerWidth > 500 ? 1.2 : containerWidth / 420;  // Increased scale for larger charts
+            
+            // Special larger scale for the if-elif-else flowchart
+            let flowchartScale = scale;
+            if (containerId === 'if-elif-else-flowchart') {
+                flowchartScale = scale * 1.8; // Make this flowchart significantly larger
+            }
+            
+            diagram.drawSVG(containerId, {
+                'line-width': 3,  // Thicker lines
+                'line-length': 60, // Longer lines
+                'text-margin': 15, // More space for text
+                'font-size': 16,   // Larger font
+                'font-color': '#333',
+                'line-color': '#002654',
+                'element-color': '#002654',
+                'fill': 'white',
+                'yes-text': 'Yes',  // More readable text
+                'no-text': 'No',    // More readable text
+                'arrow-end': 'block',
+                'scale': flowchartScale,
+                'flowstate': {
+                    'current': { 'fill': '#008489', 'font-color': 'white', 'font-weight': 'bold' }
+                },
+                'symbols': {
+                    'start': {
+                        'font-color': 'white',
+                        'element-color': '#002654',
+                        'fill': '#002654'
+                    },
+                    'end': {
+                        'font-color': 'white',
+                        'element-color': '#002654',
+                        'fill': '#002654'
+                    }
+                }
+            });
+            
+            // Ensure SVG fits container
+            const svg = container.querySelector('svg');
+            if (svg) {
+                svg.style.maxWidth = '100%';
+                svg.style.height = '100%';
+            }
+        }
+
+        // Render all flowcharts when the document is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                renderFlowchart('simple-flowchart', simpleFlowchartCode);
+                renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
+                renderFlowchart('if-elif-else-flowchart', ifElifElseFlowchartCode);
+                renderFlowchart('simple-function-flowchart', simpleFunctionFlowchartCode);
+            }, 100);
+        });
+    </script>
+</body>
+</html>
