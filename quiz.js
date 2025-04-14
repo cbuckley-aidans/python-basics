@@ -1,43 +1,21 @@
 /**
  * Improved Duolingo-style Quiz Implementation
+ * Integrated with the unified BucklesSystem
  */
-
-function getGlobalBuckles() {
-    const totalBuckles = localStorage.getItem('totalPythonBuckles') || '0';
-    return parseInt(totalBuckles);
-}
-
-function updateGlobalBuckles(amount) {
-    let total = getGlobalBuckles();
-    total += amount;
-    localStorage.setItem('totalPythonBuckles', total.toString());
-    
-    // Update all buckle displays on the page
-    document.querySelectorAll('[id$="buckle-score"]').forEach(el => {
-        el.textContent = total;
-    });
-}
-
 
 function initializeQuiz(quizQuestions, pageIdentifier = 'default') {
     const quizContainer = document.getElementById('quiz-container');
     let currentQuestionIndex = 0;
-    let userScore = 0;
     let attemptedQuestions = new Set();
     let mainContainer = null;
     
     function loadSavedProgress() {
-        userScore = getGlobalBuckles();
-        
-        const completedQuestions = localStorage.getItem(`completedQuestions_${pageIdentifier}`);
-        if (completedQuestions) {
-            attemptedQuestions = new Set(JSON.parse(completedQuestions));
+        // Load previously completed questions for this page
+        for (let i = 0; i < quizQuestions.length; i++) {
+            if (BucklesSystem.isActivityCompleted(pageIdentifier, `question_${i}`)) {
+                attemptedQuestions.add(i);
+            }
         }
-    }
-    
-    // Save score and progress to local storage
-    function saveProgress() {
-        localStorage.setItem(`completedQuestions_${pageIdentifier}`, JSON.stringify([...attemptedQuestions]));
     }
     
     // Build the quiz HTML
@@ -50,7 +28,7 @@ function initializeQuiz(quizQuestions, pageIdentifier = 'default') {
                 <div class="buckle-counter">
                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
                          alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
-                    <span id="buckle-score">${userScore}</span>
+                    <span id="buckle-score">${BucklesSystem.getBuckles()}</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progress-bar" style="width: ${((currentQuestionIndex + 1) / quizQuestions.length) * 100}%;"></div>
@@ -64,12 +42,6 @@ function initializeQuiz(quizQuestions, pageIdentifier = 'default') {
                         <div class="feedback-message" id="feedback"></div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="buckle-animation" id="buckle-animation" style="display: none;">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                     alt="Buckle" id="buckle-img">
-                <div class="shine"></div>
             </div>
             
             <div class="exercise-nav" id="exercise-nav" style="display: none; justify-content: space-between;">
@@ -257,11 +229,11 @@ function initializeQuiz(quizQuestions, pageIdentifier = 'default') {
         let isCorrect = false;
         
         // Check if this is the first attempt for this question
-        const isFirstAttempt = !localStorage.getItem(`attempted_${pageIdentifier}_q${currentQuestionIndex}`);
+        const isFirstAttempt = !BucklesSystem.isActivityAttempted(pageIdentifier, `question_${currentQuestionIndex}`);
         
         // Mark as attempted immediately on first try (regardless of correctness)
         if (isFirstAttempt) {
-            localStorage.setItem(`attempted_${pageIdentifier}_q${currentQuestionIndex}`, 'true');
+            BucklesSystem.markActivityAttempted(pageIdentifier, `question_${currentQuestionIndex}`);
         }
         
         if (question.type === "true-false") {
@@ -285,10 +257,11 @@ function initializeQuiz(quizQuestions, pageIdentifier = 'default') {
             
             // Award buckle if first time correct AND first attempt
             if (!attemptedQuestions.has(currentQuestionIndex) && isFirstAttempt) {
+                // Update local tracking
                 attemptedQuestions.add(currentQuestionIndex);
-                updateGlobalBuckles(1);
-                showBuckleAnimation();
-                saveProgress();
+                
+                // Award 1 buckle for this achievement
+                BucklesSystem.awardBuckles(pageIdentifier, `question_${currentQuestionIndex}`);
             }
         } else if (question.type === "drag-drop") {
             // For incorrect drag-drop, show correct answer
@@ -330,17 +303,6 @@ function initializeQuiz(quizQuestions, pageIdentifier = 'default') {
                 document.getElementById('exercise-nav').style.display = 'flex';
             }, 1500);
         }
-    }
-    
-    // Show buckle animation
-    function showBuckleAnimation() {
-        const animation = document.getElementById('buckle-animation');
-        animation.style.display = 'block';
-        
-        // Play animation and then hide
-        setTimeout(() => {
-            animation.style.display = 'none';
-        }, 2000);
     }
     
     // Navigation - next question
@@ -424,7 +386,6 @@ function initializeQuiz(quizQuestions, pageIdentifier = 'default') {
 
 /**
  * Print Statement Builder Activity
- * Interactive activity for building Python print statements
  */
 function initPrintStatementBuilder(pageIdentifier = 'intro') {
     // Define the correct answers for each statement
@@ -433,51 +394,6 @@ function initPrintStatementBuilder(pageIdentifier = 'intro') {
         "statement2": ["print", "(", "100", ")"],
         "statement3": ["print", "(", '"Name:"', ",", '"Alice"', ")"]
     };
-    
-    // Load saved score from local storage
-    let userScore = 0;
-    const savedScore = localStorage.getItem('printBuilderBuckles');
-    if (savedScore) {
-        userScore = parseInt(savedScore);
-    }
-    
-    // Initialize buckle counter if it exists
-    const buckleCounter = document.querySelector('.print-builder-buckle-counter');
-    if (buckleCounter) {
-        const scoreSpan = buckleCounter.querySelector('span');
-        if (scoreSpan) {
-            scoreSpan.textContent = userScore;
-        }
-    }
-    
-    // Add buckle counter if it doesn't exist
-    if (!buckleCounter) {
-        const firstActivity = document.querySelector('.interactive-activity');
-        if (firstActivity) {
-            const buckleDiv = document.createElement('div');
-            buckleDiv.className = 'print-builder-buckle-counter buckle-counter';
-            buckleDiv.innerHTML = `
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                     alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
-                <span id="print-builder-buckle-score">${userScore}</span>
-            `;
-            firstActivity.appendChild(buckleDiv);
-        }
-    }
-    
-    // Create buckle animation container if it doesn't exist
-    if (!document.getElementById('print-builder-buckle-animation')) {
-        const animDiv = document.createElement('div');
-        animDiv.className = 'buckle-animation';
-        animDiv.id = 'print-builder-buckle-animation';
-        animDiv.style.display = 'none';
-        animDiv.innerHTML = `
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                 alt="Buckle" id="print-builder-buckle-img">
-            <div class="shine"></div>
-        `;
-        document.body.appendChild(animDiv);
-    }
     
     // Apply syntax highlighting to all sentence parts
     applySyntaxHighlightingToSentenceParts();
@@ -561,12 +477,11 @@ function initPrintStatementBuilder(pageIdentifier = 'intro') {
         const correct = arraysEqual(currentStatement, correctStatements[statementId]);
         
         // Check if this is the first attempt
-        const attemptKey = `attempted_${pageIdentifier}_${statementId}`;
-        const isFirstAttempt = !localStorage.getItem(attemptKey);
+        const isFirstAttempt = !BucklesSystem.isActivityAttempted(pageIdentifier, `print_statement_${statementId}`);
         
         // Mark as attempted on first evaluation (when we have the exact required number of parts)
         if (isFirstAttempt && resultParts.length === expectedLength) {
-            localStorage.setItem(attemptKey, 'true');
+            BucklesSystem.markActivityAttempted(pageIdentifier, `print_statement_${statementId}`);
         }
         
         // Only check for correctness if we have the exact required number of parts
@@ -579,14 +494,8 @@ function initPrintStatementBuilder(pageIdentifier = 'intro') {
                 `;
                 
                 // Award buckle only on first attempt
-                const completedKey = `completed_${pageIdentifier}_${statementId}`;
-                if (!localStorage.getItem(completedKey) && isFirstAttempt) {
-                    // Increment score
-                    updateGlobalBuckles(1);
-                    localStorage.setItem(completedKey, 'true');
-                    
-                    // Show buckle animation
-                    showBuckleAnimation();
+                if (!BucklesSystem.isActivityCompleted(pageIdentifier, `print_statement_${statementId}`) && isFirstAttempt) {
+                    BucklesSystem.awardBuckles(pageIdentifier, `print_statement_${statementId}`);
                 }
                 
                 // Show the next statement container after a delay
@@ -613,19 +522,6 @@ function initPrintStatementBuilder(pageIdentifier = 'intro') {
         }
     }
     
-    // Show buckle animation
-    function showBuckleAnimation() {
-        const animation = document.getElementById('print-builder-buckle-animation');
-        if (animation) {
-            animation.style.display = 'block';
-            
-            // Play animation and then hide
-            setTimeout(() => {
-                animation.style.display = 'none';
-            }, 2000);
-        }
-    }
-    
     // Helper function to compare arrays
     function arraysEqual(a, b) {
         if (a.length !== b.length) return false;
@@ -638,7 +534,6 @@ function initPrintStatementBuilder(pageIdentifier = 'intro') {
 
 /**
  * Function to show ASCII art output
- * Used in CHEW 3 section
  */
 function showAsciiOutput(codeId, outputId) {
     const code = document.getElementById(codeId).value;
@@ -662,10 +557,11 @@ function showAsciiOutput(codeId, outputId) {
 function checkFix(bugNumber) {
     const inputElement = document.getElementById(`fix${bugNumber}`);
     const feedbackElement = document.getElementById(`fix${bugNumber}-feedback`);
+    const pageIdentifier = 'debug-practice';
+    const activityId = `fix_code_${bugNumber}`;
     
     let userFix = inputElement.value.trim();
     let correctFix = '';
-    let feedbackText = '';
     
     switch(bugNumber) {
         case 1:
@@ -679,9 +575,22 @@ function checkFix(bugNumber) {
             break;
     }
     
+    // Check if this is the first attempt
+    const isFirstAttempt = !BucklesSystem.isActivityAttempted(pageIdentifier, activityId);
+    
+    // Mark as attempted
+    if (isFirstAttempt) {
+        BucklesSystem.markActivityAttempted(pageIdentifier, activityId);
+    }
+    
     if (userFix === correctFix) {
         feedbackElement.innerHTML = 'Correct! You fixed the error.';
         feedbackElement.className = 'feedback correct';
+        
+        // Award buckle on first correct attempt
+        if (isFirstAttempt && !BucklesSystem.isActivityCompleted(pageIdentifier, activityId)) {
+            BucklesSystem.awardBuckles(pageIdentifier, activityId);
+        }
     } else {
         feedbackElement.innerHTML = `Not quite right. The fixed code should be: <code>${correctFix}</code>`;
         feedbackElement.className = 'feedback incorrect';
@@ -693,6 +602,8 @@ function checkFix(bugNumber) {
  */
 function checkErrorType(questionNumber, answer) {
     const feedbackElement = document.getElementById(`error-answer${questionNumber}`);
+    const pageIdentifier = 'error-identification';
+    const activityId = `error_type_${questionNumber}`;
     let correct = false;
     let explanation = '';
     
@@ -711,9 +622,22 @@ function checkErrorType(questionNumber, answer) {
             break;
     }
     
+    // Check if this is the first attempt
+    const isFirstAttempt = !BucklesSystem.isActivityAttempted(pageIdentifier, activityId);
+    
+    // Mark as attempted
+    if (isFirstAttempt) {
+        BucklesSystem.markActivityAttempted(pageIdentifier, activityId);
+    }
+    
     if (correct) {
         feedbackElement.innerHTML = `<i class="fas fa-check-circle" style="color: var(--good-color);"></i> Correct! ${explanation}`;
         feedbackElement.className = 'matching-feedback correct';
+        
+        // Award buckle on first correct attempt
+        if (isFirstAttempt && !BucklesSystem.isActivityCompleted(pageIdentifier, activityId)) {
+            BucklesSystem.awardBuckles(pageIdentifier, activityId);
+        }
     } else {
         feedbackElement.innerHTML = `<i class="fas fa-times-circle" style="color: var(--bad-color);"></i> Incorrect. ${explanation}`;
         feedbackElement.className = 'matching-feedback incorrect';
@@ -722,12 +646,153 @@ function checkErrorType(questionNumber, answer) {
     feedbackElement.style.display = 'block';
 }
 
+// Check condition answers (used in conditional-statements.html)
+function checkConditionAnswer(questionNumber, answer, sectionIdentifier) {
+    const answerElement = document.getElementById(`condition-answer${questionNumber}`);
+    const activityId = `condition_question_${questionNumber}`;
+    let isCorrect = false;
+    let feedback = '';
+
+    // Set correct answers for each question
+    const correctAnswers = {
+        1: true,  // 5 + 5 == 10 is true
+        2: false, // 7 < 3 is false
+        3: true,  // 10 <= 10 is true
+        4: false, // "Hello" == "hello" is false
+        5: true,  // 20 != 15 is true
+        6: false  // 5 * 2 >= 12 is false (10 >= 12)
+    };
+
+    // Check if this is the first attempt
+    const isFirstAttempt = !BucklesSystem.isActivityAttempted(sectionIdentifier, activityId);
+    
+    // Mark as attempted
+    if (isFirstAttempt) {
+        BucklesSystem.markActivityAttempted(sectionIdentifier, activityId);
+    }
+
+    // Check if the answer is correct
+    isCorrect = (answer === correctAnswers[questionNumber]);
+
+    // Prepare feedback message
+    if (isCorrect) {
+        feedback = `<span style="color: #52c41a;"><i class="fas fa-check-circle"></i> Correct!</span> That's right.`;
+        
+        // Award a buckle using the unified buckles system (only on first attempt)
+        if (isFirstAttempt && !BucklesSystem.isActivityCompleted(sectionIdentifier, activityId)) {
+            BucklesSystem.awardBuckles(sectionIdentifier, activityId);
+        }
+    } else {
+        feedback = `<span style="color: #ff4d4f;"><i class="fas fa-times-circle"></i> Incorrect.</span> Try again.`;
+    }
+
+    // Display feedback
+    answerElement.innerHTML = feedback;
+    answerElement.style.display = 'block';
+
+    // Disable buttons to prevent multiple submissions if correct
+    if (isCorrect) {
+        const trueBtn = document.querySelectorAll(`.true-btn`)[questionNumber - 1];
+        const falseBtn = document.querySelectorAll(`.false-btn`)[questionNumber - 1];
+        
+        if (trueBtn && falseBtn) {
+            trueBtn.disabled = true;
+            falseBtn.disabled = true;
+        }
+    }
+}
+
+// Multiple choice question checker (used in multiple pages)
+function checkMultipleChoice(questionNumber, answer, sectionIdentifier) {
+    const feedbackElement = document.getElementById(`feedback-q${questionNumber}`);
+    const activityId = `quiz_question_${questionNumber}`;
+    let correctAnswer = '';
+    let isCorrect = false;
+    
+    // Set correct answers based on which section we're in
+    if (sectionIdentifier === 'conditionals') {
+        switch(questionNumber) {
+            case 1: correctAnswer = 'D'; break; // No need for umbrella, not too hot
+            case 2: correctAnswer = 'B'; break; // 12 - 2 = 10
+            case 3: correctAnswer = 'B'; break; // Score 85 is >= 80 so "Very good!"
+        }
+    } else {
+        // Default correct answers or other section-specific answers
+        switch(questionNumber) {
+            case 1: correctAnswer = 'C'; break;
+            case 2: correctAnswer = 'A'; break;
+            case 3: correctAnswer = 'B'; break;
+        }
+    }
+    
+    // Check if this is the first attempt
+    const isFirstAttempt = !BucklesSystem.isActivityAttempted(sectionIdentifier, activityId);
+    
+    // Mark as attempted
+    if (isFirstAttempt) {
+        BucklesSystem.markActivityAttempted(sectionIdentifier, activityId);
+    }
+    
+    // Check if answer is correct
+    isCorrect = (answer === correctAnswer);
+    
+    // Style all choices to show the correct answer
+    document.querySelectorAll(`.choice`).forEach(choice => {
+        const choiceLetter = choice.querySelector('.choice-letter').textContent;
+        if (choiceLetter === correctAnswer) {
+            choice.classList.add('correct-choice');
+        } else {
+            choice.classList.remove('correct-choice');
+        }
+        choice.classList.remove('selected-choice');
+    });
+    
+    // Style selected choice
+    let selectedChoice = null;
+    document.querySelectorAll('.choice').forEach(choice => {
+        const letter = choice.querySelector('.choice-letter');
+        if (letter && letter.textContent === answer) {
+            selectedChoice = choice;
+        }
+    });
+    if (selectedChoice) {
+        selectedChoice.classList.add('selected-choice');
+    }
+    
+    // Prepare feedback
+    let feedback = '';
+    if (isCorrect) {
+        feedback = `<div class="feedback-correct"><i class="fas fa-check-circle"></i> Correct! Well done.</div>`;
+        
+        // Award buckle if first attempt
+        if (isFirstAttempt && !BucklesSystem.isActivityCompleted(sectionIdentifier, activityId)) {
+            // Award buckle with the unified system (typically 2 buckles for quiz questions)
+            BucklesSystem.awardBuckles(sectionIdentifier, activityId, 2);
+        }
+    } else {
+        feedback = `<div class="feedback-incorrect"><i class="fas fa-times-circle"></i> Incorrect. The correct answer is ${correctAnswer}.</div>`;
+    }
+    
+    // Show feedback
+    feedbackElement.innerHTML = feedback;
+    feedbackElement.style.display = 'block';
+    
+    // Disable further selections if correct
+    if (isCorrect) {
+        document.querySelectorAll(`.choice`).forEach(choice => {
+            choice.style.pointerEvents = 'none';
+        });
+    }
+}
+
 // Make functions available globally
 window.initializeQuiz = initializeQuiz;
 window.initPrintStatementBuilder = initPrintStatementBuilder;
 window.showAsciiOutput = showAsciiOutput;
 window.checkFix = checkFix;
 window.checkErrorType = checkErrorType;
+window.checkConditionAnswer = checkConditionAnswer;
+window.checkMultipleChoice = checkMultipleChoice;
 window.nextQuestion = function() { 
     if (typeof nextQuestion === 'function') {
         nextQuestion();

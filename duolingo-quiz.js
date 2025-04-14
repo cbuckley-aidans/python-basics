@@ -1,6 +1,7 @@
 /**
  * Duolingo-style Quiz Module
  * Modular quiz functionality for educational pages
+ * Integrated with the unified BucklesSystem
  */
 
 // Create a namespace to avoid global variable conflicts
@@ -10,17 +11,21 @@ const DuolingoQuiz = (function() {
     let totalExercises = 0;
     let userAnswers = {};
     let quizContainer = null;
-    let userScore = 0;
-    let attemptedQuestions = new Set();
+    let attemptedExercises = new Set();
+    let pageIdentifier = 'duolingo-quiz';
     
     /**
      * Initialize the quiz with given questions
      * @param {string} containerId - The ID of the container element
      * @param {Array} questions - Array of question objects
+     * @param {string} pageName - Optional identifier for the current page
      */
-    function initQuiz(containerId, questions) {
+    function initQuiz(containerId, questions, pageName = 'duolingo-quiz') {
         // Store questions count
         totalExercises = questions.length;
+        
+        // Set page identifier
+        pageIdentifier = pageName;
         
         // Get the container
         quizContainer = document.getElementById(containerId);
@@ -30,8 +35,8 @@ const DuolingoQuiz = (function() {
         currentExercise = 1;
         userAnswers = {};
         
-        // Load user score from local storage
-        loadUserScore();
+        // Load user progress
+        loadUserProgress();
         
         // Store questions in window scope for access by event handlers
         window.quizQuestions = questions;
@@ -41,28 +46,42 @@ const DuolingoQuiz = (function() {
         
         // Initialize drag and drop functionality
         initDragAndDrop();
+
+        updateAllBuckleCounters();
+
     }
     
     /**
-     * Load user score from local storage
+     * Load user progress from local storage
      */
-    function loadUserScore() {
-        const savedScore = localStorage.getItem('pythonBuckles');
-        userScore = savedScore ? parseInt(savedScore) : 0;
-        
-        // Load completed questions
-        const completedQuestions = localStorage.getItem('completedQuestions');
-        if (completedQuestions) {
-            attemptedQuestions = new Set(JSON.parse(completedQuestions));
+    function loadUserProgress() {
+        // Find previously completed exercises for this page
+        attemptedExercises = new Set();
+        for (let i = 1; i <= totalExercises; i++) {
+            if (BucklesSystem.isActivityCompleted(pageIdentifier, `exercise_${i}`)) {
+                attemptedExercises.add(i);
+            }
         }
     }
-    
-    /**
-     * Save user score to local storage
-     */
-    function saveUserScore() {
-        localStorage.setItem('pythonBuckles', userScore.toString());
-        localStorage.setItem('completedQuestions', JSON.stringify([...attemptedQuestions]));
+
+    function updateAllBuckleCounters() {
+        const buckleCount = BucklesSystem.getBuckles();
+        
+        // Update the quiz's internal buckle counter
+        const internalCounter = document.getElementById('buckle-score');
+        if (internalCounter) {
+            internalCounter.textContent = buckleCount;
+        }
+        
+        // Update all external buckle counters
+        document.querySelectorAll('[id$="-buckle-container"] .buckles-counter-value').forEach(counter => {
+            counter.textContent = buckleCount;
+        });
+        
+        // Also update any counters with specific class names
+        document.querySelectorAll('.buckle-count, .buckles-count').forEach(counter => {
+            counter.textContent = buckleCount;
+        });
     }
     
     /**
@@ -76,7 +95,7 @@ const DuolingoQuiz = (function() {
                 <div class="buckle-counter">
                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
                          alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
-                    <span id="buckle-score">${userScore}</span>
+                    <span id="buckle-score">${BucklesSystem.getBuckles()}</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progress-bar" style="width: 0%;"></div>
@@ -102,8 +121,8 @@ const DuolingoQuiz = (function() {
             html += `
                 <div class="feedback-message" id="feedback-${exerciseNum}"></div>
                 <div class="exercise-footer">
-                    <button class="check-btn" id="check-btn-${exerciseNum}" onclick="checkAnswer(${exerciseNum})" disabled>Check</button>
-                    <button class="reset-btn" id="reset-btn-${exerciseNum}" onclick="resetCurrentExercise(${exerciseNum})">Reset</button>
+                    <button class="check-btn" id="check-btn-${exerciseNum}" onclick="DuolingoQuiz.checkAnswer(${exerciseNum})" disabled>Check</button>
+                    <button class="reset-btn" id="reset-btn-${exerciseNum}" onclick="DuolingoQuiz.resetCurrentExercise(${exerciseNum})">Reset</button>
                 </div>
             </div>`;
         });
@@ -114,78 +133,22 @@ const DuolingoQuiz = (function() {
                 <i class="fas fa-trophy" style="font-size: 5em; color: #ffc107; margin-bottom: 20px;"></i>
                 <h2>Great Job!</h2>
                 <p style="font-size: 1.2em; margin-bottom: 30px;">You've completed all the exercises!</p>
-                <button class="check-btn" onclick="resetExercises()">Start Again</button>
+                <button class="check-btn" onclick="DuolingoQuiz.resetExercises()">Start Again</button>
             </div>
         </div>
         
-        <div class="buckle-animation" id="buckle-animation" style="display: none;">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                 alt="Buckle" id="buckle-img">
-            <div class="shine"></div>
-        </div>
-        
         <div class="exercise-nav" id="exercise-nav" style="display: none;">
-            <button id="prev-btn" onclick="prevExercise()" disabled>
+            <button id="prev-btn" onclick="DuolingoQuiz.prevExercise()" disabled>
                 <i class="fas fa-arrow-left"></i> Previous
             </button>
-            <button id="next-btn" onclick="nextExercise()" disabled>
+            <button id="next-btn" onclick="DuolingoQuiz.nextExercise()" disabled>
                 Next <i class="fas fa-arrow-right"></i>
             </button>
         </div>`;
         
-        // Add styles for buckle animation
+        // Add styles for reset button
         const styleElement = document.createElement('style');
         styleElement.textContent = `
-            .buckle-counter {
-                position: absolute;
-                top: 10px;
-                right: 20px;
-                font-size: 18px;
-                font-weight: bold;
-                color: #333;
-            }
-            
-            .buckle-animation {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 1000;
-                pointer-events: none;
-            }
-            
-            #buckle-img {
-                width: 100px;
-                height: 100px;
-                filter: drop-shadow(0 0 10px gold);
-                animation: buckleGrow 1.5s ease-out;
-            }
-            
-            .shine {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-                opacity: 0;
-                animation: shineEffect 1.5s ease-out;
-            }
-            
-            @keyframes buckleGrow {
-                0% { transform: scale(0); opacity: 0; }
-                50% { transform: scale(1.2); opacity: 1; }
-                70% { transform: scale(0.9); }
-                100% { transform: scale(1); }
-            }
-            
-            @keyframes shineEffect {
-                0% { opacity: 0; }
-                30% { opacity: 0; }
-                50% { opacity: 1; }
-                100% { opacity: 0; }
-            }
-            
             .reset-btn {
                 background-color: #f8f9fa;
                 color: #333;
@@ -207,7 +170,7 @@ const DuolingoQuiz = (function() {
         quizContainer.innerHTML = html;
         
         // Update the score display
-        document.getElementById('buckle-score').textContent = userScore;
+        document.getElementById('buckle-score').textContent = BucklesSystem.getBuckles();
     }
     
     /**
@@ -218,8 +181,8 @@ const DuolingoQuiz = (function() {
             <div class="true-false-exercise">
                 <p>${question.question}</p>
                 <div class="true-false-options">
-                    <div class="true-false-option" data-value="true" onclick="selectTrueFalse(this, ${exerciseNum})">True</div>
-                    <div class="true-false-option" data-value="false" onclick="selectTrueFalse(this, ${exerciseNum})">False</div>
+                    <div class="true-false-option" data-value="true" onclick="DuolingoQuiz.selectTrueFalse(this, ${exerciseNum})">True</div>
+                    <div class="true-false-option" data-value="false" onclick="DuolingoQuiz.selectTrueFalse(this, ${exerciseNum})">False</div>
                 </div>
             </div>
         `;
@@ -496,17 +459,6 @@ const DuolingoQuiz = (function() {
         }
     }
     
-    // Show buckle animation
-    function showBuckleAnimation() {
-        const animation = document.getElementById('buckle-animation');
-        animation.style.display = 'block';
-        
-        // Play animation and then hide
-        setTimeout(() => {
-            animation.style.display = 'none';
-        }, 2000);
-    }
-    
     // Reset current exercise
     function resetCurrentExercise(exerciseNum) {
         const target = document.getElementById(`target-${exerciseNum}`);
@@ -547,6 +499,14 @@ const DuolingoQuiz = (function() {
         // Get the question for this exercise
         const question = window.quizQuestions[exerciseNum - 1];
         
+        // Check if this is the first attempt
+        const isFirstAttempt = !BucklesSystem.isActivityAttempted(pageIdentifier, `exercise_${exerciseNum}`);
+        
+        // Mark as attempted
+        if (isFirstAttempt) {
+            BucklesSystem.markActivityAttempted(pageIdentifier, `exercise_${exerciseNum}`);
+        }
+        
         if (question.type === "true-false") {
             isCorrect = userAnswers[exerciseNum] === question.correctAnswer;
             feedback = isCorrect ? question.feedbackCorrect : question.feedbackIncorrect;
@@ -579,13 +539,16 @@ const DuolingoQuiz = (function() {
             // Enable next button
             document.getElementById('next-btn').disabled = false;
             
-            // Award buckle if first time correct
-            if (!attemptedQuestions.has(exerciseNum)) {
-                userScore++;
-                attemptedQuestions.add(exerciseNum);
-                saveUserScore();
-                document.getElementById('buckle-score').textContent = userScore;
-                showBuckleAnimation();
+            // Updated block to fix buckle counter update issue
+            if (!attemptedExercises.has(exerciseNum) && isFirstAttempt) {
+                // Update local tracking
+                attemptedExercises.add(exerciseNum);
+                
+                // Award 1 buckle
+                BucklesSystem.awardBuckles(pageIdentifier, `exercise_${exerciseNum}`, 1);
+                
+                // Call the updateAllBuckleCounters function to refresh all counters
+                updateAllBuckleCounters();
             }
         }
     }
@@ -641,7 +604,7 @@ const DuolingoQuiz = (function() {
             document.getElementById('prev-btn').disabled = currentExercise === 1;
             
             // Next button is only enabled if the exercise has been correctly answered
-            const hasBeenAnswered = attemptedQuestions.has(currentExercise);
+            const hasBeenAnswered = attemptedExercises.has(currentExercise);
             document.getElementById('next-btn').disabled = !hasBeenAnswered;
             
             // Initialize drag and drop for the new exercise
@@ -756,10 +719,7 @@ const DuolingoQuiz = (function() {
 })();
 
 // Expose the public API to the window
-window.initQuiz = DuolingoQuiz.initQuiz;
-window.selectTrueFalse = DuolingoQuiz.selectTrueFalse;
-window.checkAnswer = DuolingoQuiz.checkAnswer;
-window.nextExercise = DuolingoQuiz.nextExercise;
-window.prevExercise = DuolingoQuiz.prevExercise;
-window.resetExercises = DuolingoQuiz.resetExercises;
-window.resetCurrentExercise = DuolingoQuiz.resetCurrentExercise;
+window.DuolingoQuiz = DuolingoQuiz;
+window.initQuiz = function(containerId, questions, pageName) {
+    DuolingoQuiz.initQuiz(containerId, questions, pageName);
+};

@@ -14,6 +14,10 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    
+    <!-- Include the buckles system -->
+    <script src="buckles.js"></script>
+    
     <style>
         :root {
             --primary-bg: #ffffff;
@@ -178,30 +182,6 @@
         .card:hover {
             transform: translateY(-0.25em);
             box-shadow: var(--shadow-md);
-        }
-
-        /* Buckle Counter */
-        .buckle-counter {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px 15px;
-            border-radius: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .buckle-counter img {
-            width: 40px;
-            height: 40px;
-            vertical-align: middle;
         }
 
         /* Redemption options */
@@ -623,31 +603,12 @@
     <!-- Script for redeeming buckles -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Get the global buckles count
-            function getGlobalBuckles() {
-                const totalBuckles = localStorage.getItem('totalPythonBuckles') || '0';
-                return parseInt(totalBuckles);
-            }
-
-            // Update the global buckles count
-            function updateGlobalBuckles(amount) {
-                let total = getGlobalBuckles();
-                total += amount;
-                localStorage.setItem('totalPythonBuckles', total.toString());
-                
-                // Update all buckle displays on the page
-                document.querySelectorAll('[id$="buckle-score"]').forEach(el => {
-                    el.textContent = total;
-                });
-            }
-
             // Initialize the buckle count
-            const currentBuckles = getGlobalBuckles();
-            document.getElementById('buckle-score').textContent = currentBuckles;
+            document.getElementById('buckle-score').textContent = BucklesSystem.getBuckles();
 
             // Update redeem buttons based on available buckles
             function updateRedeemButtons() {
-                const buckleCount = getGlobalBuckles();
+                const buckleCount = BucklesSystem.getBuckles();
                 const redeemButtons = document.querySelectorAll('.redemption-item');
                 
                 redeemButtons.forEach(item => {
@@ -719,11 +680,11 @@
                 
                 if (code === correctCode) {
                     // Check if user has enough buckles
-                    const currentBuckles = getGlobalBuckles();
+                    const currentBuckles = BucklesSystem.getBuckles();
                     
                     if (currentBuckles >= selectedPrice) {
                         // Subtract buckles
-                        updateGlobalBuckles(-selectedPrice);
+                        BucklesSystem.updateBuckles(-selectedPrice);
                         
                         // Close modal
                         modal.classList.remove('show');

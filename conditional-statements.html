@@ -10,6 +10,8 @@
       <!-- Include Flowchart.js dependencies -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.15.0/flowchart.min.js"></script>
+      <!-- Include the unified buckles system -->
+      <script src="buckles.js"></script>
       <!-- Include the quiz.js file -->
       <script src="quiz.js"></script>
       <!-- Favicon Icons -->
@@ -21,7 +23,32 @@
       <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
       <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
     <style>
-    
+        .feedback-correct {
+            padding: 10px 15px;
+            background-color: rgba(82, 196, 26, 0.1);
+            border-left: 4px solid #52c41a;
+            color: #52c41a;
+        }
+        
+        .feedback-incorrect {
+            padding: 10px 15px;
+            background-color: rgba(255, 77, 79, 0.1);
+            border-left: 4px solid #ff4d4f;
+            color: #ff4d4f;
+        }
+        
+        .correct-choice {
+            border-left: 4px solid #52c41a !important;
+            background-color: rgba(82, 196, 26, 0.1) !important;
+        }
+        
+        .selected-choice {
+            border: 2px solid var(--accent-color);
+        }
+        
+        .choice {
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
   <body>
@@ -472,11 +499,7 @@
                       <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                           <div class="element-number">2</div>
                           <h3>True or False? <i class="fas fa-check-double" style="margin-left: 10px;"></i></h3>
-                          <div class="buckle-counter conditions-buckle-counter" style="position: absolute; top: 20px; right: 20px;">
-                              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                                   alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
-                              <span id="conditions-buckle-score">0</span>
-                          </div>
+                          <div id="buckle-container"></div>
                       </div>
                       
                       <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">For each condition, decide if it evaluates to True or False:</p>
@@ -756,11 +779,7 @@
                       <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                           <div class="element-number">1</div>
                           <h3>Code Tracing Quiz <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
-                          <div class="buckle-counter trace-buckle-counter" style="position: absolute; top: 20px; right: 20px;">
-                              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                                   alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
-                              <span id="trace-buckle-score">0</span>
-                          </div>
+                          <div id="quiz-buckle-container"></div>
                       </div>
                       
                       <p style="font-size: 1.2em; margin-bottom: 20px;">Read the code and choose the correct output. Earn <span style="display: inline-flex; align-items: center; background-color: #f0f2f5; border-radius: 20px; padding: 3px 10px; color: #333;"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" alt="Buckle" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"><strong>2</strong></span> buckles for each correct answer on the first try!</p>
@@ -1179,107 +1198,281 @@
             </section>
         </main>
     
-        <!-- Buckle animation container for conditionals -->
-        <div class="buckle-animation" id="conditionals-buckle-animation" style="display: none;">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-        alt="Buckle" id="conditionals-buckle-img">
-        <div class="shine"></div>
-        </div>
-    
         <script>
             // Define improved flowchart code for if-else with better layout
             const ifElseFlowchartCode = `
-    st=>start: Start
-    cond=>condition: Condition
-    True or False?
-    if_block=>operation: Run 'if' code block
-    else_block=>operation: Run 'else' code block
-    end=>end: Continue program
-    
-    st->cond
-    cond(yes, right)->if_block->end
-    cond(no, bottom)->else_block(right)->end
-    `;
-    
+        st=>start: Start
+        cond=>condition: Condition
+        True or False?
+        if_block=>operation: Run 'if' code block
+        else_block=>operation: Run 'else' code block
+        end=>end: Continue program
+        
+        st->cond
+        cond(yes, right)->if_block->end
+        cond(no, bottom)->else_block(right)->end
+        `;
+        
             // Define improved flowchart code for if-elif-else with better layout
             const ifElifElseFlowchartCode = `
-    st=>start: Start
-    init=>operation: grade = 75
-    cond1=>condition: grade >= 90?
-    cond2=>condition: grade >= 80?
-    cond3=>condition: grade >= 70?
-    op1=>operation: Print "A grade"
-    op2=>operation: Print "B grade"
-    op3=>operation: Print "C grade"
-    op4=>operation: Print "F grade"
-    end=>end: End
-    
-    st->init->cond1
-    cond1(yes, right)->op1->end
-    cond1(no, bottom)->cond2
-    cond2(yes, right)->op2->end
-    cond2(no, bottom)->cond3
-    cond3(yes, right)->op3->end
-    cond3(no, bottom)->op4(right)->end
-    `;
-    
-            // Navigation
-            document.addEventListener('DOMContentLoaded', function() {
-                // Tab switching
-                document.querySelectorAll('.tab-button').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const tab = this.getAttribute('data-tab');
-                        
-                        // Remove active class from all buttons and tabs
-                        document.querySelectorAll('.tab-button').forEach(btn => {
-                            btn.classList.remove('active');
-                        });
-                        document.querySelectorAll('.tab-content').forEach(content => {
-                            content.classList.remove('active');
-                        });
-                        
-                        // Add active class to selected button and tab
-                        this.classList.add('active');
-                        document.getElementById(tab).classList.add('active');
-    
-                        // Redraw flowcharts when switching to their tabs
-                        if (tab === 'chunk2') {
-                            setTimeout(() => {
-                                if (document.getElementById('if-else-flowchart')) {
-                                    document.getElementById('if-else-flowchart').innerHTML = '';
-                                    renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
-                                }
-                            }, 100);
-                        }
-                    });
+        st=>start: Start
+        init=>operation: grade = 75
+        cond1=>condition: grade >= 90?
+        cond2=>condition: grade >= 80?
+        cond3=>condition: grade >= 70?
+        op1=>operation: Print "A grade"
+        op2=>operation: Print "B grade"
+        op3=>operation: Print "C grade"
+        op4=>operation: Print "F grade"
+        end=>end: End
+        
+        st->init->cond1
+        cond1(yes, right)->op1->end
+        cond1(no, bottom)->cond2
+        cond2(yes, right)->op2->end
+        cond2(no, bottom)->cond3
+        cond3(yes, right)->op3->end
+        cond3(no, bottom)->op4(right)->end
+        `;
+        
+            // Function to check condition answers using the unified BucklesSystem
+            function checkConditionAnswer(questionNumber, answer, sectionIdentifier) {
+                const answerElement = document.getElementById(`condition-answer${questionNumber}`);
+                const activityId = `condition_question_${questionNumber}`;
+                let isCorrect = false;
+                let feedback = '';
+        
+                // Set correct answers for each question
+                const correctAnswers = {
+                    1: true,  // 5 + 5 == 10 is true
+                    2: false, // 7 < 3 is false
+                    3: true,  // 10 <= 10 is true
+                    4: false, // "Hello" == "hello" is false
+                    5: true,  // 20 != 15 is true
+                    6: false  // 5 * 2 >= 12 is false (10 >= 12)
+                };
+        
+                // Check if this is the first attempt
+                const isFirstAttempt = !BucklesSystem.isActivityAttempted(sectionIdentifier, activityId);
+                
+                // Mark as attempted
+                if (isFirstAttempt) {
+                    BucklesSystem.markActivityAttempted(sectionIdentifier, activityId);
+                }
+        
+                // Check if the answer is correct
+                isCorrect = (answer === correctAnswers[questionNumber]);
+        
+                // Prepare feedback message
+                if (isCorrect) {
+                    feedback = `<span style="color: #52c41a;"><i class="fas fa-check-circle"></i> Correct!</span> That's right.`;
+                    
+                    // Award a buckle using the unified buckles system (only on first attempt)
+                    if (isFirstAttempt && !BucklesSystem.isActivityCompleted(sectionIdentifier, activityId)) {
+                        BucklesSystem.awardBuckles(sectionIdentifier, activityId);
+                    }
+                } else {
+                    feedback = `<span style="color: #ff4d4f;"><i class="fas fa-times-circle"></i> Incorrect.</span> Try again.`;
+                }
+        
+                // Display feedback
+                answerElement.innerHTML = feedback;
+                answerElement.style.display = 'block';
+        
+                // Disable buttons to prevent multiple submissions if correct
+                if (isCorrect) {
+                    const trueBtn = document.querySelectorAll(`.true-btn`)[questionNumber - 1];
+                    const falseBtn = document.querySelectorAll(`.false-btn`)[questionNumber - 1];
+                    
+                    if (trueBtn && falseBtn) {
+                        trueBtn.disabled = true;
+                        falseBtn.disabled = true;
+                    }
+                }
+            }
+        
+            // Function to check multiple choice answers using the unified BucklesSystem
+            function checkMultipleChoice(questionNumber, answer, sectionIdentifier) {
+                const feedbackElement = document.getElementById(`feedback-q${questionNumber}`);
+                const activityId = `quiz_question_${questionNumber}`;
+                let correctAnswer = '';
+                let isCorrect = false;
+                
+                // Set correct answers for each question
+                switch(questionNumber) {
+                    case 1: correctAnswer = 'D'; break; // No need for umbrella, not too hot
+                    case 2: correctAnswer = 'B'; break; // 12 - 2 = 10
+                    case 3: correctAnswer = 'B'; break; // Score 85 is >= 80 so "Very good!"
+                    // Add more cases as needed
+                }
+                
+                // Check if this is the first attempt
+                const isFirstAttempt = !BucklesSystem.isActivityAttempted(sectionIdentifier, activityId);
+                
+                // Mark as attempted
+                if (isFirstAttempt) {
+                    BucklesSystem.markActivityAttempted(sectionIdentifier, activityId);
+                }
+                
+                // Check if answer is correct
+                isCorrect = (answer === correctAnswer);
+                
+                // Style all choices to show the correct answer
+                document.querySelectorAll(`.choice`).forEach(choice => {
+                    const choiceLetter = choice.querySelector('.choice-letter').textContent;
+                    if (choiceLetter === correctAnswer) {
+                        choice.classList.add('correct-choice');
+                    } else {
+                        choice.classList.remove('correct-choice');
+                    }
+                    choice.classList.remove('selected-choice');
                 });
                 
-                // Initialize conditional steps
-                document.getElementById('conditional-step-1').classList.add('active');
-                document.getElementById('conditional-step-2').classList.remove('active');
-                document.getElementById('conditional-step-3').classList.remove('active');
-                
-                document.getElementById('prev-conditional-btn').disabled = true;
-                document.getElementById('next-conditional-btn').disabled = false;
-                
-                // Render the if-else flowchart with a slight delay to ensure container is ready
-                setTimeout(() => {
-                    if (document.getElementById('if-else-flowchart')) {
-                        renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
+                // Style selected choice
+                let selectedChoice = null;
+                document.querySelectorAll('.choice').forEach(choice => {
+                    const letter = choice.querySelector('.choice-letter');
+                    if (letter && letter.textContent === answer) {
+                        selectedChoice = choice;
                     }
-                }, 100);
-                
-                // Initialize buckle counters
-                const conditionsBuckleScore = document.getElementById('conditions-buckle-score');
-                if (conditionsBuckleScore) {
-                    conditionsBuckleScore.textContent = getGlobalBuckles();
+                });
+                if (selectedChoice) {
+                    selectedChoice.classList.add('selected-choice');
                 }
                 
-                const traceBuckleScore = document.getElementById('trace-buckle-score');
-                if (traceBuckleScore) {
-                    traceBuckleScore.textContent = getGlobalBuckles();
+                // Prepare feedback
+                let feedback = '';
+                if (isCorrect) {
+                    feedback = `<div class="feedback-correct"><i class="fas fa-check-circle"></i> Correct! Well done.</div>`;
+                    
+                    // Award buckles if first attempt and not already completed
+                    if (isFirstAttempt && !BucklesSystem.isActivityCompleted(sectionIdentifier, activityId)) {
+                        // Award 2 buckles for quiz questions
+                        BucklesSystem.awardBuckles(sectionIdentifier, activityId, 2);
+                    }
+                } else {
+                    feedback = `<div class="feedback-incorrect"><i class="fas fa-times-circle"></i> Incorrect. The correct answer is ${correctAnswer}.</div>`;
                 }
-            });
+                
+                // Show feedback
+                feedbackElement.innerHTML = feedback;
+                feedbackElement.style.display = 'block';
+                
+                // Disable further selections if correct
+                if (isCorrect) {
+                    document.querySelectorAll(`.choice`).forEach(choice => {
+                        choice.style.pointerEvents = 'none';
+                    });
+                }
+            }
+        
+            // Conditional step by step navigation
+            let currentConditionalStep = 1;
+            const totalConditionalSteps = 3;
+            
+            function nextConditionalStep() {
+                if (currentConditionalStep < totalConditionalSteps) {
+                    // Hide current step
+                    document.getElementById(`conditional-step-${currentConditionalStep}`).classList.remove('active');
+                    
+                    // Show next step
+                    currentConditionalStep++;
+                    document.getElementById(`conditional-step-${currentConditionalStep}`).classList.add('active');
+                    
+                    // Update indicator and buttons
+                    document.getElementById('conditional-indicator').textContent = `Step ${currentConditionalStep} of ${totalConditionalSteps}`;
+                    document.getElementById('prev-conditional-btn').disabled = false;
+                    
+                    if (currentConditionalStep === totalConditionalSteps) {
+                        document.getElementById('next-conditional-btn').disabled = true;
+                    }
+                }
+            }
+            
+            function prevConditionalStep() {
+                if (currentConditionalStep > 1) {
+                    // Hide current step
+                    document.getElementById(`conditional-step-${currentConditionalStep}`).classList.remove('active');
+                    
+                    // Show previous step
+                    currentConditionalStep--;
+                    document.getElementById(`conditional-step-${currentConditionalStep}`).classList.add('active');
+                    
+                    // Update indicator and buttons
+                    document.getElementById('conditional-indicator').textContent = `Step ${currentConditionalStep} of ${totalConditionalSteps}`;
+                    document.getElementById('next-conditional-btn').disabled = false;
+                    
+                    if (currentConditionalStep === 1) {
+                        document.getElementById('prev-conditional-btn').disabled = true;
+                    }
+                }
+            }
+            
+            // Pass/Fail Interactive Demo
+            function changeScore(amount) {
+                const scoreElement = document.getElementById('test-score');
+                const codeScoreElement = document.getElementById('code-score');
+                const gradeOutputElement = document.getElementById('grade-output');
+                
+                let score = parseInt(scoreElement.innerText);
+                score += amount;
+                
+                // Keep score between 0 and 100
+                if (score < 0) score = 0;
+                if (score > 100) score = 100;
+                
+                // Update displayed score
+                scoreElement.innerText = score;
+                codeScoreElement.innerText = score;
+                
+                // Update grade
+                let result = '';
+                if (score >= 60) {
+                    result = 'Pass';
+                    gradeOutputElement.style.color = '#52c41a';
+                } else {
+                    result = 'Fail';
+                    gradeOutputElement.style.color = '#ff4d4f';
+                }
+                
+                gradeOutputElement.innerText = result;
+            }
+            
+            // Weather App Interactive Demo
+            function changeTemperature(amount) {
+                const tempElement = document.getElementById('weather-temp');
+                const codeTempElement = document.getElementById('code-temp');
+                const clothingOutputElement = document.getElementById('clothing-output');
+                
+                let temp = parseInt(tempElement.innerText);
+                temp += amount;
+                
+                // Keep temperature in a reasonable range
+                if (temp < -10) temp = -10;
+                if (temp > 40) temp = 40;
+                
+                // Update displayed temperature
+                tempElement.innerText = temp;
+                codeTempElement.innerText = temp;
+                
+                // Update clothing recommendation
+                let clothing = '';
+                if (temp > 25) {
+                    clothing = 'T-shirt and shorts';
+                    clothingOutputElement.style.color = '#fa8c16';
+                } else if (temp > 15) {
+                    clothing = 'Light jacket';
+                    clothingOutputElement.style.color = '#52c41a';
+                } else if (temp > 5) {
+                    clothing = 'Warm coat';
+                    clothingOutputElement.style.color = '#1890ff';
+                } else {
+                    clothing = 'Heavy winter coat and hat';
+                    clothingOutputElement.style.color = '#722ed1';
+                }
+                
+                clothingOutputElement.innerText = clothing;
+            }
             
             // Function to render flowcharts with improved styling
             function renderFlowchart(containerId, code) {
@@ -1376,241 +1569,56 @@
                     element.style.display = 'none';
                 }
             }
-            
-            // Conditional step by step navigation
-            let currentConditionalStep = 1;
-            const totalConditionalSteps = 3;
-            
-            function nextConditionalStep() {
-                if (currentConditionalStep < totalConditionalSteps) {
-                    // Hide current step
-                    document.getElementById(`conditional-step-${currentConditionalStep}`).classList.remove('active');
-                    
-                    // Show next step
-                    currentConditionalStep++;
-                    document.getElementById(`conditional-step-${currentConditionalStep}`).classList.add('active');
-                    
-                    // Update indicator and buttons
-                    document.getElementById('conditional-indicator').textContent = `Step ${currentConditionalStep} of ${totalConditionalSteps}`;
-                    document.getElementById('prev-conditional-btn').disabled = false;
-                    
-                    if (currentConditionalStep === totalConditionalSteps) {
-                        document.getElementById('next-conditional-btn').disabled = true;
-                    }
-                }
-            }
-            
-            function prevConditionalStep() {
-                if (currentConditionalStep > 1) {
-                    // Hide current step
-                    document.getElementById(`conditional-step-${currentConditionalStep}`).classList.remove('active');
-                    
-                    // Show previous step
-                    currentConditionalStep--;
-                    document.getElementById(`conditional-step-${currentConditionalStep}`).classList.add('active');
-                    
-                    // Update indicator and buttons
-                    document.getElementById('conditional-indicator').textContent = `Step ${currentConditionalStep} of ${totalConditionalSteps}`;
-                    document.getElementById('next-conditional-btn').disabled = false;
-                    
-                    if (currentConditionalStep === 1) {
-                        document.getElementById('prev-conditional-btn').disabled = true;
-                    }
-                }
-            }
-            
-            // Function to check if buckles are already awarded for conditions
-            function getGlobalBuckles() {
-                const totalBuckles = localStorage.getItem('totalPythonBuckles') || '0';
-                return parseInt(totalBuckles);
-            }
-            
-            function updateGlobalBuckles(amount) {
-                let total = getGlobalBuckles();
-                total += amount;
-                localStorage.setItem('totalPythonBuckles', total.toString());
+        
+            document.addEventListener('DOMContentLoaded', function() {
+                // Create buckle counters for each section using the unified system
+                BucklesSystem.createBuckleCounter('buckle-container', 'absolute');
+                BucklesSystem.createBuckleCounter('quiz-buckle-container', 'absolute');
                 
-                // Update all buckle displays on the page
-                document.querySelectorAll('#conditions-buckle-score, #trace-buckle-score').forEach(el => {
-                    el.textContent = total;
+                // Tab switching
+                document.querySelectorAll('.tab-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const tab = this.getAttribute('data-tab');
+                        
+                        // Remove active class from all buttons and tabs
+                        document.querySelectorAll('.tab-button').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        document.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+                        
+                        // Add active class to selected button and tab
+                        this.classList.add('active');
+                        document.getElementById(tab).classList.add('active');
+        
+                        // Redraw flowcharts when switching to their tabs
+                        if (tab === 'chunk2') {
+                            setTimeout(() => {
+                                if (document.getElementById('if-else-flowchart')) {
+                                    document.getElementById('if-else-flowchart').innerHTML = '';
+                                    renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
+                                }
+                            }, 100);
+                        }
+                    });
                 });
-            }
-            
-            // Show buckle animation
-            function showBuckleAnimation(isDouble = false) {
-                const animationId = isDouble ? 'conditionals-double-buckle-animation' : 'conditionals-buckle-animation';
-                const animation = document.getElementById(animationId);
-                if (animation) {
-                    animation.style.display = 'block';
-                    
-                    // Play animation and then hide
-                    setTimeout(() => {
-                        animation.style.display = 'none';
-                    }, 2000);
-                }
-            }
-            
-            // True/False condition checking with buckles
-            function checkConditionAnswer(questionNum, isTrue, pageIdentifier = 'conditionals') {
-                const answerElement = document.getElementById(`condition-answer${questionNum}`);
-                if (!answerElement) return;
                 
-                // Check if this is the first attempt
-                const attemptKey = `attempted_${pageIdentifier}_condition_q${questionNum}`;
-                const isFirstAttempt = !localStorage.getItem(attemptKey);
+                // Initialize conditional steps
+                document.getElementById('conditional-step-1').classList.add('active');
+                document.getElementById('conditional-step-2').classList.remove('active');
+                document.getElementById('conditional-step-3').classList.remove('active');
                 
-                // Mark as attempted immediately
-                localStorage.setItem(attemptKey, 'true');
+                document.getElementById('prev-conditional-btn').disabled = true;
+                document.getElementById('next-conditional-btn').disabled = false;
                 
-                let isCorrect = false;
-                
-                // Define correct answers
-                if (questionNum === 1 && isTrue) isCorrect = true;   // 5 + 5 == 10 is True
-                if (questionNum === 2 && !isTrue) isCorrect = true;  // 7 < 3 is False
-                if (questionNum === 3 && isTrue) isCorrect = true;   // 10 <= 10 is True
-                if (questionNum === 4 && !isTrue) isCorrect = true;  // "Hello" == "hello" is False
-                if (questionNum === 5 && isTrue) isCorrect = true;   // 20 != 15 is True
-                if (questionNum === 6 && !isTrue) isCorrect = true;  // 5 * 2 >= 12 is False
-                
-                if (isCorrect) {
-                    answerElement.innerHTML = '<i class="fas fa-check-circle" style="color: var(--good-color); margin-right: 10px;"></i> Correct!';
-                    answerElement.style.color = 'var(--good-color)';
-                    
-                    // Award buckle if first attempt
-                    if (isFirstAttempt) {
-                        // Save completion status
-                        const completedKey = `completed_${pageIdentifier}_condition_q${questionNum}`;
-                        if (!localStorage.getItem(completedKey)) {
-                            updateGlobalBuckles(1);
-                            localStorage.setItem(completedKey, 'true');
-                            showBuckleAnimation();
-                        }
+                // Render the if-else flowchart with a slight delay to ensure container is ready
+                setTimeout(() => {
+                    if (document.getElementById('if-else-flowchart')) {
+                        renderFlowchart('if-else-flowchart', ifElseFlowchartCode);
                     }
-                } else {
-                    answerElement.innerHTML = '<i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 10px;"></i> Incorrect! Try again.';
-                    answerElement.style.color = 'var(--bad-color)';
-                }
-                
-                answerElement.style.display = 'block';
-            }
-            
-            // Multiple choice questions for tracing
-            function checkMultipleChoice(questionNum, answer, pageIdentifier = 'conditionals') {
-                const feedbackElement = document.getElementById(`feedback-q${questionNum}`);
-                if (!feedbackElement) return;
-                
-                // Check if this is the first attempt
-                const attemptKey = `attempted_${pageIdentifier}_trace_q${questionNum}`;
-                const isFirstAttempt = !localStorage.getItem(attemptKey);
-                
-                // Mark as attempted immediately
-                localStorage.setItem(attemptKey, 'true');
-                
-                let isCorrect = false;
-                let correctAnswer = '';
-                let explanation = '';
-                
-                // Define correct answers
-                if (questionNum === 1 && answer === 'D') {
-                    isCorrect = true;
-                    correctAnswer = 'D';
-                    explanation = 'is_raining is False, so the first else block runs. temperature (22) is not greater than 25, so the second else block runs.';
-                } else if (questionNum === 2 && answer === 'B') {
-                    isCorrect = true;
-                    correctAnswer = 'B';
-                    explanation = 'age (14) is not less than 13, so the else block runs, which reduces the price by 2. The final price is $10.';
-                } else if (questionNum === 3 && answer === 'B') {
-                    isCorrect = true; 
-                    correctAnswer = 'B';
-                    explanation = 'score (85) is not >= 90, so it checks the next condition in the else block. Score is >= 80, so "Very good!" is printed.';
-                }
-                
-                // Show feedback
-                if (isCorrect) {
-                    feedbackElement.innerHTML = `<div style="color: var(--good-color);"><i class="fas fa-check-circle" style="margin-right: 10px;"></i> <strong>Correct!</strong> ${explanation}</div>`;
-                    
-                    // Award TWO buckles if first attempt
-                    if (isFirstAttempt) {
-                        // Save completion status
-                        const completedKey = `completed_${pageIdentifier}_trace_q${questionNum}`;
-                        if (!localStorage.getItem(completedKey)) {
-                            updateGlobalBuckles(2); // Award 2 buckles!
-                            localStorage.setItem(completedKey, 'true');
-                            showBuckleAnimation(true); // Show double buckle animation
-                        }
-                    }
-                } else {
-                    feedbackElement.innerHTML = `<div style="color: var(--bad-color);"><i class="fas fa-times-circle" style="margin-right: 10px;"></i> <strong>Incorrect!</strong> The correct answer is ${correctAnswer}. ${explanation}</div>`;
-                }
-                
-                feedbackElement.style.display = 'block';
-            }
-            
-            // Pass/Fail Interactive Demo
-            function changeScore(amount) {
-                const scoreElement = document.getElementById('test-score');
-                const codeScoreElement = document.getElementById('code-score');
-                const gradeOutputElement = document.getElementById('grade-output');
-                
-                let score = parseInt(scoreElement.innerText);
-                score += amount;
-                
-                // Keep score between 0 and 100
-                if (score < 0) score = 0;
-                if (score > 100) score = 100;
-                
-                // Update displayed score
-                scoreElement.innerText = score;
-                codeScoreElement.innerText = score;
-                
-                // Update grade
-                let result = '';
-                if (score >= 60) {
-                    result = 'Pass';
-                    gradeOutputElement.style.color = '#52c41a';
-                } else {
-                    result = 'Fail';
-                    gradeOutputElement.style.color = '#ff4d4f';
-                }
-                
-                gradeOutputElement.innerText = result;
-            }
-            
-            // Weather App Interactive Demo
-            function changeTemperature(amount) {
-                const tempElement = document.getElementById('weather-temp');
-                const codeTempElement = document.getElementById('code-temp');
-                const clothingOutputElement = document.getElementById('clothing-output');
-                
-                let temp = parseInt(tempElement.innerText);
-                temp += amount;
-                
-                // Keep temperature in a reasonable range
-                if (temp < -10) temp = -10;
-                if (temp > 40) temp = 40;
-                
-                // Update displayed temperature
-                tempElement.innerText = temp;
-                codeTempElement.innerText = temp;
-                
-                // Update clothing recommendation
-                let clothing = '';
-                if (temp > 25) {
-                    clothing = 'T-shirt and shorts';
-                    clothingOutputElement.style.color = '#fa8c16';
-                } else if (temp > 15) {
-                    clothing = 'Light jacket';
-                    clothingOutputElement.style.color = '#52c41a';
-                } else if (temp > 5) {
-                    clothing = 'Warm coat';
-                    clothingOutputElement.style.color = '#1890ff';
-                } else {
-                    clothing = 'Heavy winter coat and hat';
-                    clothingOutputElement.style.color = '#722ed1';
-                }
-                
-                clothingOutputElement.innerText = clothing;
-            }
+                }, 100);
+            });
         </script>
     </body>
     </html>

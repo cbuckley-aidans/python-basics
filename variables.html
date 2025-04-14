@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Include the quiz.js file -->
-    <script src="quiz.js"></script>
+    <!-- Include the unified buckles system -->
+    <script src="buckles.js"></script>
     <!-- Favicon Icons -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -17,6 +17,363 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <style>
+        /* Additional CSS for new components */
+        
+        /* Styling for terminal simulation */
+        .terminal-simulation {
+            background-color: #272822;
+            color: #f8f8f2;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+
+        .terminal-prompt {
+            color: #f8f8f2;
+            margin-bottom: 5px;
+        }
+
+        .terminal-output {
+            color: #a6e22e;
+        }
+
+        .typing-cursor {
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Debug challenge styling */
+        .debug-challenge {
+            background-color: rgba(0,0,0,0.03);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .debug-challenge-header {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .debug-challenge-hint, 
+        .debug-challenge-solution {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--accent-color);
+            padding: 8px 15px;
+            margin-top: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-color);
+        }
+
+        .debug-challenge-hint:hover, 
+        .debug-challenge-solution:hover {
+            background-color: rgba(0, 38, 84, 0.1);
+        }
+
+        .debug-challenge-hint-content,
+        .debug-challenge-solution-content {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+        }
+
+        .debug-challenge-hint-content {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+        }
+
+        .debug-challenge-solution-content {
+            background-color: rgba(82, 196, 26, 0.1);
+            border-left: 4px solid #52c41a;
+        }
+
+        /* Mini challenge styling */
+        .challenge-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+
+        .challenge-card {
+            background-color: rgba(0,0,0,0.03);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .challenge-header {
+            background-color: var(--chew-color);
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+        }
+
+        .challenge-content {
+            padding: 20px;
+        }
+
+        .challenge-example {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+        }
+        
+        /* Duolingo-style quiz */
+        .duolingo-container {
+            background-color: #f5f5f5;
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+        
+        .duolingo-question {
+            text-align: center;
+        }
+        
+        .question-number {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .question-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        
+        .question-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .option-btn {
+            background-color: white;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 15px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+        
+        .option-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .duolingo-feedback {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        .duolingo-feedback.correct {
+            background-color: rgba(82, 196, 26, 0.1);
+            border: 1px solid #52c41a;
+        }
+        
+        .duolingo-feedback.incorrect {
+            background-color: rgba(255, 77, 79, 0.1);
+            border: 1px solid #ff4d4f;
+        }
+        
+        .feedback-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .correct .feedback-icon {
+            color: #52c41a;
+        }
+        
+        .incorrect .feedback-icon {
+            color: #ff4d4f;
+        }
+        
+        .feedback-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .continue-btn, .restart-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        
+        .continue-btn:hover, .restart-btn:hover {
+            background-color: #001f54;
+        }
+        
+        .duolingo-result {
+            text-align: center;
+        }
+        
+        .result-icon {
+            font-size: 3em;
+            color: #f5b301;
+            margin-bottom: 20px;
+        }
+        
+        .result-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        
+        /* Code building exercise */
+        .build-sentence {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: #f5f5f5;
+        }
+        
+        .sentence-part {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            background-color: white;
+            border: 1px solid var(--outline-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sentence-part:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .sentence-result {
+            min-height: 60px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: rgba(0, 38, 84, 0.05);
+            border: 1px dashed var(--outline-color);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .result-part {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            background-color: white;
+            border: 1px solid var(--outline-color);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .result-part:hover::after {
+            content: "×";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff4d4f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .feedback-area {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            min-height: 60px;
+        }
+        
+        .feedback-area.correct {
+            background-color: rgba(82, 196, 26, 0.1);
+            border-left: 4px solid #52c41a;
+        }
+        
+        .feedback-area.incorrect {
+            background-color: rgba(255, 77, 79, 0.1);
+            border-left: 4px solid #ff4d4f;
+        }
+        
+        .slide-animation {
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Buckle animation */
+        .buckle-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .buckle-animation img {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .shine {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            animation: shine 1s forwards;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+        
+        .buckle-counter {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0,0,0,0.05);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+    </style>
 </head>
 <body>
     <!-- Sidebar Navigation -->
@@ -54,6 +411,14 @@
             <button class="tab-button" data-tab="chew3">
                 <i class="fas fa-utensils"></i>
                 CHEW 3
+            </button>
+            <button class="tab-button" data-tab="chunk4">
+                <i class="fas fa-cube"></i>
+                CHUNK 4
+            </button>
+            <button class="tab-button" data-tab="chew4">
+                <i class="fas fa-utensils"></i>
+                CHEW 4
             </button>
         </div>
     </aside>
@@ -416,6 +781,7 @@
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">2</div>
                         <h3>Variable Quiz <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
+                        <div id="quiz-buckle-container"></div>
                     </div>
                     
                     <div id="quiz-container" class="duolingo-container"></div>
@@ -670,7 +1036,6 @@ counter = counter + 1
                             <div class="sentence-part highlight-operator" data-value="=">=</div>
                             <div class="sentence-part highlight-value" data-value='"Alex"'>"Alex"</div>
                             <div class="sentence-part highlight-value" data-value="Alex">Alex</div>
-                            <div class="sentence-part highlight-operator" data-value=":">=</div>
                         </div>
                         
                         <p>Your statement:</p>
@@ -755,9 +1120,373 @@ print("I am " + str(age) + " years old.")
             </div>
         </section>
 
-        <!-- CHUNK 3: Using Variables in Simple Problems -->
+        <!-- CHUNK 3: Getting Input from Users -->
         <section id="chunk3" class="tab-content dark-section">
-            <h1>CHUNK 3: USING VARIABLES IN PROBLEMS <i class="fas fa-tools" style="margin-left: 15px;"></i></h1>
+            <h1>CHUNK 3: GETTING INPUT & USING F-STRINGS <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Getting Input from Users</h3>
+                
+                <p>So far, we've created variables with values we already know. But often, we want our programs to get information from the user. This is where the <code>input()</code> function comes in!</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Using input() <i class="fas fa-keyboard" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">The <code>input()</code> function pauses your program and waits for the user to type something:</p>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Ask the user for their name</span>
+<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"What is your name? "</span><span class="highlight-operator">)</span>
+
+<span class="code-comment"># Use the entered name in a greeting</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello, "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">name</span> <span class="highlight-operator">+</span> <span class="highlight-value">"!"</span><span class="highlight-operator">)</span>
+</div>
+                    
+                    <div style="display: flex; flex-direction: column; margin-top: 25px; background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius);">
+                        <p style="margin: 0 0 15px 0;"><i class="fas fa-terminal" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Program Output (if user types "Jamie"):</strong></p>
+                        <div class="result-display">
+                            What is your name? Jamie<br>
+                            Hello, Jamie!
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The <code>input()</code> function can include a prompt message that will be shown to the user.</p>
+                    </div>
+                </div>
+                
+                <!-- Interactive input example -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>How input() Works <i class="fas fa-magic" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="variable-animation" style="padding: 30px; text-align: center;">
+                        <div class="code-step-container">
+                            <div class="code-step-header">
+                                <span>Input Function in Action</span>
+                                <span id="input-step-indicator">Step 1 of 3</span>
+                            </div>
+                            
+                            <div class="code-step-content">
+                                <!-- Input Step 1 -->
+                                <div id="input-step-1" class="variable-update-step active">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active">user_age = input("How old are you? ")</div>
+
+<span class="code-comment"># This displays the prompt "How old are you? "</span>
+<span class="code-comment"># And waits for the user to type something</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-prompt">How old are you? <span class="typing-cursor">|</span></p>
+                                        </div>
+                                        <p style="margin-top: 15px; text-align: center;">The program is waiting for the user to enter their age</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Input Step 2 -->
+                                <div id="input-step-2" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active">user_age = input("How old are you? ")</div>
+
+<span class="code-comment"># The user typed "12" and pressed Enter</span>
+<span class="code-comment"># This value is now stored in the user_age variable</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-prompt">How old are you? 12</p>
+                                        </div>
+                                        <div class="computer-memory" style="margin-top: 20px;">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">user_age</div>
+                                                <div class="memory-item-value">"12"</div>
+                                            </div>
+                                        </div>
+                                        <p style="margin-top: 15px; text-align: center; color: #ff4d4f; font-weight: bold;">Note: input() always stores values as strings!</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Input Step 3 -->
+                                <div id="input-step-3" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<span class="highlight-variable">user_age</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"How old are you? "</span><span class="highlight-operator">)</span>
+<div class="execution-line active">print("Next year you will be", int(user_age) + 1, "years old")</div>
+
+<span class="code-comment"># We convert the string "12" to the number 12</span>
+<span class="code-comment"># Then add 1 to get 13</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-prompt">How old are you? 12</p>
+                                            <p class="terminal-output">Next year you will be 13 years old</p>
+                                        </div>
+                                        <div style="margin-top: 15px; padding: 15px; background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); border-left: 4px solid #52c41a; text-align: left;">
+                                            <p style="margin: 0;"><strong>Key Point:</strong> We had to convert the string "12" to the number 12 using <code>int()</code> before we could add 1 to it!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button id="prev-input-btn" class="step-btn" onclick="prevInputStep()" disabled>
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="next-input-btn" class="step-btn" onclick="nextInputStep()">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- F-string section (one-column layout) -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Using F-Strings <i class="fas fa-quote-right" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Python provides a modern way to combine text and variables called <strong>f-strings</strong>:</p>
+                    
+                    <div class="interactive-card" style="margin-bottom: 20px;">
+                        <h4><i class="fas fa-code" style="margin-right: 10px;"></i> Old Way (String Concatenation)</h4>
+                        <div class="code-block" style="text-align: left;">
+<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">12</span>
+
+<span class="code-comment"># Using + to join strings (concatenation)</span>
+<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Hello, "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">name</span> <span class="highlight-operator">+</span> <span class="highlight-value">"! You are "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">str</span><span class="highlight-operator">(</span><span class="highlight-variable">age</span><span class="highlight-operator">)</span> <span class="highlight-operator">+</span> <span class="highlight-value">" years old."</span>
+                        </div>
+                        <div style="background-color: rgba(255, 77, 79, 0.1); padding: 15px; border-radius: var(--border-radius); margin-top: 20px; text-align: left;">
+                            <p style="margin: 0;"><i class="fas fa-exclamation-triangle" style="color: #ff4d4f; margin-right: 10px;"></i> Notice that we need to convert the number to a string using <code>str(age)</code> before we can add it to other strings.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card">
+                        <h4><i class="fas fa-code" style="margin-right: 10px;"></i> New Way (F-Strings)</h4>
+                        <div class="code-block" style="text-align: left;">
+<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">12</span>
+
+<span class="code-comment"># Using f-strings (notice the f before the quote)</span>
+<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">f"Hello, {name}! You are {age} years old."</span>
+                        </div>
+                        <div style="background-color: rgba(82, 196, 26, 0.1); padding: 15px; border-radius: var(--border-radius); margin-top: 20px; text-align: left;">
+                            <p style="margin: 0;"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> With f-strings, we just put variables inside <code>{curly braces}</code>. Python handles the conversion automatically!</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px; display: flex;">
+                        <i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 15px; font-size: 1.5em; margin-top: 3px;"></i>
+                        <div>
+                            <p style="margin: 0 0 10px 0;"><strong>F-string tips:</strong></p>
+                            <ul style="margin: 0; padding-left: 20px;">
+                                <li>Start with the letter <code>f</code> before the opening quote</li>
+                                <li>Put variables or expressions inside <code>{}</code> curly braces</li>
+                                <li>Works with both single and double quotes: <code>f'like this'</code> or <code>f"like this"</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- String vs Integer section (one-column layout) -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">4</div>
+                        <h3>Strings vs Integers <i class="fas fa-exchange-alt" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">It's important to understand the difference between text (strings) and numbers (integers):</p>
+                    
+                    <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05); margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
+                                <i class="fas fa-font"></i>
+                            </div>
+                            <h4 style="margin: 0;">STRINGS</h4>
+                        </div>
+                        <ul style="text-align: left; padding-left: 20px;">
+                            <li>Text values in quotes: <code>"hello"</code>, <code>'42'</code></li>
+                            <li>Can be joined using <code>+</code>: <code>"hello" + "world"</code></li>
+                            <li>Cannot be used in math operations</li>
+                            <li>The <code>input()</code> function always returns strings</li>
+                        </ul>
+                        <div class="code-block" style="text-align: left; margin-top: 15px;">
+<span class="highlight-variable">a</span> <span class="highlight-operator">=</span> <span class="highlight-value">"5"</span>  <span class="code-comment"># String (not a number!)</span>
+<span class="highlight-variable">b</span> <span class="highlight-operator">=</span> <span class="highlight-value">"10"</span>  <span class="code-comment"># String (not a number!)</span>
+<span class="highlight-variable">result</span> <span class="highlight-operator">=</span> <span class="highlight-variable">a</span> <span class="highlight-operator">+</span> <span class="highlight-variable">b</span>  <span class="code-comment"># "510" (joined as text)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05);">
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h4 style="margin: 0;">INTEGERS</h4>
+                        </div>
+                        <ul style="text-align: left; padding-left: 20px;">
+                            <li>Numeric values without quotes: <code>42</code>, <code>-7</code></li>
+                            <li>Can be used in calculations: <code>5 + 10</code></li>
+                            <li>Cannot be directly combined with strings</li>
+                            <li>Must convert strings to integers using <code>int()</code></li>
+                        </ul>
+                        <div class="code-block" style="text-align: left; margin-top: 15px;">
+<span class="highlight-variable">a</span> <span class="highlight-operator">=</span> <span class="highlight-value">5</span>  <span class="code-comment"># Integer (number)</span>
+<span class="highlight-variable">b</span> <span class="highlight-operator">=</span> <span class="highlight-value">10</span>  <span class="code-comment"># Integer (number)</span>
+<span class="highlight-variable">result</span> <span class="highlight-operator">=</span> <span class="highlight-variable">a</span> <span class="highlight-operator">+</span> <span class="highlight-variable">b</span>  <span class="code-comment"># 15 (added as numbers)</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; background-color: rgba(255, 77, 79, 0.1); padding: 20px; border-radius: var(--border-radius); border-left: 4px solid #ff4d4f;">
+                        <h4 style="margin-top: 0;"><i class="fas fa-exclamation-triangle" style="color: #ff4d4f; margin-right: 10px;"></i> Common Error: Type Mismatch</h4>
+                        <div class="code-block" style="text-align: left; margin: 15px 0;">
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"Enter your age: "</span><span class="highlight-operator">)</span>  <span class="code-comment"># User enters "14"</span>
+<span class="highlight-variable">next_year</span> <span class="highlight-operator">=</span> <span class="highlight-variable">age</span> <span class="highlight-operator">+</span> <span class="highlight-value">1</span>  <span class="code-comment"># ERROR! Cannot add 1 to a string</span>
+                        </div>
+                        <p>This code will cause a <strong>TypeError</strong> because we're trying to add a number to a string.</p>
+                    </div>
+                    
+                    <div style="margin-top: 20px; background-color: rgba(82, 196, 26, 0.1); padding: 20px; border-radius: var(--border-radius); border-left: 4px solid #52c41a;">
+                        <h4 style="margin-top: 0;"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> The Fix: Type Conversion</h4>
+                        <div class="code-block" style="text-align: left; margin: 15px 0;">
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"Enter your age: "</span><span class="highlight-operator">)</span>  <span class="code-comment"># User enters "14"</span>
+<span class="highlight-variable">age_as_number</span> <span class="highlight-operator">=</span> <span class="highlight-variable">int</span><span class="highlight-operator">(</span><span class="highlight-variable">age</span><span class="highlight-operator">)</span>  <span class="code-comment"># Convert "14" to 14</span>
+<span class="highlight-variable">next_year</span> <span class="highlight-operator">=</span> <span class="highlight-variable">age_as_number</span> <span class="highlight-operator">+</span> <span class="highlight-value">1</span>  <span class="code-comment"># Now we can add 1, result is 15</span>
+                        </div>
+                        <p>By converting the string to an integer first with <code>int()</code>, we can perform the addition correctly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 3: Code Building Exercises and Quiz -->
+        <section id="chew3" class="tab-content light-section">
+            <h1>CHEW 3: INPUT & TYPE CONVERSION PRACTICE <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                
+                <h3>Practice Using Input and Type Conversion</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using input() to get user input</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Learn how to convert between strings and numbers</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create f-strings with variables</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Build Input and Conversion Code <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
+                        <div class="buckle-counter input-conversion-buckle-counter" style="position: absolute; top: 20px; right: 20px;">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
+                                 alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
+                            <span id="input-conversion-buckle-score">0</span>
+                        </div>
+                    </div>
+                    
+                    <p>Click on the code pieces in the correct order to create valid code for input and conversion.</p>
+                    
+                    <div class="interactive-activity">
+                        <h4>Statement 1: Get user input and store in a variable</h4>
+                        <p>Choose the correct parts to create code that asks for the user's age:</p>
+                        
+                        <div class="build-sentence" id="input1-parts">
+                            <div class="sentence-part highlight-variable" data-value="age">age</div>
+                            <div class="sentence-part highlight-operator" data-value="=">=</div>
+                            <div class="sentence-part highlight-variable" data-value="input">input</div>
+                            <div class="sentence-part highlight-operator" data-value="(">(</div>
+                            <div class="sentence-part highlight-value" data-value='"Enter your age: "'>"Enter your age: "</div>
+                            <div class="sentence-part highlight-operator" data-value=")">)</div>
+                            <div class="sentence-part highlight-variable" data-value="print">print</div>
+                        </div>
+                        
+                        <p>Your statement:</p>
+                        <div class="sentence-result" id="input1-result"></div>
+                        
+                        <div class="feedback-area" id="input1-feedback"></div>
+                    </div>
+                    
+                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="input2-container">
+                        <h4>Statement 2: Convert string to integer</h4>
+                        <p>Choose the correct parts to convert the input string to an integer:</p>
+                        
+                        <div class="build-sentence" id="input2-parts">
+                            <div class="sentence-part highlight-variable" data-value="age_number">age_number</div>
+                            <div class="sentence-part highlight-operator" data-value="=">=</div>
+                            <div class="sentence-part highlight-variable" data-value="int">int</div>
+                            <div class="sentence-part highlight-operator" data-value="(">(</div>
+                            <div class="sentence-part highlight-variable" data-value="age">age</div>
+                            <div class="sentence-part highlight-operator" data-value=")">)</div>
+                            <div class="sentence-part highlight-variable" data-value="str">str</div>
+                        </div>
+                        
+                        <p>Your statement:</p>
+                        <div class="sentence-result" id="input2-result"></div>
+                        
+                        <div class="feedback-area" id="input2-feedback"></div>
+                    </div>
+                    
+                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="input3-container">
+                        <h4>Statement 3: Create an f-string using variables</h4>
+                        <p>Choose the correct parts to create an f-string that uses the age variable:</p>
+                        
+                        <div class="build-sentence" id="input3-parts">
+                            <div class="sentence-part highlight-variable" data-value="message">message</div>
+                            <div class="sentence-part highlight-operator" data-value="=">=</div>
+                            <div class="sentence-part highlight-variable" data-value="f">f</div>
+                            <div class="sentence-part highlight-value" data-value='"You will be {'>"You will be {</div>
+                            <div class="sentence-part highlight-variable" data-value="age_number">age_number</div>
+                            <div class="sentence-part highlight-value" data-value='+ 1} next year"'>+ 1} next year"</div>
+                            <div class="sentence-part highlight-operator" data-value="+">+</div>
+                        </div>
+                        
+                        <p>Your statement:</p>
+                        <div class="sentence-result" id="input3-result"></div>
+                        
+                        <div class="feedback-area" id="input3-feedback"></div>
+                    </div>
+                </div>
+                
+                <!-- Quiz container that will be populated by JavaScript -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Input & Conversion Quiz <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
+                        <div class="buckle-counter input-quiz-buckle-counter" style="position: absolute; top: 20px; right: 20px;">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
+                                 alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
+                            <span id="input-quiz-buckle-score">0</span>
+                        </div>
+                    </div>
+                    
+                    <div id="input-quiz-container" class="duolingo-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 4: Using Variables in Simple Problems -->
+        <section id="chunk4" class="tab-content dark-section">
+            <h1>CHUNK 4: USING VARIABLES IN PROBLEMS <i class="fas fa-tools" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">TEACHER CHUNK</div>
@@ -910,9 +1639,9 @@ print(greeting)  <span class="code-comment"># Good morning, Alex!</span>
             </div>
         </section>
 
-        <!-- CHEW 3: Challenge Time! -->
-        <section id="chew3" class="tab-content light-section">
-            <h1>CHEW 3: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
+        <!-- CHEW 4: Challenge Time! -->
+        <section id="chew4" class="tab-content light-section">
+            <h1>CHEW 4: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
@@ -966,487 +1695,732 @@ print("The sum of", num1, "and", num2, "is", sum_result)
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">2</div>
-                        <h3>Extension Challenges <i class="fas fa-star" style="margin-left: 10px;"></i><i class="fas fa-star" style="margin-left: 5px;"></i></h3>
+                        <h3>Advanced Challenge <i class="fas fa-star" style="margin-left: 5px;"></i><i class="fas fa-star" style="margin-left: 5px;"></i></h3>
                     </div>
                     
-                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Try these additional challenges:</p>
-                    
-                    <div class="two-column-grid" style="margin-top: 0;">
-                        <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
-                            <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Challenge A: Complete Calculator</h4>
-                            <p>Extend your program to also calculate and display:</p>
-                            <ul style="list-style-type: none; padding-left: 0;">
-                                <li><i class="fas fa-minus" style="margin-right: 10px; color: var(--chew-color);"></i> Subtraction (num1 - num2)</li>
-                                <li><i class="fas fa-times" style="margin-right: 10px; color: var(--chew-color);"></i> Multiplication (num1 * num2)</li>
-                                <li><i class="fas fa-divide" style="margin-right: 10px; color: var(--chew-color);"></i> Division (num1 / num2)</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="interactive-card" style="border-left: 4px solid var(--chew-color);">
-                            <h4><i class="fas fa-level-up-alt" style="margin-right: 10px;"></i> Challenge B: Format Output</h4>
-                            <p>Format your output to look like this:</p>
-                            <div class="result-display" style="margin-top: 15px;">
-                                CALCULATOR RESULTS:<br>
-                                ------------------<br>
-                                7 + 3 = 10<br>
-                                7 - 3 = 4<br>
-                                7 * 3 = 21<br>
-                                7 / 3 = 2.33<br>
-                            </div>
-                        </div>
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <i class="fas fa-user-graduate" style="font-size: 5em; color: var(--chew-color);"></i>
                     </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Example Solution <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
-                
-                <div class="code-block">
-<span class="code-comment"># Complete calculator example</span>
-num1 = 7
-num2 = 3
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Write a program that:</p>
+                    
+                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">Gets two numbers from the user using input()</li>
+                        <li style="margin-bottom: 15px;">Converts the inputs to integers</li>
+                        <li style="margin-bottom: 15px;">Performs all four basic operations (+, -, *, /) on them</li>
+                        <li>Prints the results using f-strings</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Get input from the user</span>
+num1_str = input("Enter the first number: ")
+num2_str = input("Enter the second number: ")
 
-<span class="code-comment"># Calculate all operations</span>
+<span class="code-comment"># Convert inputs to integers</span>
+num1 = int(num1_str)
+num2 = int(num2_str)
+
+<span class="code-comment"># Perform calculations</span>
 sum_result = num1 + num2
 difference = num1 - num2
 product = num1 * num2
 quotient = num1 / num2
 
-<span class="code-comment"># Display results in a nice format</span>
-print("CALCULATOR RESULTS:")
-print("------------------")
-print(num1, "+", num2, "=", sum_result)
-print(num1, "-", num2, "=", difference)
-print(num1, "*", num2, "=", product)
-print(num1, "/", num2, "=", round(quotient, 2))  <span class="code-comment"># Round to 2 decimal places</span>
-                </div>
-                
-                <div class="result-display">
-                    CALCULATOR RESULTS:<br>
-                    ------------------<br>
-                    7 + 3 = 10<br>
-                    7 - 3 = 4<br>
-                    7 * 3 = 21<br>
-                    7 / 3 = 2.33
-                </div>
-                
-                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
-                    <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Key Points Learned</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables store data that can be referenced and changed</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Variables are created using the assignment operator (=)</li>
-                    </ul>
+<span class="code-comment"># Print the results with f-strings</span>
+print(f"{num1} + {num2} = {sum_result}")
+print(f"{num1} - {num2} = {difference}")
+print(f"{num1} * {num2} = {product}")
+print(f"{num1} / {num2} = {quotient}")
+                    </div>
+                    
+                    <div class="result-display">
+                        Enter the first number: 10<br>
+                        Enter the second number: 5<br>
+                        10 + 5 = 15<br>
+                        10 - 5 = 5<br>
+                        10 * 5 = 50<br>
+                        10 / 5 = 2.0
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <div class="buckle-animation" id="variables-buckle-animation" style="display: none;">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-             alt="Buckle" id="variables-buckle-img">
-        <div class="shine"></div>
-    </div>
-
-    <!-- JavaScript with Quiz Implementation -->
+    <!-- JavaScript for interactive elements -->
     <script>
-        // Navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab switching
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const tab = this.getAttribute('data-tab');
-                    
-                    // Remove active class from all buttons and tabs
-                    document.querySelectorAll('.tab-button').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    
-                    // Add active class to selected button and tab
-                    this.classList.add('active');
-                    document.getElementById(tab).classList.add('active');
-                });
+        // Tab navigation
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all tabs and buttons
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to selected tab and button
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                button.classList.add('active');
             });
-            
-            // Initialize counter and memory visualization variables
-            updateCounterDisplay();
-            
-            // Initialize buckle display for variable builder
-            const variableBuilderBuckleScore = document.getElementById('variable-builder-buckle-score');
-            if (variableBuilderBuckleScore) {
-                variableBuilderBuckleScore.textContent = getGlobalBuckles();
-            }
-            
-            // Initialize variable assignment steps
-            document.getElementById('var-step-1').classList.add('active');
-            document.getElementById('var-step-2').classList.remove('active');
-            document.getElementById('var-step-3').classList.remove('active');
-            
-            document.getElementById('prev-var-btn').disabled = true;
-            document.getElementById('next-var-btn').disabled = false;
-            
-            // Initialize memory visualization steps
-            document.getElementById('memory-step-1').classList.add('active');
-            document.getElementById('memory-step-2').classList.remove('active');
-            document.getElementById('memory-step-3').classList.remove('active');
-            
-            document.getElementById('prev-memory-btn').disabled = true;
-            document.getElementById('next-memory-btn').disabled = false;
-            
-            // Initialize quiz questions for variables quiz
-            const variableQuizQuestions = [
-                {
-                    type: "true-false",
-                    question: "In Python, variables must have values assigned when they are created.",
-                    correctAnswer: "true",
-                    feedbackCorrect: "Correct! Variables need to be assigned a value when they are created.",
-                    feedbackIncorrect: "Incorrect. In Python, you need to assign a value when creating a variable."
-                },
-                {
-                    type: "true-false",
-                    question: "The equals sign (=) in Python compares two values to see if they're equal.",
-                    correctAnswer: "false",
-                    feedbackCorrect: "Correct! In Python, the = sign is the assignment operator, not a comparison.",
-                    feedbackIncorrect: "Incorrect. The = sign in Python is the assignment operator, not for comparison (which would be ==)."
-                },
-                {
-                    type: "true-false",
-                    question: "The code <code>name = \"Alex\"</code> creates a variable that stores text.",
-                    correctAnswer: "true",
-                    feedbackCorrect: "Correct! This creates a variable called name that stores the text \"Alex\".",
-                    feedbackIncorrect: "Incorrect. This code does create a variable called name that stores the text \"Alex\"."
-                },
-                {
-                    type: "true-false",
-                    question: "Text values (strings) in Python don't need quotation marks.",
-                    correctAnswer: "false",
-                    feedbackCorrect: "Correct! Text values (strings) must be enclosed in quotation marks in Python.",
-                    feedbackIncorrect: "Incorrect. Text values (strings) must be enclosed in quotation marks in Python."
-                },
-                {
-                    type: "true-false",
-                    question: "The value of a variable can be changed after it's created.",
-                    correctAnswer: "true",
-                    feedbackCorrect: "Correct! Variables can be updated with new values during program execution.",
-                    feedbackIncorrect: "Incorrect. Variables can be updated with new values during program execution."
-                }
-            ];
-            
-            initializeQuiz(variableQuizQuestions, 'variables');
-            
-            // Initialize variable drag-drop activity
-            const correctVariables = {
-                "variable1": ["player_name", "=", '"Alex"'],
-                "variable2": ["score", "=", "100"],
-                "variable3": ["score", "=", "score", "+", "50"]
-            };
-            
-            // Create an object to manage the variable builder activities
-            function initVariableBuilder() {
-                // Apply syntax highlighting to all sentence parts
-                document.querySelectorAll('.sentence-part').forEach(part => {
-                    // Reset any existing highlight classes
-                    part.classList.remove('highlight-variable', 'highlight-operator', 'highlight-value', 'highlight-keyword');
-                    
-                    // Apply appropriate class based on content
-                    if (part.textContent === 'player_name' || part.textContent === 'score') {
-                        part.classList.add('highlight-variable');
-                    } else if (part.textContent === '=' || part.textContent === '+' || 
-                              part.textContent === '-' || part.textContent === '*' ||
-                              part.textContent === '/' || part.textContent === ':') {
-                        part.classList.add('highlight-operator');
-                    } else if (part.textContent.includes('"') || !isNaN(part.textContent)) {
-                        part.classList.add('highlight-value');
-                    }
-                });
-                
-                // Add click event handlers to the sentence parts
-                document.querySelectorAll('.sentence-part').forEach(part => {
-                    part.addEventListener('click', function() {
-                        if (!this.parentElement || !this.parentElement.id) return;
-                        
-                        const statementId = this.parentElement.id.split('-')[0];
-                        const resultContainer = document.getElementById(`${statementId}-result`);
-                        
-                        // Create a result part element
-                        const resultPart = document.createElement('div');
-                        resultPart.className = 'result-part';
-                        resultPart.textContent = this.textContent;
-                        resultPart.dataset.value = this.dataset.value;
-                        
-                        // Transfer the highlighting classes
-                        if (this.classList.contains('highlight-variable')) {
-                            resultPart.classList.add('highlight-variable');
-                        } else if (this.classList.contains('highlight-operator')) {
-                            resultPart.classList.add('highlight-operator');
-                        } else if (this.classList.contains('highlight-value')) {
-                            resultPart.classList.add('highlight-value');
-                        }
-                        
-                        // Add click event to remove the part when clicked
-                        resultPart.addEventListener('click', function() {
-                            this.remove();
-                            checkVariableStatement(statementId);
-                        });
-                        
-                        // Add the animation class
-                        resultPart.classList.add('slide-animation');
-                        
-                        // Append the result part to the result container
-                        resultContainer.appendChild(resultPart);
-                        
-                        // Check if the statement is correct
-                        checkVariableStatement(statementId);
-                    });
-                });
-            }
-            
-            // Function to check if a variable statement is correct
-            // Custom showBuckleAnimation function for variables page
-            function showBuckleAnimation() {
-                const animation = document.getElementById('variables-buckle-animation');
-                if (animation) {
-                    animation.style.display = 'block';
-                    
-                    // Play animation and then hide
-                    setTimeout(() => {
-                        animation.style.display = 'none';
-                    }, 2000);
-                }
-                
-                // Update all buckle displays on the page
-                const buckleCounts = document.querySelectorAll('#variable-builder-buckle-score');
-                buckleCounts.forEach(el => {
-                    el.textContent = getGlobalBuckles();
-                });
-            }
-            
-            function checkVariableStatement(statementId) {
-                const pageIdentifier = 'variables';  // Add this for buckle tracking
-                if (!correctVariables[statementId]) return;
-                
-                const resultContainer = document.getElementById(`${statementId}-result`);
-                const feedbackContainer = document.getElementById(`${statementId}-feedback`);
-                
-                if (!resultContainer || !feedbackContainer) return;
-                
-                const resultParts = Array.from(resultContainer.children);
-                
-                // Get the current statement as an array of values
-                const currentStatement = resultParts.map(part => part.dataset.value);
-                
-                // Get the expected statement length
-                const expectedLength = correctVariables[statementId].length;
-                
-                // Check if the statement matches the correct answer
-                const correct = arraysEqual(currentStatement, correctVariables[statementId]);
-                
-                // Only check for correctness if we have the exact required number of parts
-                if (resultParts.length === expectedLength) {
-                    if (correct) {
-                        feedbackContainer.className = 'feedback-area correct';
-                        feedbackContainer.innerHTML = `
-                            <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct!</h4>
-                            <p>You've created a valid variable statement.</p>
-                        `;
-                        
-                        // Award buckle if first time correct
-                        const completedKey = `completed_${pageIdentifier}_${statementId}`;
-                        if (!localStorage.getItem(completedKey)) {
-                            // Increment score
-                            updateGlobalBuckles(1);
-                            localStorage.setItem(completedKey, 'true');
-                            
-                            // Show buckle animation
-                            showBuckleAnimation();
-                        }
-                        
-                        // Show the next statement container after a delay
-                        setTimeout(() => {
-                            const nextNumber = parseInt(statementId.replace('variable', '')) + 1;
-                            const nextStatementId = `variable${nextNumber}-container`;
-                            const nextStatementContainer = document.getElementById(nextStatementId);
-                            
-                            if (nextStatementContainer) {
-                                nextStatementContainer.style.display = 'block';
-                            }
-                        }, 1000);
-                    } else {
-                        feedbackContainer.className = 'feedback-area incorrect';
-                        feedbackContainer.innerHTML = `
-                            <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Not Quite Right</h4>
-                            <p>Try again with the correct syntax.</p>
-                        `;
-                    }
-                } else {
-                    // Clear feedback if not the exact number of parts needed
-                    feedbackContainer.className = 'feedback-area';
-                    feedbackContainer.innerHTML = '';
-                }
-            }
-            
-            // Helper function to compare arrays
-            function arraysEqual(a, b) {
-                if (a.length !== b.length) return false;
-                for (let i = 0; i < a.length; i++) {
-                    if (a[i] !== b[i]) return false;
-                }
-                return true;
-            }
-            
-            // Initialize the variable builder with page identifier
-            initVariableBuilder('variables');
         });
         
-        // Counter demo functions
-        let counterValue = 0;
-        let previousValue = 0;
-        
-        function incrementCounter() {
-            previousValue = counterValue;
-            counterValue += 1;
-            updateCounterDisplay();
-            
-            var codeDisplay = document.getElementById('code-display');
-            if (codeDisplay) {
-                codeDisplay.innerHTML = `<span class="code-comment"># The current value of counter is ${previousValue}</span>\ncounter = counter + 1\n<span class="code-comment"># This means "take the current value of counter (${previousValue}),</span>\n<span class="code-comment"># add 1 to it (giving ${counterValue}),</span>\n<span class="code-comment"># then store the result back in counter"</span>`;
-            }
-            
-            animateCounterChange('increase');
-        }
-        
-        function decrementCounter() {
-            previousValue = counterValue;
-            counterValue -= 1;
-            updateCounterDisplay();
-            
-            var codeDisplay = document.getElementById('code-display');
-            if (codeDisplay) {
-                codeDisplay.innerHTML = `<span class="code-comment"># The current value of counter is ${previousValue}</span>\ncounter = counter - 1\n<span class="code-comment"># This means "take the current value of counter (${previousValue}),</span>\n<span class="code-comment"># subtract 1 from it (giving ${counterValue}),</span>\n<span class="code-comment"># then store the result back in counter"</span>`;
-            }
-            
-            animateCounterChange('decrease');
-        }
-        
-        function updateCounterDisplay() {
-            var valueElement = document.getElementById('counter-value');
-            var prevValueElement = document.getElementById('previous-counter-value');
-            
-            if (valueElement) {
-                valueElement.textContent = counterValue;
-                
-                // Update the previous value
-                if (prevValueElement) {
-                    prevValueElement.textContent = previousValue;
-                }
-                
-                // Update the type display as well
-                var typeElement = document.getElementById('counter-type');
-                if (typeElement) {
-                    typeElement.textContent = typeof(counterValue);
-                }
-            }
-        }
-        
-        function animateCounterChange(direction) {
-            var valueElement = document.getElementById('counter-value');
-            if (valueElement) {
-                valueElement.style.transition = 'transform 0.3s, color 0.3s';
-                valueElement.style.transform = 'scale(1.2)';
-                valueElement.style.color = direction === 'increase' ? 'var(--accent-color)' : 'var(--bad-color)';
-                
-                setTimeout(function() {
-                    valueElement.style.transform = 'scale(1)';
-                    valueElement.style.color = 'var(--text-color)';
-                }, 300);
-            }
-        }
-        
-        // Variable assignment step by step navigation
+        // Variable assignment steps navigation
         let currentVarStep = 1;
         const totalVarSteps = 3;
         
+        function updateVarStep() {
+            document.querySelectorAll('.variable-update-step').forEach(step => step.classList.remove('active'));
+            document.getElementById(`var-step-${currentVarStep}`).classList.add('active');
+            document.getElementById('var-assignment-indicator').textContent = `Step ${currentVarStep} of ${totalVarSteps}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-var-btn').disabled = (currentVarStep === 1);
+            document.getElementById('next-var-btn').disabled = (currentVarStep === totalVarSteps);
+        }
+        
         function nextVarStep() {
             if (currentVarStep < totalVarSteps) {
-                // Hide current step
-                document.getElementById(`var-step-${currentVarStep}`).classList.remove('active');
-                
-                // Show next step
                 currentVarStep++;
-                document.getElementById(`var-step-${currentVarStep}`).classList.add('active');
-                
-                // Update indicator and buttons
-                document.getElementById('var-assignment-indicator').textContent = `Step ${currentVarStep} of ${totalVarSteps}`;
-                document.getElementById('prev-var-btn').disabled = false;
-                
-                if (currentVarStep === totalVarSteps) {
-                    document.getElementById('next-var-btn').disabled = true;
-                }
+                updateVarStep();
             }
         }
         
         function prevVarStep() {
             if (currentVarStep > 1) {
-                // Hide current step
-                document.getElementById(`var-step-${currentVarStep}`).classList.remove('active');
-                
-                // Show previous step
                 currentVarStep--;
-                document.getElementById(`var-step-${currentVarStep}`).classList.add('active');
-                
-                // Update indicator and buttons
-                document.getElementById('var-assignment-indicator').textContent = `Step ${currentVarStep} of ${totalVarSteps}`;
-                document.getElementById('next-var-btn').disabled = false;
-                
-                if (currentVarStep === 1) {
-                    document.getElementById('prev-var-btn').disabled = true;
-                }
+                updateVarStep();
             }
         }
         
-        // Memory visualization step by step navigation
+        // Memory visualization steps navigation
         let currentMemoryStep = 1;
         const totalMemorySteps = 3;
         
+        function updateMemoryStep() {
+            document.querySelectorAll('#memory-step-1, #memory-step-2, #memory-step-3').forEach(step => step.classList.remove('active'));
+            document.getElementById(`memory-step-${currentMemoryStep}`).classList.add('active');
+            document.getElementById('memory-step-indicator').textContent = `Step ${currentMemoryStep} of ${totalMemorySteps}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-memory-btn').disabled = (currentMemoryStep === 1);
+            document.getElementById('next-memory-btn').disabled = (currentMemoryStep === totalMemorySteps);
+        }
+        
         function nextMemoryStep() {
             if (currentMemoryStep < totalMemorySteps) {
-                // Hide current step
-                document.getElementById(`memory-step-${currentMemoryStep}`).classList.remove('active');
-                
-                // Show next step
                 currentMemoryStep++;
-                document.getElementById(`memory-step-${currentMemoryStep}`).classList.add('active');
-                
-                // Update indicator and buttons
-                document.getElementById('memory-step-indicator').textContent = `Step ${currentMemoryStep} of ${totalMemorySteps}`;
-                document.getElementById('prev-memory-btn').disabled = false;
-                
-                if (currentMemoryStep === totalMemorySteps) {
-                    document.getElementById('next-memory-btn').disabled = true;
-                }
+                updateMemoryStep();
             }
         }
         
         function prevMemoryStep() {
             if (currentMemoryStep > 1) {
-                // Hide current step
-                document.getElementById(`memory-step-${currentMemoryStep}`).classList.remove('active');
-                
-                // Show previous step
                 currentMemoryStep--;
-                document.getElementById(`memory-step-${currentMemoryStep}`).classList.add('active');
-                
-                // Update indicator and buttons
-                document.getElementById('memory-step-indicator').textContent = `Step ${currentMemoryStep} of ${totalMemorySteps}`;
-                document.getElementById('next-memory-btn').disabled = false;
-                
-                if (currentMemoryStep === 1) {
-                    document.getElementById('prev-memory-btn').disabled = true;
-                }
+                updateMemoryStep();
             }
         }
+        
+        // Input visualization steps navigation
+        let currentInputStep = 1;
+        const totalInputSteps = 3;
+        
+        function updateInputStep() {
+            document.querySelectorAll('#input-step-1, #input-step-2, #input-step-3').forEach(step => step.classList.remove('active'));
+            document.getElementById(`input-step-${currentInputStep}`).classList.add('active');
+            document.getElementById('input-step-indicator').textContent = `Step ${currentInputStep} of ${totalInputSteps}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-input-btn').disabled = (currentInputStep === 1);
+            document.getElementById('next-input-btn').disabled = (currentInputStep === totalInputSteps);
+        }
+        
+        function nextInputStep() {
+            if (currentInputStep < totalInputSteps) {
+                currentInputStep++;
+                updateInputStep();
+            }
+        }
+        
+        function prevInputStep() {
+            if (currentInputStep > 1) {
+                currentInputStep--;
+                updateInputStep();
+            }
+        }
+        
+        // Counter interaction
+        let counter = 0;
+        let previousCounter = 0;
+        
+        function updateCounterDisplay() {
+            document.getElementById('counter-value').textContent = counter;
+            document.getElementById('previous-counter-value').textContent = previousCounter;
+            document.getElementById('counter-type').textContent = typeof counter;
+            
+            // Update the code display
+            const operation = counter > previousCounter ? "+" : "-";
+            const codeDisplay = document.getElementById('code-display');
+            codeDisplay.innerHTML = `<span class="code-comment"># The current value of counter is ${previousCounter}</span>\ncounter = counter ${operation} 1\n<span class="code-comment"># This means "take the current value of counter (${previousCounter}),</span>\n<span class="code-comment"># ${operation === '+' ? 'add' : 'subtract'} 1 to it (giving ${counter}),</span>\n<span class="code-comment"># then store the result back in counter"</span>`;
+        }
+        
+        function incrementCounter() {
+            previousCounter = counter;
+            counter++;
+            updateCounterDisplay();
+        }
+        
+        function decrementCounter() {
+            previousCounter = counter;
+            counter--;
+            updateCounterDisplay();
+        }
+        
+        // Code building interactions for multiple activities
+        
+        // Code building for variable1
+        const variable1Parts = document.getElementById('variable1-parts');
+        const variable1Result = document.getElementById('variable1-result');
+        const variable1Feedback = document.getElementById('variable1-feedback');
+        
+        if (variable1Parts) {
+            variable1Parts.querySelectorAll('.sentence-part').forEach(part => {
+                part.addEventListener('click', () => {
+                    const newPart = document.createElement('div');
+                    newPart.className = 'result-part';
+                    newPart.innerHTML = part.innerHTML;
+                    newPart.dataset.value = part.dataset.value;
+                    variable1Result.appendChild(newPart);
+                    
+                    // Add click handler to remove when clicked
+                    newPart.addEventListener('click', () => {
+                        variable1Result.removeChild(newPart);
+                        checkVariable1();
+                    });
+                    
+                    checkVariable1();
+                });
+            });
+        }
+        
+        function checkVariable1() {
+            // Get all parts in the result
+            const parts = Array.from(variable1Result.querySelectorAll('.result-part'));
+            const values = parts.map(part => part.dataset.value);
+            
+            // The correct answer
+            const correctAnswer = 'player_name="Alex"';
+            const userAnswer = values.join('');
+            
+            if (userAnswer === correctAnswer) {
+                variable1Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You created a variable named "player_name" and assigned it the string value "Alex".</div>';
+                variable1Feedback.className = 'feedback-area correct';
+                
+                // Show the next container
+                document.getElementById('variable2-container').style.display = 'block';
+                
+                // Award a buckle for first correct answer
+                awardVariableBuilderBuckle('variable1');
+            } else if (parts.length > 0) {
+                variable1Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! A variable assignment needs a variable name, the = sign, and a value.</div>';
+                variable1Feedback.className = 'feedback-area';
+            } else {
+                variable1Feedback.innerHTML = '';
+                variable1Feedback.className = 'feedback-area';
+            }
+        }
+        
+        // Code building for variable2
+        const variable2Parts = document.getElementById('variable2-parts');
+        const variable2Result = document.getElementById('variable2-result');
+        const variable2Feedback = document.getElementById('variable2-feedback');
+        
+        if (variable2Parts) {
+            variable2Parts.querySelectorAll('.sentence-part').forEach(part => {
+                part.addEventListener('click', () => {
+                    const newPart = document.createElement('div');
+                    newPart.className = 'result-part';
+                    newPart.innerHTML = part.innerHTML;
+                    newPart.dataset.value = part.dataset.value;
+                    variable2Result.appendChild(newPart);
+                    
+                    // Add click handler to remove when clicked
+                    newPart.addEventListener('click', () => {
+                        variable2Result.removeChild(newPart);
+                        checkVariable2();
+                    });
+                    
+                    checkVariable2();
+                });
+            });
+        }
+        
+        function checkVariable2() {
+            // Get all parts in the result
+            const parts = Array.from(variable2Result.querySelectorAll('.result-part'));
+            const values = parts.map(part => part.dataset.value);
+            
+            // The correct answer
+            const correctAnswer = 'score=100';
+            const userAnswer = values.join('');
+            
+            if (userAnswer === correctAnswer) {
+                variable2Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You created a variable named "score" and assigned it the numeric value 100 (not a string).</div>';
+                variable2Feedback.className = 'feedback-area correct';
+                
+                // Show the next container
+                document.getElementById('variable3-container').style.display = 'block';
+                
+                // Award a buckle for second correct answer
+                awardVariableBuilderBuckle('variable2');
+            } else if (parts.length > 0) {
+                variable2Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! Remember that number values don\'t need quotes.</div>';
+                variable2Feedback.className = 'feedback-area';
+            } else {
+                variable2Feedback.innerHTML = '';
+                variable2Feedback.className = 'feedback-area';
+            }
+        }
+        
+        // Code building for variable3
+        const variable3Parts = document.getElementById('variable3-parts');
+        const variable3Result = document.getElementById('variable3-result');
+        const variable3Feedback = document.getElementById('variable3-feedback');
+        
+        if (variable3Parts) {
+            variable3Parts.querySelectorAll('.sentence-part').forEach(part => {
+                part.addEventListener('click', () => {
+                    const newPart = document.createElement('div');
+                    newPart.className = 'result-part';
+                    newPart.innerHTML = part.innerHTML;
+                    newPart.dataset.value = part.dataset.value;
+                    variable3Result.appendChild(newPart);
+                    
+                    // Add click handler to remove when clicked
+                    newPart.addEventListener('click', () => {
+                        variable3Result.removeChild(newPart);
+                        checkVariable3();
+                    });
+                    
+                    checkVariable3();
+                });
+            });
+        }
+        
+        function checkVariable3() {
+            // Get all parts in the result
+            const parts = Array.from(variable3Result.querySelectorAll('.result-part'));
+            const values = parts.map(part => part.dataset.value);
+            
+            // The correct answer
+            const correctAnswer = 'score=score+50';
+            const userAnswer = values.join('');
+            
+            if (userAnswer === correctAnswer) {
+                variable3Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You updated the "score" variable by adding 50 to its current value.</div>';
+                variable3Feedback.className = 'feedback-area correct';
+                
+                // Award a buckle for third correct answer
+                awardVariableBuilderBuckle('variable3');
+            } else if (parts.length > 0) {
+                variable3Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! To add to a variable\'s value, you need to use the variable itself in the calculation.</div>';
+                variable3Feedback.className = 'feedback-area';
+            } else {
+                variable3Feedback.innerHTML = '';
+                variable3Feedback.className = 'feedback-area';
+            }
+        }
+        
+        // Code building for input1
+        const input1Parts = document.getElementById('input1-parts');
+        const input1Result = document.getElementById('input1-result');
+        const input1Feedback = document.getElementById('input1-feedback');
+        
+        if (input1Parts) {
+            input1Parts.querySelectorAll('.sentence-part').forEach(part => {
+                part.addEventListener('click', () => {
+                    const newPart = document.createElement('div');
+                    newPart.className = 'result-part';
+                    newPart.innerHTML = part.innerHTML;
+                    newPart.dataset.value = part.dataset.value;
+                    input1Result.appendChild(newPart);
+                    
+                    // Add click handler to remove when clicked
+                    newPart.addEventListener('click', () => {
+                        input1Result.removeChild(newPart);
+                        checkInput1();
+                    });
+                    
+                    checkInput1();
+                });
+            });
+        }
+        
+        function checkInput1() {
+            // Get all parts in the result
+            const parts = Array.from(input1Result.querySelectorAll('.result-part'));
+            const values = parts.map(part => part.dataset.value);
+            
+            // The correct answer
+            const correctAnswer = 'age=input("Enter your age: ")';
+            const userAnswer = values.join('');
+            
+            if (userAnswer === correctAnswer) {
+                input1Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You created code that asks the user for their age and stores the input in the "age" variable.</div>';
+                input1Feedback.className = 'feedback-area correct';
+                
+                // Show the next container
+                document.getElementById('input2-container').style.display = 'block';
+                
+                // Award a buckle for first correct answer
+                awardInputConversionBuckle('input1');
+            } else if (parts.length > 0) {
+                input1Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! The input() function needs a prompt message in quotes.</div>';
+                input1Feedback.className = 'feedback-area';
+            } else {
+                input1Feedback.innerHTML = '';
+                input1Feedback.className = 'feedback-area';
+            }
+        }
+        
+        // Code building for input2
+        const input2Parts = document.getElementById('input2-parts');
+        const input2Result = document.getElementById('input2-result');
+        const input2Feedback = document.getElementById('input2-feedback');
+        
+        if (input2Parts) {
+            input2Parts.querySelectorAll('.sentence-part').forEach(part => {
+                part.addEventListener('click', () => {
+                    const newPart = document.createElement('div');
+                    newPart.className = 'result-part';
+                    newPart.innerHTML = part.innerHTML;
+                    newPart.dataset.value = part.dataset.value;
+                    input2Result.appendChild(newPart);
+                    
+                    // Add click handler to remove when clicked
+                    newPart.addEventListener('click', () => {
+                        input2Result.removeChild(newPart);
+                        checkInput2();
+                    });
+                    
+                    checkInput2();
+                });
+            });
+        }
+        
+        function checkInput2() {
+            // Get all parts in the result
+            const parts = Array.from(input2Result.querySelectorAll('.result-part'));
+            const values = parts.map(part => part.dataset.value);
+            
+            // The correct answer
+            const correctAnswer = 'age_number=int(age)';
+            const userAnswer = values.join('');
+            
+            if (userAnswer === correctAnswer) {
+                input2Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You converted the string input to an integer using the int() function.</div>';
+                input2Feedback.className = 'feedback-area correct';
+                
+                // Show the next container
+                document.getElementById('input3-container').style.display = 'block';
+                
+                // Award a buckle for second correct answer
+                awardInputConversionBuckle('input2');
+            } else if (parts.length > 0) {
+                input2Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! You need to convert the string to an integer using the int() function.</div>';
+                input2Feedback.className = 'feedback-area';
+            } else {
+                input2Feedback.innerHTML = '';
+                input2Feedback.className = 'feedback-area';
+            }
+        }
+        
+        // Code building for input3
+        const input3Parts = document.getElementById('input3-parts');
+        const input3Result = document.getElementById('input3-result');
+        const input3Feedback = document.getElementById('input3-feedback');
+        
+        if (input3Parts) {
+            input3Parts.querySelectorAll('.sentence-part').forEach(part => {
+                part.addEventListener('click', () => {
+                    const newPart = document.createElement('div');
+                    newPart.className = 'result-part';
+                    newPart.innerHTML = part.innerHTML;
+                    newPart.dataset.value = part.dataset.value;
+                    input3Result.appendChild(newPart);
+                    
+                    // Add click handler to remove when clicked
+                    newPart.addEventListener('click', () => {
+                        input3Result.removeChild(newPart);
+                        checkInput3();
+                    });
+                    
+                    checkInput3();
+                });
+            });
+        }
+        
+        function checkInput3() {
+            // Get all parts in the result
+            const parts = Array.from(input3Result.querySelectorAll('.result-part'));
+            const values = parts.map(part => part.dataset.value);
+            
+            // The correct answer
+            const correctAnswer = 'message=f"You will be {age_number+ 1} next year"';
+            const userAnswer = values.join('');
+            
+            if (userAnswer === correctAnswer) {
+                input3Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You created an f-string that displays the age incremented by 1.</div>';
+                input3Feedback.className = 'feedback-area correct';
+                
+                // Award a buckle for third correct answer
+                awardInputConversionBuckle('input3');
+            } else if (parts.length > 0) {
+                input3Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! An f-string starts with f and uses curly braces {} to include variables.</div>';
+                input3Feedback.className = 'feedback-area';
+            } else {
+                input3Feedback.innerHTML = '';
+                input3Feedback.className = 'feedback-area';
+            }
+        }
+        
+        // Variable Quiz
+        const quizQuestions = [
+            {
+                question: "What is a variable in Python?",
+                options: [
+                    "A mathematical equation",
+                    "A named container that stores data",
+                    "A special keyword",
+                    "A type of function"
+                ],
+                correctIndex: 1
+            },
+            {
+                question: "In the code 'name = \"Alex\"', what is the value?",
+                options: [
+                    "name",
+                    "=",
+                    "\"Alex\"",
+                    "name = \"Alex\""
+                ],
+                correctIndex: 2
+            },
+            {
+                question: "Which of these is a valid variable name?",
+                options: [
+                    "1player",
+                    "player-one",
+                    "player_one",
+                    "player one"
+                ],
+                correctIndex: 2
+            }
+        ];
+        
+        // Input Quiz
+        const inputQuizQuestions = [
+            {
+                question: "What does the input() function do?",
+                options: [
+                    "Prints text to the screen",
+                    "Asks the user for input and returns it",
+                    "Converts strings to numbers",
+                    "Creates a new variable"
+                ],
+                correctIndex: 1
+            },
+            {
+                question: "What data type does input() return?",
+                options: [
+                    "Integer",
+                    "Float",
+                    "String",
+                    "Boolean"
+                ],
+                correctIndex: 2
+            },
+            {
+                question: "How do you convert the string \"42\" to an integer?",
+                options: [
+                    "convert(\"42\")",
+                    "\"42\".toInt()",
+                    "int(\"42\")",
+                    "Integer(\"42\")"
+                ],
+                correctIndex: 2
+            }
+        ];
+        
+        // Function to create a quiz
+        function createQuiz(containerId, questions, bucklePrefix) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            let currentQuestionIndex = 0;
+            let score = 0;
+            
+            function renderQuestion() {
+                const question = questions[currentQuestionIndex];
+                
+                // Create question element
+                const questionElement = document.createElement('div');
+                questionElement.className = 'duolingo-question';
+                
+                questionElement.innerHTML = `
+                    <div class="question-number">Question ${currentQuestionIndex + 1} of ${questions.length}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="question-options"></div>
+                `;
+                
+                // Add options
+                const optionsContainer = questionElement.querySelector('.question-options');
+                question.options.forEach((option, index) => {
+                    const optionBtn = document.createElement('button');
+                    optionBtn.className = 'option-btn';
+                    optionBtn.textContent = option;
+                    optionBtn.addEventListener('click', () => checkAnswer(index));
+                    optionsContainer.appendChild(optionBtn);
+                });
+                
+                container.innerHTML = '';
+                container.appendChild(questionElement);
+            }
+            
+            function checkAnswer(selectedIndex) {
+                const question = questions[currentQuestionIndex];
+                const isCorrect = selectedIndex === question.correctIndex;
+                
+                // Create feedback element
+                const feedbackElement = document.createElement('div');
+                feedbackElement.className = isCorrect ? 'duolingo-feedback correct' : 'duolingo-feedback incorrect';
+                
+                if (isCorrect) {
+                    score++;
+                    feedbackElement.innerHTML = `
+                        <div class="feedback-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feedback-text">Correct!</div>
+                        <button class="continue-btn">Continue</button>
+                    `;
+                    
+                    // Award buckle for first attempt
+                    const questionKey = `${bucklePrefix}_question_${currentQuestionIndex}`;
+                    const completedKey = `completed_${questionKey}`;
+                    
+                    if (!localStorage.getItem(completedKey)) {
+                        // Use BucklesSystem to award buckles
+                        BucklesSystem.awardBuckles(bucklePrefix, questionKey);
+                        
+                        // Update the local buckle counter display
+                        const buckleScoreElement = document.getElementById(`${bucklePrefix}-buckle-score`);
+                        if (buckleScoreElement) {
+                            buckleScoreElement.textContent = BucklesSystem.getBuckles();
+                        }
+                        
+                        // Mark as completed locally
+                        localStorage.setItem(completedKey, 'true');
+                    }
+                } else {
+                    feedbackElement.innerHTML = `
+                        <div class="feedback-icon"><i class="fas fa-times-circle"></i></div>
+                        <div class="feedback-text">Incorrect. The correct answer is: "${question.options[question.correctIndex]}"</div>
+                        <button class="continue-btn">Continue</button>
+                    `;
+                }
+                
+                // Add continue button handler
+                const continueBtn = feedbackElement.querySelector('.continue-btn');
+                continueBtn.addEventListener('click', () => {
+                    currentQuestionIndex++;
+                    
+                    if (currentQuestionIndex < questions.length) {
+                        renderQuestion();
+                    } else {
+                        showResults();
+                    }
+                });
+                
+                container.innerHTML = '';
+                container.appendChild(feedbackElement);
+            }
+            
+            function showResults() {
+                const resultElement = document.createElement('div');
+                resultElement.className = 'duolingo-result';
+                
+                resultElement.innerHTML = `
+                    <div class="result-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="result-text">You scored ${score} out of ${questions.length}!</div>
+                    <button class="restart-btn">Restart Quiz</button>
+                `;
+                
+                const restartBtn = resultElement.querySelector('.restart-btn');
+                restartBtn.addEventListener('click', () => {
+                    currentQuestionIndex = 0;
+                    score = 0;
+                    renderQuestion();
+                });
+                
+                container.innerHTML = '';
+                container.appendChild(resultElement);
+            }
+            
+            // Start the quiz
+            renderQuestion();
+        }
+        
+        // Function to award buckles for variable builder
+        function awardVariableBuilderBuckle(activityId) {
+            const completedKey = `completed_variable_builder_${activityId}`;
+            
+            if (!localStorage.getItem(completedKey)) {
+                // Use BucklesSystem to award buckles
+                BucklesSystem.awardBuckles('variable_builder', activityId);
+                
+                // Update the local buckle counter
+                const scoreElement = document.getElementById('variable-builder-buckle-score');
+                if (scoreElement) {
+                    scoreElement.textContent = BucklesSystem.getBuckles();
+                }
+                
+                // Mark as completed
+                localStorage.setItem(completedKey, 'true');
+            }
+        }
+        
+        // Function to award buckles for input conversion
+        function awardInputConversionBuckle(activityId) {
+            const completedKey = `completed_input_conversion_${activityId}`;
+            
+            if (!localStorage.getItem(completedKey)) {
+                // Use BucklesSystem to award buckles
+                BucklesSystem.awardBuckles('input_conversion', activityId);
+                
+                // Update the local buckle counter
+                const scoreElement = document.getElementById('input-conversion-buckle-score');
+                if (scoreElement) {
+                    scoreElement.textContent = BucklesSystem.getBuckles();
+                }
+                
+                // Mark as completed
+                localStorage.setItem(completedKey, 'true');
+            }
+        }
+        
+        // Initialize the quizzes when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize first quiz
+            if (document.getElementById('quiz-container')) {
+                createQuiz('quiz-container', quizQuestions, 'variables-quiz');
+            }
+            
+            // Initialize second quiz
+            if (document.getElementById('input-quiz-container')) {
+                createQuiz('input-quiz-container', inputQuizQuestions, 'input-quiz');
+            }
+            
+            // Initialize buckle counters
+            document.querySelectorAll('[id$="buckle-score"]').forEach(element => {
+                element.textContent = BucklesSystem.getBuckles();
+            });
+        });
     </script>
 </body>
 </html>

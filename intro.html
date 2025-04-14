@@ -10,6 +10,8 @@
     <!-- Include Flowchart.js dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.15.0/flowchart.min.js"></script>
+    <!-- Include the unified buckles system -->
+    <script src="buckles.js"></script>
     <!-- Include the quiz.js file -->
     <script src="quiz.js"></script>
     <!-- Favicon Icons -->
@@ -282,6 +284,7 @@
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                <div id="buckle-container"></div>
                 
                 <h3>Create Valid Print Statements</h3>
                 
@@ -522,6 +525,7 @@ Second line</div>
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                <div id="quiz-buckle-container"></div>
                 
                 <h3>Find and Fix the Errors</h3>
                 
@@ -707,6 +711,7 @@ This is line 3</div>
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                <div id="ascii-buckle-container"></div>
                 
                 <h3>Practice with Multi-line Printing</h3>
                 
@@ -845,15 +850,14 @@ This is line 3</div>
         </section>
     </main>
 
-    <div class="buckle-animation" id="print-builder-buckle-animation" style="display: none;">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-             alt="Buckle" id="print-builder-buckle-img">
-        <div class="shine"></div>
-    </div>
-
     <!-- Include the modular JS files -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+    // Create buckle counters for each section
+    BucklesSystem.createBuckleCounter('buckle-container', 'absolute');
+    BucklesSystem.createBuckleCounter('quiz-buckle-container', 'absolute');
+    BucklesSystem.createBuckleCounter('ascii-buckle-container', 'absolute');
+            
     // Tab navigation
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -873,7 +877,7 @@ This is line 3</div>
     });
     
     // Initialize Chew 1 Print Statement Builder
-    initPrintStatementBuilder();
+    initPrintStatementBuilder('intro');
     
     // Updated quiz questions that only cover content taught until CHUNK 2
 const quizQuestions = [
@@ -949,7 +953,7 @@ const quizQuestions = [
     }
 ];
     
-    initializeQuiz(quizQuestions);
+    initializeQuiz(quizQuestions, 'intro');
     
     // Ensure ASCII art functions are properly attached
     window.showAsciiOutput = showAsciiOutput;
