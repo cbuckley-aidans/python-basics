@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudocode Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <style>
+        /* Additional custom styles */
+        .code-with-symbol {
+            position: relative;
+            background-color: #282c34;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .code-with-symbol {
+                flex-direction: column;
+            }
+        }
+        
+        .code-area {
+            flex: 1;
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #abb2bf;
+            min-width: 200px;
+        }
+        
+        .symbol-area {
+            width: 120px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .symbol-area {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 15px;
+            }
+        }
+        
+        .symbol-area svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .symbol-label {
+            color: #fff;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .page-title {
+            padding: 30px 40px;
+            margin: 0 0 30px 0;
+            background-color: var(--primary-color);
+            color: black;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-title h1 {
+            margin: 0;
+            color: black !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+        
+        .page-title i {
+            font-size: 1.8rem;
+            margin-left: 15px;
+        }
+        
+        /* Enhanced code styles to match Simple If Statement section */
+        .highlighted-code {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        /* Highlighted keyword styles */
+        .keyword-highlight {
+            background-color: rgba(79, 193, 255, 0.2);
+            border-radius: 3px;
+            padding: 2px 4px;
+        }
+        
+        /* Single column layout for cards */
+        .single-column-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .elements-grid {
+                grid-template-columns: repeat(1, 1fr) !important;
+            }
+            
+            .two-column-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .page-title h1 {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+            
+            .page-title i {
+                font-size: 1.3rem;
+                margin-left: 0;
+            }
+            
+            .card, .interactive-card {
+                padding: 20px;
+            }
+            
+            .element-header {
+                margin: -20px -20px 20px -20px !important;
+                padding: 15px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">PSEUDOCODE GUIDE</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="intro">
+                <i class="fas fa-info-circle"></i>
+                INTRO
+            </button>
+            <button class="tab-button" data-tab="syntax">
+                <i class="fas fa-code"></i>
+                SYNTAX
+            </button>
+            <button class="tab-button" data-tab="simple">
+                <i class="fas fa-align-left"></i>
+                SIMPLE
+            </button>
+            <button class="tab-button" data-tab="intermediate">
+                <i class="fas fa-sitemap"></i>
+                INTERMEDIATE
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Introduction Section -->
+        <section id="intro" class="tab-content active">
+            <div class="page-title">
+                <h1>PSEUDOCODE GUIDE <i class="fas fa-code"></i></h1>
+            </div>
+            
+            <div class="card">
+                <h3>Introduction to Pseudocode <i class="fas fa-info-circle" style="margin-left: 10px;"></i></h3>
+                <p>Pseudocode shows the steps of our program using simple English-like statements. It helps us plan our code before we write it in a programming language.</p>
+                
+                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">1</div>
+                            <h3>PLANNING ALGORITHMS <i class="fas fa-lightbulb" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Break down problems into clear steps</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-list-ol" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">2</div>
+                            <h3>UNDERSTANDING LOGIC <i class="fas fa-code-branch" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Show how decisions and loops work in your program</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-random" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">3</div>
+                            <h3>FINDING ERRORS <i class="fas fa-bug" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Spot mistakes in your thinking before writing code</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-search" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">4</div>
+                            <h3>COMMUNICATION <i class="fas fa-users" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Share your program ideas with others clearly</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-comments" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pseudocode Syntax Section -->
+        <section id="syntax" class="tab-content dark-section">
+            <h1>PSEUDOCODE SYNTAX <i class="fas fa-code" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">REFERENCE</div>
+                
+                <h3>Pseudocode Conventions</h3>
+                
+                <p>Pseudocode follows certain rules to keep it clear and easy to understand:</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Basic Pseudocode Rules <i class="fas fa-book" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <!-- Changed from two-column-grid to single-column-layout -->
+                    <div class="single-column-layout">
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-font" style="margin-right: 10px; color: var(--accent-color);"></i> Keywords</h4>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <div class="code-block" style="text-align: left; padding: 15px;">
+<span style="color: #4FC1FF;">KEYWORDS</span> are written in <span style="color: #4FC1FF;">CAPITAL LETTERS</span>
+<span style="color: #56B6C2;">variables</span> and <span style="color: #56B6C2;">values</span> are in lowercase
+                                </div>
+                            </div>
+                            <p>KEYWORDS like BEGIN, END, IF, THEN are written in uppercase to stand out.</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-indent" style="margin-right: 10px; color: var(--accent-color);"></i> Indentation</h4>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <div class="code-block" style="text-align: left; padding: 15px;">
+<span style="color: #4FC1FF;">IF</span> score >= 70 <span style="color: #4FC1FF;">THEN</span>
+    <span style="color: #56B6C2;">DISPLAY</span> "You passed!"
+<span style="color: #4FC1FF;">ENDIF</span>
+                                </div>
+                            </div>
+                            <p>Statements inside blocks are indented to show they belong together.</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-code-branch" style="margin-right: 10px; color: var(--accent-color);"></i> Structure Boundaries</h4>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <div class="code-block" style="text-align: left; padding: 15px;">
+<span style="color: #4FC1FF;">WHILE</span> count < 10
+    statements
+<span style="color: #4FC1FF;">ENDWHILE</span>
+                                </div>
+                            </div>
+                            <p>The end of each structure is clearly marked with END keywords.</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-calculator" style="margin-right: 10px; color: var(--accent-color);"></i> Clear Calculations</h4>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <div class="code-block" style="text-align: left; padding: 15px;">
+<span style="color: #4FC1FF;">CALCULATE</span> area = length * width
+</div>
+                            </div>
+                            <p>Calculations should show the full formula, not just the operation name.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Note:</strong> Good pseudocode should be easy for both programmers and non-programmers to understand.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Main Keywords in Pseudocode <i class="fas fa-key" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <!-- Removed symbol area from Program Structure Keywords -->
+                    <div class="card">
+                        <h4>Program Structure</h4>
+                        <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;" class="keyword-highlight">BEGIN</span>
+    program statements
+<span style="color: #4FC1FF;" class="keyword-highlight">END</span>
+                        </div>
+                        <p style="margin-top: 10px;">Every pseudocode algorithm starts with BEGIN and ends with END.</p>
+                    </div>
+                    
+                    <!-- Removed symbol area from Decision Symbol -->
+                    <div class="card" style="margin-top: 20px;">
+                        <h4>Selection/Decision</h4>
+                        <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;" class="keyword-highlight">IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span> <span style="color: #4FC1FF;" class="keyword-highlight">THEN</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You passed!"</span>
+<span style="color: #4FC1FF;" class="keyword-highlight">ELSE</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You failed."</span>
+<span style="color: #4FC1FF;" class="keyword-highlight">ENDIF</span>
+                        </div>
+                        <p style="margin-top: 10px;">Used for making decisions in your program.</p>
+                    </div>
+                    
+                    <!-- Removed symbol area from Input/Output Symbol -->
+                    <div class="card" style="margin-top: 20px;">
+                        <h4>Input and Output</h4>
+                        <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;" class="keyword-highlight">INPUT</span> username
+<span style="color: #4FC1FF;" class="keyword-highlight">DISPLAY</span> <span style="color: #98C379;">"Hello, "</span> <span style="color: #56B6C2;">+</span> username
+                        </div>
+                        <p style="margin-top: 10px;">Getting data from users and showing information.</p>
+                    </div>
+                    
+                    <!-- Removed symbol area from Loops -->
+                    <div class="card" style="margin-top: 20px;">
+                        <h4>Loops</h4>
+                        <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;" class="keyword-highlight">WHILE</span> counter <span style="color: #56B6C2;"><</span> <span style="color: #98C379;">10</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> counter
+    <span style="color: #56B6C2;">SET</span> counter <span style="color: #56B6C2;">=</span> counter <span style="color: #56B6C2;">+</span> <span style="color: #98C379;">1</span>
+<span style="color: #4FC1FF;" class="keyword-highlight">ENDWHILE</span>
+
+<span style="color: #4FC1FF;" class="keyword-highlight">FOR</span> i <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">1</span> <span style="color: #4FC1FF;" class="keyword-highlight">TO</span> <span style="color: #98C379;">5</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> i
+<span style="color: #4FC1FF;" class="keyword-highlight">ENDFOR</span>
+                        </div>
+                        <p style="margin-top: 10px;">Used for repeating sections of code.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simple Pseudocode Section -->
+        <section id="simple" class="tab-content light-section">
+            <h1>SIMPLE PSEUDOCODE <i class="fas fa-align-left" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">BEGINNER</div>
+                
+                <h3>Basic If Statement</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Simple If Statement <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a simple IF statement in Python:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
+
+<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You passed!"</span><span style="color: #56B6C2;">)</span>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the pseudocode version:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;">BEGIN</span>
+    <span style="color: #56B6C2;">SET</span> score <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
+    
+    <span style="color: #4FC1FF;">IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span> <span style="color: #4FC1FF;">THEN</span>
+        <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You passed!"</span>
+    <span style="color: #4FC1FF;">ENDIF</span>
+<span style="color: #4FC1FF;">END</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The IF structure has a condition followed by THEN, indented statements, and ends with ENDIF.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>If-Else Statement <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Now let's see an IF-ELSE statement:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">65</span>
+
+<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You passed!"</span><span style="color: #56B6C2;">)</span>
+<span style="color: #4FC1FF;">else</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You failed."</span><span style="color: #56B6C2;">)</span>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the pseudocode version:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;">BEGIN</span>
+    <span style="color: #56B6C2;">SET</span> score <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">65</span>
+    
+    <span style="color: #4FC1FF;">IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span> <span style="color: #4FC1FF;">THEN</span>
+        <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You passed!"</span>
+    <span style="color: #4FC1FF;">ELSE</span>
+        <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You failed."</span>
+    <span style="color: #4FC1FF;">ENDIF</span>
+<span style="color: #4FC1FF;">END</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The ELSE keyword provides an alternative path when the condition is false.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intermediate Pseudocode Section -->
+        <section id="intermediate" class="tab-content dark-section">
+            <h1>INTERMEDIATE PSEUDOCODE <i class="fas fa-sitemap" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">INTERMEDIATE</div>
+                
+                <h3>Multiple Conditions and Loops</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>If-Elif-Else in Pseudocode <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">For more choices, we can use if-elif-else statements:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
+
+<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">90</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"A"</span>
+<span style="color: #4FC1FF;">elif</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"B"</span>
+<span style="color: #4FC1FF;">else</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"F"</span>
+
+<span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"Your grade is: "</span> <span style="color: #56B6C2;">+</span> <span style="color: #4FC1FF;">grade</span><span style="color: #56B6C2;">)</span>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the pseudocode version:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;">BEGIN</span>
+    <span style="color: #56B6C2;">SET</span> score <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
+    
+    <span style="color: #4FC1FF;">IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">90</span> <span style="color: #4FC1FF;">THEN</span>
+        <span style="color: #56B6C2;">SET</span> grade <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"A"</span>
+    <span style="color: #4FC1FF;">ELSE IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span> <span style="color: #4FC1FF;">THEN</span>
+        <span style="color: #56B6C2;">SET</span> grade <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"B"</span>
+    <span style="color: #4FC1FF;">ELSE</span>
+        <span style="color: #56B6C2;">SET</span> grade <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"F"</span>
+    <span style="color: #4FC1FF;">ENDIF</span>
+    
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Your grade is: "</span> <span style="color: #56B6C2;">+</span> grade
+<span style="color: #4FC1FF;">END</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> We use ELSE IF for multiple conditions. Some pseudocode styles use ELSEIF instead.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Loop Structures <i class="fas fa-sync" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Pseudocode can show different types of loops:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #7F848E;"># While Loop in Python</span>
+<span style="color: #4FC1FF;">count</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">1</span>
+<span style="color: #4FC1FF;">while</span> <span style="color: #4FC1FF;">count</span> <span style="color: #56B6C2;"><=</span> <span style="color: #98C379;">5</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #4FC1FF;">count</span><span style="color: #56B6C2;">)</span>
+    <span style="color: #4FC1FF;">count</span> <span style="color: #56B6C2;">+=</span> <span style="color: #98C379;">1</span>
+
+<span style="color: #7F848E;"># For Loop in Python</span>
+<span style="color: #4FC1FF;">for</span> <span style="color: #4FC1FF;">i</span> <span style="color: #4FC1FF;">in</span> <span style="color: #4FC1FF;">range</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">1</span><span style="color: #56B6C2;">,</span> <span style="color: #98C379;">6</span><span style="color: #56B6C2;">)</span><span style="color: #56B6C2;">:</span>
+    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #4FC1FF;">i</span><span style="color: #56B6C2;">)</span>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's how to write loops in pseudocode:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #7F848E;"># While Loop in Pseudocode</span>
+<span style="color: #4FC1FF;">BEGIN</span>
+    <span style="color: #56B6C2;">SET</span> count <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">1</span>
+    
+    <span style="color: #4FC1FF;">WHILE</span> count <= 5
+        <span style="color: #4FC1FF;">DISPLAY</span> count
+        <span style="color: #56B6C2;">SET</span> count <span style="color: #56B6C2;">=</span> count + 1
+    <span style="color: #4FC1FF;">ENDWHILE</span>
+<span style="color: #4FC1FF;">END</span>
+
+<span style="color: #7F848E;"># For Loop in Pseudocode</span>
+<span style="color: #4FC1FF;">BEGIN</span>
+    <span style="color: #4FC1FF;">FOR</span> i = 1 <span style="color: #4FC1FF;">TO</span> 5
+        <span style="color: #4FC1FF;">DISPLAY</span> i
+    <span style="color: #4FC1FF;">ENDFOR</span>
+<span style="color: #4FC1FF;">END</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Loops in pseudocode have clear start and end keywords. FOR loops show the count variable and range.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Simple Program Example <i class="fas fa-laptop-code" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a complete pseudocode example for a simple calculator program:</p>
+                    
+                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
+<span style="color: #4FC1FF;">BEGIN</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Simple Calculator"</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"1. Add"</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"2. Subtract"</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"3. Multiply"</span>
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"4. Divide"</span>
+    
+    <span style="color: #4FC1FF;">INPUT</span> choice
+    
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Enter first number: "</span>
+    <span style="color: #4FC1FF;">INPUT</span> num1
+    
+    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Enter second number: "</span>
+    <span style="color: #4FC1FF;">INPUT</span> num2
+    
+    <span style="color: #4FC1FF;">IF</span> choice == 1 <span style="color: #4FC1FF;">THEN</span>
+        <span style="color: #4FC1FF;">CALCULATE</span> result = num1 + num2
+        <span style="color: #4FC1FF;">DISPLAY</span> num1 + <span style="color: #98C379;">" + "</span> + num2 + <span style="color: #98C379;">" = "</span> + result
+    <span style="color: #4FC1FF;">ELSE IF</span> choice == 2 <span style="color: #4FC1FF;">THEN</span>
+        <span style="color: #4FC1FF;">CALCULATE</span> result = num1 - num2
+        <span style="color: #4FC1FF;">DISPLAY</span> num1 + <span style="color: #98C379;">" - "</span> + num2 + <span style="color: #98C379;">" = "</span> + result
+    <span style="color: #4FC1FF;">ELSE IF</span> choice == 3 <span style="color: #4FC1FF;">THEN</span>
+        <span style="color: #4FC1FF;">CALCULATE</span> result = num1 * num2
+        <span style="color: #4FC1FF;">DISPLAY</span> num1 + <span style="color: #98C379;">" * "</span> + num2 + <span style="color: #98C379;">" = "</span> + result
+    <span style="color: #4FC1FF;">ELSE IF</span> choice == 4 <span style="color: #4FC1FF;">THEN</span>
+        <span style="color: #4FC1FF;">IF</span> num2 == 0 <span style="color: #4FC1FF;">THEN</span>
+            <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Error: Cannot divide by zero"</span>
+        <span style="color: #4FC1FF;">ELSE</span>
+            <span style="color: #4FC1FF;">CALCULATE</span> result = num1 / num2
+            <span style="color: #4FC1FF;">DISPLAY</span> num1 + <span style="color: #98C379;">" / "</span> + num2 + <span style="color: #98C379;">" = "</span> + result
+        <span style="color: #4FC1FF;">ENDIF</span>
+    <span style="color: #4FC1FF;">ELSE</span>
+        <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Invalid choice"</span>
+    <span style="color: #4FC1FF;">ENDIF</span>
+<span style="color: #4FC1FF;">END</span>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> This example combines input, output, decisions, and calculations. Notice how we can nest IF statements inside each other.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation for tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and tabs
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to selected button and tab
+                    this.classList.add('active');
+                    document.getElementById(tab).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
