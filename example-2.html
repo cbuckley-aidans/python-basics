@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decomposing Coding Problems</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Override styles to use full width */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .main-content {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 10px;
+        }
+        
+        /* Table styling for the worksheet */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed;
+        }
+        
+        th, td {
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        td:nth-child(3) {
+            padding: 0; /* Remove padding for code cells */
+        }
+        
+        th {
+            background-color: #002654;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* Column widths */
+        th:nth-child(1) {
+            width: 22%;
+        }
+        
+        th:nth-child(2) {
+            width: 13%;
+        }
+        
+        th:nth-child(3) {
+            width: 45%;
+        }
+        
+        th:nth-child(4) {
+            width: 20%;
+            font-size: 0.9em;
+        }
+        
+        td:nth-child(4) {
+            font-size: 0.9em;
+        }
+        
+        /* Code example styling */
+        .code-example {
+            background-color: #05112a;
+            border-left: none;
+            padding: 10px;
+            margin-bottom: 0;
+            font-family: monospace;
+            font-size: 14px;
+            border-radius: 3px;
+            white-space: pre-wrap;
+            word-break: normal;
+            max-width: 100%;
+            color: white;
+            border-radius: 0;
+            border-bottom: 4px solid #002654;
+        }
+        
+        /* Syntax highlighting */
+        .highlight-variable {
+            color: #47a3ff;
+        }
+        
+        .highlight-function {
+            color: #47a3ff;
+        }
+        
+        .highlight-operator {
+            color: white;
+        }
+        
+        .highlight-string {
+            color: #4caf50;
+        }
+        
+        .highlight-comment {
+            color: #888;
+            font-style: italic;
+        }
+        
+        /* Task examples and tips boxes */
+        .task-example {
+            background-color: #f0f7ff;
+            border: 1px solid #cce5ff;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .tips-box {
+            background-color: #fffbea;
+            border-left: 4px solid #f0c419;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        
+        .tips-box h4 {
+            margin-top: 0;
+            color: #b07d0f;
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                background-color: white;
+            }
+            .main-content {
+                margin: 0;
+                padding: 1cm;
+                width: 100%;
+                max-width: none;
+                box-shadow: none;
+            }
+            .card {
+                break-inside: avoid;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <div class="page-header">
+            <h1>DECOMPOSING CODING PROBLEMS <i class="fas fa-code" style="margin-left: 10px;"></i></h1>
+            <p>Learning to recognize key phrases that indicate which programming concepts you need to use</p>
+        </div>
+        
+        <div class="card">
+            <div class="element-header">
+                <div class="element-number">1</div>
+                <h3>INTRODUCTION <i class="fas fa-info-circle" style="margin-left: 10px;"></i></h3>
+            </div>
+            
+            <p>When reading a coding problem, certain phrases give you clues about what Python concepts you'll need to use. This worksheet will help you identify those phrases and connect them to specific Python coding techniques.</p>
+            
+            <div class="tips-box">
+                <h4><i class="fas fa-lightbulb" style="margin-right: 10px;"></i> Why is this important?</h4>
+                <p>Understanding how to "translate" problem descriptions into code concepts will help you:</p>
+                <ul>
+                    <li>Plan your solution before writing code</li>
+                    <li>Identify what Python features you'll need</li>
+                    <li>Make fewer mistakes in your programming</li>
+                    <li>Solve problems more efficiently</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="element-header">
+                <div class="element-number">2</div>
+                <h3>KEY PHRASE GUIDE <i class="fas fa-key" style="margin-left: 10px;"></i></h3>
+            </div>
+            
+            <h2>Input & Output</h2>
+            <table>
+                <tr>
+                    <th>When you see this...</th>
+                    <th>Think about using...</th>
+                    <th>Example code</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>"Ask the user for..."<br>"Prompt the user to..."<br>"Get input from the user"</td>
+                    <td>The <span class="highlight-function">input()</span> function</td>
+                    <td><div class="code-example"><span class="highlight-variable">favorite_food</span> = <span class="highlight-function">input</span>(<span class="highlight-string">"What is your favorite food? "</span>)
+<span class="highlight-function">print</span>(<span class="highlight-string">"I like"</span>, <span class="highlight-variable">favorite_food</span>, <span class="highlight-string">"too!"</span>)</div></td>
+                    <td>The input function always returns a string, even if the user types a number.</td>
+                </tr>
+                <tr>
+                    <td>"Show the user..."<br>"Display..."<br>"Output..."<br>"Tell the user..."</td>
+                    <td>The <span class="highlight-function">print()</span> function</td>
+                    <td><div class="code-example"><span class="highlight-variable">username</span> = <span class="highlight-string">"Alex"</span>
+<span class="highlight-variable">level</span> = 5
+<span class="highlight-function">print</span>(<span class="highlight-string">"Welcome"</span>, <span class="highlight-variable">username</span>, <span class="highlight-string">"you are at level"</span>, <span class="highlight-variable">level</span>)</div></td>
+                    <td>When printing variables, do not use quotation marks around the variable name. Use commas to combine text and variables.</td>
+                </tr>
+                <tr>
+                    <td>"Convert to a number"<br>"Calculate using the input"<br>"Do math with the input"</td>
+                    <td>Type conversion with <span class="highlight-function">int()</span></td>
+                    <td><div class="code-example"><span class="highlight-variable">hours</span> = <span class="highlight-function">int</span>(<span class="highlight-function">input</span>(<span class="highlight-string">"How many hours do you game per week? "</span>))
+<span class="highlight-variable">minutes</span> = <span class="highlight-variable">hours</span> * 60
+<span class="highlight-function">print</span>(<span class="highlight-string">"That's"</span>, <span class="highlight-variable">minutes</span>, <span class="highlight-string">"minutes!"</span>)</div></td>
+                    <td>Remember to convert string inputs to integers when you need to do calculations.</td>
+                </tr>
+            </table>
+            
+            <h2>Mathematical Operations</h2>
+            <table>
+                <tr>
+                    <th>When you see this...</th>
+                    <th>Operator</th>
+                    <th>Example code</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>"Add..."<br>"Sum of..."<br>"Total of..."<br>"Plus..."</td>
+                    <td>Addition <span class="highlight-operator">+</span></td>
+                    <td><div class="code-example"><span class="highlight-variable">player_score</span> = 42
+<span class="highlight-variable">bonus_points</span> = 10
+<span class="highlight-variable">total_score</span> = <span class="highlight-variable">player_score</span> + <span class="highlight-variable">bonus_points</span>
+<span class="highlight-function">print</span>(<span class="highlight-string">"Your final score:"</span>, <span class="highlight-variable">total_score</span>)</div></td>
+                    <td>When adding numbers, make sure they're converted to integers first if they came from input.</td>
+                </tr>
+                <tr>
+                    <td>"Subtract..."<br>"Difference between..."<br>"Minus..."</td>
+                    <td>Subtraction <span class="highlight-operator">-</span></td>
+                    <td><div class="code-example"><span class="highlight-variable">total_apples</span> = 25
+<span class="highlight-variable">eaten_apples</span> = 7
+<span class="highlight-variable">remaining</span> = <span class="highlight-variable">total_apples</span> - <span class="highlight-variable">eaten_apples</span>
+<span class="highlight-function">print</span>(<span class="highlight-string">"Apples left:"</span>, <span class="highlight-variable">remaining</span>)</div></td>
+                    <td>Be careful with the order of subtraction. The first number minus the second number is not the same as the second minus the first.</td>
+                </tr>
+                <tr>
+                    <td>"Multiply..."<br>"Product of..."<br>"Times..."</td>
+                    <td>Multiplication <span class="highlight-operator">*</span></td>
+                    <td><div class="code-example"><span class="highlight-variable">weeks</span> = 4
+<span class="highlight-variable">days_per_week</span> = 7
+<span class="highlight-variable">total_days</span> = <span class="highlight-variable">weeks</span> * <span class="highlight-variable">days_per_week</span>
+<span class="highlight-function">print</span>(<span class="highlight-string">"Total days:"</span>, <span class="highlight-variable">total_days</span>)</div></td>
+                    <td>The asterisk (*) symbol is used for multiplication in Python, not the × symbol.</td>
+                </tr>
+                <tr>
+                    <td>"Divide..."<br>"Split..."<br>"Quotient of..."</td>
+                    <td>Division <span class="highlight-operator">/</span> or <span class="highlight-operator">//</span></td>
+                    <td><div class="code-example"><span class="highlight-variable">pizza_slices</span> = 16
+<span class="highlight-variable">friends</span> = 6
+<span class="highlight-variable">slices_each</span> = <span class="highlight-variable">pizza_slices</span> // <span class="highlight-variable">friends</span>
+<span class="highlight-function">print</span>(<span class="highlight-string">"Everyone gets"</span>, <span class="highlight-variable">slices_each</span>, <span class="highlight-string">"slices"</span>)</div></td>
+                    <td>Regular division (/) gives a decimal result. Integer division (//) gives a whole number result by discarding any remainder.</td>
+                </tr>
+                <tr>
+                    <td>"Remainder..."<br>"What's left over..."<br>"Modulo..."</td>
+                    <td>Modulo <span class="highlight-operator">%</span></td>
+                    <td><div class="code-example"><span class="highlight-variable">marbles</span> = 17
+<span class="highlight-variable">students</span> = 4
+<span class="highlight-variable">leftover</span> = <span class="highlight-variable">marbles</span> % <span class="highlight-variable">students</span>
+<span class="highlight-function">print</span>(<span class="highlight-string">"Marbles left over:"</span>, <span class="highlight-variable">leftover</span>)</div></td>
+                    <td>The modulo operator gives the remainder after division. It's useful for checking odd/even numbers.</td>
+                </tr>
+            </table>
+            
+            <h2>Conditionals</h2>
+            <table>
+                <tr>
+                    <th>When you see this...</th>
+                    <th>Think about using...</th>
+                    <th>Example code</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>"If..."<br>"When..."<br>"Should the..."<br>"Check if..."<br>"See if..."</td>
+                    <td>An <span class="highlight-variable">if</span> statement</td>
+                    <td><div class="code-example"><span class="highlight-variable">temperature</span> = 32
+<span class="highlight-variable">if</span> <span class="highlight-variable">temperature</span> > 30:
+    <span class="highlight-function">print</span>(<span class="highlight-string">"It's a hot day!"</span>)
+    <span class="highlight-function">print</span>(<span class="highlight-string">"Remember to drink water."</span>)</div></td>
+                    <td>Always include a colon (:) after the condition and indent the code that should run if the condition is true.</td>
+                </tr>
+                <tr>
+                    <td>"Otherwise..."<br>"If not..."<br>"In all other cases..."</td>
+                    <td>An <span class="highlight-variable">else</span> statement</td>
+                    <td><div class="code-example"><span class="highlight-variable">rain</span> = <span class="highlight-string">"yes"</span>
+<span class="highlight-variable">if</span> <span class="highlight-variable">rain</span> == <span class="highlight-string">"yes"</span>:
+    <span class="highlight-function">print</span>(<span class="highlight-string">"Bring an umbrella!"</span>)
+<span class="highlight-variable">else</span>:
+    <span class="highlight-function">print</span>(<span class="highlight-string">"No need for an umbrella."</span>)</div></td>
+                    <td>The else block runs when the if condition is False. Remember to include a colon (:) after else too.</td>
+                </tr>
+                <tr>
+                    <td>"If this, but if that..."<br>"For different cases..."<br>"Check multiple conditions"<br>"Different options based on..."</td>
+                    <td>An <span class="highlight-variable">elif</span> statement</td>
+                    <td><div class="code-example"><span class="highlight-variable">score</span> = 78
+<span class="highlight-variable">if</span> <span class="highlight-variable">score</span> >= 90:
+    <span class="highlight-function">print</span>(<span class="highlight-string">"You got an A!"</span>)
+<span class="highlight-variable">elif</span> <span class="highlight-variable">score</span> >= 70:
+    <span class="highlight-function">print</span>(<span class="highlight-string">"You got a B!"</span>)
+<span class="highlight-variable">else</span>:
+    <span class="highlight-function">print</span>(<span class="highlight-string">"You need to study more."</span>)</div></td>
+                    <td>Use elif when you have multiple conditions to check. Python checks them in order, and stops at the first True condition.</td>
+                </tr>
+            </table>
+            
+            <h2>Loops</h2>
+            <table>
+                <tr>
+                    <th>When you see this...</th>
+                    <th>Think about using...</th>
+                    <th>Example code</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>"Repeat..."<br>"For each..."<br>"A specific number of times"<br>"Do something for every..."</td>
+                    <td>A <span class="highlight-variable">for</span> loop</td>
+                    <td><div class="code-example"><span class="highlight-comment"># Print the multiplication table for 5</span>
+<span class="highlight-variable">for</span> <span class="highlight-variable">i</span> <span class="highlight-variable">in</span> <span class="highlight-function">range</span>(1, 11):
+    <span class="highlight-variable">result</span> = 5 * <span class="highlight-variable">i</span>
+    <span class="highlight-function">print</span>(5, <span class="highlight-string">"x"</span>, <span class="highlight-variable">i</span>, <span class="highlight-string">"="</span>, <span class="highlight-variable">result</span>)</div></td>
+                    <td>The range() function creates a sequence of numbers to iterate through. For example, range(1, 11) creates the sequence 1 through 10.</td>
+                </tr>
+                <tr>
+                    <td>"As long as..."<br>"While..."<br>"Until..."<br>"Keep doing..."</td>
+                    <td>A <span class="highlight-variable">while</span> loop</td>
+                    <td><div class="code-example"><span class="highlight-variable">count</span> = 0
+<span class="highlight-variable">while</span> <span class="highlight-variable">count</span> < 5:
+    <span class="highlight-function">print</span>(<span class="highlight-string">"Count is currently:"</span>, <span class="highlight-variable">count</span>)
+    <span class="highlight-variable">count</span> = <span class="highlight-variable">count</span> + 1
+<span class="highlight-function">print</span>(<span class="highlight-string">"Loop has finished!"</span>)</div></td>
+                    <td>Be careful with while loops - if the condition never becomes False, the loop will run forever (infinite loop).</td>
+                </tr>
+            </table>
+            
+            <h2>Random Values</h2>
+            <table>
+                <tr>
+                    <th>When you see this...</th>
+                    <th>Think about using...</th>
+                    <th>Example code</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>"Random..."<br>"Randomly select..."<br>"Choose a random..."<br>"Generate a random..."</td>
+                    <td>The <span class="highlight-variable">random</span> module</td>
+                    <td><div class="code-example"><span class="highlight-variable">import</span> <span class="highlight-variable">random</span>
+
+<span class="highlight-comment"># Generate a random number between 1 and 20</span>
+<span class="highlight-variable">secret_number</span> = <span class="highlight-variable">random</span>.<span class="highlight-function">randint</span>(1, 20)
+<span class="highlight-function">print</span>(<span class="highlight-string">"I'm thinking of a number between 1 and 20"</span>)</div></td>
+                    <td>Always import the random module at the top of your program. randint(a, b) gives a random number between a and b, including both a and b.</td>
+                </tr>
+            </table>
+            
+            <h2>Special Modules</h2>
+            <table>
+                <tr>
+                    <th>When you see this...</th>
+                    <th>Think about using...</th>
+                    <th>Example code</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>"Draw a shape..."<br>"Create a graphical..."<br>"Turtle graphics..."</td>
+                    <td>The <span class="highlight-variable">turtle</span> module</td>
+                    <td><div class="code-example"><span class="highlight-variable">import</span> <span class="highlight-variable">turtle</span>
+<span class="highlight-variable">import</span> <span class="highlight-variable">random</span>
+
+<span class="highlight-comment"># Create a turtle and set its characteristics</span>
+<span class="highlight-variable">t</span> = <span class="highlight-variable">turtle</span>.<span class="highlight-function">Turtle</span>()
+<span class="highlight-variable">t</span>.<span class="highlight-function">pencolor</span>(<span class="highlight-string">"purple"</span>)
+<span class="highlight-variable">t</span>.<span class="highlight-function">pensize</span>(3)
+
+<span class="highlight-comment"># Draw a square</span>
+<span class="highlight-variable">for</span> <span class="highlight-variable">i</span> <span class="highlight-variable">in</span> <span class="highlight-function">range</span>(4):
+    <span class="highlight-variable">t</span>.<span class="highlight-function">forward</span>(100)
+    <span class="highlight-variable">t</span>.<span class="highlight-function">right</span>(90)</div></td>
+                    <td>Turtle commands move a virtual "turtle" that draws as it moves. Common commands include forward(), backward(), right(), left(), penup(), pendown(), and pencolor().</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="card">
+            <div class="element-header">
+                <div class="element-number">3</div>
+                <h3>IDENTIFYING CODE CONCEPTS IN PROBLEMS <i class="fas fa-search" style="margin-left: 10px;"></i></h3>
+            </div>
+            
+            <p>Let's look at some examples from real coding problems and identify what Python concepts we need to use:</p>
+            
+            <div class="task-example">
+                <p><strong>Task: Dog Years Calculator</strong></p>
+                <p>"Write a program to ask the user their age, and then tell them their age in dog years! You can calculate a person's age in dog years by multiplying their age by 7."</p>
+                
+                <p><strong>Key phrases & concepts:</strong></p>
+                <ul>
+                    <li>"Ask the user their age" - Getting input from the user</li>
+                    <li>"Tell them their age in dog years" - Displaying output</li>
+                    <li>"Multiplying their age by 7" - Using a mathematical operation</li>
+                    <li>Working with numbers - Converting strings to integers</li>
+                </ul>
+            </div>
+            
+            <div class="task-example">
+                <p><strong>Task: Card Draw Challenge</strong></p>
+                <p>"Create a simple card-based game where the player starts with a random number between 1 and 11. The player can choose whether to draw a second card. If their total exceeds 16, they lose."</p>
+                
+                <p><strong>Key phrases & concepts:</strong></p>
+                <ul>
+                    <li>"Random number between 1 and 11" - Generating random values</li>
+                    <li>"Player can choose whether to..." - Getting user decisions</li>
+                    <li>"If their total exceeds 16, they lose" - Making decisions with conditions</li>
+                    <li>"Otherwise, they win" - Alternative path for when condition is false</li>
+                </ul>
+            </div>
+            
+            <div class="task-example">
+                <p><strong>Task: Turtle Shape Generator</strong></p>
+                <p>"Create a program that asks the user for the number of sides of a shape and then uses the Turtle module to draw the shape on the screen."</p>
+                
+                <p><strong>Key phrases & concepts:</strong></p>
+                <ul>
+                    <li>"Asks the user for the number of sides" - Getting input from the user</li>
+                    <li>"Check that the user has entered a valid number" - Validating input with conditions</li>
+                    <li>"Set a random pen colour" - Using random values with graphics</li>
+                    <li>"Use a for loop to draw the shape" - Repeating actions a specific number of times</li>
+                    <li>"Display a description" - Showing output to the user</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="element-header">
+                <div class="element-number">4</div>
+                <h3>PRACTICE TIPS <i class="fas fa-lightbulb" style="margin-left: 10px;"></i></h3>
+            </div>
+            
+            <div class="tips-box">
+                <h4>When approaching a new coding problem:</h4>
+                <ol>
+                    <li><strong>Highlight key phrases</strong> in the problem description that indicate what Python features you'll need</li>
+                    <li><strong>List the variables</strong> you'll need to create</li>
+                    <li><strong>Draw a flowchart</strong> or write pseudocode before starting to code</li>
+                    <li><strong>Break down complex problems</strong> into smaller, manageable steps</li>
+                </ol>
+            </div>
+            
+            <div class="tips-box">
+                <h4>Common beginner mistakes to avoid:</h4>
+                <ul>
+                    <li>Forgetting to convert input from strings to numbers with <span class="highlight-function">int()</span></li>
+                    <li>Using a single equals sign (=) for comparison instead of double equals (==)</li>
+                    <li>Improper indentation in conditional statements or loops</li>
+                    <li>Missing colons (:) after if, elif, else, for, or while statements</li>
+                    <li>Forgetting to import modules before using them</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
