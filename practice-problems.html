@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Step-by-Step Tutorials</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional CSS for new components */
+        
+        /* Styling for terminal simulation */
+        .terminal-simulation {
+            background-color: #272822;
+            color: #f8f8f2;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+
+        .terminal-prompt {
+            color: #f8f8f2;
+            margin-bottom: 5px;
+        }
+
+        .terminal-output {
+            color: #a6e22e;
+        }
+
+        .typing-cursor {
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Debug challenge styling */
+        .debug-challenge {
+            background-color: rgba(0,0,0,0.03);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .debug-challenge-header {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .debug-challenge-hint, 
+        .debug-challenge-solution {
+            display: inline-block;
+            cursor: pointer;
+            color: var(--accent-color);
+            padding: 8px 15px;
+            margin-top: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-color);
+        }
+
+        .debug-challenge-hint:hover, 
+        .debug-challenge-solution:hover {
+            background-color: rgba(0, 38, 84, 0.1);
+        }
+
+        .debug-challenge-hint-content,
+        .debug-challenge-solution-content {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+        }
+
+        .debug-challenge-hint-content {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+        }
+
+        .debug-challenge-solution-content {
+            background-color: rgba(82, 196, 26, 0.1);
+            border-left: 4px solid #52c41a;
+        }
+
+        /* Mini challenge styling */
+        .challenge-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+
+        .challenge-card {
+            background-color: rgba(0,0,0,0.03);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .challenge-header {
+            background-color: var(--chew-color);
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+        }
+
+        .challenge-content {
+            padding: 20px;
+        }
+
+        .challenge-example {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+        }
+        
+        /* Duolingo-style quiz */
+        .duolingo-container {
+            background-color: #f5f5f5;
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+        
+        .duolingo-question {
+            text-align: center;
+        }
+        
+        .question-number {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .question-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        
+        .question-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .option-btn {
+            background-color: white;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 15px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+        
+        .option-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .duolingo-feedback {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        .duolingo-feedback.correct {
+            background-color: rgba(82, 196, 26, 0.1);
+            border: 1px solid #52c41a;
+        }
+        
+        .duolingo-feedback.incorrect {
+            background-color: rgba(255, 77, 79, 0.1);
+            border: 1px solid #ff4d4f;
+        }
+        
+        .feedback-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .correct .feedback-icon {
+            color: #52c41a;
+        }
+        
+        .incorrect .feedback-icon {
+            color: #ff4d4f;
+        }
+        
+        .feedback-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .continue-btn, .restart-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        
+        .continue-btn:hover, .restart-btn:hover {
+            background-color: #001f54;
+        }
+        
+        .duolingo-result {
+            text-align: center;
+        }
+        
+        .result-icon {
+            font-size: 3em;
+            color: #f5b301;
+            margin-bottom: 20px;
+        }
+        
+        .result-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        
+        /* Code building exercise */
+        .build-sentence {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: #f5f5f5;
+        }
+        
+        .sentence-part {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            background-color: white;
+            border: 1px solid var(--outline-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sentence-part:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .sentence-result {
+            min-height: 60px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: rgba(0, 38, 84, 0.05);
+            border: 1px dashed var(--outline-color);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .result-part {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            background-color: white;
+            border: 1px solid var(--outline-color);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .result-part:hover::after {
+            content: "×";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff4d4f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .feedback-area {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            min-height: 60px;
+        }
+        
+        .feedback-area.correct {
+            background-color: rgba(82, 196, 26, 0.1);
+            border-left: 4px solid #52c41a;
+        }
+        
+        .feedback-area.incorrect {
+            background-color: rgba(255, 77, 79, 0.1);
+            border-left: 4px solid #ff4d4f;
+        }
+        
+        .slide-animation {
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Buckle animation */
+        .buckle-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .buckle-animation img {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .shine {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            animation: shine 1s forwards;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+        
+        .buckle-counter {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0,0,0,0.05);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">EXTRA PRACTICE PROBLEMS</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="problem1">
+                <i class="fas fa-cube"></i>
+                PROBLEM 1
+            </button>
+            <button class="tab-button" data-tab="problem2">
+                <i class="fas fa-cube"></i>
+                PROBLEM 2
+            </button>
+            <button class="tab-button" data-tab="problem3">
+                <i class="fas fa-cube"></i>
+                PROBLEM 3
+            </button>
+            <button class="tab-button" data-tab="problem4">
+                <i class="fas fa-cube"></i>
+                PROBLEM 4
+            </button>
+            <button class="tab-button" data-tab="problem5">
+                <i class="fas fa-cube"></i>
+                PROBLEM 5
+            </button>
+            <button class="tab-button" data-tab="problem6">
+                <i class="fas fa-cube"></i>
+                PROBLEM 6
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- PROBLEM 1: Distance Converter -->
+        <!-- PROBLEM 1: Distance Converter -->
+<!-- PROBLEM 1: Distance Converter -->
+<section id="problem1" class="tab-content active dark-section">
+    <h1>PROBLEM 1: DISTANCE CONVERTER <i class="fas fa-road" style="margin-left: 15px;"></i></h1>
+    
+    <div class="chunk-section">
+        <div class="chunk-badge">TUTORIAL</div>
+        <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+        
+        <h3>Distance Converter</h3>
+        
+        <p>Create a program that takes a distance in miles as input and converts it to kilometers. The conversion factor is 1 mile = 1.60934 kilometers.</p>
+        
+        <div class="interactive-card">
+            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                <div class="element-number">1</div>
+                <h3>Step-by-Step Guide <i class="fas fa-shoe-prints" style="margin-left: 10px;"></i></h3>
+            </div>
+            
+            <div class="variable-animation" style="padding: 30px; text-align: center;">
+                <div class="code-step-container">
+                                            <div class="code-step-header">
+                        <span>Distance Converter - Step by Step</span>
+                        <span id="distance-step-indicator">Step 1 of 5</span>
+                    </div>
+                    
+                    <div class="code-step-content">
+                        <!-- Step 1: Getting user input -->
+                        <div id="distance-step-1" class="variable-update-step active">
+                            <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active"># Step 1: Display a welcome message</div>
+<div class="execution-line active">print("DISTANCE CONVERTER")</div>
+<div class="execution-line active">print("This program converts miles to kilometers.")</div>
+<div class="execution-line active">print("-------------------------------------------")</div>
+
+<span class="code-comment"># We start by displaying a welcome message to the user</span>
+<span class="code-comment"># This helps the user understand what the program does</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="terminal-simulation">
+                                    <p class="terminal-output">DISTANCE CONVERTER</p>
+                                    <p class="terminal-output">This program converts miles to kilometers.</p>
+                                    <p class="terminal-output">-------------------------------------------</p>
+                                </div>
+                                <p style="margin-top: 15px; text-align: center;">The program displays the welcome message</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2: Get user input -->
+                        <div id="distance-step-2" class="variable-update-step">
+                            <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Display a welcome message
+print("DISTANCE CONVERTER")
+print("This program converts miles to kilometers.")
+print("-------------------------------------------")
+
+<div class="execution-line active"># Step 2: Get the distance in miles from the user</div>
+<div class="execution-line active">miles = input("Enter distance in miles: ")</div>
+
+<span class="code-comment"># This displays the prompt "Enter distance in miles: "</span>
+<span class="code-comment"># And waits for the user to type a value</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="terminal-simulation">
+                                    <p class="terminal-output">DISTANCE CONVERTER</p>
+                                    <p class="terminal-output">This program converts miles to kilometers.</p>
+                                    <p class="terminal-output">-------------------------------------------</p>
+                                    <p class="terminal-prompt">Enter distance in miles: <span class="typing-cursor">|</span></p>
+                                </div>
+                                <p style="margin-top: 15px; text-align: center;">The program is waiting for the user to enter a distance in miles</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Convert to float -->
+                        <div id="distance-step-3" class="variable-update-step">
+                            <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Display a welcome message
+print("DISTANCE CONVERTER")
+print("This program converts miles to kilometers.")
+print("-------------------------------------------")
+
+# Step 2: Get the distance in miles from the user
+miles = input("Enter distance in miles: ")
+
+<div class="execution-line active"># Step 3: Convert the input string to an integer</div>
+<div class="execution-line active">miles = int(miles)</div>
+
+<span class="code-comment"># The user typed "5" and pressed Enter</span>
+<span class="code-comment"># Now we convert "5" to the integer 5</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="terminal-simulation">
+                                    <p class="terminal-output">DISTANCE CONVERTER</p>
+                                    <p class="terminal-output">This program converts miles to kilometers.</p>
+                                    <p class="terminal-output">-------------------------------------------</p>
+                                    <p class="terminal-prompt">Enter distance in miles: 5</p>
+                                </div>
+                                <div class="computer-memory" style="margin-top: 20px;">
+                                    <div class="memory-item" style="opacity: 0.5; text-decoration: line-through;">
+                                        <div class="memory-item-name">miles</div>
+                                        <div class="memory-item-value">"5"</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">miles</div>
+                                        <div class="memory-item-value">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 4: Perform conversion -->
+                        <div id="distance-step-4" class="variable-update-step">
+                            <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Display a welcome message
+print("DISTANCE CONVERTER")
+print("This program converts miles to kilometers.")
+print("-------------------------------------------")
+
+# Step 2: Get the distance in miles from the user
+miles = input("Enter distance in miles: ")
+
+# Step 3: Convert the input string to an integer
+miles = int(miles)
+
+<div class="execution-line active"># Step 4: Convert miles to kilometers</div>
+<div class="execution-line active">kilometers = miles * 1.60934</div>
+
+<span class="code-comment"># 1 mile equals 1.60934 kilometers</span>
+<span class="code-comment"># kilometers = 5 * 1.60934 = 8.0467</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="computer-memory">
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">miles</div>
+                                        <div class="memory-item-value">5</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">kilometers</div>
+                                        <div class="memory-item-value">8.0467</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 5: Display the result -->
+                        <div id="distance-step-5" class="variable-update-step">
+                            <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Display a welcome message
+print("DISTANCE CONVERTER")
+print("This program converts miles to kilometers.")
+print("-------------------------------------------")
+
+# Step 2: Get the distance in miles from the user
+miles = input("Enter distance in miles: ")
+
+# Step 3: Convert the input string to an integer
+miles = int(miles)
+
+# Step 4: Convert miles to kilometers
+kilometers = miles * 1.60934
+
+<div class="execution-line active"># Step 5: Display the result</div>
+<div class="execution-line active">print(miles, "miles equals", kilometers, "kilometers.")</div>
+
+<span class="code-comment"># This will print: 5 miles equals 8.0467 kilometers.</span>
+<span class="code-comment"># Notice we're using a regular print statement with commas instead of f-strings</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="terminal-simulation">
+                                    <p class="terminal-output">DISTANCE CONVERTER</p>
+                                    <p class="terminal-output">This program converts miles to kilometers.</p>
+                                    <p class="terminal-output">-------------------------------------------</p>
+                                    <p class="terminal-prompt">Enter distance in miles: 5</p>
+                                    <p class="terminal-output">5 miles equals 8.0467 kilometers.</p>
+                                </div>
+                                <div style="margin-top: 15px; padding: 15px; background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); border-left: 4px solid #52c41a; text-align: left;">
+                                    <p style="margin: 0;"><strong>Complete Program:</strong></p>
+                                    <pre style="margin-top: 10px; white-space: pre-wrap;">
+# Distance Converter
+# Converts miles to kilometers
+
+print("DISTANCE CONVERTER")
+print("This program converts miles to kilometers.")
+print("-------------------------------------------")
+
+# Get the distance in miles from the user
+miles = input("Enter distance in miles: ")
+
+# Convert the input string to an integer
+miles = int(miles)
+
+# Convert miles to kilometers
+kilometers = miles * 1.60934
+
+# Display the result
+print(miles, "miles equals", kilometers, "kilometers.")
+</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                                                <div class="step-navigation">
+                        <button id="prev-distance-btn" class="step-btn" onclick="prevDistanceStep()" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <button id="next-distance-btn" class="step-btn" onclick="nextDistanceStep()">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- PROBLEM 2: Temperature Averager -->
+        <!-- PROBLEM 2: Temperature Averager -->
+<section id="problem2" class="tab-content dark-section">
+    <h1>PROBLEM 2: TEMPERATURE AVERAGER <i class="fas fa-thermometer-half" style="margin-left: 15px;"></i></h1>
+    
+    <div class="chunk-section">
+        <div class="chunk-badge">TUTORIAL</div>
+        <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+        
+        <h3>Temperature Averager</h3>
+        
+        <p>Create a program that asks the user for three temperature readings and then calculates and displays the average temperature.</p>
+        
+        <div class="interactive-card">
+            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                <div class="element-number">1</div>
+                <h3>Step-by-Step Guide <i class="fas fa-shoe-prints" style="margin-left: 10px;"></i></h3>
+            </div>
+            
+            <div class="variable-animation" style="padding: 30px; text-align: center;">
+                <div class="code-step-container">
+                    <div class="code-step-header">
+                        <span>Temperature Averager - Step by Step</span>
+                        <span id="temp-step-indicator">Step 1 of 4</span>
+                    </div>
+                    
+                    <div class="code-step-content">
+                        <!-- Step 1: Getting user input for temperatures -->
+                        <div id="temp-step-1" class="variable-update-step active">
+                            <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active"># Step 1: Display a welcome message</div>
+<div class="execution-line active">print("TEMPERATURE AVERAGER")</div>
+<div class="execution-line active">print("This program calculates the average of three temperatures.")</div>
+<div class="execution-line active">print("--------------------------------------------------------")</div>
+
+<div class="execution-line active"># Step 2: Get three temperature readings from the user</div>
+<div class="execution-line active">temp1 = input("Enter first temperature: ")</div>
+<div class="execution-line active">temp2 = input("Enter second temperature: ")</div>
+<div class="execution-line active">temp3 = input("Enter third temperature: ")</div>
+
+<span class="code-comment"># The program asks for three temperature values</span>
+<span class="code-comment"># one after another</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="terminal-simulation">
+                                    <p class="terminal-output">TEMPERATURE AVERAGER</p>
+                                    <p class="terminal-output">This program calculates the average of three temperatures.</p>
+                                    <p class="terminal-output">--------------------------------------------------------</p>
+                                    <p class="terminal-prompt">Enter first temperature: 22</p>
+                                    <p class="terminal-prompt">Enter second temperature: 24</p>
+                                    <p class="terminal-prompt">Enter third temperature: 23</p>
+                                </div>
+                                <div class="computer-memory" style="margin-top: 20px;">
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp1</div>
+                                        <div class="memory-item-value">"22"</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp2</div>
+                                        <div class="memory-item-value">"24"</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp3</div>
+                                        <div class="memory-item-value">"23"</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2: Converting strings to ints -->
+                        <div id="temp-step-2" class="variable-update-step">
+                            <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Display a welcome message
+print("TEMPERATURE AVERAGER")
+print("This program calculates the average of three temperatures.")
+print("--------------------------------------------------------")
+
+# Step 2: Get three temperature readings from the user
+temp1 = input("Enter first temperature: ")
+temp2 = input("Enter second temperature: ")
+temp3 = input("Enter third temperature: ")
+
+<div class="execution-line active"># Step 3: Convert the input strings to integers</div>
+<div class="execution-line active">temp1 = int(temp1)</div>
+<div class="execution-line active">temp2 = int(temp2)</div>
+<div class="execution-line active">temp3 = int(temp3)</div>
+
+<span class="code-comment"># Converting each temperature from string to integer</span>
+<span class="code-comment"># "22" becomes 22, "24" becomes 24, etc.</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="computer-memory">
+                                    <div class="memory-item" style="opacity: 0.5; text-decoration: line-through;">
+                                        <div class="memory-item-name">temp1</div>
+                                        <div class="memory-item-value">"22"</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp1</div>
+                                        <div class="memory-item-value">22</div>
+                                    </div>
+                                    <div class="memory-item" style="opacity: 0.5; text-decoration: line-through;">
+                                        <div class="memory-item-name">temp2</div>
+                                        <div class="memory-item-value">"24"</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp2</div>
+                                        <div class="memory-item-value">24</div>
+                                    </div>
+                                    <div class="memory-item" style="opacity: 0.5; text-decoration: line-through;">
+                                        <div class="memory-item-name">temp3</div>
+                                        <div class="memory-item-value">"23"</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp3</div>
+                                        <div class="memory-item-value">23</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3: Calculate the average -->
+                        <div id="temp-step-3" class="variable-update-step">
+                            <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Display a welcome message
+print("TEMPERATURE AVERAGER")
+print("This program calculates the average of three temperatures.")
+print("--------------------------------------------------------")
+
+# Step 2: Get three temperature readings from the user
+temp1 = input("Enter first temperature: ")
+temp2 = input("Enter second temperature: ")
+temp3 = input("Enter third temperature: ")
+
+# Step 3: Convert the input strings to integers
+temp1 = int(temp1)
+temp2 = int(temp2)
+temp3 = int(temp3)
+
+<div class="execution-line active"># Step 4: Calculate the average temperature</div>
+<div class="execution-line active">average_temp = (temp1 + temp2 + temp3) / 3</div>
+
+<span class="code-comment"># Add all temperatures and divide by the number of readings</span>
+<span class="code-comment"># average_temp = (22 + 24 + 23) / 3 = 69 / 3 = 23.0</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="computer-memory">
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp1</div>
+                                        <div class="memory-item-value">22</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp2</div>
+                                        <div class="memory-item-value">24</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">temp3</div>
+                                        <div class="memory-item-value">23</div>
+                                    </div>
+                                    <div class="memory-item">
+                                        <div class="memory-item-name">average_temp</div>
+                                        <div class="memory-item-value">23.0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 4: Display the result -->
+                        <div id="temp-step-4" class="variable-update-step">
+                            <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Display a welcome message
+print("TEMPERATURE AVERAGER")
+print("This program calculates the average of three temperatures.")
+print("--------------------------------------------------------")
+
+# Step 2: Get three temperature readings from the user
+temp1 = input("Enter first temperature: ")
+temp2 = input("Enter second temperature: ")
+temp3 = input("Enter third temperature: ")
+
+# Step 3: Convert the input strings to integers
+temp1 = int(temp1)
+temp2 = int(temp2)
+temp3 = int(temp3)
+
+# Step 4: Calculate the average temperature
+average_temp = (temp1 + temp2 + temp3) / 3
+
+<div class="execution-line active"># Step 5: Display the result</div>
+<div class="execution-line active">print("Temperature readings:", temp1, ",", temp2, ",", temp3)</div>
+<div class="execution-line active">print("The average temperature is", average_temp, "degrees.")</div>
+
+<span class="code-comment"># Notice we're using a regular print statement with commas</span>
+<span class="code-comment"># instead of using f-strings</span>
+                            </div>
+                            
+                            <div class="memory-visualization">
+                                <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                <div class="terminal-simulation">
+                                    <p class="terminal-output">TEMPERATURE AVERAGER</p>
+                                    <p class="terminal-output">This program calculates the average of three temperatures.</p>
+                                    <p class="terminal-output">--------------------------------------------------------</p>
+                                    <p class="terminal-prompt">Enter first temperature: 22</p>
+                                    <p class="terminal-prompt">Enter second temperature: 24</p>
+                                    <p class="terminal-prompt">Enter third temperature: 23</p>
+                                    <p class="terminal-output">Temperature readings: 22 , 24 , 23</p>
+                                    <p class="terminal-output">The average temperature is 23.0 degrees.</p>
+                                </div>
+                                <div style="margin-top: 15px; padding: 15px; background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); border-left: 4px solid #52c41a; text-align: left;">
+                                    <p style="margin: 0;"><strong>Complete Program:</strong></p>
+                                    <pre style="margin-top: 10px; white-space: pre-wrap;">
+# Temperature Averager
+# Calculates the average of three temperature readings
+
+print("TEMPERATURE AVERAGER")
+print("This program calculates the average of three temperatures.")
+print("--------------------------------------------------------")
+
+# Get three temperature readings from the user
+temp1 = input("Enter first temperature: ")
+temp2 = input("Enter second temperature: ")
+temp3 = input("Enter third temperature: ")
+
+# Convert the input strings to integers
+temp1 = int(temp1)
+temp2 = int(temp2)
+temp3 = int(temp3)
+
+# Calculate the average temperature
+average_temp = (temp1 + temp2 + temp3) / 3
+
+# Display the result
+print("Temperature readings:", temp1, ",", temp2, ",", temp3)
+print("The average temperature is", average_temp, "degrees.")
+</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-navigation">
+                        <button id="prev-temp-btn" class="step-btn" onclick="prevTempStep()" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <button id="next-temp-btn" class="step-btn" onclick="nextTempStep()">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- PROBLEM 3: Coin Flip Challenge -->
+        <section id="problem3" class="tab-content dark-section">
+            <h1>PROBLEM 3: COIN FLIP CHALLENGE <i class="fas fa-coins" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TUTORIAL</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Coin Flip Challenge</h3>
+                
+                <p>Create a game where the computer flips a coin, and the player must guess whether it will be heads or tails. If they guess correctly, they win; otherwise, they lose.</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Step-by-Step Guide <i class="fas fa-shoe-prints" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="variable-animation" style="padding: 30px; text-align: center;">
+                        <div class="code-step-container">
+                            <div class="code-step-header">
+                                <span>Coin Flip Challenge - Step by Step</span>
+                                <span id="coin-step-indicator">Step 1 of 4</span>
+                            </div>
+                            
+                            <div class="code-step-content">
+                                <!-- Step 1: Import random and set up the game -->
+                                <div id="coin-step-1" class="variable-update-step active">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active"># Step 1: Import the random module for coin flipping</div>
+<div class="execution-line active">import random</div>
+
+<div class="execution-line active"># Step 2: Display welcome message and game rules</div>
+<div class="execution-line active">print("COIN FLIP CHALLENGE")</div>
+<div class="execution-line active">print("I'll flip a coin. Can you guess if it will be heads or tails?")</div>
+<div class="execution-line active">print("----------------------------------------------------")</div>
+
+<span class="code-comment"># We need the random module to simulate a coin flip</span>
+<span class="code-comment"># which is essentially a random choice between two options</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-output">COIN FLIP CHALLENGE</p>
+                                            <p class="terminal-output">I'll flip a coin. Can you guess if it will be heads or tails?</p>
+                                            <p class="terminal-output">----------------------------------------------------</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 2: Get the player's guess -->
+                                <div id="coin-step-2" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import the random module for coin flipping
+import random
+
+# Step 2: Display welcome message and game rules
+print("COIN FLIP CHALLENGE")
+print("I'll flip a coin. Can you guess if it will be heads or tails?")
+print("----------------------------------------------------")
+
+<div class="execution-line active"># Step 3: Get the player's guess</div>
+<div class="execution-line active">player_guess = input("Enter your guess (heads/tails): ").lower()</div>
+
+<div class="execution-line active"># Make sure the guess is valid</div>
+<div class="execution-line active">while player_guess != "heads" and player_guess != "tails":</div>
+<div class="execution-line active">    print("Invalid guess. Please enter 'heads' or 'tails'.")</div>
+<div class="execution-line active">    player_guess = input("Enter your guess (heads/tails): ").lower()</div>
+
+<span class="code-comment"># We use .lower() to convert the input to lowercase</span>
+<span class="code-comment"># This allows the player to enter "Heads" or "TAILS" and it will still be valid</span>
+<span class="code-comment"># We also validate that they only enter "heads" or "tails"</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-output">COIN FLIP CHALLENGE</p>
+                                            <p class="terminal-output">I'll flip a coin. Can you guess if it will be heads or tails?</p>
+                                            <p class="terminal-output">----------------------------------------------------</p>
+                                            <p class="terminal-prompt">Enter your guess (heads/tails): heads</p>
+                                        </div>
+                                        <div class="computer-memory" style="margin-top: 20px;">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">player_guess</div>
+                                                <div class="memory-item-value">"heads"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 3: Flip the coin -->
+                                <div id="coin-step-3" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import the random module for coin flipping
+import random
+
+# Step 2: Display welcome message and game rules
+print("COIN FLIP CHALLENGE")
+print("I'll flip a coin. Can you guess if it will be heads or tails?")
+print("----------------------------------------------------")
+
+# Step 3: Get the player's guess
+player_guess = input("Enter your guess (heads/tails): ").lower()
+
+# Make sure the guess is valid
+while player_guess != "heads" and player_guess != "tails":
+    print("Invalid guess. Please enter 'heads' or 'tails'.")
+    player_guess = input("Enter your guess (heads/tails): ").lower()
+
+<div class="execution-line active"># Step 4: Flip the coin (generate a random result)</div>
+<div class="execution-line active">print("\nFlipping the coin...")</div>
+<div class="execution-line active">coin_results = ["heads", "tails"]</div>
+<div class="execution-line active">coin_flip = random.choice(coin_results)</div>
+
+<span class="code-comment"># random.choice() picks a random item from a list</span>
+<span class="code-comment"># In this case, it randomly selects either "heads" or "tails"</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-output">COIN FLIP CHALLENGE</p>
+                                            <p class="terminal-output">I'll flip a coin. Can you guess if it will be heads or tails?</p>
+                                            <p class="terminal-output">----------------------------------------------------</p>
+                                            <p class="terminal-prompt">Enter your guess (heads/tails): heads</p>
+                                            <p class="terminal-output"></p>
+                                            <p class="terminal-output">Flipping the coin...</p>
+                                        </div>
+                                        <div class="computer-memory" style="margin-top: 20px;">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">player_guess</div>
+                                                <div class="memory-item-value">"heads"</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">coin_results</div>
+                                                <div class="memory-item-value">["heads", "tails"]</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">coin_flip</div>
+                                                <div class="memory-item-value">"tails"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 4: Check the result and display outcome -->
+                                <div id="coin-step-4" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import the random module for coin flipping
+import random
+
+# Step 2: Display welcome message and game rules
+print("COIN FLIP CHALLENGE")
+print("I'll flip a coin. Can you guess if it will be heads or tails?")
+print("----------------------------------------------------")
+
+# Step 3: Get the player's guess
+player_guess = input("Enter your guess (heads/tails): ").lower()
+
+# Make sure the guess is valid
+while player_guess != "heads" and player_guess != "tails":
+    print("Invalid guess. Please enter 'heads' or 'tails'.")
+    player_guess = input("Enter your guess (heads/tails): ").lower()
+
+# Step 4: Flip the coin (generate a random result)
+print("\nFlipping the coin...")
+coin_results = ["heads", "tails"]
+coin_flip = random.choice(coin_results)
+
+<div class="execution-line active"># Step 5: Check if the player's guess matches the result</div>
+<div class="execution-line active">print(f"The coin landed on: {coin_flip}")</div>
+
+<div class="execution-line active"># Compare guess with result and display appropriate message</div>
+<div class="execution-line active">if player_guess == coin_flip:</div>
+<div class="execution-line active">    print("Congratulations! Your guess was correct. You win!")</div>
+<div class="execution-line active">else:</div>
+<div class="execution-line active">    print(f"Sorry! Your guess was incorrect. You guessed {player_guess}, but the coin landed on {coin_flip}.")</div>
+
+<span class="code-comment"># We use an if-else statement to compare the player's guess</span>
+<span class="code-comment"># with the actual result of the coin flip</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-output">COIN FLIP CHALLENGE</p>
+                                            <p class="terminal-output">I'll flip a coin. Can you guess if it will be heads or tails?</p>
+                                            <p class="terminal-output">----------------------------------------------------</p>
+                                            <p class="terminal-prompt">Enter your guess (heads/tails): heads</p>
+                                            <p class="terminal-output"></p>
+                                            <p class="terminal-output">Flipping the coin...</p>
+                                            <p class="terminal-output">The coin landed on: tails</p>
+                                            <p class="terminal-output">Sorry! Your guess was incorrect. You guessed heads, but the coin landed on tails.</p>
+                                        </div>
+                                        <div style="margin-top: 15px; padding: 15px; background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); border-left: 4px solid #52c41a; text-align: left;">
+                                            <p style="margin: 0;"><strong>Complete Program:</strong></p>
+                                            <pre style="margin-top: 10px; white-space: pre-wrap;">
+# Coin Flip Challenge
+# A simple game where the player guesses the outcome of a coin flip
+
+import random
+
+# Display welcome message and game rules
+print("COIN FLIP CHALLENGE")
+print("I'll flip a coin. Can you guess if it will be heads or tails?")
+print("----------------------------------------------------")
+
+# Get the player's guess
+player_guess = input("Enter your guess (heads/tails): ").lower()
+
+# Make sure the guess is valid
+while player_guess != "heads" and player_guess != "tails":
+    print("Invalid guess. Please enter 'heads' or 'tails'.")
+    player_guess = input("Enter your guess (heads/tails): ").lower()
+
+# Flip the coin (generate a random result)
+print("\nFlipping the coin...")
+coin_results = ["heads", "tails"]
+coin_flip = random.choice(coin_results)
+
+# Check if the player's guess matches the result
+print(f"The coin landed on: {coin_flip}")
+
+# Compare guess with result and display appropriate message
+if player_guess == coin_flip:
+    print("Congratulations! Your guess was correct. You win!")
+else:
+    print(f"Sorry! Your guess was incorrect. You guessed {player_guess}, but the coin landed on {coin_flip}.")
+</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button id="prev-coin-btn" class="step-btn" onclick="prevCoinStep()" disabled>
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="next-coin-btn" class="step-btn" onclick="nextCoinStep()">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEM 4: Lucky Number Game -->
+        <section id="problem4" class="tab-content dark-section">
+            <h1>PROBLEM 4: LUCKY NUMBER GAME <i class="fas fa-dice" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TUTORIAL</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Lucky Number Game</h3>
+                
+                <p>Create a game where the computer generates a random "lucky number" between 1 and 10. The player gets two attempts to guess the number. If they guess correctly, they win; otherwise, they lose.</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Step-by-Step Guide <i class="fas fa-shoe-prints" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="variable-animation" style="padding: 30px; text-align: center;">
+                        <div class="code-step-container">
+                            <div class="code-step-header">
+                                <span>Lucky Number Game - Step by Step</span>
+                                <span id="lucky-step-indicator">Step 1 of 4</span>
+                            </div>
+                            
+                            <div class="code-step-content">
+                                <!-- Step 1: Import random and generate lucky number -->
+                                <div id="lucky-step-1" class="variable-update-step active">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active"># Step 1: Import the random module</div>
+<div class="execution-line active">import random</div>
+
+<div class="execution-line active"># Step 2: Display welcome message and game rules</div>
+<div class="execution-line active">print("LUCKY NUMBER GAME")</div>
+<div class="execution-line active">print("I'm thinking of a number between 1 and 10.")</div>
+<div class="execution-line active">print("You have two attempts to guess it.")</div>
+<div class="execution-line active">print("------------------------------------------")</div>
+
+<div class="execution-line active"># Step 3: Generate a random "lucky number" between 1 and 10</div>
+<div class="execution-line active">lucky_number = random.randint(1, 10)</div>
+
+<span class="code-comment"># random.randint(1, 10) generates a random integer</span>
+<span class="code-comment"># between 1 and 10, inclusive</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-output">LUCKY NUMBER GAME</p>
+                                            <p class="terminal-output">I'm thinking of a number between 1 and 10.</p>
+                                            <p class="terminal-output">You have two attempts to guess it.</p>
+                                            <p class="terminal-output">------------------------------------------</p>
+                                        </div>
+                                        <div class="computer-memory" style="margin-top: 20px;">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">lucky_number</div>
+                                                <div class="memory-item-value">7</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 2: First attempt -->
+                                <div id="lucky-step-2" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import the random module
+import random
+
+# Step 2: Display welcome message and game rules
+print("LUCKY NUMBER GAME")
+print("I'm thinking of a number between 1 and 10.")
+print("You have two attempts to guess it.")
+print("------------------------------------------")
+
+# Step 3: Generate a random "lucky number" between 1 and 10
+lucky_number = random.randint(1, 10)
+
+<div class="execution-line active"># Step 4: Get the player's first guess</div>
+<div class="execution-line active">print("\nAttempt 1:")</div>
+<div class="execution-line active">try:</div>
+<div class="execution-line active">    first_guess = int(input("Enter your guess (1-10): "))</div>
+<div class="execution-line active">    </div>
+<div class="execution-line active">    # Check if the first guess is correct</div>
+<div class="execution-line active">    if first_guess == lucky_number:</div>
+<div class="execution-line active">        print("Congratulations! You guessed the lucky number on your first try!")</div>
+<div class="execution-line active">        print(f"The lucky number was {lucky_number}.")</div>
+<div class="execution-line active">        game_over = True</div>
+<div class="execution-line active">    else:</div>
+<div class="execution-line active">        if first_guess < lucky_number:</div>
+<div class="execution-line active">            print("Too low! Try a higher number.")</div>
+<div class="execution-line active">        else:</div>
+<div class="execution-line active">            print("Too high! Try a lower number.")</div>
+<div class="execution-line active">        game_over = False</div>
+<div class="execution-line active">except ValueError:</div>
+<div class="execution-line active">    print("Invalid input. Please enter a number between 1 and 10.")</div>
+<div class="execution-line active">    game_over = False</div>
+
+<span class="code-comment"># We use try-except to handle invalid input</span>
+<span class="code-comment"># We compare the guess with the lucky number</span>
+<span class="code-comment"># and provide feedback (too high/low)</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-output">LUCKY NUMBER GAME</p>
+                                            <p class="terminal-output">I'm thinking of a number between 1 and 10.</p>
+                                            <p class="terminal-output">You have two attempts to guess it.</p>
+                                            <p class="terminal-output">------------------------------------------</p>
+                                            <p class="terminal-output"></p>
+                                            <p class="terminal-output">Attempt 1:</p>
+                                            <p class="terminal-prompt">Enter your guess (1-10): 4</p>
+                                            <p class="terminal-output">Too low! Try a higher number.</p>
+                                        </div>
+                                        <div class="computer-memory" style="margin-top: 20px;">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">lucky_number</div>
+                                                <div class="memory-item-value">7</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">first_guess</div>
+                                                <div class="memory-item-value">4</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">game_over</div>
+                                                <div class="memory-item-value">False</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 3: Second attempt -->
+                                <div id="lucky-step-3" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import the random module
+import random
+
+# Step 2: Display welcome message and game rules
+print("LUCKY NUMBER GAME")
+print("I'm thinking of a number between 1 and 10.")
+print("You have two attempts to guess it.")
+print("------------------------------------------")
+
+# Step 3: Generate a random "lucky number" between 1 and 10
+lucky_number = random.randint(1, 10)
+
+# Step 4: Get the player's first guess
+print("\nAttempt 1:")
+try:
+    first_guess = int(input("Enter your guess (1-10): "))
+    
+    # Check if the first guess is correct
+    if first_guess == lucky_number:
+        print("Congratulations! You guessed the lucky number on your first try!")
+        print(f"The lucky number was {lucky_number}.")
+        game_over = True
+    else:
+        if first_guess < lucky_number:
+            print("Too low! Try a higher number.")
+        else:
+            print("Too high! Try a lower number.")
+        game_over = False
+except ValueError:
+    print("Invalid input. Please enter a number between 1 and 10.")
+    game_over = False
+
+<div class="execution-line active"># Step 5: Get the player's second guess (if they didn't win on the first attempt)</div>
+<div class="execution-line active">if not game_over:</div>
+<div class="execution-line active">    print("\nAttempt 2 (final attempt):")</div>
+<div class="execution-line active">    try:</div>
+<div class="execution-line active">        second_guess = int(input("Enter your guess (1-10): "))</div>
+<div class="execution-line active">        </div>
+<div class="execution-line active">        # Check if the second guess is correct</div>
+<div class="execution-line active">        if second_guess == lucky_number:</div>
+<div class="execution-line active">            print("Congratulations! You guessed the lucky number on your second try!")</div>
+<div class="execution-line active">        else:</div>
+<div class="execution-line active">            print(f"Sorry, you're out of attempts. The lucky number was {lucky_number}.")</div>
+<div class="execution-line active">    except ValueError:</div>
+<div class="execution-line active">        print("Invalid input. Please enter a number between 1 and 10.")</div>
+<div class="execution-line active">        print(f"Sorry, you're out of attempts. The lucky number was {lucky_number}.")</div>
+
+<span class="code-comment"># We only proceed to the second attempt if the player</span>
+<span class="code-comment"># didn't win on the first attempt</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="terminal-simulation">
+                                            <p class="terminal-output">LUCKY NUMBER GAME</p>
+                                            <p class="terminal-output">I'm thinking of a number between 1 and 10.</p>
+                                            <p class="terminal-output">You have two attempts to guess it.</p>
+                                            <p class="terminal-output">------------------------------------------</p>
+                                            <p class="terminal-output"></p>
+                                            <p class="terminal-output">Attempt 1:</p>
+                                            <p class="terminal-prompt">Enter your guess (1-10): 4</p>
+                                            <p class="terminal-output">Too low! Try a higher number.</p>
+                                            <p class="terminal-output"></p>
+                                            <p class="terminal-output">Attempt 2 (final attempt):</p>
+                                            <p class="terminal-prompt">Enter your guess (1-10): 7</p>
+                                            <p class="terminal-output">Congratulations! You guessed the lucky number on your second try!</p>
+                                        </div>
+                                        <div class="computer-memory" style="margin-top: 20px;">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">lucky_number</div>
+                                                <div class="memory-item-value">7</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">first_guess</div>
+                                                <div class="memory-item-value">4</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">game_over</div>
+                                                <div class="memory-item-value">False</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">second_guess</div>
+                                                <div class="memory-item-value">7</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 4: Complete Program -->
+                                <div id="lucky-step-4" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Lucky Number Game
+# The player has two attempts to guess a random number between 1 and 10
+
+import random
+
+# Display welcome message and game rules
+print("LUCKY NUMBER GAME")
+print("I'm thinking of a number between 1 and 10.")
+print("You have two attempts to guess it.")
+print("------------------------------------------")
+
+# Generate a random "lucky number" between 1 and 10
+lucky_number = random.randint(1, 10)
+
+# Get the player's first guess
+print("\nAttempt 1:")
+try:
+    first_guess = int(input("Enter your guess (1-10): "))
+    
+    # Check if the first guess is correct
+    if first_guess == lucky_number:
+        print("Congratulations! You guessed the lucky number on your first try!")
+        print(f"The lucky number was {lucky_number}.")
+        game_over = True
+    else:
+        if first_guess < lucky_number:
+            print("Too low! Try a higher number.")
+        else:
+            print("Too high! Try a lower number.")
+        game_over = False
+except ValueError:
+    print("Invalid input. Please enter a number between 1 and 10.")
+    game_over = False
+
+# Get the player's second guess (if they didn't win on the first attempt)
+if not game_over:
+    print("\nAttempt 2 (final attempt):")
+    try:
+        second_guess = int(input("Enter your guess (1-10): "))
+        
+        # Check if the second guess is correct
+        if second_guess == lucky_number:
+            print("Congratulations! You guessed the lucky number on your second try!")
+        else:
+            print(f"Sorry, you're out of attempts. The lucky number was {lucky_number}.")
+    except ValueError:
+        print("Invalid input. Please enter a number between 1 and 10.")
+        print(f"Sorry, you're out of attempts. The lucky number was {lucky_number}.")
+
+# End of the game
+print("\nThanks for playing the Lucky Number Game!")
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Complete Program</h4>
+                                        <p style="margin: 10px 0 20px 0; text-align: center;">This is the final version of our Lucky Number Game.</p>
+                                        <div style="background-color: rgba(82, 196, 26, 0.1); padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #52c41a; text-align: left;">
+                                            <p style="margin: 0;"><strong>Key Points:</strong></p>
+                                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                                <li>We used <code>random.randint()</code> to generate a random number</li>
+                                                <li>We used <code>if-else</code> statements to check if the guess is correct</li>
+                                                <li>We provided feedback ("too high" or "too low") to help the player</li>
+                                                <li>We used <code>try-except</code> to handle invalid input</li>
+                                                <li>We limited the player to two attempts</li>
+                                            </ul>
+                                        </div>
+                                        <div style="margin-top: 15px; padding: 15px; background-color: rgba(255, 193, 7, 0.1); border-radius: var(--border-radius); border-left: 4px solid #ffc107; text-align: left;">
+                                            <p style="margin: 0;"><strong>Possible Enhancement:</strong> You could make the game repeatable by adding a loop that asks if the player wants to play again.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button id="prev-lucky-btn" class="step-btn" onclick="prevLuckyStep()" disabled>
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="next-lucky-btn" class="step-btn" onclick="nextLuckyStep()">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEM 5: Polygon Creator -->
+        <section id="problem5" class="tab-content dark-section">
+            <h1>PROBLEM 5: POLYGON CREATOR <i class="fas fa-draw-polygon" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TUTORIAL</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Polygon Creator</h3>
+                
+                <p>Create a program that uses the Turtle module to draw a regular polygon with a user-specified number of sides. The program should ask the user for the number of sides, validate the input, and then draw the polygon.</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Step-by-Step Guide <i class="fas fa-shoe-prints" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="variable-animation" style="padding: 30px; text-align: center;">
+                        <div class="code-step-container">
+                            <div class="code-step-header">
+                                <span>Polygon Creator - Step by Step</span>
+                                <span id="polygon-step-indicator">Step 1 of 5</span>
+                            </div>
+                            
+                            <div class="code-step-content">
+                                <!-- Step 1: Import modules and set up turtle -->
+                                <div id="polygon-step-1" class="variable-update-step active">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active"># Step 1: Import modules</div>
+<div class="execution-line active">import turtle</div>
+<div class="execution-line active">import random</div>
+
+<div class="execution-line active"># Step 2: Set up the turtle screen</div>
+<div class="execution-line active">window = turtle.Screen()</div>
+<div class="execution-line active">window.title("Polygon Creator")</div>
+<div class="execution-line active">window.bgcolor("black")</div>
+
+<div class="execution-line active"># Step 3: Create a turtle object</div>
+<div class="execution-line active">poly_turtle = turtle.Turtle()</div>
+<div class="execution-line active">poly_turtle.speed(0)  # Fastest speed</div>
+<div class="execution-line active">poly_turtle.width(3)  # Line width</div>
+<div class="execution-line active">poly_turtle.color("white")</div>
+
+<span class="code-comment"># We set up a black background and a white turtle</span>
+<span class="code-comment"># The turtle will draw our polygon</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div style="background-color: #000; padding: 20px; text-align: center; border-radius: var(--border-radius);">
+                                            <p style="color: white; margin: 0;">Turtle Graphics Window</p>
+                                            <div style="margin-top: 10px; width: 100%; height: 150px; border: 1px dashed #555; border-radius: var(--border-radius); position: relative;">
+                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                    <img src="/api/placeholder/20/20" alt="turtle" style="display: block; margin: 0 auto;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p style="margin-top: 15px; text-align: center; color: #666;">A black window appears with a white turtle in the center</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 2: Get user input for number of sides -->
+                                <div id="polygon-step-2" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import modules
+import turtle
+import random
+
+# Step 2: Set up the turtle screen
+window = turtle.Screen()
+window.title("Polygon Creator")
+window.bgcolor("black")
+
+# Step 3: Create a turtle object
+poly_turtle = turtle.Turtle()
+poly_turtle.speed(0)  # Fastest speed
+poly_turtle.width(3)  # Line width
+poly_turtle.color("white")
+
+<div class="execution-line active"># Step 4: Get user input for number of sides</div>
+<div class="execution-line active"># Use the turtle window's built-in text input</div>
+<div class="execution-line active">sides_str = window.textinput("Polygon Creator", "Enter number of sides (3-12):")</div>
+
+<div class="execution-line active"># Step 5: Validate input</div>
+<div class="execution-line active">try:</div>
+<div class="execution-line active">    sides = int(sides_str)</div>
+<div class="execution-line active">    if sides < 3 or sides > 12:</div>
+<div class="execution-line active">        sides = 3  # Default to triangle if out of range</div>
+<div class="execution-line active">        poly_turtle.write("Invalid input! Using 3 sides (triangle).", align="center", font=("Arial", 16, "normal"))</div>
+<div class="execution-line active">        poly_turtle.penup()</div>
+<div class="execution-line active">        poly_turtle.goto(0, -30)</div>
+<div class="execution-line active">        poly_turtle.pendown()</div>
+<div class="execution-line active">except ValueError:</div>
+<div class="execution-line active">    sides = 3  # Default to triangle if not a number</div>
+<div class="execution-line active">    poly_turtle.write("Invalid input! Using 3 sides (triangle).", align="center", font=("Arial", 16, "normal"))</div>
+<div class="execution-line active">    poly_turtle.penup()</div>
+<div class="execution-line active">    poly_turtle.goto(0, -30)</div>
+<div class="execution-line active">    poly_turtle.pendown()</div>
+
+<span class="code-comment"># We use turtle's textinput to get user input directly in the graphics window</span>
+<span class="code-comment"># We also validate that the input is a number between 3 and 12</span>
+<span class="code-comment"># If the input is invalid, we default to a triangle (3 sides)</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div style="background-color: rgba(0,0,0,0.05); padding: 15px; border-radius: var(--border-radius); margin-bottom: 20px;">
+                                            <div style="background-color: white; border: 1px solid #ddd; border-radius: 5px; padding: 15px; max-width: 300px; margin: 0 auto;">
+                                                <div style="color: black; font-weight: bold; margin-bottom: 10px;">Polygon Creator</div>
+                                                <div style="color: black; margin-bottom: 10px;">Enter number of sides (3-12):</div>
+                                                <div style="border: 1px solid #999; border-radius: 3px; padding: 5px; color: black;">6</div>
+                                            </div>
+                                        </div>
+                                        <div class="computer-memory">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">sides_str</div>
+                                                <div class="memory-item-value">"6"</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">sides</div>
+                                                <div class="memory-item-value">6</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 3: Choose a random color for the polygon -->
+                                <div id="polygon-step-3" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import modules
+import turtle
+import random
+
+# Step 2: Set up the turtle screen
+window = turtle.Screen()
+window.title("Polygon Creator")
+window.bgcolor("black")
+
+# Step 3: Create a turtle object
+poly_turtle = turtle.Turtle()
+poly_turtle.speed(0)  # Fastest speed
+poly_turtle.width(3)  # Line width
+poly_turtle.color("white")
+
+# Step 4: Get user input for number of sides
+# Use the turtle window's built-in text input
+sides_str = window.textinput("Polygon Creator", "Enter number of sides (3-12):")
+
+# Step 5: Validate input
+try:
+    sides = int(sides_str)
+    if sides < 3 or sides > 12:
+        sides = 3  # Default to triangle if out of range
+        poly_turtle.write("Invalid input! Using 3 sides (triangle).", align="center", font=("Arial", 16, "normal"))
+        poly_turtle.penup()
+        poly_turtle.goto(0, -30)
+        poly_turtle.pendown()
+except ValueError:
+    sides = 3  # Default to triangle if not a number
+    poly_turtle.write("Invalid input! Using 3 sides (triangle).", align="center", font=("Arial", 16, "normal"))
+    poly_turtle.penup()
+    poly_turtle.goto(0, -30)
+    poly_turtle.pendown()
+
+<div class="execution-line active"># Step 6: Choose a random color for the polygon</div>
+<div class="execution-line active"># Define a list of colors</div>
+<div class="execution-line active">colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "cyan"]</div>
+<div class="execution-line active">polygon_color = random.choice(colors)</div>
+<div class="execution-line active">poly_turtle.color(polygon_color)</div>
+
+<span class="code-comment"># We pick a random color from our list</span>
+<span class="code-comment"># This makes the program more visually interesting</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div class="computer-memory">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">sides</div>
+                                                <div class="memory-item-value">6</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">colors</div>
+                                                <div class="memory-item-value">["red", "orange", "yellow", "green", "blue", "purple", "pink", "cyan"]</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">polygon_color</div>
+                                                <div class="memory-item-value">"green"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 4: Calculate angle and draw the polygon -->
+                                <div id="polygon-step-4" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import modules
+import turtle
+import random
+
+# Step 2: Set up the turtle screen
+window = turtle.Screen()
+window.title("Polygon Creator")
+window.bgcolor("black")
+
+# Step 3: Create a turtle object
+poly_turtle = turtle.Turtle()
+poly_turtle.speed(0)  # Fastest speed
+poly_turtle.width(3)  # Line width
+poly_turtle.color("white")
+
+# Step 4: Get user input for number of sides
+# Use the turtle window's built-in text input
+sides_str = window.textinput("Polygon Creator", "Enter number of sides (3-12):")
+
+# Step 5: Validate input
+try:
+    sides = int(sides_str)
+    if sides < 3 or sides > 12:
+        sides = 3  # Default to triangle if out of range
+        poly_turtle.write("Invalid input! Using 3 sides (triangle).", align="center", font=("Arial", 16, "normal"))
+        poly_turtle.penup()
+        poly_turtle.goto(0, -30)
+        poly_turtle.pendown()
+except ValueError:
+    sides = 3  # Default to triangle if not a number
+    poly_turtle.write("Invalid input! Using 3 sides (triangle).", align="center", font=("Arial", 16, "normal"))
+    poly_turtle.penup()
+    poly_turtle.goto(0, -30)
+    poly_turtle.pendown()
+
+# Step 6: Choose a random color for the polygon
+# Define a list of colors
+colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "cyan"]
+polygon_color = random.choice(colors)
+poly_turtle.color(polygon_color)
+
+<div class="execution-line active"># Step 7: Calculate the angle for turning</div>
+<div class="execution-line active"># In a regular polygon, the exterior angle is 360 / number of sides</div>
+<div class="execution-line active">angle = 360 / sides</div>
+
+<div class="execution-line active"># Step 8: Draw the polygon</div>
+<div class="execution-line active"># First, clear any previous text</div>
+<div class="execution-line active">poly_turtle.clear()</div>
+
+<div class="execution-line active"># Move to starting position</div>
+<div class="execution-line active">poly_turtle.penup()</div>
+<div class="execution-line active">poly_turtle.goto(-100, 0)  # Start from left side for better visibility</div>
+<div class="execution-line active">poly_turtle.pendown()</div>
+
+<div class="execution-line active"># Draw the polygon using a loop</div>
+<div class="execution-line active">for _ in range(sides):</div>
+<div class="execution-line active">    poly_turtle.forward(50)  # Move forward</div>
+<div class="execution-line active">    poly_turtle.left(angle)  # Turn by the calculated angle</div>
+
+<span class="code-comment"># To draw a regular polygon, we need to:</span>
+<span class="code-comment"># 1. Calculate the angle between sides: 360 / sides</span>
+<span class="code-comment"># 2. Use a loop to draw each side</span>
+<span class="code-comment"># 3. Turn by the calculated angle after each side</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div style="background-color: #000; padding: 20px; text-align: center; border-radius: var(--border-radius);">
+                                            <p style="color: white; margin: 0;">Turtle Graphics Window</p>
+                                            <div style="margin-top: 10px; width: 100%; height: 200px; border: 1px dashed #555; border-radius: var(--border-radius); position: relative; overflow: hidden;">
+                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                    <!-- Simplified hexagon representation -->
+                                                    <div style="width: 150px; height: 130px; position: relative;">
+                                                        <svg viewBox="0 0 100 100" width="100%" height="100%">
+                                                            <polygon points="25,50 37.5,27.5 62.5,27.5 75,50 62.5,72.5 37.5,72.5" 
+                                                                    style="fill:none;stroke:green;stroke-width:3"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="computer-memory" style="margin-top: 20px;">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">sides</div>
+                                                <div class="memory-item-value">6</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">polygon_color</div>
+                                                <div class="memory-item-value">"green"</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">angle</div>
+                                                <div class="memory-item-value">60</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 5: Display polygon information and complete program -->
+                                <div id="polygon-step-5" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import modules
+import turtle
+import random
+
+# Step 2: Set up the turtle screen
+window = turtle.Screen()
+window.title("Polygon Creator")
+window.bgcolor("black")
+
+# Step 3: Create a turtle object
+poly_turtle = turtle.Turtle()
+poly_turtle.speed(0)  # Fastest speed
+poly_turtle.width(3)  # Line width
+poly_turtle.color("white")
+
+# Step 4: Get user input for number of sides
+# Use the turtle window's built-in text input
+sides_str = window.textinput("Polygon Creator", "Enter number of sides (3-12):")
+
+# Step 5: Validate input
+try:
+    sides = int(sides_str)
+    if sides < 3 or sides > 12:
+        sides = 3  # Default to triangle if out of range
+        poly_turtle.write("Invalid input! Using 3 sides (triangle).", align="center", font=("Arial", 16, "normal"))
+        poly_turtle.penup()
+        poly_turtle.goto(0, -30)
+        poly_turtle.pendown()
+except ValueError:
+    sides = 3  # Default to triangle if not a number
+    poly_turtle.write("Invalid input! Using 3 sides (triangle).", align="center", font=("Arial", 16, "normal"))
+    poly_turtle.penup()
+    poly_turtle.goto(0, -30)
+    poly_turtle.pendown()
+
+# Step 6: Choose a random color for the polygon
+# Define a list of colors
+colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "cyan"]
+polygon_color = random.choice(colors)
+poly_turtle.color(polygon_color)
+
+# Step 7: Calculate the angle for turning
+# In a regular polygon, the exterior angle is 360 / number of sides
+angle = 360 / sides
+
+# Step 8: Draw the polygon
+# First, clear any previous text
+poly_turtle.clear()
+
+# Move to starting position
+poly_turtle.penup()
+poly_turtle.goto(-100, 0)  # Start from left side for better visibility
+poly_turtle.pendown()
+
+# Draw the polygon using a loop
+for _ in range(sides):
+    poly_turtle.forward(50)  # Move forward
+    poly_turtle.left(angle)  # Turn by the calculated angle
+
+<div class="execution-line active"># Step 9: Display information about the polygon</div>
+<div class="execution-line active">poly_turtle.penup()</div>
+<div class="execution-line active">poly_turtle.color("white")</div>
+<div class="execution-line active">poly_turtle.goto(0, -150)</div>
+
+<div class="execution-line active"># Get the name of the polygon based on the number of sides</div>
+<div class="execution-line active">polygon_names = {</div>
+<div class="execution-line active">    3: "Triangle",</div>
+<div class="execution-line active">    4: "Square",</div>
+<div class="execution-line active">    5: "Pentagon",</div>
+<div class="execution-line active">    6: "Hexagon",</div>
+<div class="execution-line active">    7: "Heptagon",</div>
+<div class="execution-line active">    8: "Octagon",</div>
+<div class="execution-line active">    9: "Nonagon",</div>
+<div class="execution-line active">    10: "Decagon",</div>
+<div class="execution-line active">    11: "Hendecagon",</div>
+<div class="execution-line active">    12: "Dodecagon"</div>
+<div class="execution-line active">}</div>
+
+<div class="execution-line active">polygon_name = polygon_names.get(sides, f"{sides}-sided polygon")</div>
+<div class="execution-line active">poly_turtle.write(f"This is a {polygon_name} ({sides} sides)", align="center", font=("Arial", 16, "normal"))</div>
+
+<div class="execution-line active"># Keep the window open until clicked</div>
+<div class="execution-line active">window.exitonclick()</div>
+
+<span class="code-comment"># We display information about the polygon</span>
+<span class="code-comment"># including its proper name and number of sides</span>
+<span class="code-comment"># We keep the window open until the user clicks on it</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Complete Program<h4 style="text-align: center; margin-top: 0;">Complete Program</h4>
+                                        <p style="margin: 10px 0 20px 0; text-align: center;">This is the final version of our Polygon Creator.</p>
+                                        <div style="background-color: #000; padding: 20px; text-align: center; border-radius: var(--border-radius);">
+                                            <p style="color: white; margin: 0;">Turtle Graphics Window</p>
+                                            <div style="margin-top: 10px; width: 100%; height: 200px; border: 1px dashed #555; border-radius: var(--border-radius); position: relative; overflow: hidden;">
+                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                    <!-- Simplified hexagon representation -->
+                                                    <div style="width: 150px; height: 130px; position: relative;">
+                                                        <svg viewBox="0 0 100 100" width="100%" height="100%">
+                                                            <polygon points="25,50 37.5,27.5 62.5,27.5 75,50 62.5,72.5 37.5,72.5" 
+                                                                    style="fill:none;stroke:green;stroke-width:3"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div style="position: absolute; bottom: 20px; left: 0; width: 100%; text-align: center;">
+                                                    <p style="color: white; margin: 0;">This is a Hexagon (6 sides)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 15px; padding: 15px; background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); border-left: 4px solid #52c41a; text-align: left;">
+                                            <p style="margin: 0;"><strong>Key Points:</strong></p>
+                                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                                <li>We used the <code>turtle</code> module to create graphics</li>
+                                                <li>We calculated the correct angle for a regular polygon using <code>360 / sides</code></li>
+                                                <li>We used a <code>for</code> loop to draw each side of the polygon</li>
+                                                <li>We added validation to handle invalid user input</li>
+                                                <li>We used a dictionary to look up the proper name of the polygon</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button id="prev-polygon-btn" class="step-btn" onclick="prevPolygonStep()" disabled>
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="next-polygon-btn" class="step-btn" onclick="nextPolygonStep()">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEM 6: Colorful Flower -->
+        <section id="problem6" class="tab-content dark-section">
+            <h1>PROBLEM 6: COLORFUL FLOWER <i class="fas fa-sun" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TUTORIAL</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Colorful Flower</h3>
+                
+                <p>Create a program that uses the Turtle module to draw a colorful flower pattern. The program will ask the user how many petals to draw, and then generate a beautiful flower with the specified number of petals.</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Step-by-Step Guide <i class="fas fa-shoe-prints" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="variable-animation" style="padding: 30px; text-align: center;">
+                        <div class="code-step-container">
+                            <div class="code-step-header">
+                                <span>Colorful Flower - Step by Step</span>
+                                <span id="flower-step-indicator">Step 1 of 5</span>
+                            </div>
+                            
+                            <div class="code-step-content">
+                                <!-- Step 1: Import modules and set up turtle -->
+                                <div id="flower-step-1" class="variable-update-step active">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+<div class="execution-line active"># Step 1: Import modules</div>
+<div class="execution-line active">import turtle</div>
+<div class="execution-line active">import random</div>
+
+<div class="execution-line active"># Step 2: Set up the turtle screen</div>
+<div class="execution-line active">window = turtle.Screen()</div>
+<div class="execution-line active">window.title("Colorful Flower")</div>
+<div class="execution-line active">window.bgcolor("black")</div>
+
+<div class="execution-line active"># Step 3: Create a turtle object</div>
+<div class="execution-line active">flower_turtle = turtle.Turtle()</div>
+<div class="execution-line active">flower_turtle.speed(0)  # Fastest speed</div>
+<div class="execution-line active">flower_turtle.width(2)  # Line width</div>
+
+<span class="code-comment"># We set up a black background for our flower</span>
+<span class="code-comment"># The black background will make the colors pop</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div style="background-color: #000; padding: 20px; text-align: center; border-radius: var(--border-radius);">
+                                            <p style="color: white; margin: 0;">Turtle Graphics Window</p>
+                                            <div style="margin-top: 10px; width: 100%; height: 150px; border: 1px dashed #555; border-radius: var(--border-radius); position: relative;">
+                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                    <img src="/api/placeholder/20/20" alt="turtle" style="display: block; margin: 0 auto;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p style="margin-top: 15px; text-align: center; color: #666;">A black window appears with a turtle in the center</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 2: Get user input for number of petals -->
+                                <div id="flower-step-2" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import modules
+import turtle
+import random
+
+# Step 2: Set up the turtle screen
+window = turtle.Screen()
+window.title("Colorful Flower")
+window.bgcolor("black")
+
+# Step 3: Create a turtle object
+flower_turtle = turtle.Turtle()
+flower_turtle.speed(0)  # Fastest speed
+flower_turtle.width(2)  # Line width
+
+<div class="execution-line active"># Step 4: Get user input for number of petals</div>
+<div class="execution-line active">petals_str = window.textinput("Colorful Flower", "How many petals? (5-20):")</div>
+
+<div class="execution-line active"># Step 5: Validate input</div>
+<div class="execution-line active">try:</div>
+<div class="execution-line active">    petals = int(petals_str)</div>
+<div class="execution-line active">    if petals < 5 or petals > 20:</div>
+<div class="execution-line active">        petals = 8  # Default to 8 petals if out of range</div>
+<div class="execution-line active">        flower_turtle.write("Invalid input! Using 8 petals.", align="center", font=("Arial", 16, "normal"))</div>
+<div class="execution-line active">        flower_turtle.penup()</div>
+<div class="execution-line active">        flower_turtle.goto(0, -30)</div>
+<div class="execution-line active">        flower_turtle.pendown()</div>
+<div class="execution-line active">except ValueError:</div>
+<div class="execution-line active">    petals = 8  # Default to 8 petals if not a number</div>
+<div class="execution-line active">    flower_turtle.write("Invalid input! Using 8 petals.", align="center", font=("Arial", 16, "normal"))</div>
+<div class="execution-line active">    flower_turtle.penup()</div>
+<div class="execution-line active">    flower_turtle.goto(0, -30)</div>
+<div class="execution-line active">    flower_turtle.pendown()</div>
+
+<span class="code-comment"># We ask the user how many petals they want</span>
+<span class="code-comment"># We validate that the input is between 5 and 20 petals</span>
+<span class="code-comment"># If the input is invalid, we default to 8 petals</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div style="background-color: rgba(0,0,0,0.05); padding: 15px; border-radius: var(--border-radius); margin-bottom: 20px;">
+                                            <div style="background-color: white; border: 1px solid #ddd; border-radius: 5px; padding: 15px; max-width: 300px; margin: 0 auto;">
+                                                <div style="color: black; font-weight: bold; margin-bottom: 10px;">Colorful Flower</div>
+                                                <div style="color: black; margin-bottom: 10px;">How many petals? (5-20):</div>
+                                                <div style="border: 1px solid #999; border-radius: 3px; padding: 5px; color: black;">12</div>
+                                            </div>
+                                        </div>
+                                        <div class="computer-memory">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">petals_str</div>
+                                                <div class="memory-item-value">"12"</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">petals</div>
+                                                <div class="memory-item-value">12</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 3: Define the petal drawing function -->
+                                <div id="flower-step-3" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import modules
+import turtle
+import random
+
+# Step 2: Set up the turtle screen
+window = turtle.Screen()
+window.title("Colorful Flower")
+window.bgcolor("black")
+
+# Step 3: Create a turtle object
+flower_turtle = turtle.Turtle()
+flower_turtle.speed(0)  # Fastest speed
+flower_turtle.width(2)  # Line width
+
+# Step 4: Get user input for number of petals
+petals_str = window.textinput("Colorful Flower", "How many petals? (5-20):")
+
+# Step 5: Validate input
+try:
+    petals = int(petals_str)
+    if petals < 5 or petals > 20:
+        petals = 8  # Default to 8 petals if out of range
+        flower_turtle.write("Invalid input! Using 8 petals.", align="center", font=("Arial", 16, "normal"))
+        flower_turtle.penup()
+        flower_turtle.goto(0, -30)
+        flower_turtle.pendown()
+except ValueError:
+    petals = 8  # Default to 8 petals if not a number
+    flower_turtle.write("Invalid input! Using 8 petals.", align="center", font=("Arial", 16, "normal"))
+    flower_turtle.penup()
+    flower_turtle.goto(0, -30)
+    flower_turtle.pendown()
+
+<div class="execution-line active"># Step 6: Define a function to draw a single petal</div>
+<div class="execution-line active">def draw_petal(t, size):</div>
+<div class="execution-line active">    """Draw a single petal shape."""</div>
+<div class="execution-line active">    # Generate a random color for the petal</div>
+<div class="execution-line active">    r = random.random()</div>
+<div class="execution-line active">    g = random.random()</div>
+<div class="execution-line active">    b = random.random()</div>
+<div class="execution-line active">    t.pencolor(r, g, b)</div>
+<div class="execution-line active">    t.fillcolor(r, g, b)</div>
+<div class="execution-line active">    </div>
+<div class="execution-line active">    # Start filling the petal shape</div>
+<div class="execution-line active">    t.begin_fill()</div>
+<div class="execution-line active">    </div>
+<div class="execution-line active">    # Create a petal shape (a curved shape)</div>
+<div class="execution-line active">    t.right(45)</div>
+<div class="execution-line active">    t.forward(size)</div>
+<div class="execution-line active">    t.circle(size/2, 90)</div>
+<div class="execution-line active">    t.left(90)</div>
+<div class="execution-line active">    t.circle(size/2, 90)</div>
+<div class="execution-line active">    t.forward(size)</div>
+<div class="execution-line active">    </div>
+<div class="execution-line active">    # End filling the petal shape</div>
+<div class="execution-line active">    t.end_fill()</div>
+
+<span class="code-comment"># We create a function to draw a single petal</span>
+<span class="code-comment"># The petal is drawn using a combination of forward, right and circle commands</span>
+<span class="code-comment"># We use random colors for each petal to make the flower colorful</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div style="background-color: rgba(0,0,0,0.05); padding: 15px; border-radius: var(--border-radius);">
+                                            <p style="margin: 0;"><strong>Function Defined:</strong> <code>draw_petal(t, size)</code></p>
+                                            <p style="margin-top: 10px;">This function will:</p>
+                                            <ul style="text-align: left; margin-top: 5px;">
+                                                <li>Take a turtle object and a size parameter</li>
+                                                <li>Generate a random color for the petal</li>
+                                                <li>Draw a curved petal shape</li>
+                                                <li>Fill the petal with the random color</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 4: Draw the flower -->
+                                <div id="flower-step-4" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Step 1: Import modules
+import turtle
+import random
+
+# Step 2: Set up the turtle screen
+window = turtle.Screen()
+window.title("Colorful Flower")
+window.bgcolor("black")
+
+# Step 3: Create a turtle object
+flower_turtle = turtle.Turtle()
+flower_turtle.speed(0)  # Fastest speed
+flower_turtle.width(2)  # Line width
+
+# Step 4: Get user input for number of petals
+petals_str = window.textinput("Colorful Flower", "How many petals? (5-20):")
+
+# Step 5: Validate input
+try:
+    petals = int(petals_str)
+    if petals < 5 or petals > 20:
+        petals = 8  # Default to 8 petals if out of range
+        flower_turtle.write("Invalid input! Using 8 petals.", align="center", font=("Arial", 16, "normal"))
+        flower_turtle.penup()
+        flower_turtle.goto(0, -30)
+        flower_turtle.pendown()
+except ValueError:
+    petals = 8  # Default to 8 petals if not a number
+    flower_turtle.write("Invalid input! Using 8 petals.", align="center", font=("Arial", 16, "normal"))
+    flower_turtle.penup()
+    flower_turtle.goto(0, -30)
+    flower_turtle.pendown()
+
+# Step 6: Define a function to draw a single petal
+def draw_petal(t, size):
+    """Draw a single petal shape."""
+    # Generate a random color for the petal
+    r = random.random()
+    g = random.random()
+    b = random.random()
+    t.pencolor(r, g, b)
+    t.fillcolor(r, g, b)
+    
+    # Start filling the petal shape
+    t.begin_fill()
+    
+    # Create a petal shape (a curved shape)
+    t.right(45)
+    t.forward(size)
+    t.circle(size/2, 90)
+    t.left(90)
+    t.circle(size/2, 90)
+    t.forward(size)
+    
+    # End filling the petal shape
+    t.end_fill()
+
+<div class="execution-line active"># Step 7: Draw the flower</div>
+<div class="execution-line active"># Clear any previous text or drawings</div>
+<div class="execution-line active">flower_turtle.clear()</div>
+
+<div class="execution-line active"># Hide the turtle while drawing for cleaner appearance</div>
+<div class="execution-line active">flower_turtle.hideturtle()</div>
+
+<div class="execution-line active"># Draw the flower petals</div>
+<div class="execution-line active">flower_size = 100  # Size of each petal</div>
+<div class="execution-line active">angle = 360 / petals  # Angle between petals</div>
+
+<div class="execution-line active"># Draw each petal</div>
+<div class="execution-line active">for _ in range(petals):</div>
+<div class="execution-line active">    flower_turtle.left(angle)</div>
+<div class="execution-line active">    draw_petal(flower_turtle, flower_size)</div>
+<div class="execution-line active">    flower_turtle.right(45)  # Reset the turtle direction after drawing a petal</div>
+
+<span class="code-comment"># We calculate the angle between petals based on the number of petals</span>
+<span class="code-comment"># We draw each petal, rotating by that angle between each one</span>
+<span class="code-comment"># This creates an evenly spaced flower pattern</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
+                                        <div style="background-color: #000; padding: 20px; text-align: center; border-radius: var(--border-radius);">
+                                            <p style="color: white; margin: 0;">Turtle Graphics Window</p>
+                                            <div style="margin-top: 10px; width: 100%; height: 200px; border: 1px dashed #555; border-radius: var(--border-radius); position: relative; overflow: hidden;">
+                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                    <!-- Simplified flower representation -->
+                                                    <div style="width: 160px; height: 160px; position: relative;">
+                                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: red; border-radius: 50%; transform: translate(-50%, -120%) rotate(0deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: orange; border-radius: 50%; transform: translate(70%, -100%) rotate(30deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: yellow; border-radius: 50%; transform: translate(100%, -20%) rotate(60deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: green; border-radius: 50%; transform: translate(70%, 60%) rotate(90deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: blue; border-radius: 50%; transform: translate(-50%, 80%) rotate(120deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: indigo; border-radius: 50%; transform: translate(-170%, 60%) rotate(150deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: violet; border-radius: 50%; transform: translate(-200%, -20%) rotate(180deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: pink; border-radius: 50%; transform: translate(-170%, -100%) rotate(210deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: cyan; border-radius: 50%; transform: translate(-90%, -140%) rotate(240deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: magenta; border-radius: 50%; transform: translate(-10%, -140%) rotate(270deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: lightgreen; border-radius: 50%; transform: translate(30%, -135%) rotate(300deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: lightsalmon; border-radius: 50%; transform: translate(50%, -125%) rotate(330deg);"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="computer-memory" style="margin-top: 20px;">
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">petals</div>
+                                                <div class="memory-item-value">12</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">flower_size</div>
+                                                <div class="memory-item-value">100</div>
+                                            </div>
+                                            <div class="memory-item">
+                                                <div class="memory-item-name">angle</div>
+                                                <div class="memory-item-value">30</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Step 5: Draw flower center and complete program -->
+                                <div id="flower-step-5" class="variable-update-step">
+                                    <div class="code-block" style="position: relative; text-align: left;">
+# Colorful Flower
+# Creates a flower with a user-specified number of petals
+
+import turtle
+import random
+
+# Set up the turtle screen
+window = turtle.Screen()
+window.title("Colorful Flower")
+window.bgcolor("black")
+
+# Create a turtle object
+flower_turtle = turtle.Turtle()
+flower_turtle.speed(0)  # Fastest speed
+flower_turtle.width(2)  # Line width
+
+# Define a function to draw a single petal
+def draw_petal(t, size):
+    """Draw a single petal shape."""
+    # Generate a random color for the petal
+    r = random.random()
+    g = random.random()
+    b = random.random()
+    t.pencolor(r, g, b)
+    t.fillcolor(r, g, b)
+    
+    # Start filling the petal shape
+    t.begin_fill()
+    
+    # Create a petal shape (a curved shape)
+    t.right(45)
+    t.forward(size)
+    t.circle(size/2, 90)
+    t.left(90)
+    t.circle(size/2, 90)
+    t.forward(size)
+    
+    # End filling the petal shape
+    t.end_fill()
+
+# Get user input for number of petals
+petals_str = window.textinput("Colorful Flower", "How many petals? (5-20):")
+
+# Validate input
+try:
+    petals = int(petals_str)
+    if petals < 5 or petals > 20:
+        petals = 8  # Default to 8 petals if out of range
+        flower_turtle.write("Invalid input! Using 8 petals.", align="center", font=("Arial", 16, "normal"))
+        flower_turtle.penup()
+        flower_turtle.goto(0, -30)
+        flower_turtle.pendown()
+except ValueError:
+    petals = 8  # Default to 8 petals if not a number
+    flower_turtle.write("Invalid input! Using 8 petals.", align="center", font=("Arial", 16, "normal"))
+    flower_turtle.penup()
+    flower_turtle.goto(0, -30)
+    flower_turtle.pendown()
+
+# Clear any previous text or drawings
+flower_turtle.clear()
+
+# Hide the turtle while drawing for cleaner appearance
+flower_turtle.hideturtle()
+
+# Draw the flower petals
+flower_size = 100  # Size of each petal
+angle = 360 / petals  # Angle between petals
+
+# Draw each petal
+for _ in range(petals):
+    flower_turtle.left(angle)
+    draw_petal(flower_turtle, flower_size)
+    flower_turtle.right(45)  # Reset the turtle direction after drawing a petal
+
+<div class="execution-line active"># Step 8: Draw the center of the flower</div>
+<div class="execution-line active"># Position the turtle at the center</div>
+<div class="execution-line active">flower_turtle.penup()</div>
+<div class="execution-line active">flower_turtle.home()  # Go to (0, 0)</div>
+<div class="execution-line active">flower_turtle.pendown()</div>
+
+<div class="execution-line active"># Draw a filled circle for the center</div>
+<div class="execution-line active">flower_turtle.fillcolor("yellow")</div>
+<div class="execution-line active">flower_turtle.begin_fill()</div>
+<div class="execution-line active">flower_turtle.circle(20)  # Radius of 20 pixels</div>
+<div class="execution-line active">flower_turtle.end_fill()</div>
+
+<div class="execution-line active"># Step 9: Display information about the flower</div>
+<div class="execution-line active">flower_turtle.penup()</div>
+<div class="execution-line active">flower_turtle.color("white")</div>
+<div class="execution-line active">flower_turtle.goto(0, -150)</div>
+<div class="execution-line active">flower_turtle.write(f"A beautiful flower with {petals} petals", align="center", font=("Arial", 16, "normal"))</div>
+<div class="execution-line active">flower_turtle.hideturtle()</div>
+
+<div class="execution-line active"># Keep the window open until clicked</div>
+<div class="execution-line active">window.exitonclick()</div>
+
+<span class="code-comment"># We add a yellow center to complete the flower</span>
+<span class="code-comment"># We display information about the flower</span>
+<span class="code-comment"># We keep the window open until the user clicks on it</span>
+                                    </div>
+                                    
+                                    <div class="memory-visualization">
+                                        <h4 style="text-align: center; margin-top: 0;">Complete Program</h4>
+                                        <p style="margin: 10px 0 20px 0; text-align: center;">This is the final version of our Colorful Flower program.</p>
+                                        <div style="background-color: #000; padding: 20px; text-align: center; border-radius: var(--border-radius);">
+                                            <p style="color: white; margin: 0;">Turtle Graphics Window</p>
+                                            <div style="margin-top: 10px; width: 100%; height: 200px; border: 1px dashed #555; border-radius: var(--border-radius); position: relative; overflow: hidden;">
+                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                    <!-- Simplified flower representation with center -->
+                                                    <div style="width: 160px; height: 160px; position: relative;">
+                                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: red; border-radius: 50%; transform: translate(-50%, -120%) rotate(0deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: orange; border-radius: 50%; transform: translate(70%, -100%) rotate(30deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: yellow; border-radius: 50%; transform: translate(100%, -20%) rotate(60deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: green; border-radius: 50%; transform: translate(70%, 60%) rotate(90deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: blue; border-radius: 50%; transform: translate(-50%, 80%) rotate(120deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: indigo; border-radius: 50%; transform: translate(-170%, 60%) rotate(150deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: violet; border-radius: 50%; transform: translate(-200%, -20%) rotate(180deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: pink; border-radius: 50%; transform: translate(-170%, -100%) rotate(210deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: cyan; border-radius: 50%; transform: translate(-90%, -140%) rotate(240deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: magenta; border-radius: 50%; transform: translate(-10%, -140%) rotate(270deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: lightgreen; border-radius: 50%; transform: translate(30%, -135%) rotate(300deg);"></div>
+                                                            <div style="position: absolute; width: 40px; height: 80px; background: lightsalmon; border-radius: 50%; transform: translate(50%, -125%) rotate(330deg);"></div>
+                                                            <!-- Center of the flower -->
+                                                            <div style="position: absolute; width: 40px; height: 40px; background: yellow; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="position: absolute; bottom: 20px; left: 0; width: 100%; text-align: center;">
+                                                    <p style="color: white; margin: 0;">A beautiful flower with 12 petals</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 15px; padding: 15px; background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); border-left: 4px solid #52c41a; text-align: left;">
+                                            <p style="margin: 0;"><strong>Key Points:</strong></p>
+                                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                                <li>We used the <code>turtle</code> module to create graphics</li>
+                                                <li>We created a function to draw a single petal shape</li>
+                                                <li>We used a <code>for</code> loop to draw multiple petals in a circular pattern</li>
+                                                <li>We used random colors to make the flower colorful and vibrant</li>
+                                                <li>We finished the flower with a yellow center</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button id="prev-flower-btn" class="step-btn" onclick="prevFlowerStep()" disabled>
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="next-flower-btn" class="step-btn" onclick="nextFlowerStep()">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript for interactive elements -->
+    <script>
+
+        
+        // Tab navigation
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all tabs and buttons
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to selected tab and button
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                button.classList.add('active');
+            });
+        });
+        
+        // Distance Converter steps navigation
+        let currentDistanceStep = 1;
+        const totalDistanceSteps = 5;
+                    
+                    function updateDistanceStep() {
+                        document.querySelectorAll('#distance-step-1, #distance-step-2, #distance-step-3, #distance-step-4, #distance-step-5').forEach(step => step.classList.remove('active'));
+                        document.getElementById(`distance-step-${currentDistanceStep}`).classList.add('active');
+                        document.getElementById('distance-step-indicator').textContent = `Step ${currentDistanceStep} of ${totalDistanceSteps}`;
+                        
+                        // Enable/disable navigation buttons
+                        document.getElementById('prev-distance-btn').disabled = (currentDistanceStep === 1);
+                        document.getElementById('next-distance-btn').disabled = (currentDistanceStep === totalDistanceSteps);
+                    }
+        
+        function nextDistanceStep() {
+            if (currentDistanceStep < totalDistanceSteps) {
+                currentDistanceStep++;
+                updateDistanceStep();
+            }
+        }
+        
+        function prevDistanceStep() {
+            if (currentDistanceStep > 1) {
+                currentDistanceStep--;
+                updateDistanceStep();
+            }
+        }
+        
+        // Temperature Averager steps navigation
+        let currentTempStep = 1;
+        const totalTempSteps = 4;
+        
+        function updateTempStep() {
+            document.querySelectorAll('#temp-step-1, #temp-step-2, #temp-step-3, #temp-step-4').forEach(step => step.classList.remove('active'));
+            document.getElementById(`temp-step-${currentTempStep}`).classList.add('active');
+            document.getElementById('temp-step-indicator').textContent = `Step ${currentTempStep} of ${totalTempSteps}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-temp-btn').disabled = (currentTempStep === 1);
+            document.getElementById('next-temp-btn').disabled = (currentTempStep === totalTempSteps);
+        }
+        
+        function nextTempStep() {
+            if (currentTempStep < totalTempSteps) {
+                currentTempStep++;
+                updateTempStep();
+            }
+        }
+        
+        function prevTempStep() {
+            if (currentTempStep > 1) {
+                currentTempStep--;
+                updateTempStep();
+            }
+        }
+        
+        // Coin Flip Challenge steps navigation
+        let currentCoinStep = 1;
+        const totalCoinSteps = 4;
+        
+        function updateCoinStep() {
+            document.querySelectorAll('#coin-step-1, #coin-step-2, #coin-step-3, #coin-step-4').forEach(step => step.classList.remove('active'));
+            document.getElementById(`coin-step-${currentCoinStep}`).classList.add('active');
+            document.getElementById('coin-step-indicator').textContent = `Step ${currentCoinStep} of ${totalCoinSteps}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-coin-btn').disabled = (currentCoinStep === 1);
+            document.getElementById('next-coin-btn').disabled = (currentCoinStep === totalCoinSteps);
+        }
+        
+        function nextCoinStep() {
+            if (currentCoinStep < totalCoinSteps) {
+                currentCoinStep++;
+                updateCoinStep();
+            }
+        }
+        
+        function prevCoinStep() {
+            if (currentCoinStep > 1) {
+                currentCoinStep--;
+                updateCoinStep();
+            }
+        }
+        
+        // Lucky Number Game steps navigation
+        let currentLuckyStep = 1;
+        const totalLuckySteps = 4;
+        
+        function updateLuckyStep() {
+            document.querySelectorAll('#lucky-step-1, #lucky-step-2, #lucky-step-3, #lucky-step-4').forEach(step => step.classList.remove('active'));
+            document.getElementById(`lucky-step-${currentLuckyStep}`).classList.add('active');
+            document.getElementById('lucky-step-indicator').textContent = `Step ${currentLuckyStep} of ${totalLuckySteps}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-lucky-btn').disabled = (currentLuckyStep === 1);
+            document.getElementById('next-lucky-btn').disabled = (currentLuckyStep === totalLuckySteps);
+        }
+        
+        function nextLuckyStep() {
+            if (currentLuckyStep < totalLuckySteps) {
+                currentLuckyStep++;
+                updateLuckyStep();
+            }
+        }
+        
+        function prevLuckyStep() {
+            if (currentLuckyStep > 1) {
+                currentLuckyStep--;
+                updateLuckyStep();
+            }
+        }
+        
+        // Polygon Creator steps navigation
+        let currentPolygonStep = 1;
+        const totalPolygonSteps = 5;
+        
+        function updatePolygonStep() {
+            document.querySelectorAll('#polygon-step-1, #polygon-step-2, #polygon-step-3, #polygon-step-4, #polygon-step-5').forEach(step => step.classList.remove('active'));
+            document.getElementById(`polygon-step-${currentPolygonStep}`).classList.add('active');
+            document.getElementById('polygon-step-indicator').textContent = `Step ${currentPolygonStep} of ${totalPolygonSteps}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-polygon-btn').disabled = (currentPolygonStep === 1);
+            document.getElementById('next-polygon-btn').disabled = (currentPolygonStep === totalPolygonSteps);
+        }
+        
+        function nextPolygonStep() {
+            if (currentPolygonStep < totalPolygonSteps) {
+                currentPolygonStep++;
+                updatePolygonStep();
+            }
+        }
+        
+        function prevPolygonStep() {
+            if (currentPolygonStep > 1) {
+                currentPolygonStep--;
+                updatePolygonStep();
+            }
+        }
+        
+        // Colorful Flower steps navigation
+        let currentFlowerStep = 1;
+        const totalFlowerSteps = 5;
+        
+        function updateFlowerStep() {
+            document.querySelectorAll('#flower-step-1, #flower-step-2, #flower-step-3, #flower-step-4, #flower-step-5').forEach(step => step.classList.remove('active'));
+            document.getElementById(`flower-step-${currentFlowerStep}`).classList.add('active');
+            document.getElementById('flower-step-indicator').textContent = `Step ${currentFlowerStep} of ${totalFlowerSteps}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-flower-btn').disabled = (currentFlowerStep === 1);
+            document.getElementById('next-flower-btn').disabled = (currentFlowerStep === totalFlowerSteps);
+        }
+        
+        function nextFlowerStep() {
+            if (currentFlowerStep < totalFlowerSteps) {
+                currentFlowerStep++;
+                updateFlowerStep();
+            }
+        }
+        
+        function prevFlowerStep() {
+            if (currentFlowerStep > 1) {
+                currentFlowerStep--;
+                updateFlowerStep();
+            }
+        }
+    </script>
+</body>
+</html>
