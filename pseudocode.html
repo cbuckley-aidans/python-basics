@@ -3,335 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pseudocode Guide</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Pseudocode Practice Examples</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Favicon Icons -->
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
     <style>
-        /* Additional custom styles */
-        .code-with-symbol {
-            position: relative;
-            background-color: #282c34;
-            border-radius: 6px;
-            margin: 15px 0;
-            overflow: hidden;
-            display: flex;
-            align-items: stretch;
-            flex-wrap: wrap;
+        :root {
+            --primary-color: #4FC1FF;
+            --accent-color: #4FC1FF;
+            --outline-color: #dee2e6;
+            --border-radius: 8px;
+            --sidebar-width: 220px;
         }
         
-        @media (max-width: 768px) {
-            .code-with-symbol {
-                flex-direction: column;
-            }
-        }
-        
-        .code-area {
-            flex: 1;
-            padding: 15px;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #abb2bf;
-            min-width: 200px;
-        }
-        
-        .symbol-area {
-            width: 120px;
-            background-color: rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        @media (max-width: 768px) {
-            .symbol-area {
-                width: 100%;
-                border-left: none;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
-                padding: 15px;
-            }
-        }
-        
-        .symbol-area svg {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .symbol-label {
-            color: #fff;
-            font-size: 0.8rem;
-            margin-top: 5px;
-            text-align: center;
-        }
-        
-        .page-title {
-            padding: 30px 40px;
-            margin: 0 0 30px 0;
-            background-color: var(--primary-color);
-            color: black;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-        }
-        
-        .page-title h1 {
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.4;
             margin: 0;
-            color: black !important;
-            display: block !important;
-            visibility: visible !important;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
         
-        .page-title i {
-            font-size: 1.8rem;
-            margin-left: 15px;
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: #1e293b;
+            color: white;
+            padding: 0;
+            height: 100%;
+            overflow-y: auto;
+            transition: width 0.3s;
+            flex-shrink: 0;
         }
         
-        /* Enhanced code styles to match Simple If Statement section */
-        .highlighted-code {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            padding: 15px;
-            font-family: 'Consolas', 'Courier New', monospace;
-            overflow-x: auto;
+        .sidebar-collapsed {
+            width: 50px;
         }
         
-        /* Highlighted keyword styles */
-        .keyword-highlight {
-            background-color: rgba(79, 193, 255, 0.2);
-            border-radius: 3px;
-            padding: 2px 4px;
+        .sidebar-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 10;
         }
         
-        /* Single column layout for cards */
-        .single-column-layout {
+        .sidebar-logo {
+            padding: 12px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .sidebar-nav {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 3px;
+            padding: 0 5px;
         }
         
-        /* Responsive adjustments */
-        @media (max-width: 992px) {
-            .elements-grid {
-                grid-template-columns: repeat(1, 1fr) !important;
-            }
-            
-            .two-column-grid {
-                grid-template-columns: 1fr !important;
-            }
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 8px 10px;
+            text-align: left;
+            color: #cbd5e1;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            overflow: hidden;
         }
         
-        @media (max-width: 768px) {
-            .page-title {
-                padding: 20px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .page-title h1 {
-                font-size: 1.5rem;
-                margin-bottom: 5px;
-            }
-            
-            .page-title i {
-                font-size: 1.3rem;
-                margin-left: 0;
-            }
-            
-            .card, .interactive-card {
-                padding: 20px;
-            }
-            
-            .element-header {
-                margin: -20px -20px 20px -20px !important;
-                padding: 15px !important;
-            }
-        }
-
-        /* Step-by-step breakdown styles */
-        .step-container {
-            margin-bottom: 30px;
-            border-left: 4px solid var(--accent-color);
-            padding-left: 20px;
+        .tab-button:hover {
+            background-color: rgba(255,255,255,0.1);
         }
         
-        .step-number {
-            display: inline-block;
+        .tab-button.active {
             background-color: var(--accent-color);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            color: #fff;
+        }
+        
+        .tab-button i {
+            font-size: 1.1rem;
+            width: 20px;
             text-align: center;
-            line-height: 30px;
-            margin-right: 10px;
-            font-weight: bold;
         }
         
-        .step-title {
-            display: inline-block;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
         }
         
-        .highlight-box {
+        .tab-content {
+            display: none;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .example-header {
+            padding: 12px 20px;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 5;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .accordion-container {
+            padding: 0 15px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        
+        .accordion {
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .accordion-header {
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-header:hover {
+            background-color: #e9ecef;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .problem-statement {
+            padding: 10px 15px;
             background-color: rgba(79, 193, 255, 0.1);
             border-left: 3px solid #4FC1FF;
-            padding: 15px;
-            margin: 15px 0;
+            margin: 10px 15px;
             border-radius: 0 5px 5px 0;
         }
         
-        .note-box {
-            background-color: rgba(0,0,0,0.05);
+        .example-output {
+            font-family: monospace;
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 10px;
+            margin: 10px 15px;
             border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .step-container {
             padding: 15px;
-            margin: 15px 0;
-        }
-        
-        .note-box i {
-            color: var(--accent-color);
-            margin-right: 10px;
-        }
-        
-        .english-to-pseudo {
-            display: grid;
-            grid-template-columns: 1fr 50px 1fr;
-            gap: 0;
-            margin: 20px 0;
-            align-items: center;
-        }
-        
-        .english-box, .pseudo-box {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        
-        .english-box {
-            border-left: 3px solid #98C379;
-        }
-        
-        .pseudo-box {
-            border-left: 3px solid #4FC1FF;
-        }
-        
-        .arrow-box {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--accent-color);
-            font-size: 24px;
-        }
-        
-        @media (max-width: 768px) {
-            .english-to-pseudo {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto;
-            }
-            
-            .arrow-box {
-                transform: rotate(90deg);
-                padding: 10px 0;
-            }
-        }
-
-        /* Interactive breakdown styles */
-        .code-step-container {
-            border: 1px solid var(--outline-color);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            margin: 15px 0;
-        }
-        
-        .code-step-header {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
-        
-        .code-step-content {
-            padding: 20px;
-            min-height: 300px;
-        }
-        
-        .step-navigation {
-            display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             gap: 10px;
-            padding: 15px 20px;
-            background-color: #f5f5f5;
-            border-top: 1px solid var(--outline-color);
         }
         
-        .step-btn {
+        .step-tabs {
+            display: flex;
+            gap: 2px;
+            background-color: #f1f3f5;
+            padding: 3px;
+            border-radius: 5px;
+        }
+        
+        .step-tab {
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 500;
+            flex-grow: 1;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .step-tab:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        .step-tab.active {
             background-color: var(--accent-color);
             color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         
-        .step-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        
-        .step-btn:hover:not(:disabled) {
-            background-color: #001f54;
-        }
-
-        .breakdown-step {
+        .step-content {
             display: none;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
         }
         
-        .breakdown-step.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
+        .step-content.active {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .breakdown-container {
+        .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 10px;
         }
         
-        @media (max-width: 768px) {
-            .breakdown-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .problem-box, .pseudocode-box {
-            padding: 15px;
-            border-radius: var(--border-radius);
+        .box {
+            padding: 10px;
+            border-radius: 5px;
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
         }
@@ -345,19 +271,50 @@
         }
         
         .thinking-process {
-            margin-top: 20px;
-            padding: 15px;
             background-color: #fff3cd;
-            border-radius: var(--border-radius);
+            border-radius: 5px;
             border-left: 4px solid #ffc107;
+            padding: 10px;
         }
         
-        .thinking-process h4 {
-            margin-top: 0;
+        .code-block {
+            background-color: #282c34;
+            color: #abb2bf;
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        
+        .annotation {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            background-color: rgba(0,0,0,0.03);
+            padding: 8px 10px;
+            border-radius: 5px;
+            margin-bottom: 6px;
+        }
+        
+        .annotation-number {
+            background-color: var(--accent-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: #856404;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+            flex-shrink: 0;
+        }
+        
+        .annotation p {
+            margin: 0;
+            font-size: 0.9rem;
         }
         
         .highlight-english {
@@ -372,558 +329,248 @@
             border-radius: 3px;
         }
         
-        .code-annotation {
+        h4 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+        }
+        
+        .box h4 {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background-color: rgba(0,0,0,0.03);
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            margin: 10px 0;
+            gap: 8px;
         }
         
-        .annotation-number {
-            background-color: var(--accent-color);
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-        
-        /* Additional styles for keyword references */
-        .keyword-reference {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 25px;
-        }
-        
-        .keyword-card {
-            margin: 0;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        
-        .keyword-card h4 {
-            margin-top: 0;
-        }
-        
-        .keyword-card ul {
-            padding-left: 20px;
-        }
-        
-        .calculation-keywords {
-            border-left: 4px solid #4FC1FF;
-        }
-        
-        .decision-keywords {
-            border-left: 4px solid #ff4d4f;
-        }
-        
-        @media (max-width: 768px) {
-            .keyword-reference {
-                grid-template-columns: 1fr;
-            }
+        .collapsed-text {
+            display: none;
         }
     </style>
 </head>
 <body>
     <!-- Sidebar Navigation -->
-    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+    <aside class="sidebar" id="sidebar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars" id="sidebar-icon"></i>
+        </button>
         <div class="sidebar-logo">PSEUDOCODE GUIDE</div>
-        <a href="index.html" class="home-button">
-            <i class="fas fa-home"></i>
-            HOME
-        </a>
         <div class="sidebar-nav">
-            <button class="tab-button" data-tab="intro">
-                <i class="fas fa-info-circle"></i>
-                INTRO
+            <button class="tab-button active" data-tab="example1" onclick="openTab('example1')">
+                <i class="fas fa-thermometer-half"></i>
+                <span class="button-text">TEMPERATURE</span>
             </button>
-            <button class="tab-button active" data-tab="example">
-                <i class="fas fa-clipboard-list"></i>
-                EXAMPLE
+            <button class="tab-button" data-tab="example2" onclick="openTab('example2')">
+                <i class="fas fa-route"></i>
+                <span class="button-text">TRAVEL TIME</span>
             </button>
-            <button class="tab-button" data-tab="syntax">
-                <i class="fas fa-code"></i>
-                SYNTAX
+            <button class="tab-button" data-tab="example3" onclick="openTab('example3')">
+                <i class="fas fa-coins"></i>
+                <span class="button-text">COIN FLIP</span>
             </button>
-            <button class="tab-button" data-tab="simple">
-                <i class="fas fa-align-left"></i>
-                SIMPLE
+            <button class="tab-button" data-tab="example4" onclick="openTab('example4')">
+                <i class="fas fa-dice"></i>
+                <span class="button-text">NUMBER GUESS</span>
             </button>
-            <button class="tab-button" data-tab="intermediate">
-                <i class="fas fa-sitemap"></i>
-                INTERMEDIATE
+            <button class="tab-button" data-tab="example5" onclick="openTab('example5')">
+                <i class="fas fa-palette"></i>
+                <span class="button-text">COLOR MIXER</span>
+            </button>
+            <button class="tab-button" data-tab="example6" onclick="openTab('example6')">
+                <i class="fas fa-sort-numeric-up"></i>
+                <span class="button-text">NUMBER COUNTER</span>
             </button>
         </div>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Introduction Section -->
-        <section id="intro" class="tab-content">
-            <div class="page-title">
-                <h1>PSEUDOCODE GUIDE <i class="fas fa-code"></i></h1>
+        <!-- Example 1: Temperature Converter -->
+        <section id="example1" class="tab-content active">
+            <div class="example-header">
+                <h1><i class="fas fa-thermometer-half"></i> TEMPERATURE CONVERTER</h1>
             </div>
             
-            <div class="card">
-                <h3>Introduction to Pseudocode <i class="fas fa-info-circle" style="margin-left: 10px;"></i></h3>
-                <p>Pseudocode shows the steps of our program using simple English-like statements. It helps us plan our code before we write it in a programming language.</p>
-                
-                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>PLANNING ALGORITHMS <i class="fas fa-lightbulb" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Break down problems into clear steps</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-list-ol" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
+            <div class="accordion-container">
+                <!-- Problem Description Accordion -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Problem Description</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>UNDERSTANDING LOGIC <i class="fas fa-code-branch" style="margin-left: 12px;"></i></h3>
+                    <div class="accordion-content">
+                        <div class="problem-statement">
+                            <p>Ask the user for a temperature in Celsius and convert it to Fahrenheit. The formula is: Fahrenheit = (Celsius × 9/5) + 32</p>
                         </div>
-                        <div class="element-content">
-                            <p>Show how decisions and loops work in your program</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-random" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>FINDING ERRORS <i class="fas fa-bug" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Spot mistakes in your thinking before writing code</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-search" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">4</div>
-                            <h3>COMMUNICATION <i class="fas fa-users" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Share your program ideas with others clearly</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-comments" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
+                        <div class="example-output">
+                            Enter temperature in Celsius: 25<br>
+                            Temperature in Fahrenheit: 77.0<br>
+                            Thank you for using the temperature converter!
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- NEW SECTION: Problem Breakdown (Now renamed to EXAMPLE and moved after intro) -->
-        <section id="example" class="tab-content active">
-            <h1>INTERACTIVE PROBLEM BREAKDOWN <i class="fas fa-clipboard-list" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chunk-section">
-                <div class="chunk-badge">INTERACTIVE EXAMPLE</div>
                 
-                <h3>Converting a Problem to Pseudocode: Step by Step</h3>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Restaurant Tip Calculator <i class="fas fa-receipt" style="margin-left: 10px;"></i></h3>
+                <!-- Step by Step Breakdown -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Step by Step Solution</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <div class="highlight-box">
-                        <p style="font-size: 1.2em; margin: 0;">Write a program to calculate a restaurant tip. Ask the user for the bill amount, then calculate a 15% tip and display the tip amount and total bill.
-                        The output of your program should look something like this:</p>
-                        <div style="font-family: monospace; background-color: #272822; color: #f8f8f2; padding: 10px; margin-top: 10px; border-radius: 5px;">
-                            Enter bill amount: $45.50<br>
-                            Tip amount: $6.83<br>
-                            Total bill: $52.33<br>
-                            Thank you for dining with us!
-                        </div>
-                    </div>
-                    
-                    <div class="code-step-container" style="margin-top: 25px;">
-                        <div class="code-step-header">
-                            <span>Problem to Pseudocode - Tipping Calculator Example</span>
-                            <span id="breakdown-step-indicator">Step 1 of 6</span>
-                        </div>
-                        
-                        <div class="code-step-content">
-                            <!-- Step 1: Read & Understand the Problem -->
-                            <div id="breakdown-step-1" class="breakdown-step active">
-                                <div class="breakdown-container">
-                                    <div class="problem-box">
-                                        <h4>Reading the Problem</h4>
-                                        <p style="font-size: 1.1em;">
-                                            <span class="highlight-english">Write a program to calculate a restaurant tip</span>. <span class="highlight-english">Ask the user for the bill amount</span>, then <span class="highlight-english">calculate a 15% tip</span> and <span class="highlight-english">display the tip amount and total bill</span>.
+                    <div class="accordion-content">
+                        <div class="step-container">
+                            <div class="step-tabs">
+                                <button class="step-tab active" onclick="openStep('temp', 1)">Understanding</button>
+                                <button class="step-tab" onclick="openStep('temp', 2)">Getting Input</button>
+                                <button class="step-tab" onclick="openStep('temp', 3)">Calculation</button>
+                                <button class="step-tab" onclick="openStep('temp', 4)">Display Output</button>
+                            </div>
+                            
+                            <!-- Step Contents -->
+                            <div id="temp-step-1" class="step-content active">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Understanding the Problem</h4>
+                                        <p>
+                                            <span class="highlight-english">Ask the user for a temperature in Celsius</span> and <span class="highlight-english">convert it to Fahrenheit</span>.
                                         </p>
+                                        <p>The formula is: Fahrenheit = (Celsius × 9/5) + 32</p>
                                     </div>
                                     
-                                    <div class="pseudocode-box">
+                                    <div class="box pseudocode-box">
                                         <h4>Initial Planning</h4>
-                                        <p style="font-size: 1.1em; color: #777777;">No pseudocode yet - first we need to understand what the problem is asking for.</p>
-                                        <p style="font-size: 1.1em;">Our program will need to:</p>
                                         <ol>
-                                            <li>Get the bill amount as input</li>
-                                            <li>Calculate a 15% tip (bill amount × 0.15)</li>
-                                            <li>Calculate the total bill (bill amount + tip)</li>
-                                            <li>Display the results to the user</li>
+                                            <li>Prompt for Celsius</li>
+                                            <li>Get input and store it</li>
+                                            <li>Convert using formula</li>
+                                            <li>Display the result</li>
                                         </ol>
                                     </div>
                                 </div>
                                 
                                 <div class="thinking-process">
                                     <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
-                                    <p>When I first read a problem, I look for <strong>key actions</strong> that need to happen:</p>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">1</div>
-                                        <p><strong>"Ask the user for the bill amount"</strong> tells me I need to get <u>input</u> from the user</p>
+                                        <p>We need to <strong>get input</strong> from the user (Celsius)</p>
                                     </div>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">2</div>
-                                        <p><strong>"display the tip amount and total bill"</strong> indicates I need to <u>display</u> information to the user</p>
+                                        <p>We need to <strong>perform a calculation</strong> using the formula</p>
                                     </div>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">3</div>
-                                        <p><strong>"calculate a 15% tip"</strong> tells me I need to perform a <u>calculation</u></p>
+                                        <p>We need to <strong>display output</strong> (Fahrenheit)</p>
                                     </div>
-                                    <p>These key phrases help me identify what pseudocode commands I'll need to use: <span class="highlight-code">INPUT</span>, <span class="highlight-code">CALCULATE</span>, and <span class="highlight-code">DISPLAY</span>.</p>
                                 </div>
                             </div>
                             
-                            <!-- Step 2: Start with Program Structure -->
-                            <div id="breakdown-step-2" class="breakdown-step">
-                                <div class="breakdown-container">
-                                    <div class="problem-box">
-                                        <h4>Breaking Down the Structure</h4>
-                                        <p style="font-size: 1.1em;">
-                                            We need to create a program structure with a clear beginning and end.
-                                        </p>
-                                        <p style="font-size: 1.1em;">
-                                            Inside this structure, we'll add the steps needed to solve the restaurant tip problem.
+                            <!-- Step 2: Getting Input -->
+                            <div id="temp-step-2" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Getting Input from User</h4>
+                                        <p>
+                                            <span class="highlight-english">Ask the user for a temperature in Celsius</span> and <span class="highlight-english">convert it to a number</span>
                                         </p>
                                     </div>
                                     
-                                    <div class="pseudocode-box">
-                                        <h4>Program Structure</h4>
-                                        <div class="code-block" style="background-color: #282c34;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #7F848E;"># We will add our code steps here</span>
-    
-<span style="color: #4FC1FF;">END</span>
-                                        </div>
+                                    <div class="box pseudocode-box">
+                                        <h4>Input Steps</h4>
+                                        <div class="code-block">Display "Enter temperature in Celsius: "
+Get input_value from user input
+Convert input_value to number and store as celsius</div>
                                     </div>
                                 </div>
                                 
                                 <div class="thinking-process">
                                     <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
-                                    <p>Every pseudocode program should have a clear structure:</p>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">1</div>
-                                        <p>I always start with <span class="highlight-code">BEGIN</span> to mark the start of my program</p>
+                                        <p>First, <strong>prompt the user</strong> with a clear message</p>
                                     </div>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">2</div>
-                                        <p>I know I'll need to end with <span class="highlight-code">END</span> to show where the program finishes</p>
+                                        <p>Then, <strong>get the raw input</strong> from the user</p>
                                     </div>
-                                    <p>This structure gives me a framework to fill in with the specific steps I need to solve the problem. It's like creating an outline before writing an essay - it helps organize my thoughts.</p>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p><strong>Convert the input to a number</strong> since user input typically comes as text/string</p>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <!-- Step 3: Add Input Command -->
-                            <div id="breakdown-step-3" class="breakdown-step">
-                                <div class="breakdown-container">
-                                    <div class="problem-box">
-                                        <h4>Getting User Input</h4>
-                                        <p style="font-size: 1.1em;">
-                                            <span class="highlight-english">Ask the user for the bill amount</span>, then calculate a 15% tip and display the tip amount and total bill.
+                            <!-- Step 3: Performing Calculation -->
+                            <div id="temp-step-3" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Performing the Calculation</h4>
+                                        <p>
+                                            <span class="highlight-english">Convert it to Fahrenheit</span>
                                         </p>
-                                        <p style="font-size: 1.1em;">
-                                            Our program needs to get the restaurant bill amount as input.
-                                        </p>
+                                        <p>Using the formula: Fahrenheit = (Celsius × 9/5) + 32</p>
                                     </div>
                                     
-                                    <div class="pseudocode-box">
-                                        <h4>Adding the Input Step</h4>
-                                        <div class="code-block" style="background-color: #282c34;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #7F848E;"># Ask the user for the bill amount</span>
-    <span style="color: #4FC1FF; background-color: rgba(79, 193, 255, 0.2);">DISPLAY</span> <span style="color: #98C379; background-color: rgba(152, 195, 121, 0.2);">"Enter bill amount: $"</span>
-    <span style="color: #4FC1FF; background-color: rgba(79, 193, 255, 0.2);">INPUT</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">bill_amount</span>
-    
-<span style="color: #4FC1FF;">END</span>
-                                        </div>
+                                    <div class="box pseudocode-box">
+                                        <h4>Calculation Step</h4>
+                                        <div class="code-block">Display "Enter temperature in Celsius: "
+Get input_value from user input
+Convert input_value to number and store as celsius
+
+Calculate fahrenheit = (celsius * 9/5) + 32</div>
                                     </div>
                                 </div>
                                 
                                 <div class="thinking-process">
                                     <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
-                                    <p>When I see "Ask the user" in a problem, I translate that into two pseudocode steps:</p>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">1</div>
-                                        <p>First, I use <span class="highlight-code">DISPLAY</span> to show a prompt asking for information</p>
+                                        <p>Use the <strong>formula provided</strong>: Fahrenheit = (Celsius × 9/5) + 32</p>
                                     </div>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">2</div>
-                                        <p>Then, I use <span class="highlight-code">INPUT</span> to collect and store the user's response</p>
+                                        <p>Calculate using <span class="highlight-code">celsius</span> and store in <span class="highlight-code">fahrenheit</span></p>
                                     </div>
-                                    <div class="code-annotation">
-                                        <div class="annotation-number">3</div>
-                                        <p>I need to choose a meaningful variable name - <span class="highlight-code">bill_amount</span> clearly describes what we're storing</p>
-                                    </div>
-                                    <p>This input step is crucial because it allows our program to interact with the user and get the data we need for our calculation.</p>
                                 </div>
                             </div>
                             
-                            <!-- Step 4: Add Calculation Step -->
-                            <div id="breakdown-step-4" class="breakdown-step">
-                                <div class="breakdown-container">
-                                    <div class="problem-box">
-                                        <h4>Performing the Calculations</h4>
-                                        <p style="font-size: 1.1em;">
-                                            then <span class="highlight-english">calculate a 15% tip</span> and display the tip amount and total bill.
-                                        </p>
-                                        <p style="font-size: 1.1em;">
-                                            We need to calculate the tip and the total bill amount.
-                                        </p>
+                            <!-- Step 4: Displaying Output -->
+                            <div id="temp-step-4" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Displaying the Result</h4>
+                                        <p>Display the result to the user</p>
+                                        <div class="example-output" style="margin: 10px 0; font-size: 0.8em;">
+                                            Enter temperature in Celsius: 25<br>
+                                            <span class="highlight-english">Temperature in Fahrenheit: 77.0</span><br>
+                                            <span class="highlight-english">Thank you for using the temperature converter!</span>
+                                        </div>
                                     </div>
                                     
-                                    <div class="pseudocode-box">
-                                        <h4>Adding the Calculation Steps</h4>
-                                        <div class="code-block" style="background-color: #282c34;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #7F848E;"># Ask the user for the bill amount</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Enter bill amount: $"</span>
-    <span style="color: #4FC1FF;">INPUT</span> <span style="color: #56B6C2;">bill_amount</span>
-    
-    <span style="color: #7F848E;"># Calculate the tip (15% of bill)</span>
-    <span style="color: #4FC1FF; background-color: rgba(79, 193, 255, 0.2);">CALCULATE</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">tip_amount</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">=</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">bill_amount</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">*</span> <span style="color: #98C379; background-color: rgba(152, 195, 121, 0.2);">0.15</span>
-    
-    <span style="color: #7F848E;"># Calculate the total bill</span>
-    <span style="color: #4FC1FF; background-color: rgba(79, 193, 255, 0.2);">CALCULATE</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">total_bill</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">=</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">bill_amount</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">+</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">tip_amount</span>
-    
-<span style="color: #4FC1FF;">END</span>
-                                        </div>
+                                    <div class="box pseudocode-box">
+                                        <h4>Complete Solution</h4>
+                                        <div class="code-block">Display "Enter temperature in Celsius: "
+Get input_value from user input
+Convert input_value to number and store as celsius
+
+Calculate fahrenheit = (celsius * 9/5) + 32
+
+Display "Temperature in Fahrenheit: " + fahrenheit
+Display "Thank you for using the temperature converter!"</div>
                                     </div>
                                 </div>
                                 
                                 <div class="thinking-process">
                                     <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
-                                    <p>When I see mathematical operations described in the problem, I translate them to pseudocode:</p>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">1</div>
-                                        <p>I use <span class="highlight-code">CALCULATE</span> to show that we're performing mathematical operations</p>
+                                        <p><strong>Display the result</strong> with a clear label, using the properly converted <span class="highlight-code">fahrenheit</span> value</p>
                                     </div>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">2</div>
-                                        <p>For the first calculation, I create a variable <span class="highlight-code">tip_amount</span> and multiply the bill by 0.15 (which is 15%)</p>
+                                        <p>The conversion to a number in Step 2 ensures our calculation and display show the correct numerical value</p>
                                     </div>
-                                    <div class="code-annotation">
+                                    <div class="annotation">
                                         <div class="annotation-number">3</div>
-                                        <p>For the second calculation, I create a variable <span class="highlight-code">total_bill</span> by adding the original bill and the tip</p>
-                                    </div>
-                                    <p>I'm breaking the problem into two separate calculations to make the pseudocode clearer. This makes it easier to understand each step and to convert to actual code later.</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Step 5: Add Output Command -->
-                            <div id="breakdown-step-5" class="breakdown-step">
-                                <div class="breakdown-container">
-                                    <div class="problem-box">
-                                        <h4>Displaying the Results</h4>
-                                        <p style="font-size: 1.1em;">
-                                            <span class="highlight-english">display the tip amount and total bill</span>.
-                                        </p>
-                                        <p style="font-size: 1.1em;">
-                                            The output should look like:
-                                        </p>
-                                        <div style="font-family: monospace; background-color: #272822; color: #f8f8f2; padding: 10px; margin-top: 10px; border-radius: 5px; font-size: 0.9em;">
-                                            Enter bill amount: $45.50<br>
-                                            <span class="highlight-english">Tip amount: $6.83</span><br>
-                                            <span class="highlight-english">Total bill: $52.33</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="pseudocode-box">
-                                        <h4>Adding the Output Steps</h4>
-                                        <div class="code-block" style="background-color: #282c34;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #7F848E;"># Ask the user for the bill amount</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Enter bill amount: $"</span>
-    <span style="color: #4FC1FF;">INPUT</span> <span style="color: #56B6C2;">bill_amount</span>
-    
-    <span style="color: #7F848E;"># Calculate the tip (15% of bill)</span>
-    <span style="color: #4FC1FF;">CALCULATE</span> <span style="color: #56B6C2;">tip_amount</span> <span style="color: #56B6C2;">=</span> <span style="color: #56B6C2;">bill_amount</span> <span style="color: #56B6C2;">*</span> <span style="color: #98C379;">0.15</span>
-    
-    <span style="color: #7F848E;"># Calculate the total bill</span>
-    <span style="color: #4FC1FF;">CALCULATE</span> <span style="color: #56B6C2;">total_bill</span> <span style="color: #56B6C2;">=</span> <span style="color: #56B6C2;">bill_amount</span> <span style="color: #56B6C2;">+</span> <span style="color: #56B6C2;">tip_amount</span>
-    
-    <span style="color: #7F848E;"># Show the results to the user</span>
-    <span style="color: #4FC1FF; background-color: rgba(79, 193, 255, 0.2);">DISPLAY</span> <span style="color: #98C379; background-color: rgba(152, 195, 121, 0.2);">"Tip amount: $"</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">+</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">tip_amount</span>
-    <span style="color: #4FC1FF; background-color: rgba(79, 193, 255, 0.2);">DISPLAY</span> <span style="color: #98C379; background-color: rgba(152, 195, 121, 0.2);">"Total bill: $"</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">+</span> <span style="color: #56B6C2; background-color: rgba(86, 182, 194, 0.2);">total_bill</span>
-    
-<span style="color: #4FC1FF;">END</span>
-                                        </div>
+                                        <p>Add a <strong>thank you message</strong> for a nice conclusion</p>
                                     </div>
                                 </div>
-                                
-                                <div class="thinking-process">
-                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
-                                    <p>When I need to show results to the user, I use the output command:</p>
-                                    <div class="code-annotation">
-                                        <div class="annotation-number">1</div>
-                                        <p>I use <span class="highlight-code">DISPLAY</span> to show information to the user</p>
-                                    </div>
-                                    <div class="code-annotation">
-                                        <div class="annotation-number">2</div>
-                                        <p>I look at the example output from the problem to match its exact format</p>
-                                    </div>
-                                    <div class="code-annotation">
-                                        <div class="annotation-number">3</div>
-                                        <p>I use multiple <span class="highlight-code">DISPLAY</span> statements to output each line separately</p>
-                                    </div>
-                                    <p>When displaying results, it's important to create user-friendly messages that clearly communicate what each value represents. Looking at the example output helps me format the display statements correctly.</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Step 6: Final Pseudocode with ASCII Art -->
-                            <div id="breakdown-step-6" class="breakdown-step">
-                                <div class="breakdown-container">
-                                    <div class="problem-box">
-                                        <h4>Adding a Thank You Message</h4>
-                                        <p style="font-size: 1.1em;">
-                                            The output should also include a thank you message:
-                                        </p>
-                                        <div style="font-family: monospace; background-color: #272822; color: #f8f8f2; padding: 10px; margin-top: 10px; border-radius: 5px; font-size: 0.9em;">
-                                            Enter bill amount: $45.50<br>
-                                            Tip amount: $6.83<br>
-                                            Total bill: $52.33<br>
-                                            <span class="highlight-english">Thank you for dining with us!</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="pseudocode-box">
-                                        <h4>Complete Pseudocode Solution</h4>
-                                        <div class="code-block" style="background-color: #282c34;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #7F848E;"># Ask the user for the bill amount</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Enter bill amount: $"</span>
-    <span style="color: #4FC1FF;">INPUT</span> <span style="color: #56B6C2;">bill_amount</span>
-    
-    <span style="color: #7F848E;"># Calculate the tip (15% of bill)</span>
-    <span style="color: #4FC1FF;">CALCULATE</span> <span style="color: #56B6C2;">tip_amount</span> <span style="color: #56B6C2;">=</span> <span style="color: #56B6C2;">bill_amount</span> <span style="color: #56B6C2;">*</span> <span style="color: #98C379;">0.15</span>
-    
-    <span style="color: #7F848E;"># Calculate the total bill</span>
-    <span style="color: #4FC1FF;">CALCULATE</span> <span style="color: #56B6C2;">total_bill</span> <span style="color: #56B6C2;">=</span> <span style="color: #56B6C2;">bill_amount</span> <span style="color: #56B6C2;">+</span> <span style="color: #56B6C2;">tip_amount</span>
-    
-    <span style="color: #7F848E;"># Show the results to the user</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Tip amount: $"</span> <span style="color: #56B6C2;">+</span> <span style="color: #56B6C2;">tip_amount</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Total bill: $"</span> <span style="color: #56B6C2;">+</span> <span style="color: #56B6C2;">total_bill</span>
-    
-    <span style="color: #7F848E;"># Display thank you message</span>
-    <span style="color: #4FC1FF; background-color: rgba(79, 193, 255, 0.2);">DISPLAY</span> <span style="color: #98C379; background-color: rgba(152, 195, 121, 0.2);">"Thank you for dining with us!"</span>
-<span style="color: #4FC1FF;">END</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="thinking-process">
-                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
-                                    <p>For the final touches, I need to include all the required output details:</p>
-                                    <div class="code-annotation">
-                                        <div class="annotation-number">1</div>
-                                        <p>I look carefully at the example output to make sure I include all required elements</p>
-                                    </div>
-                                    <div class="code-annotation">
-                                        <div class="annotation-number">2</div>
-                                        <p>I add a final <span class="highlight-code">DISPLAY</span> statement for the thank you message</p>
-                                    </div>
-                                    <div class="code-annotation">
-                                        <div class="annotation-number">3</div>
-                                        <p>I make sure each piece of information is on its own line using separate <span class="highlight-code">DISPLAY</span> statements</p>
-                                    </div>
-                                    <p>This complete pseudocode now addresses all the requirements from the original problem. It has a clear structure that would be easy to translate into any programming language.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="step-navigation">
-                            <button id="prev-breakdown-btn" class="step-btn" onclick="prevBreakdownStep()" disabled>
-                                <i class="fas fa-chevron-left"></i> Previous Step
-                            </button>
-                            <button id="next-breakdown-btn" class="step-btn" onclick="nextBreakdownStep()">
-                                Next Step <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Takeaway:</strong> Breaking down a problem into simple steps is the foundation of programming. When you read a problem, look for key words that indicate inputs, outputs, and calculations.</p>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>English to Pseudocode Translation <i class="fas fa-language" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Common English phrases and their pseudocode counterparts:</p>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                        <div style="border: 2px solid #4CAF50; border-radius: 10px; padding: 20px;">
-                            <h3>Input Keywords</h3>
-                            <div style="margin-top: 15px;">
-                                <p><strong>"Ask the user for..."</strong> → <span class="highlight-code">INPUT</span></p>
-                                <p><strong>"Get input from the user"</strong> → <span class="highlight-code">INPUT</span></p>
-                                <p><strong>"Request the user to enter..."</strong> → <span class="highlight-code">INPUT</span></p>
-                                <p><strong>"User should provide..."</strong> → <span class="highlight-code">INPUT</span></p>
-                            </div>
-                        </div>
-                        
-                        <div style="border: 2px solid #FF9800; border-radius: 10px; padding: 20px;">
-                            <h3>Output Keywords</h3>
-                            <div style="margin-top: 15px;">
-                                <p><strong>"Display to the user..."</strong> → <span class="highlight-code">DISPLAY</span></p>
-                                <p><strong>"Print out..."</strong> → <span class="highlight-code">DISPLAY</span></p>
-                                <p><strong>"Show the result..."</strong> → <span class="highlight-code">DISPLAY</span></p>
-                                <p><strong>"Tell the user..."</strong> → <span class="highlight-code">DISPLAY</span></p>
-                            </div>
-                        </div>
-                        
-                        <div style="border: 2px solid #2196F3; border-radius: 10px; padding: 20px;">
-                            <h3>Calculation Keywords</h3>
-                            <div style="margin-top: 15px;">
-                                <p><strong>"Calculate..."</strong> → <span class="highlight-code">CALCULATE</span></p>
-                                <p><strong>"Compute..."</strong> → <span class="highlight-code">CALCULATE</span></p>
-                                <p><strong>"Work out..."</strong> → <span class="highlight-code">CALCULATE</span></p>
-                                <p><strong>"Find the value of..."</strong> → <span class="highlight-code">CALCULATE</span></p>
-                            </div>
-                        </div>
-                        
-                        <div style="border: 2px solid #F44336; border-radius: 10px; padding: 20px;">
-                            <h3>Decision Keywords</h3>
-                            <div style="margin-top: 15px;">
-                                <p><strong>"If..."</strong> → <span class="highlight-code">IF</span> ... <span class="highlight-code">THEN</span></p>
-                                <p><strong>"When..."</strong> → <span class="highlight-code">IF</span> ... <span class="highlight-code">THEN</span></p>
-                                <p><strong>"Otherwise..."</strong> → <span class="highlight-code">ELSE</span></p>
-                                <p><strong>"Check if..."</strong> → <span class="highlight-code">IF</span> ... <span class="highlight-code">THEN</span></p>
                             </div>
                         </div>
                     </div>
@@ -931,361 +578,1046 @@
             </div>
         </section>
 
-        <!-- Pseudocode Syntax Section -->
-        <section id="syntax" class="tab-content dark-section">
-            <h1>PSEUDOCODE SYNTAX <i class="fas fa-code" style="margin-left: 15px;"></i></h1>
+        <!-- Example 2: Travel Time Calculator -->
+        <section id="example2" class="tab-content">
+            <div class="example-header">
+                <h1><i class="fas fa-route"></i> TRAVEL TIME CALCULATOR</h1>
+            </div>
             
-            <div class="chunk-section">
-                <div class="chunk-badge">REFERENCE</div>
-                
-                <h3>Pseudocode Conventions</h3>
-                
-                <p>Pseudocode follows certain rules to keep it clear and easy to understand:</p>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Basic Pseudocode Rules <i class="fas fa-book" style="margin-left: 10px;"></i></h3>
+            <div class="accordion-container">
+                <!-- Problem Description Accordion -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Problem Description</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <!-- Changed from two-column-grid to single-column-layout -->
-                    <div class="single-column-layout">
-                        <div class="interactive-card">
-                            <h4><i class="fas fa-font" style="margin-right: 10px; color: var(--accent-color);"></i> Keywords</h4>
-                            <div style="text-align: center; margin: 20px 0;">
-                                <div class="code-block" style="text-align: left; padding: 15px;">
-<span style="color: #4FC1FF;">KEYWORDS</span> are written in <span style="color: #4FC1FF;">CAPITAL LETTERS</span>
-<span style="color: #56B6C2;">variables</span> and <span style="color: #56B6C2;">values</span> are in lowercase
-                                </div>
-                            </div>
-                            <p>KEYWORDS like BEGIN, END, IF, THEN are written in uppercase to stand out.</p>
+                    <div class="accordion-content">
+                        <div class="problem-statement">
+                            <p>Ask the user for a distance (in kilometers) and a speed (in km/h). Calculate and display how long the journey will take in hours and minutes.</p>
                         </div>
-                        
-                        <div class="interactive-card">
-                            <h4><i class="fas fa-indent" style="margin-right: 10px; color: var(--accent-color);"></i> Indentation</h4>
-                            <div style="text-align: center; margin: 20px 0;">
-                                <div class="code-block" style="text-align: left; padding: 15px;">
-<span style="color: #4FC1FF;">IF</span> score >= 70 <span style="color: #4FC1FF;">THEN</span>
-    <span style="color: #56B6C2;">DISPLAY</span> "You passed!"
-<span style="color: #4FC1FF;">ENDIF</span>
-                                </div>
-                            </div>
-                            <p>Statements inside blocks are indented to show they belong together.</p>
+                        <div class="example-output">
+                            Enter distance in kilometers: 150<br>
+                            Enter speed in km/h: 60<br>
+                            Your journey will take approximately: 2 hours and 30 minutes.
                         </div>
-                        
-                        <div class="interactive-card">
-                            <h4><i class="fas fa-code-branch" style="margin-right: 10px; color: var(--accent-color);"></i> Structure Boundaries</h4>
-                            <div style="text-align: center; margin: 20px 0;">
-                                <div class="code-block" style="text-align: left; padding: 15px;">
-<span style="color: #4FC1FF;">WHILE</span> count < 10
-    statements
-<span style="color: #4FC1FF;">ENDWHILE</span>
-                                </div>
-                            </div>
-                            <p>The end of each structure is clearly marked with END keywords.</p>
-                        </div>
-                        
-                        <div class="interactive-card">
-                            <h4><i class="fas fa-calculator" style="margin-right: 10px; color: var(--accent-color);"></i> Clear Calculations</h4>
-                            <div style="text-align: center; margin: 20px 0;">
-                                <div class="code-block" style="text-align: left; padding: 15px;">
-<span style="color: #4FC1FF;">CALCULATE</span> area = length * width
-</div>
-                            </div>
-                            <p>Calculations should show the full formula, not just the operation name.</p>
-                        </div>
-                    </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Note:</strong> Good pseudocode should be easy for both programmers and non-programmers to understand.</p>
                     </div>
                 </div>
                 
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Main Keywords in Pseudocode <i class="fas fa-key" style="margin-left: 10px;"></i></h3>
+                <!-- Step by Step Breakdown -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Step by Step Solution</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <!-- Removed symbol area from Program Structure Keywords -->
-                    <div class="card">
-                        <h4>Program Structure</h4>
-                        <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;" class="keyword-highlight">BEGIN</span>
-    program statements
-<span style="color: #4FC1FF;" class="keyword-highlight">END</span>
-                        </div>
-                        <p style="margin-top: 10px;">Every pseudocode algorithm starts with BEGIN and ends with END.</p>
-                    </div>
-                    
-                    <!-- Removed symbol area from Decision Symbol -->
-                    <div class="card" style="margin-top: 20px;">
-                        <h4>Selection/Decision</h4>
-                        <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;" class="keyword-highlight">IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span> <span style="color: #4FC1FF;" class="keyword-highlight">THEN</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You passed!"</span>
-<span style="color: #4FC1FF;" class="keyword-highlight">ELSE</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You failed."</span>
-<span style="color: #4FC1FF;" class="keyword-highlight">ENDIF</span>
-                        </div>
-                        <p style="margin-top: 10px;">Used for making decisions in your program.</p>
-                    </div>
-                    
-                    <!-- Removed symbol area from Input/Output Symbol -->
-                    <div class="card" style="margin-top: 20px;">
-                        <h4>Input and Output</h4>
-                        <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;" class="keyword-highlight">INPUT</span> username
-<span style="color: #4FC1FF;" class="keyword-highlight">DISPLAY</span> <span style="color: #98C379;">"Hello, "</span> <span style="color: #56B6C2;">+</span> username
-                        </div>
-                        <p style="margin-top: 10px;">Getting data from users and showing information.</p>
-                    </div>
-                    
-                    <!-- Removed symbol area from Loops -->
-                    <div class="card" style="margin-top: 20px;">
-                        <h4>Loops</h4>
-                        <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;" class="keyword-highlight">WHILE</span> counter <span style="color: #56B6C2;"><</span> <span style="color: #98C379;">10</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> counter
-    <span style="color: #56B6C2;">SET</span> counter <span style="color: #56B6C2;">=</span> counter <span style="color: #56B6C2;">+</span> <span style="color: #98C379;">1</span>
-<span style="color: #4FC1FF;" class="keyword-highlight">ENDWHILE</span>
+                    <div class="accordion-content">
+                        <div class="step-container">
+                            <div class="step-tabs">
+                                <button class="step-tab active" onclick="openStep('travel', 1)">Understanding</button>
+                                <button class="step-tab" onclick="openStep('travel', 2)">Getting Input</button>
+                                <button class="step-tab" onclick="openStep('travel', 3)">Calculation</button>
+                                <button class="step-tab" onclick="openStep('travel', 4)">Display Output</button>
+                            </div>
+                            
+                            <!-- Step Contents -->
+                            <div id="travel-step-1" class="step-content active">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Understanding the Problem</h4>
+                                        <p>
+                                            <span class="highlight-english">Ask for distance and speed</span>. <span class="highlight-english">Calculate journey time in hours and minutes</span>.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Initial Planning</h4>
+                                        <ol>
+                                            <li>Get distance</li>
+                                            <li>Get speed</li>
+                                            <li>Calculate time (distance ÷ speed)</li>
+                                            <li>Convert decimal hours to hours and minutes</li>
+                                            <li>Display the result</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>We need <strong>two inputs</strong> from the user</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>We need to <strong>divide distance by speed</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>We need to <strong>convert decimal hours</strong> to hours and minutes</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Additional step contents go here -->
+                            <!-- Step 2: Getting Input -->
+                            <div id="travel-step-2" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Getting Input from User</h4>
+                                        <p>
+                                            <span class="highlight-english">Ask for distance and speed</span>
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Input Steps</h4>
+                                        <div class="code-block">Display "Enter distance in kilometers: "
+Get distance from user input
 
-<span style="color: #4FC1FF;" class="keyword-highlight">FOR</span> i <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">1</span> <span style="color: #4FC1FF;" class="keyword-highlight">TO</span> <span style="color: #98C379;">5</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> i
-<span style="color: #4FC1FF;" class="keyword-highlight">ENDFOR</span>
+Display "Enter speed in km/h: "
+Get speed from user input</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>First, <strong>collect the distance</strong> in kilometers</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Next, <strong>collect the speed</strong> in km/h</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Calculating Time -->
+                            <div id="travel-step-3" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Calculating the Travel Time</h4>
+                                        <p>
+                                            <span class="highlight-english">Calculate journey time in hours and minutes</span>
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Calculation Steps</h4>
+                                        <div class="code-block">Display "Enter distance in kilometers: "
+Get distance from user input
+
+Display "Enter speed in km/h: "
+Get speed from user input
+
+Calculate hours = distance / speed
+Calculate whole_hours = integer part of hours
+Calculate decimal_part = hours - whole_hours
+Calculate minutes = decimal_part * 60</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Calculate <strong>total hours</strong> by dividing distance by speed</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p><strong>Extract the whole number</strong> part for hours</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p><strong>Convert decimal part to minutes</strong> (multiply by 60)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: Displaying Results -->
+                            <div id="travel-step-4" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Displaying the Result</h4>
+                                        <p>Display the journey time in a user-friendly format</p>
+                                        <div class="example-output" style="margin: 10px 0; font-size: 0.8em;">
+                                            Enter distance in kilometers: 150<br>
+                                            Enter speed in km/h: 60<br>
+                                            <span class="highlight-english">Your journey will take approximately: 2 hours and 30 minutes.</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Complete Solution</h4>
+                                        <div class="code-block">Display "Enter distance in kilometers: "
+Get distance from user input
+
+Display "Enter speed in km/h: "
+Get speed from user input
+
+Calculate hours = distance / speed
+Calculate whole_hours = integer part of hours
+Calculate decimal_part = hours - whole_hours
+Calculate minutes = decimal_part * 60
+
+Display "Your journey will take approximately: " + whole_hours + " hours and " + minutes + " minutes."</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Combine values into a <strong>meaningful sentence</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Include both <strong>hours and minutes</strong> for better readability</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <p style="margin-top: 10px;">Used for repeating sections of code.</p>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Simple Pseudocode Section -->
-        <section id="simple" class="tab-content light-section">
-            <h1>SIMPLE PSEUDOCODE <i class="fas fa-align-left" style="margin-left: 15px;"></i></h1>
+        
+        <!-- Example 3: Coin Flip Game -->
+        <section id="example3" class="tab-content">
+            <div class="example-header">
+                <h1><i class="fas fa-coins"></i> COIN FLIP GAME</h1>
+            </div>
             
-            <div class="chunk-section">
-                <div class="chunk-badge">BEGINNER</div>
-                
-                <h3>Basic If Statement</h3>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Simple If Statement <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+            <div class="accordion-container">
+                <!-- Problem Description -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Problem Description</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a simple IF statement in Python:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
-
-<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
-    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You passed!"</span><span style="color: #56B6C2;">)</span>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the pseudocode version:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #56B6C2;">SET</span> score <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
-    
-    <span style="color: #4FC1FF;">IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span> <span style="color: #4FC1FF;">THEN</span>
-        <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You passed!"</span>
-    <span style="color: #4FC1FF;">ENDIF</span>
-<span style="color: #4FC1FF;">END</span>
-                    </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The IF structure has a condition followed by THEN, indented statements, and ends with ENDIF.</p>
+                    <div class="accordion-content">
+                        <div class="problem-statement">
+                            <p>Create a simple coin flip game. Ask the user to guess heads or tails, then randomly flip a coin and tell them if they won.</p>
+                        </div>
+                        <div class="example-output">
+                            Enter your guess (heads or tails): heads<br>
+                            The coin landed on: tails<br>
+                            Sorry! Better luck next time!
+                        </div>
                     </div>
                 </div>
                 
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>If-Else Statement <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+                <!-- Step by Step Solution -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Step by Step Solution</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Now let's see an IF-ELSE statement:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">65</span>
+                    <div class="accordion-content">
+                        <div class="step-container">
+                            <div class="step-tabs">
+                                <button class="step-tab active" onclick="openStep('coin', 1)">Understanding</button>
+                                <button class="step-tab" onclick="openStep('coin', 2)">Getting Input</button>
+                                <button class="step-tab" onclick="openStep('coin', 3)">Random Flip</button>
+                                <button class="step-tab" onclick="openStep('coin', 4)">Check Result</button>
+                            </div>
+                            
+                            <!-- Step content sections -->
+                            <div id="coin-step-1" class="step-content active">
+                                <!-- Content similar to previous examples but for coin flip -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Understanding the Problem</h4>
+                                        <p>
+                                            <span class="highlight-english">Create a coin flip game</span>. <span class="highlight-english">Ask user to guess</span>, then <span class="highlight-english">randomly flip and tell if they won</span>.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Initial Planning</h4>
+                                        <ol>
+                                            <li>Ask for their guess (heads/tails)</li>
+                                            <li>Generate random outcome</li>
+                                            <li>Compare guess with result</li>
+                                            <li>Tell if they won/lost</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>We need to <strong>get input</strong> for the guess</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>We need to <strong>generate randomness</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>We need to <strong>make a decision</strong> based on comparison</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- More step content sections follow -->
+                            <div id="coin-step-2" class="step-content">
+                                <!-- Content for step 2 - Getting Input -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Getting the User's Guess</h4>
+                                        <p><span class="highlight-english">Ask user to guess heads or tails</span></p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Input Step</h4>
+                                        <div class="code-block">Display "Enter your guess (heads or tails): "
+Get user_guess from user input</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>We prompt with <strong>clear instructions</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>We store input in <span class="highlight-code">user_guess</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="coin-step-3" class="step-content">
+                                <!-- Content for step 3 - Random Generation -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Simulating the Coin Flip</h4>
+                                        <p><span class="highlight-english">Randomly flip a coin</span></p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Random Generation Step</h4>
+                                        <div class="code-block">Display "Enter your guess (heads or tails): "
+Get user_guess from user input
 
-<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
-    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You passed!"</span><span style="color: #56B6C2;">)</span>
-<span style="color: #4FC1FF;">else</span><span style="color: #56B6C2;">:</span>
-    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"You failed."</span><span style="color: #56B6C2;">)</span>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the pseudocode version:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #56B6C2;">SET</span> score <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">65</span>
-    
-    <span style="color: #4FC1FF;">IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span> <span style="color: #4FC1FF;">THEN</span>
-        <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You passed!"</span>
-    <span style="color: #4FC1FF;">ELSE</span>
-        <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"You failed."</span>
-    <span style="color: #4FC1FF;">ENDIF</span>
-<span style="color: #4FC1FF;">END</span>
-                    </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The ELSE keyword provides an alternative path when the condition is false.</p>
+Generate random_number between 0 and 1
+
+IF random_number < 0.5 THEN
+    Set coin_result to "heads"
+ELSE
+    Set coin_result to "tails"
+
+Display "The coin landed on: " + coin_result</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Generate a <strong>random number</strong> between 0 and 1</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Use a <strong>decision structure</strong> to determine result</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p><strong>Display the result</strong> to the user</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="coin-step-4" class="step-content">
+                                <!-- Content for step 4 - Checking Result -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Determining the Winner</h4>
+                                        <p><span class="highlight-english">Tell them if they won</span></p>
+                                        <div class="example-output" style="margin: 10px 0; font-size: 0.8em;">
+                                            Enter your guess (heads or tails): heads<br>
+                                            The coin landed on: tails<br>
+                                            <span class="highlight-english">Sorry! Better luck next time!</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Complete Solution</h4>
+                                        <div class="code-block">Display "Enter your guess (heads or tails): "
+Get user_guess from user input
+
+Generate random_number between 0 and 1
+
+IF random_number < 0.5 THEN
+    Set coin_result to "heads"
+ELSE
+    Set coin_result to "tails"
+
+Display "The coin landed on: " + coin_result
+
+IF user_guess equals coin_result THEN
+    Display "Congratulations! You guessed correctly!"
+ELSE
+    Display "Sorry! Better luck next time!"</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Use an <strong>IF statement</strong> to compare guess with result</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Display <strong>different messages</strong> based on win/lose</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Intermediate Pseudocode Section -->
-        <section id="intermediate" class="tab-content dark-section">
-            <h1>INTERMEDIATE PSEUDOCODE <i class="fas fa-sitemap" style="margin-left: 15px;"></i></h1>
+        
+        <!-- Example 4: Number Guessing Game -->
+        <section id="example4" class="tab-content">
+            <div class="example-header">
+                <h1><i class="fas fa-dice"></i> NUMBER GUESSING GAME</h1>
+            </div>
             
-            <div class="chunk-section">
-                <div class="chunk-badge">INTERMEDIATE</div>
-                
-                <h3>Multiple Conditions and Loops</h3>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>If-Elif-Else in Pseudocode <i class="fas fa-code-branch" style="margin-left: 10px;"></i></h3>
+            <div class="accordion-container">
+                <!-- Problem Description -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Problem Description</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">For more choices, we can use if-elif-else statements:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
-
-<span style="color: #4FC1FF;">if</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">90</span><span style="color: #56B6C2;">:</span>
-    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"A"</span>
-<span style="color: #4FC1FF;">elif</span> <span style="color: #4FC1FF;">score</span> <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span><span style="color: #56B6C2;">:</span>
-    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"B"</span>
-<span style="color: #4FC1FF;">else</span><span style="color: #56B6C2;">:</span>
-    <span style="color: #4FC1FF;">grade</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"F"</span>
-
-<span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">"Your grade is: "</span> <span style="color: #56B6C2;">+</span> <span style="color: #4FC1FF;">grade</span><span style="color: #56B6C2;">)</span>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's the pseudocode version:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #56B6C2;">SET</span> score <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">85</span>
-    
-    <span style="color: #4FC1FF;">IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">90</span> <span style="color: #4FC1FF;">THEN</span>
-        <span style="color: #56B6C2;">SET</span> grade <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"A"</span>
-    <span style="color: #4FC1FF;">ELSE IF</span> score <span style="color: #56B6C2;">>=</span> <span style="color: #98C379;">70</span> <span style="color: #4FC1FF;">THEN</span>
-        <span style="color: #56B6C2;">SET</span> grade <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"B"</span>
-    <span style="color: #4FC1FF;">ELSE</span>
-        <span style="color: #56B6C2;">SET</span> grade <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">"F"</span>
-    <span style="color: #4FC1FF;">ENDIF</span>
-    
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Your grade is: "</span> <span style="color: #56B6C2;">+</span> grade
-<span style="color: #4FC1FF;">END</span>
-                    </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> We use ELSE IF for multiple conditions. Some pseudocode styles use ELSEIF instead.</p>
+                    <div class="accordion-content">
+                        <div class="problem-statement">
+                            <p>Generate a random number between 1 and 10. Ask the user to guess the number and tell them if they guessed correctly, too high, or too low.</p>
+                        </div>
+                        <div class="example-output">
+                            I'm thinking of a number between 1 and 10.<br>
+                            Enter your guess: 7<br>
+                            Too high! The number was 3<br>
+                            Thanks for playing!
+                        </div>
                     </div>
                 </div>
                 
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Loop Structures <i class="fas fa-sync" style="margin-left: 10px;"></i></h3>
+                <!-- Step by Step Solution -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Step by Step Solution</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Pseudocode can show different types of loops:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #7F848E;"># While Loop in Python</span>
-<span style="color: #4FC1FF;">count</span> <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">1</span>
-<span style="color: #4FC1FF;">while</span> <span style="color: #4FC1FF;">count</span> <span style="color: #56B6C2;"><=</span> <span style="color: #98C379;">5</span><span style="color: #56B6C2;">:</span>
-    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #4FC1FF;">count</span><span style="color: #56B6C2;">)</span>
-    <span style="color: #4FC1FF;">count</span> <span style="color: #56B6C2;">+=</span> <span style="color: #98C379;">1</span>
+                    <div class="accordion-content">
+                        <div class="step-container">
+                            <div class="step-tabs">
+                                <button class="step-tab active" onclick="openStep('guess', 1)">Understanding</button>
+                                <button class="step-tab" onclick="openStep('guess', 2)">Random Number</button>
+                                <button class="step-tab" onclick="openStep('guess', 3)">Getting Guess</button>
+                                <button class="step-tab" onclick="openStep('guess', 4)">Check Guess</button>
+                            </div>
+                            
+                            <!-- Step content sections -->
+                            <div id="guess-step-1" class="step-content active">
+                                <!-- Step 1 content -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Understanding the Problem</h4>
+                                        <p>
+                                            <span class="highlight-english">Generate a random number</span>. <span class="highlight-english">Ask user to guess</span>. <span class="highlight-english">Tell if correct, too high, or too low</span>.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Initial Planning</h4>
+                                        <ol>
+                                            <li>Generate random number (1-10)</li>
+                                            <li>Ask for user's guess</li>
+                                            <li>Compare guess with random number</li>
+                                            <li>Tell if correct/too high/too low</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>We need to <strong>generate a random number</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>We need to <strong>collect user input</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>We need a <strong>three-way decision</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Additional step content sections -->
+                            <div id="guess-step-2" class="step-content">
+                                <!-- Step 2 content - etc. -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Generating a Random Number</h4>
+                                        <p><span class="highlight-english">Generate a random number between 1 and 10</span></p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Random Number Generation</h4>
+                                        <div class="code-block">Generate a random number between 1 and 10
+Store it as the secret_number variable
 
-<span style="color: #7F848E;"># For Loop in Python</span>
-<span style="color: #4FC1FF;">for</span> <span style="color: #4FC1FF;">i</span> <span style="color: #4FC1FF;">in</span> <span style="color: #4FC1FF;">range</span><span style="color: #56B6C2;">(</span><span style="color: #98C379;">1</span><span style="color: #56B6C2;">,</span> <span style="color: #98C379;">6</span><span style="color: #56B6C2;">)</span><span style="color: #56B6C2;">:</span>
-    <span style="color: #4FC1FF;">print</span><span style="color: #56B6C2;">(</span><span style="color: #4FC1FF;">i</span><span style="color: #56B6C2;">)</span>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin: 25px 0 20px 0;">Here's how to write loops in pseudocode:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #7F848E;"># While Loop in Pseudocode</span>
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #56B6C2;">SET</span> count <span style="color: #56B6C2;">=</span> <span style="color: #98C379;">1</span>
-    
-    <span style="color: #4FC1FF;">WHILE</span> count <= 5
-        <span style="color: #4FC1FF;">DISPLAY</span> count
-        <span style="color: #56B6C2;">SET</span> count <span style="color: #56B6C2;">=</span> count + 1
-    <span style="color: #4FC1FF;">ENDWHILE</span>
-<span style="color: #4FC1FF;">END</span>
+Display "I'm thinking of a number between 1 and 10."</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Generate a <strong>random integer</strong> between 1 and 10</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Store this number for <strong>later comparison</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>Inform the user about the <strong>range of numbers</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="guess-step-3" class="step-content">
+                                <!-- Step 3 content -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Getting the User's Guess</h4>
+                                        <p><span class="highlight-english">Ask the user to guess the number</span></p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Input Step</h4>
+                                        <div class="code-block">Generate a random number between 1 and 10
+Store it as the secret_number variable
 
-<span style="color: #7F848E;"># For Loop in Pseudocode</span>
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #4FC1FF;">FOR</span> i = 1 <span style="color: #4FC1FF;">TO</span> 5
-        <span style="color: #4FC1FF;">DISPLAY</span> i
-    <span style="color: #4FC1FF;">ENDFOR</span>
-<span style="color: #4FC1FF;">END</span>
+Display "I'm thinking of a number between 1 and 10."
+Display "Enter your guess: "
+Get user_guess from user input</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p><strong>Prompt the user</strong> to make a guess</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p><strong>Collect and store</strong> their input</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="guess-step-4" class="step-content">
+                                <!-- Step 4 content -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Checking the Guess</h4>
+                                        <p><span class="highlight-english">Tell if guessed correctly, too high, or too low</span></p>
+                                        <div class="example-output" style="margin: 10px 0; font-size: 0.8em;">
+                                            I'm thinking of a number between 1 and 10.<br>
+                                            Enter your guess: 7<br>
+                                            <span class="highlight-english">Too high! The number was 3</span><br>
+                                            <span class="highlight-english">Thanks for playing!</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Complete Solution</h4>
+                                        <div class="code-block">Generate a random number between 1 and 10
+Store it as the secret_number variable
+
+Display "I'm thinking of a number between 1 and 10."
+Display "Enter your guess: "
+Get user_guess from user input
+
+IF user_guess equals secret_number THEN
+    Display "Correct! You guessed the number!"
+ELSE IF user_guess > secret_number THEN
+    Display "Too high! The number was " + secret_number
+ELSE
+    Display "Too low! The number was " + secret_number
+
+Display "Thanks for playing!"</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Use an <strong>IF-ELSE IF-ELSE structure</strong> for three outcomes</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Provide <strong>specific feedback</strong> for each case</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>Include the <strong>secret number</strong> in the message</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">4</div>
+                                        <p>End with a <strong>thank you message</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Loops in pseudocode have clear start and end keywords. FOR loops show the count variable and range.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Example 5: Color Mixer -->
+        <section id="example5" class="tab-content">
+            <div class="example-header">
+                <h1><i class="fas fa-palette"></i> COLOR MIXER</h1>
+            </div>
+            
+            <div class="accordion-container">
+                <!-- Problem Description -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Problem Description</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="problem-statement">
+                            <p>Ask the user to enter two primary colors (red, blue, or yellow) and tell them what secondary color they make when mixed.</p>
+                        </div>
+                        <div class="example-output">
+                            Enter the first color (red, blue, or yellow): red<br>
+                            Enter the second color (red, blue, or yellow): yellow<br>
+                            Red and yellow make orange!
+                        </div>
                     </div>
                 </div>
                 
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">3</div>
-                        <h3>Simple Program Example <i class="fas fa-laptop-code" style="margin-left: 10px;"></i></h3>
+                <!-- Step by Step Solution -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Step by Step Solution</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a complete pseudocode example for a simple calculator program:</p>
-                    
-                    <div class="code-block" style="text-align: left; background-color: #282c34; overflow-x: auto;">
-<span style="color: #4FC1FF;">BEGIN</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Simple Calculator"</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"1. Add"</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"2. Subtract"</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"3. Multiply"</span>
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"4. Divide"</span>
-    
-    <span style="color: #4FC1FF;">INPUT</span> choice
-    
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Enter first number: "</span>
-    <span style="color: #4FC1FF;">INPUT</span> num1
-    
-    <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Enter second number: "</span>
-    <span style="color: #4FC1FF;">INPUT</span> num2
-    
-    <span style="color: #4FC1FF;">IF</span> choice == 1 <span style="color: #4FC1FF;">THEN</span>
-        <span style="color: #4FC1FF;">CALCULATE</span> result = num1 + num2
-        <span style="color: #4FC1FF;">DISPLAY</span> num1 + <span style="color: #98C379;">" + "</span> + num2 + <span style="color: #98C379;">" = "</span> + result
-    <span style="color: #4FC1FF;">ELSE IF</span> choice == 2 <span style="color: #4FC1FF;">THEN</span>
-        <span style="color: #4FC1FF;">CALCULATE</span> result = num1 - num2
-        <span style="color: #4FC1FF;">DISPLAY</span> num1 + <span style="color: #98C379;">" - "</span> + num2 + <span style="color: #98C379;">" = "</span> + result
-    <span style="color: #4FC1FF;">ELSE IF</span> choice == 3 <span style="color: #4FC1FF;">THEN</span>
-        <span style="color: #4FC1FF;">CALCULATE</span> result = num1 * num2
-        <span style="color: #4FC1FF;">DISPLAY</span> num1 + <span style="color: #98C379;">" * "</span> + num2 + <span style="color: #98C379;">" = "</span> + result
-    <span style="color: #4FC1FF;">ELSE IF</span> choice == 4 <span style="color: #4FC1FF;">THEN</span>
-        <span style="color: #4FC1FF;">IF</span> num2 == 0 <span style="color: #4FC1FF;">THEN</span>
-            <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Error: Cannot divide by zero"</span>
-        <span style="color: #4FC1FF;">ELSE</span>
-            <span style="color: #4FC1FF;">CALCULATE</span> result = num1 / num2
-            <span style="color: #4FC1FF;">DISPLAY</span> num1 + <span style="color: #98C379;">" / "</span> + num2 + <span style="color: #98C379;">" = "</span> + result
-        <span style="color: #4FC1FF;">ENDIF</span>
-    <span style="color: #4FC1FF;">ELSE</span>
-        <span style="color: #4FC1FF;">DISPLAY</span> <span style="color: #98C379;">"Invalid choice"</span>
-    <span style="color: #4FC1FF;">ENDIF</span>
-<span style="color: #4FC1FF;">END</span>
+                    <div class="accordion-content">
+                        <div class="step-container">
+                            <div class="step-tabs">
+                                <button class="step-tab active" onclick="openStep('color', 1)">Understanding</button>
+                                <button class="step-tab" onclick="openStep('color', 2)">Getting Input</button>
+                                <button class="step-tab" onclick="openStep('color', 3)">Validation</button>
+                                <button class="step-tab" onclick="openStep('color', 4)">Mixing Colors</button>
+                            </div>
+                            
+                            <!-- Step content sections -->
+                            <!-- Colors steps follow similar pattern to other examples -->
+                            <div id="color-step-1" class="step-content active">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Understanding the Problem</h4>
+                                        <p>
+                                            <span class="highlight-english">Ask for two primary colors</span> and <span class="highlight-english">tell the secondary color they make</span>.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Initial Planning</h4>
+                                        <ol>
+                                            <li>Ask for first primary color</li>
+                                            <li>Ask for second primary color</li>
+                                            <li>Validate inputs are primary colors</li>
+                                            <li>Determine secondary color</li>
+                                            <li>Display the result</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>We need to <strong>collect two inputs</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>We need to <strong>validate the inputs</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>We need <strong>complex decision logic</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Additional steps follow same pattern -->
+                            <div id="color-step-2" class="step-content">
+                                <!-- Getting Input step -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Getting Color Input</h4>
+                                        <p><span class="highlight-english">Ask for two primary colors</span></p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Input Steps</h4>
+                                        <div class="code-block">Display "Enter the first color (red, blue, or yellow): "
+Get first_color from user input
+
+Display "Enter the second color (red, blue, or yellow): "
+Get second_color from user input</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p><strong>Prompt for each color</strong> separately</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p><strong>Specify acceptable options</strong> in the prompt</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="color-step-3" class="step-content">
+                                <!-- Validating Input step -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Validating the Inputs</h4>
+                                        <p>Check that inputs are valid primary colors</p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Validation Steps</h4>
+                                        <div class="code-block">Display "Enter the first color (red, blue, or yellow): "
+Get first_color from user input
+
+Display "Enter the second color (red, blue, or yellow): "
+Get second_color from user input
+
+IF first_color is not "red" AND not "blue" AND not "yellow" THEN
+    Display "Invalid first color. Enter red, blue, or yellow."
+ELSE IF second_color is not "red" AND not "blue" AND not "yellow" THEN
+    Display "Invalid second color. Enter red, blue, or yellow."
+ELSE
+    Continue to mixing colors</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Use <strong>conditional logic</strong> to check inputs</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Provide <strong>specific error messages</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>Only proceed if <strong>both inputs are valid</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="color-step-4" class="step-content">
+                                <!-- Mixing Colors step -->
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Mixing the Colors</h4>
+                                        <p><span class="highlight-english">Tell what secondary color they make</span></p>
+                                        <div class="example-output" style="margin: 10px 0; font-size: 0.8em;">
+                                            Enter the first color (red, blue, or yellow): red<br>
+                                            Enter the second color (red, blue, or yellow): yellow<br>
+                                            <span class="highlight-english">Red and yellow make orange!</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Complete Solution</h4>
+                                        <div class="code-block">Display "Enter the first color (red, blue, or yellow): "
+Get first_color from user input
+
+Display "Enter the second color (red, blue, or yellow): "
+Get second_color from user input
+
+IF first_color is not "red" AND not "blue" AND not "yellow" THEN
+    Display "Invalid first color. Enter red, blue, or yellow."
+ELSE IF second_color is not "red" AND not "blue" AND not "yellow" THEN
+    Display "Invalid second color. Enter red, blue, or yellow."
+ELSE
+    IF (first_color is "red" AND second_color is "blue") OR 
+       (first_color is "blue" AND second_color is "red") THEN
+        Display "Red and blue make purple!"
+    ELSE IF (first_color is "red" AND second_color is "yellow") OR 
+            (first_color is "yellow" AND second_color is "red") THEN
+        Display "Red and yellow make orange!"
+    ELSE IF (first_color is "blue" AND second_color is "yellow") OR 
+            (first_color is "yellow" AND second_color is "blue") THEN
+        Display "Blue and yellow make green!"
+    ELSE
+        Display "You entered the same color twice."</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Use <strong>nested conditionals</strong> for color combinations</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Account for <strong>order independence</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>Handle the <strong>edge case</strong> of same color twice</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> This example combines input, output, decisions, and calculations. Notice how we can nest IF statements inside each other.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Example 6: Number Counter -->
+        <section id="example6" class="tab-content">
+            <div class="example-header">
+                <h1><i class="fas fa-sort-numeric-up"></i> NUMBER COUNTER</h1>
+            </div>
+            
+            <div class="accordion-container">
+                <!-- Problem Description -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Problem Description</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="problem-statement">
+                            <p>Ask the user for a positive number. Use a loop to count from 1 to that number, displaying each number. If the user enters an invalid number, ask them to try again.</p>
+                        </div>
+                        <div class="example-output">
+                            Enter a positive number: -5<br>
+                            Please enter a positive number.<br>
+                            Enter a positive number: 5<br>
+                            Counting from 1 to 5<br>
+                            1<br>
+                            2<br>
+                            3<br>
+                            4<br>
+                            5<br>
+                            Counting complete!
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step by Step Solution -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Step by Step Solution</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="step-container">
+                            <div class="step-tabs">
+                                <button class="step-tab active" onclick="openStep('counter', 1)">Understanding</button>
+                                <button class="step-tab" onclick="openStep('counter', 2)">Validation</button>
+                                <button class="step-tab" onclick="openStep('counter', 3)">Loop Setup</button>
+                                <button class="step-tab" onclick="openStep('counter', 4)">Complete</button>
+                            </div>
+                            
+                            <!-- Step content sections -->
+                            <div id="counter-step-1" class="step-content active">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Understanding the Problem</h4>
+                                        <p>
+                                            <span class="highlight-english">Ask for a positive number</span>. <span class="highlight-english">Loop to count from 1 to that number</span>. <span class="highlight-english">If invalid, ask again</span>.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Initial Planning</h4>
+                                        <ol>
+                                            <li>Ask for a positive number</li>
+                                            <li>Validate it's positive</li>
+                                            <li>If invalid, ask again</li>
+                                            <li>Loop from 1 to the number</li>
+                                            <li>Display each number</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>We need <strong>input validation</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>We need a <strong>validation loop</strong></p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>We need a <strong>counting loop</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- More counter steps -->
+                            <div id="counter-step-2" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Getting and Validating Input</h4>
+                                        <p><span class="highlight-english">Ask for positive number. If invalid, ask again</span>.</p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Input and Validation</h4>
+                                        <div class="code-block">Display "Enter a positive number: "
+Get max_number from user input
+
+WHILE max_number is less than 1
+    Display "Please enter a positive number."
+    Display "Enter a positive number: "
+    Get max_number from user input</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Get <strong>initial input</strong> from user</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Use a <strong>WHILE loop</strong> to validate (must be ≥ 1)</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p>If invalid, show <strong>error message</strong> and ask again</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="counter-step-3" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Setting Up the Counting Loop</h4>
+                                        <p><span class="highlight-english">Loop to count from 1 to that number</span></p>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Loop Structure</h4>
+                                        <div class="code-block">Display "Enter a positive number: "
+Get max_number from user input
+
+WHILE max_number is less than 1
+    Display "Please enter a positive number."
+    Display "Enter a positive number: "
+    Get max_number from user input
+
+Display "Counting from 1 to " + max_number
+
+FOR counter from 1 to max_number
+    Display counter</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p><strong>Inform user</strong> about what we're doing</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>Use a <strong>FOR loop</strong> for counting</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">3</div>
+                                        <p><strong>Display each number</strong> as we count</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="counter-step-4" class="step-content">
+                                <div class="two-column">
+                                    <div class="box problem-box">
+                                        <h4>Finishing the Program</h4>
+                                        <p>Complete with closing message</p>
+                                        <div class="example-output" style="margin: 10px 0; font-size: 0.8em;">
+                                            Enter a positive number: 5<br>
+                                            Counting from 1 to 5<br>
+                                            1<br>
+                                            2<br>
+                                            3<br>
+                                            4<br>
+                                            5<br>
+                                            <span class="highlight-english">Counting complete!</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="box pseudocode-box">
+                                        <h4>Complete Solution</h4>
+                                        <div class="code-block">Display "Enter a positive number: "
+Get max_number from user input
+
+WHILE max_number is less than 1
+    Display "Please enter a positive number."
+    Display "Enter a positive number: "
+    Get max_number from user input
+
+Display "Counting from 1 to " + max_number
+
+FOR counter from 1 to max_number
+    Display counter
+
+Display "Counting complete!"</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="thinking-process">
+                                    <h4><i class="fas fa-brain"></i> My Thinking Process</h4>
+                                    <div class="annotation">
+                                        <div class="annotation-number">1</div>
+                                        <p>Add a <strong>closing message</strong> after loop finishes</p>
+                                    </div>
+                                    <div class="annotation">
+                                        <div class="annotation-number">2</div>
+                                        <p>This creates <strong>clear beginning, middle, and end</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1293,58 +1625,74 @@
     </main>
 
     <script>
-        // Navigation for tabs
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab switching
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const tab = this.getAttribute('data-tab');
-                    
-                    // Remove active class from all buttons and tabs
-                    document.querySelectorAll('.tab-button').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    
-                    // Add active class to selected button and tab
-                    this.classList.add('active');
-                    document.getElementById(tab).classList.add('active');
-                });
+        // Tab switching
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
             });
             
-            // Initialize the breakdown navigation
-            updateBreakdownStep();
-        });
-        
-        // Breakdown steps navigation
-        let currentBreakdownStep = 1;
-        const totalBreakdownSteps = 6;
-        
-        function updateBreakdownStep() {
-            document.querySelectorAll('.breakdown-step').forEach(step => step.classList.remove('active'));
-            document.getElementById(`breakdown-step-${currentBreakdownStep}`).classList.add('active');
-            document.getElementById('breakdown-step-indicator').textContent = `Step ${currentBreakdownStep} of ${totalBreakdownSteps}`;
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
             
-            // Enable/disable navigation buttons
-            document.getElementById('prev-breakdown-btn').disabled = (currentBreakdownStep === 1);
-            document.getElementById('next-breakdown-btn').disabled = (currentBreakdownStep === totalBreakdownSteps);
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab-button[data-tab="${tabId}"]`).classList.add('active');
         }
         
-        function nextBreakdownStep() {
-            if (currentBreakdownStep < totalBreakdownSteps) {
-                currentBreakdownStep++;
-                updateBreakdownStep();
+        // Toggle sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('sidebar-collapsed');
+            
+            const icon = document.getElementById('sidebar-icon');
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                icon.className = 'fas fa-bars';
+                document.querySelectorAll('.button-text').forEach(text => {
+                    text.style.display = 'none';
+                });
+            } else {
+                icon.className = 'fas fa-chevron-left';
+                document.querySelectorAll('.button-text').forEach(text => {
+                    text.style.display = 'inline';
+                });
             }
         }
         
-        function prevBreakdownStep() {
-            if (currentBreakdownStep > 1) {
-                currentBreakdownStep--;
-                updateBreakdownStep();
-            }
+        // Accordion toggle
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+            
+            const icon = header.querySelector('i');
+            icon.className = content.classList.contains('active') ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
         }
+        
+        // Step navigation
+        function openStep(prefix, stepNumber) {
+            // Hide all steps
+            document.querySelectorAll(`[id^="${prefix}-step-"]`).forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show the selected step
+            document.getElementById(`${prefix}-step-${stepNumber}`).classList.add('active');
+            
+            // Update tab buttons
+            document.querySelectorAll(`.step-tab`).forEach((tab, index) => {
+                tab.classList.remove('active');
+            });
+            
+            const tabs = document.querySelectorAll(`.step-tab`);
+            tabs[stepNumber - 1].classList.add('active');
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Open the first accordion in each example by default
+            document.querySelectorAll('.tab-content.active .accordion-header').forEach((header, index) => {
+                if (index === 0) toggleAccordion(header);
+            });
+        });
     </script>
 </body>
 </html>
