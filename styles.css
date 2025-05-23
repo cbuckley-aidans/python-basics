@@ -1846,3 +1846,1175 @@ p {
     font-size: 14px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
+/* Core playground and experiment styling */
+.interactive-card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+}
+
+.coding-playground {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    margin: 20px 0;
+    border: 2px solid var(--outline-color);
+    position: relative;
+}
+
+.playground-header {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #1e3a8a 100%);
+    color: white;
+    padding: 25px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.playground-header h4 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+.playground-subheader {
+    font-size: 0.95em;
+    opacity: 0.9;
+    margin-top: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+.playground-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 400px;
+}
+
+.code-panel {
+    border-right: 1px solid var(--outline-color);
+}
+
+.output-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-title {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 18px 25px;
+    border-bottom: 2px solid var(--outline-color);
+    font-weight: 600;
+    color: var(--text-color, #2c3e50);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.panel-title i {
+    color: var(--accent-color);
+    font-size: 1.1em;
+}
+
+.CodeMirror {
+    height: 350px;
+    font-size: 14px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    border: none;
+}
+
+.CodeMirror-gutters {
+    border-right: 1px solid #e0e6ed;
+    background-color: #f8f9fa;
+}
+
+.CodeMirror-linenumber {
+    color: #6c757d;
+    padding: 0 8px;
+}
+
+.code-terminal {
+    height: 350px;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    padding: 20px;
+    overflow-y: auto;
+    line-height: 1.6;
+}
+
+.playground-controls {
+    padding: 20px;
+    background: #f8f9fa;
+    border-top: 1px solid var(--outline-color);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-playground {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-run {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.btn-clear {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-playground:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.terminal-prompt {
+    color: #569cd6;
+}
+
+.terminal-output {
+    color: #d4d4d4;
+    margin: 5px 0;
+}
+
+.terminal-error {
+    color: #f44747;
+    margin: 5px 0;
+}
+
+/* Experiments panel styling */
+.experiments-beaker-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.experiments-beaker-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.experiments-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+    transition: right 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+}
+
+.experiments-panel.open {
+    right: 0;
+}
+
+.experiments-panel-header {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.experiments-panel-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.close-experiments-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.close-experiments-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.experiments-list {
+    padding: 20px;
+    padding: 0 15px; 
+    /* Add some top padding to the list itself, or target the first item */
+    padding-top: 15px; /* This will push all items down a bit */
+}
+
+.experiment-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.experiment-item.completed {
+    border-left-color: #28a745;
+    background: #d4edda;
+}
+
+.experiment-item h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.experiment-item p {
+    margin: 0 0 10px 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.experiment-status {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #dee2e6;
+    border: 2px solid #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.experiment-status.completed {
+    background: #28a745;
+    border-color: #28a745;
+}
+
+.experiment-tour-btn {
+    background: linear-gradient(45deg, var(--accent-color), #3498db);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+}
+
+.experiment-tour-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Popup and animation styles */
+.experiment-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    z-index: 10000;
+    text-align: center;
+    border: 3px solid var(--chew-color);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.experiment-popup.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.experiment-popup h3 {
+    color: var(--chew-color);
+    margin: 0 0 15px 0;
+    font-size: 1.5em;
+}
+
+.experiment-popup .experiment-icon {
+    font-size: 3em;
+    color: var(--chew-color);
+    margin-bottom: 15px;
+    animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
+    40%, 43% { transform: translateY(-15px); }
+    70% { transform: translateY(-7px); }
+    90% { transform: translateY(-3px); }
+}
+
+.experiment-popup .buckle-award {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    margin-top: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Syntax breakdown styles */
+.syntax-breakdown {
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin: 20px 0;
+}
+
+.syntax-code-container {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.syntax-part {
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.syntax-part:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.syntax-part.active {
+    background-color: rgba(255, 255, 0, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+.syntax-explanation {
+    min-height: 120px;
+}
+
+.explanation-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.explanation-card h4 {
+    margin: 0 0 10px 0;
+    color: var(--accent-color);
+    font-size: 1.1em;
+}
+
+.explanation-card p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.explanation-card.highlight {
+    border-left-color: var(--chew-color);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.explanation-card.highlight h4 {
+    color: var(--chew-color);
+}
+
+.status-indicator {
+    margin-left: auto;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-indicator.running {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-indicator.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Shepherd.js custom styling */
+.shepherd-modal-overlay-container {
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.shepherd-element {
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+    border: 2px solid var(--accent-color) !important;
+    max-width: 400px !important;
+}
+
+.shepherd-header {
+    background: linear-gradient(135deg, var(--accent-color), #1e3a8a) !important;
+    color: white !important;
+    padding: 20px 25px !important;
+    border-radius: 10px 10px 0 0 !important;
+    margin: 0 !important;
+}
+
+.shepherd-title {
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+}
+
+.shepherd-text {
+    padding: 25px !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+    color: #2c3e50 !important;
+}
+
+.shepherd-footer {
+    padding: 15px 25px 25px 25px !important;
+    background: transparent !important;
+    border-top: 1px solid #e9ecef !important;
+}
+
+.shepherd-button {
+    background: var(--accent-color) !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 20px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
+    margin-left: 8px !important;
+}
+
+.shepherd-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
+
+.shepherd-button.shepherd-button-secondary {
+    background: #6c757d !important;
+}
+
+.shepherd-cancel-icon {
+    color: white !important;
+    font-size: 18px !important;
+    padding: 8px !important;
+    border-radius: 4px !important;
+    transition: background 0.3s ease !important;
+}
+
+.shepherd-cancel-icon:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Secondary playground styling - same color scheme as primary */
+.secondary-playground {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    margin: 20px 0;
+    border: 2px solid var(--outline-color);
+    position: relative;
+}
+
+.secondary-playground .playground-header {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #1e3a8a 100%);
+}
+
+.secondary-experiments-beaker-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.secondary-experiments-beaker-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.secondary-experiments-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+    transition: right 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+}
+
+.secondary-experiments-panel.open {
+    right: 0;
+}
+
+.secondary-experiments-panel-header {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Fix CodeMirror visibility issues */
+.CodeMirror {
+    height: 350px;
+    font-size: 14px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    border: none;
+    position: relative;
+    z-index: 1;
+}
+
+.CodeMirror-scroll {
+    position: relative;
+    z-index: 2;
+}
+
+
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .playground-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .code-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--outline-color);
+    }
+    
+    .playground-controls {
+        flex-wrap: wrap;
+    }
+
+    .experiments-panel, .secondary-experiments-panel {
+        width: 100%;
+        right: -100%;
+    }
+
+    .experiments-beaker-btn, .secondary-experiments-beaker-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+}
+
+/* Loading animation */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s ease-in-out infinite;
+}
+/* Improved Shepherd tour styling */
+.shepherd-element {
+    max-width: 400px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.shepherd-header {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    padding: 16px 20px;
+    border-bottom: none;
+}
+
+.shepherd-title {
+    color: white !important;
+    font-weight: 600;
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.shepherd-content {
+    padding: 20px;
+    background: white;
+}
+
+.shepherd-text {
+    color: #2c3e50;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.shepherd-text p {
+    margin-bottom: 12px;
+}
+
+.shepherd-text p:last-child {
+    margin-bottom: 0;
+}
+
+.shepherd-footer {
+    padding: 16px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    text-align: right;
+}
+
+.shepherd-button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.shepherd-button:hover {
+    background: #2980b9;
+}
+
+.shepherd-button-secondary {
+    background: #95a5a6;
+    margin-right: 8px;
+}
+
+.shepherd-button-secondary:hover {
+    background: #7f8c8d;
+}
+
+.shepherd-cancel-icon {
+    color: white;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.shepherd-cancel-icon:hover {
+    opacity: 1;
+}
+
+/* Code highlighting in tour */
+.shepherd-text code {
+    background: #f1f2f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    color: #e74c3c;
+    font-size: 0.9em;
+}
+
+.shepherd-text div[style*="background"] {
+    background: #f8f9fa !important;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* styles.css or in your <style> block in index.html */
+.experiments-panel, .secondary-experiments-panel {
+    /* ... existing styles ... */
+    padding-bottom: 20px; /* Add some bottom padding */
+}
+
+.experiments-list {
+    padding: 0 15px; /* Add some horizontal padding to the list container */
+    padding: 0 15px; 
+    /* Add some top padding to the list itself, or target the first item */
+    padding-top: 15px; /* This will push all items down a bit */
+}
+
+.experiment-item {
+    background-color: #ffffff; /* Light background for each item */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px; /* Increased space between items */
+    padding: 15px 20px; /* Increased padding within items */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.experiment-item-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.experiment-status {
+    min-width: 28px; /* Ensure consistent size */
+    height: 28px;
+    background-color: var(--accent-color); /* Use your accent color */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 12px;
+    font-size: 0.9em;
+}
+
+.experiment-status.completed {
+    background-color: #2ecc71; /* Green for completed */
+}
+
+.experiment-title {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.experiment-task-explanation {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.experiment-instructions-dropdown {
+    margin-top: 10px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+.experiment-instructions-dropdown summary {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--accent-color);
+    list-style: none; /* Remove default marker */
+    display: flex;
+    align-items: center;
+}
+
+.experiment-instructions-dropdown summary i {
+    margin-right: 8px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.experiment-instructions-dropdown[open] summary i {
+    transform: rotate(180deg);
+}
+
+
+.experiment-instructions-dropdown[open] summary {
+    border-bottom: 1px solid #eee;
+}
+
+.experiment-instructions-list {
+    list-style-type: decimal; /* Numbered instructions */
+    padding: 15px 15px 15px 35px; /* Indent list */
+    margin: 0;
+    font-size: 0.9em;
+    color: #444;
+}
+
+.experiment-instructions-list li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.experiment-hint-btn {
+    background-color: var(--accent-color-light); /* A lighter shade or different color */
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.experiment-hint-btn i {
+    margin-right: 6px;
+}
+
+.experiment-hint-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Enhanced Shepherd tour styling in index.html <style> or styles.css */
+.shepherd-element {
+    max-width: 450px; /* Slightly wider if needed for code */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0,0,0,0.1); /* Softer shadow */
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif; /* Ensure consistent font */
+}
+
+.shepherd-header {
+    background: #3498db; /* Solid color, or keep gradient if preferred */
+    /* background: linear-gradient(135deg, #3498db, #2980b9); */
+    color: white;
+    padding: 16px 24px;
+    border-bottom: none;
+}
+
+.shepherd-title {
+    color: white !important;
+    font-weight: 600;
+    font-size: 1.15em;
+    margin: 0;
+}
+
+.shepherd-content {
+    padding: 20px 24px;
+    background: white;
+}
+
+.shepherd-text {
+    color: #34495e; /* Slightly darker text for better contrast */
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95em;
+}
+
+.shepherd-text p {
+    margin-bottom: 1em;
+}
+
+.shepherd-text p:last-child {
+    margin-bottom: 0;
+}
+
+.shepherd-footer {
+    padding: 12px 24px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    text-align: right;
+}
+
+.shepherd-button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 18px; /* Slightly larger buttons */
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.9em;
+}
+
+.shepherd-button:hover {
+    background: #2980b9;
+}
+
+.shepherd-button-secondary {
+    background: #bdc3c7; /* Lighter secondary */
+    color: #34495e;
+    margin-right: 10px;
+}
+
+.shepherd-button-secondary:hover {
+    background: #95a5a6;
+}
+
+.shepherd-cancel-icon {
+    color: white;
+    font-size: 20px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.shepherd-cancel-icon:hover {
+    opacity: 1;
+}
+
+/* --- Improved Code highlighting in tour --- */
+.shepherd-text code, 
+.shepherd-text .tour-code-inline { /* New class for inline code if needed */
+    background: #e8f0f7; /* Lighter, less contrasty background */
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    color: #2c3e50; /* Darker code text for readability */
+    font-size: 0.88em;
+    border: 1px solid #d0e0ef;
+}
+
+/* For block code snippets in the tour */
+.shepherd-text .tour-code-block {
+    background: #2d2d2d; /* Dark background for code blocks */
+    color: #f8f8f2;     /* Light text for dark background */
+    padding: 15px;
+    border-radius: 6px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+    overflow-x: auto; /* Allow horizontal scrolling for long lines */
+    margin: 1em 0;
+    border: 1px solid #444;
+}
+
+/* Example syntax highlighting (add more spans in your tour text) */
+.shepherd-text .tour-code-block .code-keyword { color: #ff79c6; } /* Pink for keywords */
+.shepherd-text .tour-code-block .code-variable { color: #8be9fd; } /* Cyan for variables */
+.shepherd-text .tour-code-block .code-function { color: #50fa7b; } /* Green for functions */
+.shepherd-text .tour-code-block .code-string { color: #f1fa8c; }  /* Yellow for strings */
+.shepherd-text .tour-code-block .code-number { color: #bd93f9; }  /* Purple for numbers */
+.shepherd-text .tour-code-block .code-comment { color: #6272a4; font-style: italic; } /* Grey for comments */
+
+/* Override for div[style*="background"] if it was used for code blocks */
+/* It's better to use a dedicated class like .tour-code-block */
+.shepherd-text div[style*="background"] {
+    /* If this was for code, it's now handled by .tour-code-block.
+       If it was for something else, adjust this rule or remove it if not needed. */
+    background: #f8f9fa !important; /* Keeping original for non-code divs */
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Inter', sans-serif; /* Revert to body font if not code */
+    font-size: 0.9em; /* Revert to body font size if not code */
+}
+
+/* In styles.css or your <style> block */
+.experiment-instructions-list {
+    list-style-type: decimal; 
+    padding: 12px 15px 12px 35px; /* Adjust padding if needed */
+    margin: 0;
+    font-size: 0.9em; /* Keep or adjust */
+    color: #444;
+    line-height: 1.5; /* Slightly more line height for readability */
+}
+
+.experiment-instructions-list li {
+    margin-bottom: 10px; /* Slightly more space between shorter instructions */
+}
+
+.experiment-hint-btn {
+    /* ... (existing styles are likely fine) ... */
+    margin-top: 12px; /* Adjust spacing for the hint button */
+}
+
+.experiment-instructions-list li code,
+.experiment-instructions-list li .code-instr-var,
+.experiment-instructions-list li .code-instr-val,
+.experiment-instructions-list li .code-instr-str,
+.experiment-instructions-list li .code-instr-keyword {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    background-color: #e8f0f7; /* Light blue-grey background */
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.9em; /* Slightly smaller than surrounding text if desired */
+    border: 1px solid #d0e0ef;
+    color: #2c3e50; /* Darker text for readability */
+}
+
+/* Specific styling for different code parts (optional, but nice) */
+.experiment-instructions-list li .code-instr-var {
+    color: #007bff; /* Blue for variables */
+    font-weight: 500;
+}
+
+.experiment-instructions-list li .code-instr-val {
+    color: #e83e8c; /* Pink/Magenta for values/numbers */
+}
+
+.experiment-instructions-list li .code-instr-str {
+    color: #28a745; /* Green for strings */
+}
+
+.experiment-instructions-list li .code-instr-keyword {
+    color: #fd7e14; /* Orange for keywords */
+    font-weight: 500;
+}
+
+/* General aesthetics for the instruction list items */
+.experiment-instructions-list {
+    list-style-type: none; /* Remove default decimal if using custom indicators */
+    padding: 15px 15px 15px 20px;
+    margin: 0;
+    font-size: 0.95em; /* Base size for instruction text */
+    color: #333; /* Main text color for instructions */
+}
+
+.experiment-instructions-list li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    padding-left: 25px; /* Space for custom bullet */
+    position: relative; /* For custom bullet positioning */
+}
+
+/* Custom bullet point for instruction items */
+.experiment-instructions-list li::before {
+    content: "\f101"; /* FontAwesome right angle (double right arrow) or similar */
+    font-family: "Font Awesome 5 Free"; /* Ensure FontAwesome is loaded */
+    font-weight: 900; /* For solid icons */
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+    top: 1px; /* Adjust vertical alignment */
+    font-size: 0.9em;
+}
+
+.experiment-hint-btn {
+    /* ... (existing styles are likely fine) ... */
+    margin-top: 15px; /* Adjust spacing for the hint button */
+    font-size: 0.9em;
+}
+
+/* Dropdown summary styling */
+.experiment-instructions-dropdown summary {
+    padding: 12px 18px; /* More padding */
+    font-weight: 600; /* Bolder summary */
+    background-color: #f0f4f8; /* Slightly different background for summary */
+    border-bottom: 1px solid #dce4ec; /* Separator line */
+}
+.experiment-instructions-dropdown[open] summary {
+    background-color: #e9eef3;
+}
+
+.experiment-instructions-dropdown summary i {
+    margin-right: 10px; /* More space for icon */
+    font-size: 0.9em;
+}
+
+/* Inline code within Shepherd tour text */
+.shepherd-text code,
+.shepherd-text .code-tour-var,
+.shepherd-text .code-tour-val,
+.shepherd-text .code-tour-str,
+.shepherd-text .code-tour-keyword { /* Renamed from code-instr-* for tour context */
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    background-color: #e8f0f7; /* Consistent with experiment instructions */
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.9em; /* Consistent */
+    border: 1px solid #d0e0ef; /* Consistent */
+    color: #2c3e50; /* Consistent */
+    display: inline; /* Ensure it behaves like inline code */
+    white-space: nowrap; /* Prevent wrapping for short snippets */
+}
+
+/* Specific styling for different inline code parts in tours */
+.shepherd-text .code-tour-var {
+    color: #007bff; /* Blue for variables */
+    font-weight: 500;
+}
+
+.shepherd-text .code-tour-val {
+    color: #e83e8c; /* Pink/Magenta for values/numbers */
+}
+
+.shepherd-text .code-tour-str {
+    color: #28a745; /* Green for strings */
+}
+
+.shepherd-text .code-tour-keyword {
+    color: #fd7e14; /* Orange for keywords */
+    font-weight: 500;
+}
+
+/* For block code snippets in the Shepherd tour */
+.shepherd-text .tour-code-block {
+    background: #2d2d2d; /* Dark background for code blocks - consistent with previous */
+    color: #f8f8f2;     /* Light text for dark background - consistent */
+    padding: 15px;      /* Consistent */
+    border-radius: 6px; /* Consistent */
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;   /* Consistent */
+    line-height: 1.5;   /* Consistent */
+    overflow-x: auto;   /* Allow horizontal scrolling - consistent */
+    margin: 1em 0;      /* Consistent */
+    border: 1px solid #444; /* Consistent */
+    text-align: left;   /* Ensure code block text is left-aligned */
+}
+
+/* Syntax highlighting classes for use INSIDE .tour-code-block */
+.shepherd-text .tour-code-block .code-keyword { color: #ff79c6; }
+.shepherd-text .tour-code-block .code-variable { color: #8be9fd; }
+.shepherd-text .tour-code-block .code-function { color: #50fa7b; }
+.shepherd-text .tour-code-block .code-string { color: #f1fa8c; }
+.shepherd-text .tour-code-block .code-number { color: #bd93f9; }
+.shepherd-text .tour-code-block .code-comment { color: #6272a4; font-style: italic; }
+
+
+/* Remove or adjust the old generic div[style*="background"] rule if it conflicts */
+/* The following was your original rule for .shepherd-text div[style*="background"] */
+/* If it was intended for code blocks, it's now superseded by .tour-code-block */
+/* If it was for other styled divs, you might need to adjust its selector or keep it. */
+.shepherd-text div[style*="background"] {
+    /* If this was for code, it's now handled by .tour-code-block. */
+    /* For other general styled divs within Shepherd text: */
+    background: #f8f9fa !important; /* Original fallback */
+    border: 1px solid #e9ecef;    /* Original fallback */
+    border-radius: 6px;           /* Original fallback */
+    padding: 12px;                /* Original fallback */
+    font-family: 'Inter', sans-serif; /* Revert to body font if not code */
+    font-size: 0.9em;                 /* Revert to body font size if not code */
+    /* Ensure this doesn't override .tour-code-block if a tour-code-block also has an inline style */
+}
