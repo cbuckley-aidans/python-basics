@@ -38,50 +38,57 @@ const EducationalEditor = (function() {
         console.log('Educational Editor System initialized successfully');
     }
 
-    // Navigation system
     function initializeNavigation() {
-        document.querySelectorAll('.tab-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const tabId = this.getAttribute('data-tab'); // e.g., 'lisc', 'chunk1', 'chew2', 'chew3'
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const clickedTabId = this.getAttribute('data-tab'); // ID of the tab section to show
 
-                // Deactivate all tabs and content
-                document.querySelectorAll('.tab-button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-
-                // Activate the clicked tab and its content
-                this.classList.add('active');
-                const activeTabContent = document.getElementById(tabId);
-                if (activeTabContent) {
-                    activeTabContent.classList.add('active');
-                }
-
-                // Refresh CodeMirror instances if they are in the newly activated tab
-                // Ensure these tab IDs ('chew2', 'chew3') match your HTML structure
-                if (tabId === 'chew2' && editors['primary']) {
-                    setTimeout(() => {
-                        editors['primary'].refresh();
-                        editors['primary'].focus(); // Optional: focus the editor
-                    }, 10); // A small delay can help ensure the layout is complete
-                } else if (tabId === 'chew3' && editors['secondary']) {
-                    setTimeout(() => {
-                        editors['secondary'].refresh();
-                        editors['secondary'].focus(); // Optional: focus the editor
-                    }, 10);
-                }
+            // Deactivate all tabs and content
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
             });
-        });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
 
-        if (config.topic && config.topic.sidebarTitle) {
-            const sidebarLogo = document.querySelector('.sidebar-logo');
-            if (sidebarLogo) {
-                sidebarLogo.textContent = config.topic.sidebarTitle;
+            // Activate the clicked tab and its content
+            this.classList.add('active');
+            const activeTabContent = document.getElementById(clickedTabId);
+            if (activeTabContent) {
+                activeTabContent.classList.add('active');
             }
+
+            // --- REFRESH LOGIC using parentTabId from pageConfig ---
+            // Check for primary playground
+            if (config.primaryPlayground && config.primaryPlayground.parentTabId === clickedTabId && editors['primary']) {
+                setTimeout(() => {
+                    if (editors['primary']) { // Double check editor instance exists
+                        editors['primary'].refresh();
+                        editors['primary'].focus();
+                    }
+                }, 10); // A small delay can help ensure the layout is complete
+            }
+
+            // Check for secondary playground
+            if (config.secondaryPlayground && config.secondaryPlayground.parentTabId === clickedTabId && editors['secondary']) {
+                setTimeout(() => {
+                    if (editors['secondary']) { // Double check editor instance exists
+                        editors['secondary'].refresh();
+                        editors['secondary'].focus();
+                    }
+                }, 10);
+            }
+        });
+    });
+
+    // Set sidebar title from config
+    if (config.topic && config.topic.sidebarTitle) {
+        const sidebarLogo = document.querySelector('.sidebar-logo');
+        if (sidebarLogo) {
+            sidebarLogo.textContent = config.topic.sidebarTitle;
         }
     }
+}
 
     // Experiment panels system
     function initializeExperimentPanels() {
@@ -430,34 +437,64 @@ const EducationalEditor = (function() {
     }
 
     function showExperimentCompletion(experimentTitle) {
-        const popup = document.createElement('div');
-        popup.className = 'experiment-popup';
-        popup.innerHTML = `
+    // Remove existing popup if any, to prevent multiple popups
+    const existingPopup = document.querySelector('.experiment-popup');
+    if (existingPopup) {
+        existingPopup.remove();
+    }
+
+    const popup = document.createElement('div');
+    popup.className = 'experiment-popup'; // This class will be used for initial transform/opacity
+    
+    // Correctly URL-encoded SVG for the buckle icon
+    // fill='#000' becomes fill='%23000'
+    // stroke='#DAA520' becomes stroke='%23DAA520'
+    // fill='#FFD700' becomes fill='%23FFD700'
+    const buckleSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='24' height='24'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E`;
+
+    popup.innerHTML = `
+        <div class="experiment-popup-content">
             <div class="experiment-icon">🎉</div>
             <h3>Experiment Complete!</h3>
             <p><strong>${experimentTitle}</strong></p>
-            <p>Great work on completing this experiment!</p>
+            <p>Great work on this experiment!</p>
             <div class="buckle-award">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='24' height='24'%3E%3Ccircle cx='18' cy='18' r='16' fill='%2523FFD700' stroke='%2523DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%2523000'%3EB%3C/text%3E%3C/svg%3E" alt="Buckle">
+                <img src="${buckleSVG}" alt="Buckle">
                 +1 Buckle Earned!
             </div>
-        `;
+        </div>
+        <button class="popup-close-btn-simple">×</button>
+    `;
 
-        document.body.appendChild(popup);
+    document.body.appendChild(popup);
 
+    // Trigger the animation by adding a 'show' class after a brief delay
+    setTimeout(() => {
+        popup.classList.add('show');
+    }, 50); // Small delay to allow the element to be in DOM for transition
+
+    // Add event listener for the close button
+    popup.querySelector('.popup-close-btn-simple').addEventListener('click', () => {
+        popup.classList.remove('show');
         setTimeout(() => {
-            popup.classList.add('show');
-        }, 100);
+            if (document.body.contains(popup)) {
+                document.body.removeChild(popup);
+            }
+        }, 500); // Match transition duration
+    });
 
-        setTimeout(() => {
+    // Auto-close after a few seconds
+    setTimeout(() => {
+        if (popup.classList.contains('show')) { // Only remove if still shown
             popup.classList.remove('show');
             setTimeout(() => {
-                if (document.body.contains(popup)) { // Check if popup still exists before removing
+                if (document.body.contains(popup)) {
                     document.body.removeChild(popup);
                 }
-            }, 500);
-        }, 3000);
-    }
+            }, 500); // Match transition duration
+        }
+    }, 4000); // Auto-close after 4 seconds
+}
 
     // Syntax breakdown system
     function initializeSyntaxBreakdown() {

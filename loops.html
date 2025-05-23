@@ -870,173 +870,170 @@ while temperature > 100:
         // Page Configuration - All page-specific content lives here
         // In your index.html <script> tag where pageConfig is defined
 
-const pageConfig = {
-    pageIdentifier: "python-for-loops", // Unique identifier for this page
-    topic: {
-        title: "Python For Loops", // For display, if needed
-        sidebarTitle: "PYTHON FOR LOOPS" // For the sidebar
-    },
+// In your python-for-loops.html <script> tag
 
-    // Primary coding playground configuration
+const pageConfig = {
+    pageIdentifier: "python-for-loops",
+    topic: {
+        title: "Python For Loops",
+        sidebarTitle: "PYTHON FOR LOOPS"
+    },
     primaryPlayground: {
-        title: "Code Lab 1",
-        subtitle: "Practice writing and changing for loops and range() functions",
+        title: "Code Lab 1 Experiments",
+        subtitle: "Master the fundamentals of for loops and range() function",
         icon: "fa-flask",
         initialCode: `for i in range(1, 4):\n    print("Number: ", i)`,
         buttonText: "Run Code",
-        terminalReady: "", // Initial message in terminal
-        storageKey: "primaryExperiments" // For potential local storage of user code
+        terminalReady: "Click 'Run Code' to execute your program...",
+        storageKey: "primaryExperiments",
+        parentTabId: "chew2" // <<< Ensure this matches the tab ID for this playground
     },
-
-    // Secondary coding playground configuration (e.g., for star patterns)
     secondaryPlayground: {
-        title: "Code Lab 2",
-        subtitle: "Apply deeper understanding of loops to create visual patterns and designs",
+        title: "Code Lab 2 Experiments",
+        subtitle: "Apply loops to create visual patterns and designs",
         icon: "fa-flask",
         initialCode: `for i in range(1, 6):\n    print("*" * i)`,
         buttonText: "Run Code",
-        terminalReady: "",
-        storageKey: "secondaryExperiments"
+        terminalReady: "Click 'Run Code' to see your design...",
+        storageKey: "secondaryExperiments",
+        parentTabId: "chew3" // <<< Ensure this matches the tab ID for this playground
     },
-
-    // Experiments configuration
     experiments: {
-            primary: {
-                title: "Code Lab 1 Experiments",
-                icon: "fa-flask",
-                experiments: [
-                    {
-                        id: "exp1",
-                        title: "Run Original Code",
-                        taskExplanation: "Execute the basic 'for' loop to observe its output and understand its fundamental operation.",
-                        detailedInstructions: [
-                            "Examine the <code>for i in range(1, 4):</code> structure.",
-                            "Predict the output of <code>print(\"Number: \", i)</code> for this range.",
-                            "Click 'Run Code' to verify your prediction."
-                        ],
-                        pattern: /for\s+\w+\s+in\s+range\s*\(\s*1\s*,\s*4\s*\)\s*:\s*\n\s*print/
-                    },
-                    {
-                        id: "exp2",
-                        title: "Change Variable Name",
-                        taskExplanation: "Modify the loop variable's name to demonstrate its arbitrary nature, as long as it's used consistently.",
-                        detailedInstructions: [
-                            "Replace the variable <code>i</code> with a new name (e.g., <code>count</code>).",
-                            "Ensure consistency: <code>for <span class='code-instr-var'>count</span> in range...</code> and <code>print(..., <span class='code-instr-var'>count</span>)</code>.",
-                            "Run the code. The output should remain the same."
-                        ],
-                        pattern: /for\s+(?!i\s)[a-zA-Z_]\w*\s+in\s+range/
-                    },
-                    {
-                        id: "exp3",
-                        title: "Change Start Value",
-                        taskExplanation: "Alter the starting number in `range()` to control where the loop begins its sequence.",
-                        detailedInstructions: [
-                            "In <code>range(<span class='code-instr-val'>1</span>, 4)</code>, change the start value <code>1</code> (e.g., to <code>0</code> or <code>3</code>).",
-                            "Observe how this affects the first number printed.",
-                            "Try <code>range(<span class='code-instr-val'>2</span>, <span class='code-instr-val'>5</span>)</code> and predict its output."
-                        ],
-                        pattern: /for\s+\w+\s+in\s+range\s*\(\s*(?!1\b)\d+\s*,/
-                    },
-                    {
-                        id: "exp4",
-                        title: "Change End Value",
-                        taskExplanation: "Modify the stopping number in `range()` to control the total number of iterations.",
-                        detailedInstructions: [
-                            "In <code>range(1, <span class='code-instr-val'>4</span>)</code>, change the stop value <code>4</code> (e.g., to <code>6</code> or <code>2</code>).",
-                            "Remember, <code>range()</code> stops *before* this number.",
-                            "Note how many times the loop body executes."
-                        ],
-                        pattern: /for\s+\w+\s+in\s+range\s*\([^,]+,\s*(?!4\b)\d+/
-                    },
-                    {
-                        id: "exp5",
-                        title: "Add Multiple Statements",
-                        taskExplanation: "Include more than one indented line of code inside the loop to perform multiple actions per iteration.",
-                        detailedInstructions: [
-                            "Below the existing <code>print()</code>, add another indented <code>print()</code>.",
-                            "For instance: <code>print(\"Looping...\")</code>.",
-                            "Ensure both <code>print</code> statements are equally indented under the <code>for</code> line."
-                        ],
-                        pattern: /for[\s\S]*?:\s*\n\s*print[\s\S]*?\n\s*print/
-                    },
-                    {
-                        id: "exp6",
-                        title: "Use Step Parameter",
-                        taskExplanation: "Introduce a third argument to `range()` to make the loop skip numbers or count in different increments.",
-                        detailedInstructions: [
-                            "Modify <code>range()</code> to include a step: <code>range(1, 10, <span class='code-instr-val'>2</span>)</code>.",
-                            "Predict the sequence this will generate (1, 3, 5, 7, 9).",
-                            "Try a negative step: <code>range(5, 0, <span class='code-instr-val'>-1</span>)</code> for counting down."
-                        ],
-                        pattern: /range\s*\([^)]*,\s*[^)]*,\s*[^)]*\)/
-                    }
-                ]
-            },
-            secondary: { // Star Experiments - apply similar formatting
-                title: "Code Lab 2 Experiments",
-                icon: "fa-flask",
-                experiments: [
-                    {
-                        id: "star-exp1",
-                        title: "Run Star Pattern",
-                        taskExplanation: "Execute the star pattern code to see how loops and string multiplication create visual shapes.",
-                        detailedInstructions: [
-                            "Understand how <code>\"*\" * i</code> creates a string of <code>i</code> stars.",
-                            "Follow how <code>i</code> (the loop variable) changes.",
-                            "Click 'Create Pattern' to see the triangle."
-                        ],
-                        pattern: /for\s+\w+\s+in\s+range\s*\([^)]*\)\s*:\s*\n\s*print\s*\(\s*["'][\*#@]+["']\s*\*\s*\w+\s*\)/
-                    },
-                    {
-                        id: "star-exp2",
-                        title: "Change Pattern Size",
-                        taskExplanation: "Adjust the `range()` function to control the number of rows in the star triangle.",
-                        detailedInstructions: [
-                            "Modify the second argument in <code>range(1, <span class='code-instr-val'>6</span>)</code>.",
-                            "Try <code>range(1, <span class='code-instr-val'>9</span>)</code> for a larger triangle.",
-                            "Or <code>range(1, <span class='code-instr-val'>4</span>)</code> for a smaller one."
-                        ],
-                        pattern: /for\s+\w+\s+in\s+range\s*\(\s*\d+\s*,\s*(?!6\b)\d+\s*\)/
-                    },
-                    {
-                        id: "star-exp3",
-                        title: "Different Symbols",
-                        taskExplanation: "Replace the '*' character with other symbols to vary the visual output of the pattern.",
-                        detailedInstructions: [
-                            "In <code>print(\"<span class='code-instr-str'>\"*\"</span> * i)</code>, change the string <code>\"*\"</code>.",
-                            "Try symbols like <code>\"#\"</code>, <code>\"@\"</code>, or <code>\"+\"</code>.",
-                            "Example: <code>print(\"<span class='code-instr-str'>\"#\"</span> * i)</code>."
-                        ],
-                        pattern: /print\s*\(\s*["'](?![\*])[\S]["']\s*\*\s*\w+\s*\)/
-                    },
-                    {
-                        id: "star-exp4",
-                        title: "Add Numbers",
-                        taskExplanation: "Enhance the pattern by printing the current row number alongside the symbols.",
-                        detailedInstructions: [
-                            "Modify the <code>print()</code> statement to include the loop variable <code>i</code>.",
-                            "For example: <code>print(i, \": \", \"*\" * i)</code>.",
-                            "This adds context to each row of the pattern."
-                        ],
-                        pattern: /print\s*\([^)]*\w+[^)]*["'][\*#@]+["'][^)]*\w+[^)]*\)/
-                    },
-                    {
-                        id: "star-exp5",
-                        title: "Reverse Triangle",
-                        taskExplanation: "Modify the loop to create a triangle that decreases in size from top to bottom.",
-                        detailedInstructions: [
-                            "Change <code>range()</code> to count downwards using a negative step.",
-                            "Example: <code>for i in range(<span class='code-instr-val'>5</span>, <span class='code-instr-val'>0</span>, <span class='code-instr-val'>-1</span>):</code>.",
-                            "This makes <code>i</code> go 5, 4, 3, 2, 1, reversing the triangle."
-                        ],
-                        pattern: /range\s*\(\s*\d+\s*,\s*\d+\s*,\s*-\d+\s*\)/
-                    }
-                ]
-            }
+        primary: {
+            title: "Code Lab 1 Experiments",
+            icon: "fa-flask",
+            experiments: [
+                {
+                    id: "exp1",
+                    title: "Run Original Code",
+                    taskExplanation: "Execute the basic 'for' loop to observe its output and understand its fundamental operation.",
+                    detailedInstructions: [
+                        "Examine the <code>for i in range(1, 4):</code> structure.",
+                        "Predict the output of <code>print(\"Number: \", i)</code> for this range.",
+                        "Click 'Run Code' to verify your prediction."
+                    ],
+                    pattern: /for\s+\w+\s+in\s+range\s*\(\s*1\s*,\s*4\s*\)\s*:\s*\n\s*print/
+                },
+                {
+                    id: "exp2",
+                    title: "Change Variable Name",
+                    taskExplanation: "Modify the loop variable's name to demonstrate its arbitrary nature, as long as it's used consistently.",
+                    detailedInstructions: [
+                        "Replace the variable <code>i</code> with a new name (e.g., <span class='code-instr-var'>count</span>).",
+                        "Ensure consistency: <code>for <span class='code-instr-var'>count</span> in range...</code> and <code>print(..., <span class='code-instr-var'>count</span>)</code>.",
+                        "Run the code. The output should remain the same."
+                    ],
+                    pattern: /for\s+(?!i\s)[a-zA-Z_]\w*\s+in\s+range/
+                },
+                {
+                    id: "exp3",
+                    title: "Change Start Value",
+                    taskExplanation: "Alter the starting number in `range()` to control where the loop begins its sequence.",
+                    detailedInstructions: [
+                        "In <code>range(<span class='code-instr-val'>1</span>, 4)</code>, change the start value <code>1</code> (e.g., to <code>0</code> or <code>3</code>).",
+                        "Observe how this affects the first number printed.",
+                        "Try <code>range(<span class='code-instr-val'>2</span>, <span class='code-instr-val'>5</span>)</code> and predict its output."
+                    ],
+                    pattern: /for\s+\w+\s+in\s+range\s*\(\s*(?!1\b)\d+\s*,/
+                },
+                {
+                    id: "exp4",
+                    title: "Change End Value",
+                    taskExplanation: "Modify the stopping number in `range()` to control the total number of iterations.",
+                    detailedInstructions: [
+                        "In <code>range(1, <span class='code-instr-val'>4</span>)</code>, change the stop value <code>4</code> (e.g., to <code>6</code> or <code>2</code>).",
+                        "Remember, <code>range()</code> stops *before* this number.",
+                        "Note how many times the loop body executes."
+                    ],
+                    pattern: /for\s+\w+\s+in\s+range\s*\([^,]+,\s*(?!4\b)\d+/
+                },
+                {
+                    id: "exp5",
+                    title: "Add Multiple Statements",
+                    taskExplanation: "Include more than one indented line of code inside the loop to perform multiple actions per iteration.",
+                    detailedInstructions: [
+                        "Below the existing <code>print()</code>, add another indented <code>print()</code>.",
+                        "For instance: <code>print(\"Looping...\")</code>.",
+                        "Ensure both <code>print</code> statements are equally indented under the <code>for</code> line."
+                    ],
+                    pattern: /for[\s\S]*?:\s*\n\s*print[\s\S]*?\n\s*print/
+                },
+                {
+                    id: "exp6",
+                    title: "Use Step Parameter",
+                    taskExplanation: "Introduce a third argument to `range()` to make the loop skip numbers or count in different increments.",
+                    detailedInstructions: [
+                        "Modify <code>range()</code> to include a step: <code>range(1, 10, <span class='code-instr-val'>2</span>)</code>.",
+                        "Predict the sequence this will generate (1, 3, 5, 7, 9).",
+                        "Try a negative step: <code>range(5, 0, <span class='code-instr-val'>-1</span>)</code> for counting down."
+                    ],
+                    pattern: /range\s*\([^)]*,\s*[^)]*,\s*[^)]*\)/
+                }
+            ]
         },
-    // Quiz configuration (for CHEW 1)
-    quiz: {
+        secondary: {
+            title: "Code Lab 2 Experiments",
+            icon: "fa-flask",
+            experiments: [
+                {
+                    id: "star-exp1",
+                    title: "Run Star Pattern",
+                    taskExplanation: "Execute the star pattern code to see how loops and string multiplication create visual shapes.",
+                    detailedInstructions: [
+                        "Understand how <code>\"*\" * i</code> creates a string of <code>i</code> stars.",
+                        "Follow how <code>i</code> (the loop variable) changes.",
+                        "Click 'Run Code' to see the triangle."
+                    ],
+                    pattern: /for\s+\w+\s+in\s+range\s*\([^)]*\)\s*:\s*\n\s*print\s*\(\s*["'][\*#@]+["']\s*\*\s*\w+\s*\)/
+                },
+                {
+                    id: "star-exp2",
+                    title: "Change Pattern Size",
+                    taskExplanation: "Adjust the `range()` function to control the number of rows in the star triangle.",
+                    detailedInstructions: [
+                        "Modify the second argument in <code>range(1, <span class='code-instr-val'>6</span>)</code>.",
+                        "Try <code>range(1, <span class='code-instr-val'>9</span>)</code> for a larger triangle.",
+                        "Or <code>range(1, <span class='code-instr-val'>4</span>)</code> for a smaller one."
+                    ],
+                    pattern: /for\s+\w+\s+in\s+range\s*\(\s*\d+\s*,\s*(?!6\b)\d+\s*\)/
+                },
+                {
+                    id: "star-exp3",
+                    title: "Different Symbols",
+                    taskExplanation: "Replace the '*' character with other symbols to vary the visual output of the pattern.",
+                    detailedInstructions: [
+                        "In <code>print(\"<span class='code-instr-str'>\"*\"</span> * i)</code>, change the string <code>\"*\"</code>.",
+                        "Try symbols like <code>\"#\"</code>, <code>\"@\"</code>, or <code>\"+\"</code>.",
+                        "Example: <code>print(\"<span class='code-instr-str'>\"#\"</span> * i)</code>."
+                    ],
+                    pattern: /print\s*\(\s*["'](?![\*])[\S]["']\s*\*\s*\w+\s*\)/
+                },
+                {
+                    id: "star-exp4",
+                    title: "Add Numbers",
+                    taskExplanation: "Enhance the pattern by printing the current row number alongside the symbols.",
+                    detailedInstructions: [
+                        "Modify the <code>print()</code> statement to include the loop variable <code>i</code>.",
+                        "For example: <code>print(i, \": \", \"*\" * i)</code>.",
+                        "This adds context to each row of the pattern."
+                    ],
+                    pattern: /print\s*\([^)]*\w+[^)]*["'][\*#@]+["'][^)]*\w+[^)]*\)/
+                },
+                {
+                    id: "star-exp5",
+                    title: "Reverse Triangle",
+                    taskExplanation: "Modify the loop to create a triangle that decreases in size from top to bottom.",
+                    detailedInstructions: [
+                        "Change <code>range()</code> to count downwards using a negative step.",
+                        "Example: <code>for i in range(<span class='code-instr-val'>5</span>, <span class='code-instr-val'>0</span>, <span class='code-instr-val'>-1</span>):</code>.",
+                        "This makes <code>i</code> go 5, 4, 3, 2, 1, reversing the triangle."
+                    ],
+                    pattern: /range\s*\(\s*\d+\s*,\s*\d+\s*,\s*-\d+\s*\)/
+                }
+            ]
+        }
+    },
+    quiz: { // From original loops page
         questions: [
             {
                 type: "true-false",
@@ -1068,18 +1065,14 @@ const pageConfig = {
             }
         ]
     },
-
-    // Statement building configuration (for CHEW 3)
-    statementBuilding: {
+    statementBuilding: { // From original loops page
         challenge: "Create a loop that counts from 1 to 10",
         instruction: "Click the code parts in the correct order to build the 'for' loop statement:",
-        parts: shuffle(["for", "num", "in", "range", "(", "1", ",", "11", ")", ":"]), // Randomized order
+        parts: shuffle(["for", "num", "in", "range", "(", "1", ",", "11", ")", ":"]),
         correctSequence: ["for", "num", "in", "range", "(", "1", ",", "11", ")", ":"],
-        correctAnswer: "for num in range(1, 11):" // Used for feedback
+        correctAnswer: "for num in range(1, 11):"
     },
-
-    // Loop Tracing Challenge (for CHEW 3)
-    tracingChallenge: {
+    tracingChallenge: { // From original loops page
         title: "Loop Tracing Challenge",
         instruction: "Carefully trace the execution of this code and predict the final value of `total`:",
         code: `total = 0
@@ -1090,37 +1083,31 @@ print(total)`,
         options: [
             { value: "A", text: "5" },
             { value: "B", text: "10" },
-            { value: "C", text: "15" }, // Changed one option to make B unique for value 10
+            { value: "C", text: "15" },
             { value: "D", text: "4" }
         ],
         correctAnswer: "B",
         explanation: "Correct! The loop iterates with `i` being 1, 2, 3, and 4. So, `total` becomes 0+1=1, then 1+2=3, then 3+3=6, and finally 6+4=10.",
-        buckles: 5 // Buckles for this challenge
+        buckles: 5
     },
-
-    // NEW "Spot the Error" Quiz (for CHEW 3)
-    spotTheErrorQuiz: {
+    spotTheErrorQuiz: { // This was added for CHEW 3 in the loops page as per recent requests.
         title: "Spot the Syntax Error!",
         instruction: "Examine the Python code below and identify the option that best describes the syntax error, if any.",
-        code: `count = 0
-for num in range(1, 5)
-    print("Number is:", num)
-    count = count + 1
-print("Final count:", count)`,
+        code: `for count in range(1, 5) # Is something missing here?
+    print("Counting:", count)
+    total = total + count`,
         question: "What is the primary syntax error in the code snippet above?",
         options: [
-            { value: "A", text: "Missing colon <code>:</code> after <code>range(1, 5)</code>", detail: "" },
-            { value: "B", text: "Incorrect indentation for <code>print(\"Number is:\", num)</code>", detail: "" },
-            { value: "C", text: "<code>count = count + 1</code> should be <code>count += 1</code>", detail: "" },
-            { value: "D", text: "No syntax error in this code", detail: "" }
+            { value: "A", text: "Missing colon <code>:</code> after <code>range(1, 5)</code>", detail: "Check the end of the 'for' loop line." },
+            { value: "B", text: "Incorrect indentation for <code>print(\"Counting:\", count)</code>", detail: "Is the print statement correctly placed within the loop?" },
+            { value: "C", text: "<code>total = total + count</code> should be <code>total += 1</code>", detail: "Is this a syntax error or just a style preference?" },
+            { value: "D", text: "No syntax error in this code", detail: "The code is perfectly fine." }
         ],
         correctAnswer: "A",
-        explanation: "Correct! The line `for num in range(1, 5)` is missing a colon (`:`) at the end. In Python, a colon is required to signify the start of an indented block of code for loops, functions, conditionals, etc.",
-        buckles: 1 // Buckles for this challenge
+        explanation: "Correct! The line `for count in range(1, 5)` is missing a colon (`:`) at the end. In Python, a colon is required to signify the start of an indented block of code for loops, functions, conditionals, etc.",
+        buckles: 1
     },
-
-    // Interactive Syntax Breakdown (for CHUNK 2)
-    syntaxBreakdown: {
+    syntaxBreakdown: { // From original loops page
         code: `<span class="syntax-part" data-part="for" style="color: #F92672;">for</span>
 <span class="syntax-part" data-part="variable" style="color: #50FA7B;">number</span>
 <span class="syntax-part" data-part="in" style="color: #F92672;">in</span>
@@ -1139,259 +1126,100 @@ print("Final count:", count)`,
             'print': { title: 'Print Function', text: 'This displays output to the screen. Everything inside its parentheses will be shown in the terminal.' }
         }
     },
-
-    // Shepherd Tours Configuration
-    tours: {
-        "exp1": { // Tour for experiment: Run Original Code
+    tours: { // The fully updated tours object for the loops page
+        "exp1": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "🚀 Run Original Code",
-                    text: `<p>Let's run the basic <code>for</code> loop code that's already in the editor.</p>
-                           <p>This will show you how a simple <code>for</code> loop works!</p>`,
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "▶️ Click Run Code",
-                    text: `<p>Click the 'Run Code' button to execute the <code>for</code> loop.</p>
-                           <p>Watch the output terminal to see what happens!</p>`,
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Got It!", action: "complete" }]
-                }
+                { title: "🚀 Run Original Code", text: `<p>Let's run the basic <code>for</code> loop code that's already in the editor.</p><p>This will show you how a simple <code>for</code> loop works!</p>`, buttons: [{ text: "Next", action: "next" }] },
+                { title: "▶️ Click Run Code", text: `<p>Click the 'Run Code' button to execute the <code>for</code> loop.</p><p>Watch the output terminal to see what happens!</p>`, attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Got It!", action: "complete" }] }
             ]
         },
-        "exp2": { // Tour for experiment: Change Variable Name
+        "exp2": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "📝 Change Variable Name",
-                    text: `<p>The variable in a loop (here, <code>i</code>) can be named differently.</p>
-                           <p>Try changing <code>i</code> to <span class="code-tour-var">num</span> in both places it appears:
-                           <code>for <span class="code-tour-var">num</span> in range...</code> and <code>print(..., <span class="code-tour-var">num</span>)</code>.</p>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "✏️ Edit the Code",
-                    text: `<p>Modify the code now. For example:</p>
-                           <div class='tour-code-block'>
-                             <span class='code-keyword'>for</span> <span class='code-variable' style='background:rgba(255,255,0,0.3);'>num</span> <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number'>1</span>, <span class='code-number'>4</span>):<br>
-                                 <span class='code-function'>print</span>(<span class='code-string'>'Number: '</span>, <span class='code-variable' style='background:rgba(255,255,0,0.3);'>num</span>)
-                           </div>
-                           <p>The parts highlighted (like <span class="code-tour-var" style='background:rgba(255,255,0,0.3);'>num</span>) are what you'd change.</p>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "I Made Changes", action: "next" }]
-                },
-                {
-                    title: "🚀 Test Your Changes",
-                    text: "<p>Now run your modified code. The output should be the same!</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
+                { title: "📝 Change Variable Name", text: `<p>The variable in a loop (here, <code>i</code>) can be named differently.</p><p>Try changing <code>i</code> to <span class="code-tour-var">num</span> in both places it appears: <code>for <span class="code-tour-var">num</span> in range...</code> and <code>print(..., <span class="code-tour-var">num</span>)</code>.</p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                { title: "✏️ Edit the Code", text: `<p>Modify the code now. For example:</p><div class='tour-code-block'><span class='code-keyword'>for</span> <span class='code-variable' style='background:rgba(255,255,0,0.3);'>num</span> <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number'>1</span>, <span class='code-number'>4</span>):<br>    <span class='code-function'>print</span>(<span class='code-string'>'Number: '</span>, <span class='code-variable' style='background:rgba(255,255,0,0.3);'>num</span>)</div><p>The parts highlighted (like <span class="code-tour-var" style='background:rgba(255,255,0,0.3);'>num</span>) are what you'd change.</p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "I Made Changes", action: "next" }] },
+                { title: "🚀 Test Your Changes", text: "<p>Now run your modified code. The output should be the same!</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
             ]
         },
-         "exp3": { // Tour for experiment: Change Start Value
+         "exp3": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "🔢 Change Start Value",
-                    text: `<p>The <code>range(<span class='code-tour-val'>start</span>, <span class='code-tour-val'>stop</span>)</code> function begins its sequence at <code>start</code>.</p>
-                           <p>Currently, it's <code>range(1, 4)</code>. Let's change the <code>1</code>.</p>`,
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "✏️ Modify range()",
-                    text: `<p>Change the first number in <code>range()</code>. Try making it <code>range(<span class="code-tour-val" style="background:rgba(144,238,144,0.4);">0</span>, 4)</code> or <code>range(<span class="code-tour-val" style="background:rgba(144,238,144,0.4);">2</span>, 5)</code>.</p>
-                           <div class='tour-code-block'>
-                             <span class='code-keyword'>for</span> i <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number' style='background:rgba(144,238,144,0.4);'>0</span>, <span class='code-number'>4</span>):<br>
-                                 <span class='code-function'>print</span>(<span class='code-string'>"Number: "</span>, i)
-                           </div>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "I Changed It", action: "next" }]
-                },
-                {
-                    title: "🧪 Discover the Result",
-                    text: "<p>Run the code. How did the output change based on your new start value?</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Done!", action: "complete" }]
-                }
+                { title: "🔢 Change Start Value", text: `<p>The <code>range(<span class='code-tour-val'>start</span>, <span class='code-tour-val'>stop</span>)</code> function begins its sequence at <code>start</code>.</p><p>Currently, it's <code>range(1, 4)</code>. Let's change the <code>1</code>.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                { title: "✏️ Modify range()", text: `<p>Change the first number in <code>range()</code>. Try making it <code>range(<span class="code-tour-val" style="background:rgba(144,238,144,0.4);">0</span>, 4)</code> or <code>range(<span class="code-tour-val" style="background:rgba(144,238,144,0.4);">2</span>, 5)</code>.</p><div class='tour-code-block'><span class='code-keyword'>for</span> i <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number' style='background:rgba(144,238,144,0.4);'>0</span>, <span class='code-number'>4</span>):<br>    <span class='code-function'>print</span>(<span class='code-string'>"Number: "</span>, i)</div>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "I Changed It", action: "next" }] },
+                { title: "🧪 Discover the Result", text: "<p>Run the code. How did the output change based on your new start value?</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
             ]
         },
-        "exp4": { // Tour for experiment: Change End Value
+        "exp4": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "🎯 Change End Value",
-                    text: `<p><code>range(<span class="code-tour-val">start</span>, <span class="code-tour-val">stop</span>)</code> generates numbers up to *but not including* <code>stop</code>.</p>
-                           <p>In <code>range(1, 4)</code>, it stops before 4. Let's change this <code>stop</code> value.</p>`,
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "✏️ Modify the End",
-                    text: `<p>Change the second number in <code>range()</code>. Try <code>range(1, <span class="code-tour-val" style="background:rgba(173,216,230,0.4);">6</span>)</code> to loop more times, or <code>range(1, <span class="code-tour-val" style="background:rgba(173,216,230,0.4);">2</span>)</code> to loop fewer times.</p>
-                           <div class='tour-code-block'>
-                             <span class='code-keyword'>for</span> i <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number'>1</span>, <span class='code-number' style='background:rgba(173,216,230,0.4);'>6</span>):<br>
-                                 <span class='code-function'>print</span>(<span class='code-string'>"Number: "</span>, i)
-                           </div>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Changed It!", action: "next" }]
-                },
-                {
-                    title: "📊 Count the Results",
-                    text: "<p>Run the code. How many numbers are printed now? Does it match your expectation based on the new <code>stop</code> value?</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
+                { title: "🎯 Change End Value", text: `<p><code>range(<span class="code-tour-val">start</span>, <span class="code-tour-val">stop</span>)</code> generates numbers up to *but not including* <code>stop</code>.</p><p>In <code>range(1, 4)</code>, it stops before 4. Let's change this <code>stop</code> value.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                { title: "✏️ Modify the End", text: `<p>Change the second number in <code>range()</code>. Try <code>range(1, <span class="code-tour-val" style="background:rgba(173,216,230,0.4);">6</span>)</code> to loop more times, or <code>range(1, <span class="code-tour-val" style="background:rgba(173,216,230,0.4);">2</span>)</code> to loop fewer times.</p><div class='tour-code-block'><span class='code-keyword'>for</span> i <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number'>1</span>, <span class='code-number' style='background:rgba(173,216,230,0.4);'>6</span>):<br>    <span class='code-function'>print</span>(<span class='code-string'>"Number: "</span>, i)</div>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Changed It!", action: "next" }] },
+                { title: "📊 Count the Results", text: "<p>Run the code. How many numbers are printed now? Does it match your expectation based on the new <code>stop</code> value?</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
             ]
         },
-        "exp5": { // Tour for experiment: Add Multiple Statements
+        "exp5": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "➕ Add Multiple Statements",
-                    text: `<p>A loop can repeat multiple lines of code. All indented lines under the <code>for</code> statement belong to the loop.</p>
-                           <p>Let's add another <code>print()</code> statement.</p>`,
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "✏️ Add Another Line",
-                    text: `<p>Below the existing <code>print()</code>, add another <code>print()</code> statement with the same indentation.</p>
-                           <div class='tour-code-block'>
-                             <span class='code-keyword'>for</span> i <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number'>1</span>, <span class='code-number'>3</span>):<br>
-                                 <span class='code-function'>print</span>(<span class='code-string'>'Number: '</span>, i)<br>
-                                 <span class='code-function' style='background:rgba(240,128,128,0.4);'>print</span>(<span class='code-string' style='background:rgba(240,128,128,0.4);'>"Looping!"</span>)
-                           </div>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Added It!", action: "next" }]
-                },
-                {
-                    title: "🔄 See the Repetition",
-                    text: "<p>Run the code. Both <code>print</code> statements should execute for each number in the range.</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Done!", action: "complete" }]
-                }
+                { title: "➕ Add Multiple Statements", text: `<p>A loop can repeat multiple lines of code. All indented lines under the <code>for</code> statement belong to the loop.</p><p>Let's add another <code>print()</code> statement.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                { title: "✏️ Add Another Line", text: `<p>Below the existing <code>print()</code>, add another <code>print()</code> statement with the same indentation.</p><div class='tour-code-block'><span class='code-keyword'>for</span> i <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number'>1</span>, <span class='code-number'>3</span>):<br>    <span class='code-function'>print</span>(<span class='code-string'>'Number: '</span>, i)<br>    <span class='code-function' style='background:rgba(240,128,128,0.4);'>print</span>(<span class='code-string' style='background:rgba(240,128,128,0.4);'>"Looping!"</span>)</div>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Added It!", action: "next" }] },
+                { title: "🔄 See the Repetition", text: "<p>Run the code. Both <code>print</code> statements should execute for each number in the range.</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
             ]
         },
-        "exp6": { // Tour for experiment: Use Step Parameter
+        "exp6": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "⚡ Use Step Parameter",
-                    text: `<p><code>range()</code> can take a third argument: <span class="code-tour-var">step</span>. This controls the increment between numbers.</p>
-                           <p>For example, <code>range(<span class="code-tour-val">start</span>, <span class="code-tour-val">stop</span>, <span class="code-tour-val">step</span>)</code>.</p>`,
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "✏️ Add the Step",
-                    text: `<p>Modify <code>range()</code> to count by 2s up to 10: <code>range(0, 10, <span class="code-tour-val" style="background:rgba(255,255,0,0.3);">2</span>)</code>.</p>
-                           <div class='tour-code-block'>
-                             <span class='code-keyword'>for</span> i <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number'>0</span>, <span class='code-number'>10</span>, <span class='code-number' style='background:rgba(255,255,0,0.3);'>2</span>):<br>
-                                 <span class='code-function'>print</span>(i)
-                           </div>
-                           <p>Try <code>range(5, 0, <span class="code-tour-val" style="background:rgba(255,255,0,0.3);">-1</span>)</code> to count down!</p>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Added Step!", action: "next" }]
-                },
-                {
-                    title: "🎢 Skip Around",
-                    text: "<p>Run the code. Observe how the <code>step</code> parameter changes the sequence of numbers printed.</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
+                { title: "⚡ Use Step Parameter", text: `<p><code>range()</code> can take a third argument: <span class="code-tour-var">step</span>. This controls the increment between numbers.</p><p>For example, <code>range(<span class="code-tour-val">start</span>, <span class="code-tour-val">stop</span>, <span class="code-tour-val">step</span>)</code>.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                { title: "✏️ Add the Step", text: `<p>Modify <code>range()</code> to count by 2s up to 10: <code>range(0, 10, <span class="code-tour-val" style="background:rgba(255,255,0,0.3);">2</span>)</code>.</p><div class='tour-code-block'><span class='code-keyword'>for</span> i <span class='code-keyword'>in</span> <span class='code-function'>range</span>(<span class='code-number'>0</span>, <span class='code-number'>10</span>, <span class='code-number' style='background:rgba(255,255,0,0.3);'>2</span>):<br>    <span class='code-function'>print</span>(i)</div><p>Try <code>range(5, 0, <span class="code-tour-val" style="background:rgba(255,255,0,0.3);">-1</span>)</code> to count down!</p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Added Step!", action: "next" }] },
+                { title: "🎢 Skip Around", text: "<p>Run the code. Observe how the <code>step</code> parameter changes the sequence of numbers printed.</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
             ]
         },
-        // Tours for Secondary Playground (Star Patterns)
         "star-exp1": {
             useModalOverlay: true,
             steps: [
-                {
-                    title: "⭐ Create Star Pattern",
-                    text: `<p>This code uses a loop to print lines of stars, forming a triangle.</p>
-                           <p>The <code>"*" * i</code> part repeats the star <span class="code-tour-var">i</span> times.</p>`,
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "🎨 Create the Pattern",
-                    text: "<p>Click 'Create Pattern' to see the triangle!</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Done!", action: "complete" }]
-                }
+                { title: "⭐ Create Star Pattern", text: `<p>This code uses a loop to print lines of stars, forming a triangle.</p><p>The <code>"*" * i</code> part repeats the star <span class="code-tour-var">i</span> times.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                { title: "🎨 Create the Pattern", text: "<p>Click 'Run Code' to see the triangle!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
             ]
         },
         "star-exp2": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "📏 Change Pattern Size",
-                    text: `<p>The <code>range(1, 6)</code> controls the triangle's height.</p>
-                           <p>Change the <code>6</code> to make it taller (e.g., <code>9</code> for <code>range(1,9)</code>) or shorter (e.g., <code>4</code> for <code>range(1,4)</code>).</p>`,
-                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "🏗️ Build Your Triangle",
-                    text: "<p>Modify the <code>range()</code> and click 'Create Pattern' to see the new size!</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
+                { title: "📏 Change Pattern Size", text: `<p>The <code>range(1, 6)</code> controls the triangle's height.</p><p>Change the <code>6</code> to make it taller (e.g., <code>9</code> for <code>range(1,9)</code>) or shorter (e.g., <code>4</code> for <code>range(1,4)</code>).</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                { title: "🏗️ Build Your Triangle", text: "<p>Modify the <code>range()</code> and click 'Run Code' to see the new size!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
             ]
         },
         "star-exp3": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "🎨 Different Symbols",
-                    text: `<p>Instead of <code>"*"</code>, you can use any character.</p>
-                           <p>Try changing <code>"*" * i</code> to <code>"#" * i</code> or <code>"@" * i</code>.</p>`,
-                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "🌟 Create New Pattern",
-                    text: "<p>Change the symbol and click 'Create Pattern'!</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Done!", action: "complete" }]
-                }
+                { title: "🎨 Different Symbols", text: `<p>Instead of <code>"*"</code>, you can use any character.</p><p>Try changing <code>"*" * i</code> to <code>"#" * i</code> or <code>"@" * i</code>.</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                { title: "🌟 Create New Pattern", text: "<p>Change the symbol and click 'Run Code'!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
             ]
         },
         "star-exp4": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "🔢 Add Numbers",
-                    text: `<p>Let's print the row number with the stars. Modify the <code>print</code> statement.</p>
-                           <p>Try: <code>print(i, ":", "*" * i)</code></p>`,
-                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "📊 Numbered Pattern",
-                    text: "<p>After changing the <code>print</code> statement, click 'Create Pattern' to see the numbered rows.</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
+                { title: "🔢 Add Numbers", text: `<p>Let's print the row number with the stars. Modify the <code>print</code> statement.</p><p>Try: <code>print(i, ":", "*" * i)</code></p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                { title: "📊 Numbered Pattern", text: "<p>After changing the <code>print</code> statement, click 'Run Code' to see the numbered rows.</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
             ]
         },
         "star-exp5": {
             useModalOverlay: false,
             steps: [
-                {
-                    title: "🔄 Reverse Triangle",
-                    text: `<p>To make the triangle go from wide to narrow, we need <code>range()</code> to count down.</p>
-                           <p>Try <code>range(5, 0, -1)</code>. This means start at <span class="code-tour-val">5</span>, go down to (but not including) <span class="code-tour-val">0</span>, stepping by <span class="code-tour-val">-1</span>.</p>`,
-                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "🔻 Create Reverse Triangle",
-                    text: `<p>Change <code>range()</code> to count down (e.g., <code>range(5, 0, -1)</code>) and click 'Create Pattern'.</p>`,
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
+                { title: "🔄 Reverse Triangle", text: `<p>To make the triangle go from wide to narrow, we need <code>range()</code> to count down.</p><p>Try <code>range(5, 0, -1)</code>. This means start at <span class="code-tour-val">5</span>, go down to (but not including) <span class="code-tour-val">0</span>, stepping by <span class="code-tour-val">-1</span>.</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                { title: "🔻 Create Reverse Triangle", text: `<p>Change <code>range()</code> to count down (e.g., <code>range(5, 0, -1)</code>) and click 'Run Code'.</p>`, attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
             ]
         }
     }
 };
+// Shuffle function (ensure it's defined if used by statementBuilding)
+function shuffle(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
 
 // Shuffle function (if not already globally available or part of another script)
 function shuffle(array) {

@@ -7,8 +7,22 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Include the unified buckles system -->
+    
+    <!-- External Dependencies -->
     <script src="buckles.js"></script>
+    <script src="quiz.js"></script>
+    <script src="https://skulpt.org/js/skulpt.min.js"></script>
+    <script src="https://skulpt.org/js/skulpt-stdlib.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.0.1/dist/js/shepherd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.0.1/dist/css/shepherd.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Modular Editor System -->
+    <script src="editor.js"></script>
+    
     <!-- Favicon Icons -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -17,7 +31,110 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    
+    <!-- Enhanced Tour Styling -->
     <style>
+        /* Improved Shepherd tour styling */
+        .shepherd-element {
+            max-width: 400px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .shepherd-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 16px 20px;
+            border-bottom: none;
+        }
+        
+        .shepherd-title {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin: 0;
+        }
+        
+        .shepherd-content {
+            padding: 20px;
+            background: white;
+        }
+        
+        .shepherd-text {
+            color: #2c3e50;
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        .shepherd-text p {
+            margin-bottom: 12px;
+        }
+        
+        .shepherd-text p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .shepherd-footer {
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            text-align: right;
+        }
+        
+        .shepherd-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .shepherd-button:hover {
+            background: #2980b9;
+        }
+        
+        .shepherd-button-secondary {
+            background: #95a5a6;
+            margin-right: 8px;
+        }
+        
+        .shepherd-button-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .shepherd-cancel-icon {
+            color: white;
+            font-size: 18px;
+            opacity: 0.8;
+        }
+        
+        .shepherd-cancel-icon:hover {
+            opacity: 1;
+        }
+        
+        /* Code highlighting in tour */
+        .shepherd-text code {
+            background: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+            font-size: 0.9em;
+        }
+        
+        .shepherd-text div[style*="background"] {
+            background: #f8f9fa !important;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
         /* Additional CSS for new components */
         
         /* Styling for terminal simulation */
@@ -376,6 +493,9 @@
     </style>
 </head>
 <body>
+    <!-- Experiment Panels (populated by editor.js) -->
+    <div id="experiments-container"></div>
+
     <!-- Sidebar Navigation -->
     <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
         <div class="sidebar-logo">PYTHON VARIABLES</div>
@@ -412,13 +532,9 @@
                 <i class="fas fa-utensils"></i>
                 CHEW 3
             </button>
-            <button class="tab-button" data-tab="chunk4">
-                <i class="fas fa-cube"></i>
-                CHUNK 4
-            </button>
-            <button class="tab-button" data-tab="chew4">
-                <i class="fas fa-utensils"></i>
-                CHEW 4
+            <button class="tab-button" data-tab="recap">
+                <i class="fas fa-bookmark"></i>
+                RECAP
             </button>
         </div>
     </aside>
@@ -456,6 +572,126 @@
             </div>
         </section>
 
+        <!-- RECAP: Summary -->
+        <section id="recap" class="tab-content dark-section">
+            <h1>RECAP: VARIABLES SUMMARY <i class="fas fa-bookmark" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">REVIEW SECTION</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Quick Reference Guide</h3>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Variables Are Everywhere! <i class="fas fa-box-open" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="elements-grid" style="margin-top: 0;">
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-gamepad" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Game Scores</h4>
+                                <p>Store player points and levels</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-user" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>User Information</h4>
+                                <p>Names, ages, and preferences</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-calculator" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Calculations</h4>
+                                <p>Store results for reuse</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Variable Types <i class="fas fa-tags" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-color); margin-bottom: 15px;">Common Data Types:</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0;">
+                            <div style="background: rgba(0, 38, 84, 0.1); padding: 15px; border-radius: var(--border-radius); text-align: center;">
+                                <div class="code-block" style="font-size: 0.8em; margin-bottom: 10px;">name = "Alex"</div>
+                                <p style="margin: 0; font-size: 0.9em;">String (text)</p>
+                            </div>
+                            <div style="background: rgba(0, 38, 84, 0.1); padding: 15px; border-radius: var(--border-radius); text-align: center;">
+                                <div class="code-block" style="font-size: 0.8em; margin-bottom: 10px;">age = 15</div>
+                                <p style="margin: 0; font-size: 0.9em;">Integer (whole number)</p>
+                            </div>
+                            <div style="background: rgba(0, 38, 84, 0.1); padding: 15px; border-radius: var(--border-radius); text-align: center;">
+                                <div class="code-block" style="font-size: 0.8em; margin-bottom: 10px;">height = 1.65</div>
+                                <p style="margin: 0; font-size: 0.9em;">Float (decimal number)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Essential Syntax <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div>
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Creating Variables</h4>
+                            <div class="code-block" style="font-size: 0.9em; margin-bottom: 15px;">
+<span style="color: #50FA7B;">score</span> <span style="color: #F92672;">=</span> <span style="color: #AE81FF;">100</span>
+<span style="color: #50FA7B;">name</span> <span style="color: #F92672;">=</span> <span style="color: #E6DB74;">"Player"</span>
+<span style="color: #50FA7B;">is_winner</span> <span style="color: #F92672;">=</span> <span style="color: #AE81FF;">True</span>
+                            </div>
+                            
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Using input()</h4>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #50FA7B;">age</span> <span style="color: #F92672;">=</span> <span style="color: #66D9EF;">input</span>(<span style="color: #E6DB74;">"Enter age: "</span>)
+<span style="color: #50FA7B;">age_num</span> <span style="color: #F92672;">=</span> <span style="color: #66D9EF;">int</span>(<span style="color: #50FA7B;">age</span>)
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">F-strings</h4>
+                            <div class="code-block" style="font-size: 0.9em; margin-bottom: 15px;">
+<span style="color: #50FA7B;">message</span> <span style="color: #F92672;">=</span> <span style="color: #E6DB74;">f"Hello, {name}!"</span>
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">f"Score: {score}"</span>)
+                            </div>
+                            
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Updating Variables</h4>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #50FA7B;">score</span> <span style="color: #F92672;">=</span> <span style="color: #50FA7B;">score</span> <span style="color: #F92672;">+</span> <span style="color: #AE81FF;">10</span>
+<span style="color: #50FA7B;">lives</span> <span style="color: #F92672;">=</span> <span style="color: #50FA7B;">lives</span> <span style="color: #F92672;">-</span> <span style="color: #AE81FF;">1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(0, 38, 84, 0.1), rgba(52, 152, 219, 0.1)); border-radius: var(--border-radius); padding: 30px; margin-top: 30px; text-align: center; border: 2px solid var(--accent-color);">
+                    <div style="font-size: 3em; margin-bottom: 15px;">🎓</div>
+                    <h4 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.3em;">You've Mastered Python Variables!</h4>
+                    <p style="margin-bottom: 0; font-size: 1.1em; color: var(--text-color);">You can now store, modify, and use data effectively in your programs.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- CHUNK 1: What is a Variable? -->
         <section id="chunk1" class="tab-content dark-section">
             <h1>CHUNK 1: WHAT IS A VARIABLE? <i class="fas fa-box-open" style="margin-left: 15px;"></i></h1>
@@ -468,22 +704,22 @@
                 
                 <p>A variable is like a labelled box that stores information. Just as you might label a box "TOYS" or "BOOKS" to remember what's inside, in Python we give variables descriptive names to help us remember what data they contain.</p>
                 
-                <div class="two-column-grid" style="margin-top: 30px;">
-                    <div class="interactive-card">
-                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                            <div class="element-number">1</div>
-                            <h3>Variable Metaphor <i class="fas fa-box" style="margin-left: 10px;"></i></h3>
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Variable Metaphor <i class="fas fa-box" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="variable-animation" style="padding: 30px;">
+                        <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+                            <div style="text-align: center;">
+                                <i class="fas fa-box-open" style="font-size: 6em; color: var(--accent-color);"></i>
+                            </div>
                         </div>
                         
-                        <div class="variable-animation" style="padding: 30px;">
-                            <div style="display: flex; justify-content: center; margin-bottom: 30px;">
-                                <div style="text-align: center;">
-                                    <i class="fas fa-box-open" style="font-size: 6em; color: var(--accent-color);"></i>
-                                </div>
-                            </div>
-                            
-                            <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Imagine variables as labelled containers:</p>
-                            
+                        <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Imagine variables as labelled containers:</p>
+                        
+                        <div class="elements-grid" style="margin-top: 0;">
                             <div class="icon-box">
                                 <div class="icon-container">
                                     <i class="fas fa-gamepad"></i>
@@ -515,34 +751,33 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Basic Syntax <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                    </div>
                     
-                    <div class="interactive-card">
-                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                            <div class="element-number">2</div>
-                            <h3>Basic Syntax <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
-                        </div>
-                        
-                        <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">In Python, we create variables using this pattern:</p>
-                        
-                        <div class="code-block" style="text-align: center;">
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">In Python, we create variables using this pattern:</p>
+                    
+                    <div class="code-block" style="text-align: center;">
 <span class="highlight-variable">variable_name</span> <span class="highlight-operator">=</span> <span class="highlight-value">value</span>
-                        </div>
-                        
-                        <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin: 25px 0 20px 0;">For example:</p>
-                        
-                        <div class="code-block">
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin: 25px 0 20px 0;">For example:</p>
+                    
+                    <div class="code-block">
 <span class="highlight-variable">score</span> <span class="highlight-operator">=</span> <span class="highlight-value">5</span>
 <span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
 <span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">12</span>
-                        </div>
-                        
-                        <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The equals sign (=) assigns the value on the right to the variable name on the left.</p>
-                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The equals sign (=) assigns the value on the right to the variable name on the left.</p>
                     </div>
                 </div>
                 
-                <!-- New Assignment Operator Section -->
                 <div class="assignment-operator-box">
                     <div class="assignment-operator-badge">IMPORTANT!</div>
                     <h3 style="margin-top: 15px;"><i class="fas fa-exclamation-circle" style="color: #f59e0b; margin-right: 15px;"></i> The = Symbol in Programming</h3>
@@ -563,572 +798,48 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                
-                <!-- New interactive variable assignment example -->
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">3</div>
-                        <h3>Try Assigning Variables <i class="fas fa-magic" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Let's see what happens when we create and assign values to different variables:</p>
-                    
-                    <div class="variable-animation" style="padding: 30px; text-align: center;">
-                        <div class="code-step-container">
-                            <div class="code-step-header">
-                                <span>Variable Assignment in Action</span>
-                                <span id="var-assignment-indicator">Step 1 of 3</span>
-                            </div>
-                            
-                            <div class="code-step-content">
-                                <!-- Step 1: Create a string variable -->
-                                <div id="var-step-1" class="variable-update-step active">
-                                    <div class="code-block" style="position: relative;">
-<div class="execution-line active">player_name = "Jamie"</div>
-
-<span class="code-comment"># This creates a variable called player_name</span>
-<span class="code-comment"># and stores the text "Jamie" in it</span>
-                                    </div>
-                                    
-                                    <div class="memory-visualization">
-                                        <h4 style="text-align: center; margin-top: 0;">Computer Memory</h4>
-                                        <div class="computer-memory">
-                                            <div class="memory-item">
-                                                <div class="memory-item-name">player_name</div>
-                                                <div class="memory-item-value">"Jamie"</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Step 2: Create a number variable -->
-                                <div id="var-step-2" class="variable-update-step">
-                                    <div class="code-block" style="position: relative;">
-<div class="execution-line">player_name = "Jamie"</div>
-<div class="execution-line active">player_score = 100</div>
-
-<span class="code-comment"># Now we've added a second variable called player_score</span>
-<span class="code-comment"># and stored the number 100 in it</span>
-                                    </div>
-                                    
-                                    <div class="memory-visualization">
-                                        <h4 style="text-align: center; margin-top: 0;">Computer Memory</h4>
-                                        <div class="computer-memory">
-                                            <div class="memory-item">
-                                                <div class="memory-item-name">player_name</div>
-                                                <div class="memory-item-value">"Jamie"</div>
-                                            </div>
-                                            <div class="memory-item">
-                                                <div class="memory-item-name">player_score</div>
-                                                <div class="memory-item-value">100</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Step 3: Create a boolean variable -->
-                                <div id="var-step-3" class="variable-update-step">
-                                    <div class="code-block" style="position: relative;">
-<div class="execution-line">player_name = "Jamie"</div>
-<div class="execution-line">player_score = 100</div>
-<div class="execution-line active">is_winner = True</div>
-
-<span class="code-comment"># We've added a third variable called is_winner</span>
-<span class="code-comment"># and stored a boolean value (True) in it</span>
-                                    </div>
-                                    
-                                    <div class="memory-visualization">
-                                        <h4 style="text-align: center; margin-top: 0;">Computer Memory</h4>
-                                        <div class="computer-memory">
-                                            <div class="memory-item">
-                                                <div class="memory-item-name">player_name</div>
-                                                <div class="memory-item-value">"Jamie"</div>
-                                            </div>
-                                            <div class="memory-item">
-                                                <div class="memory-item-name">player_score</div>
-                                                <div class="memory-item-value">100</div>
-                                            </div>
-                                            <div class="memory-item">
-                                                <div class="memory-item-name">is_winner</div>
-                                                <div class="memory-item-value">True</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="step-navigation">
-                                <button id="prev-var-btn" class="step-btn" onclick="prevVarStep()" disabled>
-                                    <i class="fas fa-chevron-left"></i> Previous
-                                </button>
-                                <button id="next-var-btn" class="step-btn" onclick="nextVarStep()">
-                                    Next <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Why Variables Are Important <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
-                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr);">
-                    <div class="element-card" style="background-color: #f0f7ff; transition: all 0.3s ease;">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>STORE DATA <i class="fas fa-database" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Variables let programs remember values that can be used later</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-memory" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card" style="background-color: #f0fff4; transition: all 0.3s ease;">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>REUSABLE CODE <i class="fas fa-recycle" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>By storing values in variables, you can reuse them many times</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-sync" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card" style="background-color: #fff7f0; transition: all 0.3s ease;">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>MEANINGFUL NAMES <i class="fas fa-tag" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Variables make code readable by using descriptive names</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-file-alt" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card" style="background-color: #f0f0ff; transition: all 0.3s ease;">
-                        <div class="element-header">
-                            <div class="element-number">4</div>
-                            <h3>CHANGE VALUES <i class="fas fa-exchange-alt" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Variables can be updated as your program runs</p>
-                            <div style="text-align: center; margin-top: 15px;">
-                                <i class="fas fa-random" style="font-size: 2.5em; color: var(--accent-color);"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
         <!-- CHEW 1: Variable Quiz -->
         <section id="chew1" class="tab-content light-section">
-            <h1>CHEW 1: VARIABLE BASICS QUIZ <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
+            <h1>CHEW 1: VARIABLE BASICS <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
                 
-                <h3>Check Your Understanding</h3>
+                <h3>Hands-On Variable Practice</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Test your understanding of variable basics</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Identify variable names, values, and assignment operators</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice creating and assigning variables</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Understand different data types</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Experiment with variable names and values</li>
                     </ul>
                 </div>
                 
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Pair-Share Activity <i class="fas fa-users" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.3em; font-weight: 600; text-align: center; margin-bottom: 25px;">Turn to your partner and identify what each part of this code does:</p>
-                    
-                    <div class="code-block" style="font-size: 1.5em; text-align: center;">
-<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
-                    </div>
-                    
-                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin: 25px 0;">
-                        <p style="font-size: 1.2em; margin-bottom: 15px;">Make sure your explanation includes these terms:</p>
-                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px;">
-                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
-                                variable name
-                            </div>
-                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
-                                value
-                            </div>
-                            <div style="background-color: white; padding: 15px 25px; border-radius: var(--border-radius); font-weight: 600; font-size: 1.2em; border: 2px solid var(--outline-color);">
-                                assignment
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Quiz container populated by editor.js -->
+                <div id="quiz-container" class="duolingo-container"></div>
+                <br>
+
+                <!-- Primary coding playground populated by editor.js -->
+                <div id="primary-playground-container"></div>
                 
-                <!-- Quiz container that will be populated by JavaScript -->
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Variable Quiz <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
-                        <div id="quiz-buckle-container"></div>
-                    </div>
-                    
-                    <div id="quiz-container" class="duolingo-container"></div>
-                </div>
+                
             </div>
         </section>
 
-        <!-- CHUNK 2: Assigning and Changing Variables -->
-<section id="chunk2" class="tab-content dark-section">
-    <h1>CHUNK 2: ASSIGNING AND CHANGING VARIABLES <i class="fas fa-exchange-alt" style="margin-left: 15px;"></i></h1>
-    
-    <div class="chunk-section" style="margin-top: 30px;">
-        <div class="chunk-badge">TEACHER CHUNK</div>
-        <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
-    <!-- Code Execution Order Section (Now at the top) -->
-    <div class="interactive-card">
-        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-            <div class="element-number">1</div>
-            <h3>Code Execution Order <i class="fas fa-long-arrow-alt-down" style="margin-left: 10px;"></i></h3>
-        </div>
-        
-        <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Python reads and executes code from top to bottom, one line at a time:</p>
-        
-        <div style="border: 2px solid var(--outline-color); border-radius: var(--border-radius); margin: 0 auto; max-width: 500px; overflow: hidden;">
-            <div style="background-color: var(--accent-color); color: white; padding: 10px 15px; font-weight: 600; text-align: center;">
-                Code Execution Order
-            </div>
-            
-            <div style="padding: 20px;">
-                <div style="display: flex; flex-direction: column;">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 5px;">
-                        <div style="width: 30px; height: 30px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">1</div>
-                        <div style="font-family: monospace; font-size: 1.2em;">name = "Bob"</div>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: center; margin-bottom: 15px;">
-                        <i class="fas fa-arrow-down" style="color: var(--accent-color); font-size: 1.5em;"></i>
-                    </div>
-                    
-                    <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 5px;">
-                        <div style="width: 30px; height: 30px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">2</div>
-                        <div style="font-family: monospace; font-size: 1.2em;">name = "Jamie"</div>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: center; margin-bottom: 15px;">
-                        <i class="fas fa-arrow-down" style="color: var(--accent-color); font-size: 1.5em;"></i>
-                    </div>
-                    
-                    <div style="display: flex; align-items: center; background-color: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 5px;">
-                        <div style="width: 30px; height: 30px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold;">3</div>
-                        <div style="font-family: monospace; font-size: 1.2em;">print("Hello,", name)</div>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: center; margin: 15px 0; font-size: 1.2em;">
-                        <div style="background-color: #50fa7b; color: #272822; padding: 5px 15px; border-radius: 5px; font-family: monospace;">
-                            Output: Hello, Jamie
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="background-color: rgba(0,0,0,0.05); padding: 15px; border-top: 1px solid var(--outline-color);">
-                <p style="margin: 0; text-align: center;"><i class="fas fa-info-circle" style="color: var(--accent-color); margin-right: 10px;"></i> The computer always executes code statements in order, from top to bottom.</p>
-            </div>
-        </div>
-    </div>
-    
-    
-    
-    <!-- Memory Visualization -->
-    <div class="interactive-card" style="margin-top: 30px;">
-        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-            <div class="element-number">2</div>
-            <h3>Memory Visualization <i class="fas fa-memory" style="margin-left: 10px;"></i></h3>
-        </div>
-        
-        <p style="font-size: 1.2em; text-align: center; margin-bottom: 25px;">Let's visualise how a variable's value changes in memory:</p>
-        
-        <div class="code-step-container">
-            <div class="code-step-header">
-                <span>Memory Change Visualization</span>
-                <span id="memory-step-indicator">Step 1 of 3</span>
-            </div>
-            
-            <div class="code-step-content">
-                <!-- Memory Step 1 -->
-                <div id="memory-step-1" class="variable-update-step active">
-                    <div class="code-block" style="position: relative;">
-score = 10
-                    </div>
-                    
-                    <div class="memory-visualization">
-                        <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
-                        <div class="computer-memory">
-                            <div class="memory-item">
-                                <div class="memory-item-name">score</div>
-                                <div class="memory-item-value">10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Memory Step 2 -->
-                <div id="memory-step-2" class="variable-update-step">
-                    <div class="code-block" style="position: relative;">
-score = 10
-score = 15
-                    </div>
-                    
-                    <div class="memory-visualization">
-                        <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
-                        <div class="computer-memory">
-                            <div class="memory-item" style="opacity: 0.5; text-decoration: line-through;">
-                                <div class="memory-item-name">score</div>
-                                <div class="memory-item-value">10</div>
-                            </div>
-                            <div class="memory-item">
-                                <div class="memory-item-name">score</div>
-                                <div class="memory-item-value">15</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Memory Step 3 -->
-                <div id="memory-step-3" class="variable-update-step">
-                    <div class="code-block" style="position: relative;">
-score = 10
-score = 15
-print(score)  # Output: 15
-                    </div>
-                    
-                    <div class="memory-visualization">
-                        <h4 style="text-align: center; margin-top: 10px;">Computer Memory</h4>
-                        <div class="computer-memory">
-                            <div class="memory-item">
-                                <div class="memory-item-name">score</div>
-                                <div class="memory-item-value">15</div>
-                            </div>
-                        </div>
-                        
-                        <div class="result-display" style="margin-top: 20px;">
-                            15
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="step-navigation">
-                <button id="prev-memory-btn" class="step-btn" onclick="prevMemoryStep()" disabled>
-                    <i class="fas fa-chevron-left"></i> Previous
-                </button>
-                <button id="next-memory-btn" class="step-btn" onclick="nextMemoryStep()">
-                    Next <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-        
-        
-        
-        <!-- Interactive Variable Example -->
-        <div class="interactive-card" style="margin-top: 30px;">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">3</div>
-                <h3>Interactive Variable Example <i class="fas fa-mouse-pointer" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Try changing this variable's value by clicking the buttons:</p>
-            
-            <div class="variable-animation" style="padding: 30px; text-align: center;">
-                <p style="margin-bottom: 15px; color: var(--accent-color); font-weight: 600; font-size: 1.3em;">Integer Variable: counter</p>
-                
-                <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 20px;">
-                    <div style="text-align: center; border: 2px solid #eee; border-radius: 10px; padding: 15px; min-width: 120px;">
-                        <p style="font-size: 1.1em; color: #666; margin-bottom: 8px;">Previous Value:</p>
-                        <p id="previous-counter-value" style="font-size: 1.8rem; font-weight: bold; color: #888; margin: 0;">0</p>
-                    </div>
-                    
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <i class="fas fa-arrow-right" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 5px;"></i>
-                        <span style="font-size: 0.9em; color: #666;">Changes to</span>
-                    </div>
-                    
-                    <div style="text-align: center; border: 2px solid var(--accent-color); border-radius: 10px; padding: 15px; min-width: 120px; background-color: rgba(0, 38, 84, 0.05);">
-                        <p style="font-size: 1.1em; color: var(--accent-color); margin-bottom: 8px;">Current Value:</p>
-                        <p id="counter-value" style="font-size: 2.5rem; font-weight: bold; margin: 0;">0</p>
-                        <p style="font-size: 0.9em; margin: 5px 0 0 0;">Type: <span id="counter-type">number</span></p>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 25px; display: flex; justify-content: center; gap: 20px;">
-                    <button id="decrease-counter" class="action-btn" style="background-color: #ff4d4f;" onclick="decrementCounter()">-1</button>
-                    <button id="increase-counter" class="action-btn" onclick="incrementCounter()">+1</button>
-                </div>
-                
-                <div style="margin-top: 30px; text-align: left;">
-                    <p style="margin-bottom: 10px; font-size: 1.2em;">What happens when you click a button:</p>
-                    <div id="code-display" class="code-block">
-<span class="code-comment"># The current value of counter is 0</span>
-counter = counter + 1
-<span class="code-comment"># This means "take the current value of counter (0),</span>
-<span class="code-comment"># add 1 to it (giving 1),</span>
-<span class="code-comment"># then store the result back in counter"</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</section>
-
-        <!-- CHEW 2: Variable Drag and Drop Activity -->
-        <section id="chew2" class="tab-content light-section">
-            <h1>CHEW 2: VARIABLE PRACTICE <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chew-section">
-                <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 7 mins</div>
-                
-                <h3>Variable Drag and Drop Exercise</h3>
-                
-                <div class="activity-goal">
-                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice creating variable assignments</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Learn how to change variable values</li>
-                    </ul>
-                </div>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Build Variable Statements <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
-                        <div class="buckle-counter variable-builder-buckle-counter" style="position: absolute; top: 20px; right: 20px;">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                                 alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
-                            <span id="variable-builder-buckle-score">0</span>
-                        </div>
-                    </div>
-                    
-                    <p>Click on the code pieces in the correct order to create valid variable assignments.</p>
-                    
-                    <div class="interactive-activity">
-                        <h4>Statement 1: Create a variable for a player's name</h4>
-                        <p>Choose the correct parts to create your variable:</p>
-                        
-                        <div class="build-sentence" id="variable1-parts">
-                            <div class="sentence-part highlight-variable" data-value="player_name">player_name</div>
-                            <div class="sentence-part highlight-operator" data-value="=">=</div>
-                            <div class="sentence-part highlight-value" data-value='"Alex"'>"Alex"</div>
-                            <div class="sentence-part highlight-value" data-value="Alex">Alex</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="variable1-result"></div>
-                        
-                        <div class="feedback-area" id="variable1-feedback"></div>
-                    </div>
-                    
-                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="variable2-container">
-                        <h4>Statement 2: Create a score variable</h4>
-                        <p>Choose the correct parts to create a score variable with value 100:</p>
-                        
-                        <div class="build-sentence" id="variable2-parts">
-                            <div class="sentence-part highlight-variable" data-value="score">score</div>
-                            <div class="sentence-part highlight-operator" data-value="=">=</div>
-                            <div class="sentence-part highlight-value" data-value="100">100</div>
-                            <div class="sentence-part highlight-value" data-value='"100"'>"100"</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="variable2-result"></div>
-                        
-                        <div class="feedback-area" id="variable2-feedback"></div>
-                    </div>
-                    
-                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="variable3-container">
-                        <h4>Statement 3: Change a variable's value</h4>
-                        <p>Choose the correct parts to change the score variable:</p>
-                        
-                        <div class="build-sentence" id="variable3-parts">
-                            <div class="sentence-part highlight-variable" data-value="score">score</div>
-                            <div class="sentence-part highlight-operator" data-value="=">=</div>
-                            <div class="sentence-part highlight-variable" data-value="score">score</div>
-                            <div class="sentence-part highlight-operator" data-value="+">+</div>
-                            <div class="sentence-part highlight-value" data-value="50">50</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="variable3-result"></div>
-                        
-                        <div class="feedback-area" id="variable3-feedback"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Common Coding Mistakes <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
-                
-                <div class="two-column-grid">
-                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
-                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
-                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
-name = Jai
-                        </div>
-                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> Missing quotes around a string value.</p>
-                            <p style="margin: 0;"><strong>Fix:</strong> Always put string values in quotes.</p>
-                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
-name = "Jai"
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
-                        <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Common Error:</h4>
-                        <div class="code-block" style="color: var(--bad-color); white-space: normal; word-wrap: break-word;">
-                            print("I am " + age + " years old.")
-                        </div>
-                        <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                            <p style="margin-bottom: 10px;"><strong>Problem:</strong> You cannot add strings and numbers together in Python.</p>
-                            <p style="margin-bottom: 10px;"><strong>Fix:</strong> Either use commas in print() or convert to string.</p>
-                            <div class="code-block" style="color: var(--good-color); margin-top: 15px; white-space: normal; word-wrap: break-word;">
-print("I am", age, "years old.")
-                            </div>
-                            <p style="margin: 5px 0 0 0;">or</p>
-                            <div class="code-block" style="color: var(--good-color); margin-top: 5px; white-space: normal; word-wrap: break-word;">
-print("I am " + str(age) + " years old.")
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHUNK 3: Getting Input from Users -->
-        <section id="chunk3" class="tab-content dark-section">
-            <h1>CHUNK 3: GETTING INPUT & USING F-STRINGS <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+        <!-- CHUNK 2: Working with Variables -->
+        <section id="chunk2" class="tab-content dark-section">
+            <h1>CHUNK 2: WORKING WITH VARIABLES <i class="fas fa-exchange-alt" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">TEACHER CHUNK</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
                 
-                <h3>Getting Input from Users</h3>
+                <h3>Getting Input & Using Variables</h3>
                 
                 <p>So far, we've created variables with values we already know. But often, we want our programs to get information from the user. This is where the <code>input()</code> function comes in!</p>
                 
@@ -1146,7 +857,7 @@ print("I am " + str(age) + " years old.")
 
 <span class="code-comment"># Use the entered name in a greeting</span>
 <span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello, "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">name</span> <span class="highlight-operator">+</span> <span class="highlight-value">"!"</span><span class="highlight-operator">)</span>
-</div>
+                    </div>
                     
                     <div style="display: flex; flex-direction: column; margin-top: 25px; background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius);">
                         <p style="margin: 0 0 15px 0;"><i class="fas fa-terminal" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Program Output (if user types "Jamie"):</strong></p>
@@ -1155,105 +866,53 @@ print("I am " + str(age) + " years old.")
                             Hello, Jamie!
                         </div>
                     </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> The <code>input()</code> function can include a prompt message that will be shown to the user.</p>
-                    </div>
                 </div>
                 
-                <!-- Interactive input example -->
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">2</div>
-                        <h3>How input() Works <i class="fas fa-magic" style="margin-left: 10px;"></i></h3>
+                        <h3>Strings vs Numbers <i class="fas fa-exchange-alt" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <div class="variable-animation" style="padding: 30px; text-align: center;">
-                        <div class="code-step-container">
-                            <div class="code-step-header">
-                                <span>Input Function in Action</span>
-                                <span id="input-step-indicator">Step 1 of 3</span>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">It's important to understand the difference between text (strings) and numbers (integers):</p>
+                    
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
+                                    <i class="fas fa-font"></i>
+                                </div>
+                                <h4 style="margin: 0;">STRINGS</h4>
                             </div>
-                            
-                            <div class="code-step-content">
-                                <!-- Input Step 1 -->
-                                <div id="input-step-1" class="variable-update-step active">
-                                    <div class="code-block" style="position: relative; text-align: left;">
-<div class="execution-line active">user_age = input("How old are you? ")</div>
-
-<span class="code-comment"># This displays the prompt "How old are you? "</span>
-<span class="code-comment"># And waits for the user to type something</span>
-                                    </div>
-                                    
-                                    <div class="memory-visualization">
-                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
-                                        <div class="terminal-simulation">
-                                            <p class="terminal-prompt">How old are you? <span class="typing-cursor">|</span></p>
-                                        </div>
-                                        <p style="margin-top: 15px; text-align: center;">The program is waiting for the user to enter their age</p>
-                                    </div>
-                                </div>
-                                
-                                <!-- Input Step 2 -->
-                                <div id="input-step-2" class="variable-update-step">
-                                    <div class="code-block" style="position: relative; text-align: left;">
-<div class="execution-line active">user_age = input("How old are you? ")</div>
-
-<span class="code-comment"># The user typed "12" and pressed Enter</span>
-<span class="code-comment"># This value is now stored in the user_age variable</span>
-                                    </div>
-                                    
-                                    <div class="memory-visualization">
-                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
-                                        <div class="terminal-simulation">
-                                            <p class="terminal-prompt">How old are you? 12</p>
-                                        </div>
-                                        <div class="computer-memory" style="margin-top: 20px;">
-                                            <div class="memory-item">
-                                                <div class="memory-item-name">user_age</div>
-                                                <div class="memory-item-value">"12"</div>
-                                            </div>
-                                        </div>
-                                        <p style="margin-top: 15px; text-align: center; color: #ff4d4f; font-weight: bold;">Note: input() always stores values as strings!</p>
-                                    </div>
-                                </div>
-                                
-                                <!-- Input Step 3 -->
-                                <div id="input-step-3" class="variable-update-step">
-                                    <div class="code-block" style="position: relative; text-align: left;">
-<span class="highlight-variable">user_age</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"How old are you? "</span><span class="highlight-operator">)</span>
-<div class="execution-line active">print("Next year you will be", int(user_age) + 1, "years old")</div>
-
-<span class="code-comment"># We convert the string "12" to the number 12</span>
-<span class="code-comment"># Then add 1 to get 13</span>
-                                    </div>
-                                    
-                                    <div class="memory-visualization">
-                                        <h4 style="text-align: center; margin-top: 0;">Program Execution</h4>
-                                        <div class="terminal-simulation">
-                                            <p class="terminal-prompt">How old are you? 12</p>
-                                            <p class="terminal-output">Next year you will be 13 years old</p>
-                                        </div>
-                                        <div style="margin-top: 15px; padding: 15px; background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); border-left: 4px solid #52c41a; text-align: left;">
-                                            <p style="margin: 0;"><strong>Key Point:</strong> We had to convert the string "12" to the number 12 using <code>int()</code> before we could add 1 to it!</p>
-                                        </div>
-                                    </div>
-                                </div>
+                            <ul style="text-align: left; padding-left: 20px;">
+                                <li>Text values in quotes: <code>"hello"</code>, <code>'42'</code></li>
+                                <li>Can be joined using <code>+</code></li>
+                                <li>The <code>input()</code> function always returns strings</li>
+                            </ul>
+                            <div class="code-block" style="text-align: left; margin-top: 15px;">
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">"15"</span>  <span class="code-comment"># String!</span>
                             </div>
-                            
-                            <div class="step-navigation">
-                                <button id="prev-input-btn" class="step-btn" onclick="prevInputStep()" disabled>
-                                    <i class="fas fa-chevron-left"></i> Previous
-                                </button>
-                                <button id="next-input-btn" class="step-btn" onclick="nextInputStep()">
-                                    Next <i class="fas fa-chevron-right"></i>
-                                </button>
+                        </div>
+                        
+                        <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <h4 style="margin: 0;">INTEGERS</h4>
+                            </div>
+                            <ul style="text-align: left; padding-left: 20px;">
+                                <li>Numeric values without quotes: <code>42</code>, <code>-7</code></li>
+                                <li>Can be used in calculations</li>
+                                <li>Convert strings using <code>int()</code></li>
+                            </ul>
+                            <div class="code-block" style="text-align: left; margin-top: 15px;">
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">15</span>  <span class="code-comment"># Integer!</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- F-string section (one-column layout) -->
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">3</div>
@@ -1262,239 +921,68 @@ print("I am " + str(age) + " years old.")
                     
                     <p style="font-size: 1.2em; margin-bottom: 20px;">Python provides a modern way to combine text and variables called <strong>f-strings</strong>:</p>
                     
-                    <div class="interactive-card" style="margin-bottom: 20px;">
-                        <h4><i class="fas fa-code" style="margin-right: 10px;"></i> Old Way (String Concatenation)</h4>
-                        <div class="code-block" style="text-align: left;">
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Old Way</h4>
+                            <div class="code-block" style="text-align: left;">
 <span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
 <span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">12</span>
-
-<span class="code-comment"># Using + to join strings (concatenation)</span>
-<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Hello, "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">name</span> <span class="highlight-operator">+</span> <span class="highlight-value">"! You are "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">str</span><span class="highlight-operator">(</span><span class="highlight-variable">age</span><span class="highlight-operator">)</span> <span class="highlight-operator">+</span> <span class="highlight-value">" years old."</span>
+<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Hi "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">name</span> <span class="highlight-operator">+</span> <span class="highlight-value">"!"</span>
+                            </div>
                         </div>
-                        <div style="background-color: rgba(255, 77, 79, 0.1); padding: 15px; border-radius: var(--border-radius); margin-top: 20px; text-align: left;">
-                            <p style="margin: 0;"><i class="fas fa-exclamation-triangle" style="color: #ff4d4f; margin-right: 10px;"></i> Notice that we need to convert the number to a string using <code>str(age)</code> before we can add it to other strings.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="interactive-card">
-                        <h4><i class="fas fa-code" style="margin-right: 10px;"></i> New Way (F-Strings)</h4>
-                        <div class="code-block" style="text-align: left;">
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> New Way (F-Strings)</h4>
+                            <div class="code-block" style="text-align: left;">
 <span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
 <span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">12</span>
-
-<span class="code-comment"># Using f-strings (notice the f before the quote)</span>
-<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">f"Hello, {name}! You are {age} years old."</span>
-                        </div>
-                        <div style="background-color: rgba(82, 196, 26, 0.1); padding: 15px; border-radius: var(--border-radius); margin-top: 20px; text-align: left;">
-                            <p style="margin: 0;"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> With f-strings, we just put variables inside <code>{curly braces}</code>. Python handles the conversion automatically!</p>
-                        </div>
-                    </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px; display: flex;">
-                        <i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 15px; font-size: 1.5em; margin-top: 3px;"></i>
-                        <div>
-                            <p style="margin: 0 0 10px 0;"><strong>F-string tips:</strong></p>
-                            <ul style="margin: 0; padding-left: 20px;">
-                                <li>Start with the letter <code>f</code> before the opening quote</li>
-                                <li>Put variables or expressions inside <code>{}</code> curly braces</li>
-                                <li>Works with both single and double quotes: <code>f'like this'</code> or <code>f"like this"</code></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- String vs Integer section (one-column layout) -->
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">4</div>
-                        <h3>Strings vs Integers <i class="fas fa-exchange-alt" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">It's important to understand the difference between text (strings) and numbers (integers):</p>
-                    
-                    <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05); margin-bottom: 20px;">
-                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                            <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
-                                <i class="fas fa-font"></i>
+<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">f"Hi {name}! Age: {age}"</span>
                             </div>
-                            <h4 style="margin: 0;">STRINGS</h4>
-                        </div>
-                        <ul style="text-align: left; padding-left: 20px;">
-                            <li>Text values in quotes: <code>"hello"</code>, <code>'42'</code></li>
-                            <li>Can be joined using <code>+</code>: <code>"hello" + "world"</code></li>
-                            <li>Cannot be used in math operations</li>
-                            <li>The <code>input()</code> function always returns strings</li>
-                        </ul>
-                        <div class="code-block" style="text-align: left; margin-top: 15px;">
-<span class="highlight-variable">a</span> <span class="highlight-operator">=</span> <span class="highlight-value">"5"</span>  <span class="code-comment"># String (not a number!)</span>
-<span class="highlight-variable">b</span> <span class="highlight-operator">=</span> <span class="highlight-value">"10"</span>  <span class="code-comment"># String (not a number!)</span>
-<span class="highlight-variable">result</span> <span class="highlight-operator">=</span> <span class="highlight-variable">a</span> <span class="highlight-operator">+</span> <span class="highlight-variable">b</span>  <span class="code-comment"># "510" (joined as text)</span>
                         </div>
                     </div>
                     
-                    <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05);">
-                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                            <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
-                                <i class="fas fa-calculator"></i>
-                            </div>
-                            <h4 style="margin: 0;">INTEGERS</h4>
-                        </div>
-                        <ul style="text-align: left; padding-left: 20px;">
-                            <li>Numeric values without quotes: <code>42</code>, <code>-7</code></li>
-                            <li>Can be used in calculations: <code>5 + 10</code></li>
-                            <li>Cannot be directly combined with strings</li>
-                            <li>Must convert strings to integers using <code>int()</code></li>
-                        </ul>
-                        <div class="code-block" style="text-align: left; margin-top: 15px;">
-<span class="highlight-variable">a</span> <span class="highlight-operator">=</span> <span class="highlight-value">5</span>  <span class="code-comment"># Integer (number)</span>
-<span class="highlight-variable">b</span> <span class="highlight-operator">=</span> <span class="highlight-value">10</span>  <span class="code-comment"># Integer (number)</span>
-<span class="highlight-variable">result</span> <span class="highlight-operator">=</span> <span class="highlight-variable">a</span> <span class="highlight-operator">+</span> <span class="highlight-variable">b</span>  <span class="code-comment"># 15 (added as numbers)</span>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 30px; background-color: rgba(255, 77, 79, 0.1); padding: 20px; border-radius: var(--border-radius); border-left: 4px solid #ff4d4f;">
-                        <h4 style="margin-top: 0;"><i class="fas fa-exclamation-triangle" style="color: #ff4d4f; margin-right: 10px;"></i> Common Error: Type Mismatch</h4>
-                        <div class="code-block" style="text-align: left; margin: 15px 0;">
-<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"Enter your age: "</span><span class="highlight-operator">)</span>  <span class="code-comment"># User enters "14"</span>
-<span class="highlight-variable">next_year</span> <span class="highlight-operator">=</span> <span class="highlight-variable">age</span> <span class="highlight-operator">+</span> <span class="highlight-value">1</span>  <span class="code-comment"># ERROR! Cannot add 1 to a string</span>
-                        </div>
-                        <p>This code will cause a <strong>TypeError</strong> because we're trying to add a number to a string.</p>
-                    </div>
-                    
-                    <div style="margin-top: 20px; background-color: rgba(82, 196, 26, 0.1); padding: 20px; border-radius: var(--border-radius); border-left: 4px solid #52c41a;">
-                        <h4 style="margin-top: 0;"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> The Fix: Type Conversion</h4>
-                        <div class="code-block" style="text-align: left; margin: 15px 0;">
-<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"Enter your age: "</span><span class="highlight-operator">)</span>  <span class="code-comment"># User enters "14"</span>
-<span class="highlight-variable">age_as_number</span> <span class="highlight-operator">=</span> <span class="highlight-variable">int</span><span class="highlight-operator">(</span><span class="highlight-variable">age</span><span class="highlight-operator">)</span>  <span class="code-comment"># Convert "14" to 14</span>
-<span class="highlight-variable">next_year</span> <span class="highlight-operator">=</span> <span class="highlight-variable">age_as_number</span> <span class="highlight-operator">+</span> <span class="highlight-value">1</span>  <span class="code-comment"># Now we can add 1, result is 15</span>
-                        </div>
-                        <p>By converting the string to an integer first with <code>int()</code>, we can perform the addition correctly.</p>
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> F-strings start with <code>f</code> and use <code>{}</code> curly braces to include variables.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CHEW 3: Code Building Exercises and Quiz -->
-        <section id="chew3" class="tab-content light-section">
-            <h1>CHEW 3: INPUT & TYPE CONVERSION PRACTICE <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+        <!-- CHEW 2: Interactive Coding -->
+        <section id="chew2" class="tab-content light-section">
+            <h1>CHEW 2: ADVANCED PRACTICE <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
                 
-                <h3>Practice Using Input and Type Conversion</h3>
+                <h3>Input, Conversion & F-Strings</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using input() to get user input</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Learn how to convert between strings and numbers</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create f-strings with variables</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using input() to get user data</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Convert between strings and numbers</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create formatted output with f-strings</li>
                     </ul>
                 </div>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Build Input and Conversion Code <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
-                        <div class="buckle-counter input-conversion-buckle-counter" style="position: absolute; top: 20px; right: 20px;">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                                 alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
-                            <span id="input-conversion-buckle-score">0</span>
-                        </div>
-                    </div>
-                    
-                    <p>Click on the code pieces in the correct order to create valid code for input and conversion.</p>
-                    
-                    <div class="interactive-activity">
-                        <h4>Statement 1: Get user input and store in a variable</h4>
-                        <p>Choose the correct parts to create code that asks for the user's age:</p>
-                        
-                        <div class="build-sentence" id="input1-parts">
-                            <div class="sentence-part highlight-variable" data-value="age">age</div>
-                            <div class="sentence-part highlight-operator" data-value="=">=</div>
-                            <div class="sentence-part highlight-variable" data-value="input">input</div>
-                            <div class="sentence-part highlight-operator" data-value="(">(</div>
-                            <div class="sentence-part highlight-value" data-value='"Enter your age: "'>"Enter your age: "</div>
-                            <div class="sentence-part highlight-operator" data-value=")">)</div>
-                            <div class="sentence-part highlight-variable" data-value="print">print</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="input1-result"></div>
-                        
-                        <div class="feedback-area" id="input1-feedback"></div>
-                    </div>
-                    
-                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="input2-container">
-                        <h4>Statement 2: Convert string to integer</h4>
-                        <p>Choose the correct parts to convert the input string to an integer:</p>
-                        
-                        <div class="build-sentence" id="input2-parts">
-                            <div class="sentence-part highlight-variable" data-value="age_number">age_number</div>
-                            <div class="sentence-part highlight-operator" data-value="=">=</div>
-                            <div class="sentence-part highlight-variable" data-value="int">int</div>
-                            <div class="sentence-part highlight-operator" data-value="(">(</div>
-                            <div class="sentence-part highlight-variable" data-value="age">age</div>
-                            <div class="sentence-part highlight-operator" data-value=")">)</div>
-                            <div class="sentence-part highlight-variable" data-value="str">str</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="input2-result"></div>
-                        
-                        <div class="feedback-area" id="input2-feedback"></div>
-                    </div>
-                    
-                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="input3-container">
-                        <h4>Statement 3: Create an f-string using variables</h4>
-                        <p>Choose the correct parts to create an f-string that uses the age variable:</p>
-                        
-                        <div class="build-sentence" id="input3-parts">
-                            <div class="sentence-part highlight-variable" data-value="message">message</div>
-                            <div class="sentence-part highlight-operator" data-value="=">=</div>
-                            <div class="sentence-part highlight-variable" data-value="f">f</div>
-                            <div class="sentence-part highlight-value" data-value='"You will be {'>"You will be {</div>
-                            <div class="sentence-part highlight-variable" data-value="age_number">age_number</div>
-                            <div class="sentence-part highlight-value" data-value='+ 1} next year"'>+ 1} next year"</div>
-                            <div class="sentence-part highlight-operator" data-value="+">+</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="input3-result"></div>
-                        
-                        <div class="feedback-area" id="input3-feedback"></div>
-                    </div>
-                </div>
-                
-                <!-- Quiz container that will be populated by JavaScript -->
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Input & Conversion Quiz <i class="fas fa-question-circle" style="margin-left: 10px;"></i></h3>
-                        <div class="buckle-counter input-quiz-buckle-counter" style="position: absolute; top: 20px; right: 20px;">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                                 alt="Buckle" style="width: 30px; height: 30px; vertical-align: middle;">
-                            <span id="input-quiz-buckle-score">0</span>
-                        </div>
-                    </div>
-                    
-                    <div id="input-quiz-container" class="duolingo-container"></div>
-                </div>
+
+                <!-- Secondary coding playground populated by editor.js -->
+                <div id="secondary-playground-container"></div>
             </div>
         </section>
 
-        <!-- CHUNK 4: Using Variables in Simple Problems -->
-        <section id="chunk4" class="tab-content dark-section">
-            <h1>CHUNK 4: USING VARIABLES IN PROBLEMS <i class="fas fa-tools" style="margin-left: 15px;"></i></h1>
+        <!-- CHUNK 3: Problem Solving with Variables -->
+        <section id="chunk3" class="tab-content dark-section">
+            <h1>CHUNK 3: PROBLEM SOLVING WITH VARIABLES <i class="fas fa-tools" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">TEACHER CHUNK</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
                 
-                <h3>Solving Problems with Variables</h3>
+                <h3>Variables in Action</h3>
                 
-                <p>Variables become really powerful when we use them to solve problems. Let's explore how variables can be used in a simple calculation.</p>
+                <p>Variables become really powerful when we use them to solve problems. Let's explore how variables can be used in calculations and real-world scenarios.</p>
                 
                 <div class="interactive-card">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
@@ -1512,27 +1000,16 @@ width = 3
 <span class="code-comment"># Calculate the area using the variables</span>
 area = length * width
 
-<span class="code-comment"># Display the result</span>
-print("Area:", area)  <span class="code-comment"># Output: Area: 24</span>
+<span class="code-comment"># Display the result using an f-string</span>
+print(f"A {length}x{width} rectangle has area {area}")
                     </div>
                     
                     <div style="display: flex; justify-content: center; margin: 30px 0;">
                         <div style="border: 2px solid var(--outline-color); padding: 15px; position: relative; width: 50%;">
                             <p style="text-align: center; font-weight: 600; margin-bottom: 15px; font-size: 1.2em;">Rectangle Visualisation</p>
                             <div style="width: 100%; height: 0; padding-bottom: 37.5%; background-color: rgba(59, 130, 246, 0.3); border: 2px solid var(--outline-color); position: relative; margin: 0 auto;">
-                                <!-- Width label -->
-                                <div style="position: absolute; top: 35%; left: -70px; transform: rotate(-90deg);">
-                                    <span style="background-color: white; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--outline-color); font-weight: 600;">width = 3</span>
-                                </div>
-                                
-                                <!-- Area label -->
                                 <div style="position: absolute; top: 35%; left: 0; width: 100%; text-align: center;">
                                     <span style="background-color: white; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--outline-color); font-weight: 600; font-size: 1.2em;">area = 24</span>
-                                </div>
-                                
-                                <!-- Length label -->
-                                <div style="position: absolute; bottom: -35px; left: 0; width: 100%; text-align: center;">
-                                    <span style="background-color: white; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--outline-color); font-weight: 600;">length = 8</span>
                                 </div>
                             </div>
                         </div>
@@ -1542,96 +1019,30 @@ print("Area:", area)  <span class="code-comment"># Output: Area: 24</span>
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">2</div>
-                        <h3>The Power of Variables <i class="fas fa-magic" style="margin-left: 10px;"></i></h3>
+                        <h3>Common Syntax Errors <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">What makes this approach powerful:</p>
-                    
-                    <div class="elements-grid" style="margin-top: 0;">
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                                    <i class="fas fa-sync-alt" style="font-size: 1.5em; color: var(--accent-color);"></i>
-                                </div>
-                                <h4 style="margin: 0; font-size: 1.2em;">REUSABILITY</h4>
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                            <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Missing Quotes</h4>
+                            <div class="code-block" style="color: var(--bad-color);">
+name = Alex
                             </div>
-                            <p>We can change the values of length and width, and the program will calculate a new area</p>
+                            <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                                <p style="margin-bottom: 10px;"><strong>Problem:</strong> String values need quotes.</p>
+                                <p style="margin: 0;"><strong>Fix:</strong> <code>name = "Alex"</code></p>
+                            </div>
                         </div>
                         
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                                    <i class="fas fa-book-reader" style="font-size: 1.5em; color: var(--accent-color);"></i>
-                                </div>
-                                <h4 style="margin: 0; font-size: 1.2em;">READABILITY</h4>
+                        <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
+                            <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Type Mismatch</h4>
+                            <div class="code-block" style="color: var(--bad-color);">
+age = input("Age: ")
+next_year = age + 1  # Error!
                             </div>
-                            <p>The variable names make it clear what each value represents in our calculation</p>
-                        </div>
-                        
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                                <div style="background-color: rgba(0, 38, 84, 0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                                    <i class="fas fa-random" style="font-size: 1.5em; color: var(--accent-color);"></i>
-                                </div>
-                                <h4 style="margin: 0; font-size: 1.2em;">FLEXIBILITY</h4>
-                            </div>
-                            <p>We can use the variables in multiple calculations and formulas if needed</p>
-                        </div>
-                    </div>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Key Point:</strong> By using variables instead of hardcoded values, we can easily modify the program to work with different inputs.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>More Variable Use Cases <i class="fas fa-project-diagram" style="margin-left: 10px;"></i></h3>
-                
-                <div style="max-width: 800px; margin: 0 auto;">
-                    <div class="element-card" style="margin-bottom: 25px;">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>TEMPERATURE CONVERTER <i class="fas fa-temperature-high" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <div class="code-block">
-<span class="code-comment"># Convert Celsius to Fahrenheit</span>
-celsius = 30
-fahrenheit = (celsius * 9/5) + 32
-print(fahrenheit)  <span class="code-comment"># 86.0</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card" style="margin-bottom: 25px;">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>TAX CALCULATOR <i class="fas fa-receipt" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <div class="code-block">
-<span class="code-comment"># Calculate price after tax</span>
-price = 50
-tax_rate = 0.1  <span class="code-comment"># 10%</span>
-total = price + (price * tax_rate)
-print(total)  <span class="code-comment"># 55.0</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>GREETING GENERATOR <i class="fas fa-comment" style="margin-left: 12px;"></i></h3>
-                        </div>
-                        <div class="element-content">
-                            <div class="code-block">
-<span class="code-comment"># Create personalised greeting</span>
-name = "Alex"
-time = "morning"
-greeting = "Good " + time + ", " + name + "!"
-print(greeting)  <span class="code-comment"># Good morning, Alex!</span>
+                            <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
+                                <p style="margin-bottom: 10px;"><strong>Problem:</strong> Adding number to string.</p>
+                                <p style="margin: 0;"><strong>Fix:</strong> <code>age = int(input("Age: "))</code></p>
                             </div>
                         </div>
                     </div>
@@ -1639,114 +1050,37 @@ print(greeting)  <span class="code-comment"># Good morning, Alex!</span>
             </div>
         </section>
 
-        <!-- CHEW 4: Challenge Time! -->
-        <section id="chew4" class="tab-content light-section">
-            <h1>CHEW 4: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
+        <!-- CHEW 3: Challenge Activities -->
+        <section id="chew3" class="tab-content light-section">
+            <h1>CHEW 3: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
                 
-                <h3>Challenge: Simple Calculator</h3>
+                <h3>Variable Challenge Exercises</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create a program that stores and manipulates numeric variables</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using variables in calculations</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Apply variables in problem-solving scenarios</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Debug common syntax errors</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Build complete programs using variables</li>
                     </ul>
                 </div>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Basic Challenge <i class="fas fa-star" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <i class="fas fa-calculator" style="font-size: 5em; color: var(--chew-color);"></i>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Write a program that:</p>
-                    
-                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
-                        <li style="margin-bottom: 15px;">Stores two numbers in variables</li>
-                        <li style="margin-bottom: 15px;">Adds them together and stores the result in a third variable</li>
-                        <li>Prints a full sentence showing the result</li>
-                    </ol>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Store two numbers in variables</span>
-num1 = 7
-num2 = 3
 
-<span class="code-comment"># Calculate the sum</span>
-sum_result = num1 + num2
+                <!-- Statement building exercise populated by editor.js -->
+                <div id="statement-building-container"></div>
 
-<span class="code-comment"># Print a sentence with the result</span>
-print("The sum of", num1, "and", num2, "is", sum_result)
-                    </div>
-                    
-                    <div class="result-display">
-                        The sum of 7 and 3 is 10
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Advanced Challenge <i class="fas fa-star" style="margin-left: 5px;"></i><i class="fas fa-star" style="margin-left: 5px;"></i></h3>
-                    </div>
-                    
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <i class="fas fa-user-graduate" style="font-size: 5em; color: var(--chew-color);"></i>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; text-align: center; font-weight: 600; margin-bottom: 20px;">Write a program that:</p>
-                    
-                    <ol style="font-size: 1.2em; margin-bottom: 25px;">
-                        <li style="margin-bottom: 15px;">Gets two numbers from the user using input()</li>
-                        <li style="margin-bottom: 15px;">Converts the inputs to integers</li>
-                        <li style="margin-bottom: 15px;">Performs all four basic operations (+, -, *, /) on them</li>
-                        <li>Prints the results using f-strings</li>
-                    </ol>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Get input from the user</span>
-num1_str = input("Enter the first number: ")
-num2_str = input("Enter the second number: ")
+                <!-- Spot the error quiz populated by editor.js -->
+                <div id="spot-the-error-container" style="margin-top: 30px;"></div> 
 
-<span class="code-comment"># Convert inputs to integers</span>
-num1 = int(num1_str)
-num2 = int(num2_str)
-
-<span class="code-comment"># Perform calculations</span>
-sum_result = num1 + num2
-difference = num1 - num2
-product = num1 * num2
-quotient = num1 / num2
-
-<span class="code-comment"># Print the results with f-strings</span>
-print(f"{num1} + {num2} = {sum_result}")
-print(f"{num1} - {num2} = {difference}")
-print(f"{num1} * {num2} = {product}")
-print(f"{num1} / {num2} = {quotient}")
-                    </div>
-                    
-                    <div class="result-display">
-                        Enter the first number: 10<br>
-                        Enter the second number: 5<br>
-                        10 + 5 = 15<br>
-                        10 - 5 = 5<br>
-                        10 * 5 = 50<br>
-                        10 / 5 = 2.0
-                    </div>
-                </div>
+                <!-- Tracing challenge populated by editor.js -->
+                <div id="tracing-challenge-container"></div>
             </div>
         </section>
     </main>
 
-    <!-- JavaScript for interactive elements -->
     <script>
         // Tab navigation
         document.querySelectorAll('.tab-button').forEach(button => {
@@ -1761,665 +1095,475 @@ print(f"{num1} / {num2} = {quotient}")
                 button.classList.add('active');
             });
         });
-        
-        // Variable assignment steps navigation
-        let currentVarStep = 1;
-        const totalVarSteps = 3;
-        
-        function updateVarStep() {
-            document.querySelectorAll('.variable-update-step').forEach(step => step.classList.remove('active'));
-            document.getElementById(`var-step-${currentVarStep}`).classList.add('active');
-            document.getElementById('var-assignment-indicator').textContent = `Step ${currentVarStep} of ${totalVarSteps}`;
-            
-            // Enable/disable navigation buttons
-            document.getElementById('prev-var-btn').disabled = (currentVarStep === 1);
-            document.getElementById('next-var-btn').disabled = (currentVarStep === totalVarSteps);
-        }
-        
-        function nextVarStep() {
-            if (currentVarStep < totalVarSteps) {
-                currentVarStep++;
-                updateVarStep();
-            }
-        }
-        
-        function prevVarStep() {
-            if (currentVarStep > 1) {
-                currentVarStep--;
-                updateVarStep();
-            }
-        }
-        
-        // Memory visualization steps navigation
-        let currentMemoryStep = 1;
-        const totalMemorySteps = 3;
-        
-        function updateMemoryStep() {
-            document.querySelectorAll('#memory-step-1, #memory-step-2, #memory-step-3').forEach(step => step.classList.remove('active'));
-            document.getElementById(`memory-step-${currentMemoryStep}`).classList.add('active');
-            document.getElementById('memory-step-indicator').textContent = `Step ${currentMemoryStep} of ${totalMemorySteps}`;
-            
-            // Enable/disable navigation buttons
-            document.getElementById('prev-memory-btn').disabled = (currentMemoryStep === 1);
-            document.getElementById('next-memory-btn').disabled = (currentMemoryStep === totalMemorySteps);
-        }
-        
-        function nextMemoryStep() {
-            if (currentMemoryStep < totalMemorySteps) {
-                currentMemoryStep++;
-                updateMemoryStep();
-            }
-        }
-        
-        function prevMemoryStep() {
-            if (currentMemoryStep > 1) {
-                currentMemoryStep--;
-                updateMemoryStep();
-            }
-        }
-        
-        // Input visualization steps navigation
-        let currentInputStep = 1;
-        const totalInputSteps = 3;
-        
-        function updateInputStep() {
-            document.querySelectorAll('#input-step-1, #input-step-2, #input-step-3').forEach(step => step.classList.remove('active'));
-            document.getElementById(`input-step-${currentInputStep}`).classList.add('active');
-            document.getElementById('input-step-indicator').textContent = `Step ${currentInputStep} of ${totalInputSteps}`;
-            
-            // Enable/disable navigation buttons
-            document.getElementById('prev-input-btn').disabled = (currentInputStep === 1);
-            document.getElementById('next-input-btn').disabled = (currentInputStep === totalInputSteps);
-        }
-        
-        function nextInputStep() {
-            if (currentInputStep < totalInputSteps) {
-                currentInputStep++;
-                updateInputStep();
-            }
-        }
-        
-        function prevInputStep() {
-            if (currentInputStep > 1) {
-                currentInputStep--;
-                updateInputStep();
-            }
-        }
-        
-        // Counter interaction
-        let counter = 0;
-        let previousCounter = 0;
-        
-        function updateCounterDisplay() {
-            document.getElementById('counter-value').textContent = counter;
-            document.getElementById('previous-counter-value').textContent = previousCounter;
-            document.getElementById('counter-type').textContent = typeof counter;
-            
-            // Update the code display
-            const operation = counter > previousCounter ? "+" : "-";
-            const codeDisplay = document.getElementById('code-display');
-            codeDisplay.innerHTML = `<span class="code-comment"># The current value of counter is ${previousCounter}</span>\ncounter = counter ${operation} 1\n<span class="code-comment"># This means "take the current value of counter (${previousCounter}),</span>\n<span class="code-comment"># ${operation === '+' ? 'add' : 'subtract'} 1 to it (giving ${counter}),</span>\n<span class="code-comment"># then store the result back in counter"</span>`;
-        }
-        
-        function incrementCounter() {
-            previousCounter = counter;
-            counter++;
-            updateCounterDisplay();
-        }
-        
-        function decrementCounter() {
-            previousCounter = counter;
-            counter--;
-            updateCounterDisplay();
-        }
-        
-        // Code building interactions for multiple activities
-        
-        // Code building for variable1
-        const variable1Parts = document.getElementById('variable1-parts');
-        const variable1Result = document.getElementById('variable1-result');
-        const variable1Feedback = document.getElementById('variable1-feedback');
-        
-        if (variable1Parts) {
-            variable1Parts.querySelectorAll('.sentence-part').forEach(part => {
-                part.addEventListener('click', () => {
-                    const newPart = document.createElement('div');
-                    newPart.className = 'result-part';
-                    newPart.innerHTML = part.innerHTML;
-                    newPart.dataset.value = part.dataset.value;
-                    variable1Result.appendChild(newPart);
-                    
-                    // Add click handler to remove when clicked
-                    newPart.addEventListener('click', () => {
-                        variable1Result.removeChild(newPart);
-                        checkVariable1();
-                    });
-                    
-                    checkVariable1();
-                });
-            });
-        }
-        
-        function checkVariable1() {
-            // Get all parts in the result
-            const parts = Array.from(variable1Result.querySelectorAll('.result-part'));
-            const values = parts.map(part => part.dataset.value);
-            
-            // The correct answer
-            const correctAnswer = 'player_name="Alex"';
-            const userAnswer = values.join('');
-            
-            if (userAnswer === correctAnswer) {
-                variable1Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You created a variable named "player_name" and assigned it the string value "Alex".</div>';
-                variable1Feedback.className = 'feedback-area correct';
-                
-                // Show the next container
-                document.getElementById('variable2-container').style.display = 'block';
-                
-                // Award a buckle for first correct answer
-                awardVariableBuilderBuckle('variable1');
-            } else if (parts.length > 0) {
-                variable1Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! A variable assignment needs a variable name, the = sign, and a value.</div>';
-                variable1Feedback.className = 'feedback-area';
-            } else {
-                variable1Feedback.innerHTML = '';
-                variable1Feedback.className = 'feedback-area';
-            }
-        }
-        
-        // Code building for variable2
-        const variable2Parts = document.getElementById('variable2-parts');
-        const variable2Result = document.getElementById('variable2-result');
-        const variable2Feedback = document.getElementById('variable2-feedback');
-        
-        if (variable2Parts) {
-            variable2Parts.querySelectorAll('.sentence-part').forEach(part => {
-                part.addEventListener('click', () => {
-                    const newPart = document.createElement('div');
-                    newPart.className = 'result-part';
-                    newPart.innerHTML = part.innerHTML;
-                    newPart.dataset.value = part.dataset.value;
-                    variable2Result.appendChild(newPart);
-                    
-                    // Add click handler to remove when clicked
-                    newPart.addEventListener('click', () => {
-                        variable2Result.removeChild(newPart);
-                        checkVariable2();
-                    });
-                    
-                    checkVariable2();
-                });
-            });
-        }
-        
-        function checkVariable2() {
-            // Get all parts in the result
-            const parts = Array.from(variable2Result.querySelectorAll('.result-part'));
-            const values = parts.map(part => part.dataset.value);
-            
-            // The correct answer
-            const correctAnswer = 'score=100';
-            const userAnswer = values.join('');
-            
-            if (userAnswer === correctAnswer) {
-                variable2Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You created a variable named "score" and assigned it the numeric value 100 (not a string).</div>';
-                variable2Feedback.className = 'feedback-area correct';
-                
-                // Show the next container
-                document.getElementById('variable3-container').style.display = 'block';
-                
-                // Award a buckle for second correct answer
-                awardVariableBuilderBuckle('variable2');
-            } else if (parts.length > 0) {
-                variable2Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! Remember that number values don\'t need quotes.</div>';
-                variable2Feedback.className = 'feedback-area';
-            } else {
-                variable2Feedback.innerHTML = '';
-                variable2Feedback.className = 'feedback-area';
-            }
-        }
-        
-        // Code building for variable3
-        const variable3Parts = document.getElementById('variable3-parts');
-        const variable3Result = document.getElementById('variable3-result');
-        const variable3Feedback = document.getElementById('variable3-feedback');
-        
-        if (variable3Parts) {
-            variable3Parts.querySelectorAll('.sentence-part').forEach(part => {
-                part.addEventListener('click', () => {
-                    const newPart = document.createElement('div');
-                    newPart.className = 'result-part';
-                    newPart.innerHTML = part.innerHTML;
-                    newPart.dataset.value = part.dataset.value;
-                    variable3Result.appendChild(newPart);
-                    
-                    // Add click handler to remove when clicked
-                    newPart.addEventListener('click', () => {
-                        variable3Result.removeChild(newPart);
-                        checkVariable3();
-                    });
-                    
-                    checkVariable3();
-                });
-            });
-        }
-        
-        function checkVariable3() {
-            // Get all parts in the result
-            const parts = Array.from(variable3Result.querySelectorAll('.result-part'));
-            const values = parts.map(part => part.dataset.value);
-            
-            // The correct answer
-            const correctAnswer = 'score=score+50';
-            const userAnswer = values.join('');
-            
-            if (userAnswer === correctAnswer) {
-                variable3Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You updated the "score" variable by adding 50 to its current value.</div>';
-                variable3Feedback.className = 'feedback-area correct';
-                
-                // Award a buckle for third correct answer
-                awardVariableBuilderBuckle('variable3');
-            } else if (parts.length > 0) {
-                variable3Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! To add to a variable\'s value, you need to use the variable itself in the calculation.</div>';
-                variable3Feedback.className = 'feedback-area';
-            } else {
-                variable3Feedback.innerHTML = '';
-                variable3Feedback.className = 'feedback-area';
-            }
-        }
-        
-        // Code building for input1
-        const input1Parts = document.getElementById('input1-parts');
-        const input1Result = document.getElementById('input1-result');
-        const input1Feedback = document.getElementById('input1-feedback');
-        
-        if (input1Parts) {
-            input1Parts.querySelectorAll('.sentence-part').forEach(part => {
-                part.addEventListener('click', () => {
-                    const newPart = document.createElement('div');
-                    newPart.className = 'result-part';
-                    newPart.innerHTML = part.innerHTML;
-                    newPart.dataset.value = part.dataset.value;
-                    input1Result.appendChild(newPart);
-                    
-                    // Add click handler to remove when clicked
-                    newPart.addEventListener('click', () => {
-                        input1Result.removeChild(newPart);
-                        checkInput1();
-                    });
-                    
-                    checkInput1();
-                });
-            });
-        }
-        
-        function checkInput1() {
-            // Get all parts in the result
-            const parts = Array.from(input1Result.querySelectorAll('.result-part'));
-            const values = parts.map(part => part.dataset.value);
-            
-            // The correct answer
-            const correctAnswer = 'age=input("Enter your age: ")';
-            const userAnswer = values.join('');
-            
-            if (userAnswer === correctAnswer) {
-                input1Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You created code that asks the user for their age and stores the input in the "age" variable.</div>';
-                input1Feedback.className = 'feedback-area correct';
-                
-                // Show the next container
-                document.getElementById('input2-container').style.display = 'block';
-                
-                // Award a buckle for first correct answer
-                awardInputConversionBuckle('input1');
-            } else if (parts.length > 0) {
-                input1Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! The input() function needs a prompt message in quotes.</div>';
-                input1Feedback.className = 'feedback-area';
-            } else {
-                input1Feedback.innerHTML = '';
-                input1Feedback.className = 'feedback-area';
-            }
-        }
-        
-        // Code building for input2
-        const input2Parts = document.getElementById('input2-parts');
-        const input2Result = document.getElementById('input2-result');
-        const input2Feedback = document.getElementById('input2-feedback');
-        
-        if (input2Parts) {
-            input2Parts.querySelectorAll('.sentence-part').forEach(part => {
-                part.addEventListener('click', () => {
-                    const newPart = document.createElement('div');
-                    newPart.className = 'result-part';
-                    newPart.innerHTML = part.innerHTML;
-                    newPart.dataset.value = part.dataset.value;
-                    input2Result.appendChild(newPart);
-                    
-                    // Add click handler to remove when clicked
-                    newPart.addEventListener('click', () => {
-                        input2Result.removeChild(newPart);
-                        checkInput2();
-                    });
-                    
-                    checkInput2();
-                });
-            });
-        }
-        
-        function checkInput2() {
-            // Get all parts in the result
-            const parts = Array.from(input2Result.querySelectorAll('.result-part'));
-            const values = parts.map(part => part.dataset.value);
-            
-            // The correct answer
-            const correctAnswer = 'age_number=int(age)';
-            const userAnswer = values.join('');
-            
-            if (userAnswer === correctAnswer) {
-                input2Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You converted the string input to an integer using the int() function.</div>';
-                input2Feedback.className = 'feedback-area correct';
-                
-                // Show the next container
-                document.getElementById('input3-container').style.display = 'block';
-                
-                // Award a buckle for second correct answer
-                awardInputConversionBuckle('input2');
-            } else if (parts.length > 0) {
-                input2Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! You need to convert the string to an integer using the int() function.</div>';
-                input2Feedback.className = 'feedback-area';
-            } else {
-                input2Feedback.innerHTML = '';
-                input2Feedback.className = 'feedback-area';
-            }
-        }
-        
-        // Code building for input3
-        const input3Parts = document.getElementById('input3-parts');
-        const input3Result = document.getElementById('input3-result');
-        const input3Feedback = document.getElementById('input3-feedback');
-        
-        if (input3Parts) {
-            input3Parts.querySelectorAll('.sentence-part').forEach(part => {
-                part.addEventListener('click', () => {
-                    const newPart = document.createElement('div');
-                    newPart.className = 'result-part';
-                    newPart.innerHTML = part.innerHTML;
-                    newPart.dataset.value = part.dataset.value;
-                    input3Result.appendChild(newPart);
-                    
-                    // Add click handler to remove when clicked
-                    newPart.addEventListener('click', () => {
-                        input3Result.removeChild(newPart);
-                        checkInput3();
-                    });
-                    
-                    checkInput3();
-                });
-            });
-        }
-        
-        function checkInput3() {
-            // Get all parts in the result
-            const parts = Array.from(input3Result.querySelectorAll('.result-part'));
-            const values = parts.map(part => part.dataset.value);
-            
-            // The correct answer
-            const correctAnswer = 'message=f"You will be {age_number+ 1} next year"';
-            const userAnswer = values.join('');
-            
-            if (userAnswer === correctAnswer) {
-                input3Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct! You created an f-string that displays the age incremented by 1.</div>';
-                input3Feedback.className = 'feedback-area correct';
-                
-                // Award a buckle for third correct answer
-                awardInputConversionBuckle('input3');
-            } else if (parts.length > 0) {
-                input3Feedback.innerHTML = '<div class="slide-animation"><i class="fas fa-info-circle" style="color: #1890ff; margin-right: 10px;"></i> Keep building! An f-string starts with f and uses curly braces {} to include variables.</div>';
-                input3Feedback.className = 'feedback-area';
-            } else {
-                input3Feedback.innerHTML = '';
-                input3Feedback.className = 'feedback-area';
-            }
-        }
-        
-        // Variable Quiz
-        const quizQuestions = [
-            {
-                question: "What is a variable in Python?",
-                options: [
-                    "A mathematical equation",
-                    "A named container that stores data",
-                    "A special keyword",
-                    "A type of function"
-                ],
-                correctIndex: 1
-            },
-            {
-                question: "In the code 'name = \"Alex\"', what is the value?",
-                options: [
-                    "name",
-                    "=",
-                    "\"Alex\"",
-                    "name = \"Alex\""
-                ],
-                correctIndex: 2
-            },
-            {
-                question: "Which of these is a valid variable name?",
-                options: [
-                    "1player",
-                    "player-one",
-                    "player_one",
-                    "player one"
-                ],
-                correctIndex: 2
-            }
-        ];
-        
-        // Input Quiz
-        const inputQuizQuestions = [
-            {
-                question: "What does the input() function do?",
-                options: [
-                    "Prints text to the screen",
-                    "Asks the user for input and returns it",
-                    "Converts strings to numbers",
-                    "Creates a new variable"
-                ],
-                correctIndex: 1
-            },
-            {
-                question: "What data type does input() return?",
-                options: [
-                    "Integer",
-                    "Float",
-                    "String",
-                    "Boolean"
-                ],
-                correctIndex: 2
-            },
-            {
-                question: "How do you convert the string \"42\" to an integer?",
-                options: [
-                    "convert(\"42\")",
-                    "\"42\".toInt()",
-                    "int(\"42\")",
-                    "Integer(\"42\")"
-                ],
-                correctIndex: 2
-            }
-        ];
-        
-        // Function to create a quiz
-        function createQuiz(containerId, questions, bucklePrefix) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            
-            let currentQuestionIndex = 0;
-            let score = 0;
-            
-            function renderQuestion() {
-                const question = questions[currentQuestionIndex];
-                
-                // Create question element
-                const questionElement = document.createElement('div');
-                questionElement.className = 'duolingo-question';
-                
-                questionElement.innerHTML = `
-                    <div class="question-number">Question ${currentQuestionIndex + 1} of ${questions.length}</div>
-                    <div class="question-text">${question.question}</div>
-                    <div class="question-options"></div>
-                `;
-                
-                // Add options
-                const optionsContainer = questionElement.querySelector('.question-options');
-                question.options.forEach((option, index) => {
-                    const optionBtn = document.createElement('button');
-                    optionBtn.className = 'option-btn';
-                    optionBtn.textContent = option;
-                    optionBtn.addEventListener('click', () => checkAnswer(index));
-                    optionsContainer.appendChild(optionBtn);
-                });
-                
-                container.innerHTML = '';
-                container.appendChild(questionElement);
-            }
-            
-            function checkAnswer(selectedIndex) {
-                const question = questions[currentQuestionIndex];
-                const isCorrect = selectedIndex === question.correctIndex;
-                
-                // Create feedback element
-                const feedbackElement = document.createElement('div');
-                feedbackElement.className = isCorrect ? 'duolingo-feedback correct' : 'duolingo-feedback incorrect';
-                
-                if (isCorrect) {
-                    score++;
-                    feedbackElement.innerHTML = `
-                        <div class="feedback-icon"><i class="fas fa-check-circle"></i></div>
-                        <div class="feedback-text">Correct!</div>
-                        <button class="continue-btn">Continue</button>
-                    `;
-                    
-                    // Award buckle for first attempt
-                    const questionKey = `${bucklePrefix}_question_${currentQuestionIndex}`;
-                    const completedKey = `completed_${questionKey}`;
-                    
-                    if (!localStorage.getItem(completedKey)) {
-                        // Use BucklesSystem to award buckles
-                        BucklesSystem.awardBuckles(bucklePrefix, questionKey);
-                        
-                        // Update the local buckle counter display
-                        const buckleScoreElement = document.getElementById(`${bucklePrefix}-buckle-score`);
-                        if (buckleScoreElement) {
-                            buckleScoreElement.textContent = BucklesSystem.getBuckles();
-                        }
-                        
-                        // Mark as completed locally
-                        localStorage.setItem(completedKey, 'true');
-                    }
-                } else {
-                    feedbackElement.innerHTML = `
-                        <div class="feedback-icon"><i class="fas fa-times-circle"></i></div>
-                        <div class="feedback-text">Incorrect. The correct answer is: "${question.options[question.correctIndex]}"</div>
-                        <button class="continue-btn">Continue</button>
-                    `;
+
+        // Page Configuration - All page-specific content lives here
+        // In your python-variables.html <script> tag
+
+        const pageConfig = {
+    pageIdentifier: "python-variables",
+    topic: {
+        title: "Python Variables",
+        sidebarTitle: "PYTHON VARIABLES"
+    },
+
+    // Primary coding playground configuration
+    primaryPlayground: {
+        title: "Code Lab 1",
+        subtitle: "Practice creating and using variables in Python",
+        icon: "fa-flask",
+        initialCode: `# Create variables with different data types\nname = "Alex"\nage = 15\nscore = 100.5\n\n# Display the variables\nprint(f"Name: {name}")\nprint(f"Age: {age}")\nprint(f"Score: {score}")`,
+        buttonText: "Run Code",
+        terminalReady: "Click 'Run Code' to execute your program...",
+        storageKey: "primaryExperimentsVariables",
+        parentTabId: "chew1"
+    },
+
+    // Secondary coding playground configuration
+    secondaryPlayground: {
+        title: "Code Lab 2",
+        subtitle: "Advanced variable operations with input and calculations",
+        icon: "fa-flask",
+        initialCode: `# Get user input\nname = input("What's your name? ")\nage_str = input("What's your age? ")\n\n# Convert age to integer\nage = int(age_str)\n\n# Calculate next year's age\nnext_age = age + 1\n\n# Display results\nprint(f"Hi {name}!")\nprint(f"Next year you'll be {next_age}")`,
+        buttonText: "Run Code",
+        terminalReady: "Click 'Run Code' to execute your program...",
+        storageKey: "secondaryExperimentsVariables",
+        parentTabId: "chew2"
+    },
+
+    // Experiments configuration
+    experiments: {
+        primary: {
+            title: "Code Lab 1 Experiments",
+            icon: "fa-flask",
+            experiments: [
+                {
+                    id: "exp1",
+                    title: "Run Original Code",
+                    taskExplanation: "Execute the basic variable creation code to see how different data types are stored and displayed.",
+                    detailedInstructions: [
+                        "Examine the different variable assignments: <code>name</code>, <code>age</code>, and <code>score</code>.",
+                        "Notice how strings use quotes, integers don't, and floats have decimal points.",
+                        "Click 'Run Code' to see how f-strings display the variables."
+                    ],
+                    pattern: /name\s*=\s*["'][^"']*["']/
+                },
+                {
+                    id: "exp2",
+                    title: "Change Variable Values",
+                    taskExplanation: "Modify the values assigned to the existing variables to see how the output changes.",
+                    detailedInstructions: [
+                        "Change the string value in <code>name = \"Alex\"</code> to a different name.",
+                        "Modify the number in <code>age = 15</code> to a different age.",
+                        "Update the decimal in <code>score = 100.5</code> to a different score."
+                    ],
+                    pattern: /name\s*=\s*["'](?!Alex)[^"']*["']/
+                },
+                {
+                    id: "exp3",
+                    title: "Add New Variables",
+                    taskExplanation: "Create additional variables with different data types and display them.",
+                    detailedInstructions: [
+                        "Add a new string variable like <code>city = \"Brisbane\"</code>.",
+                        "Create a boolean variable like <code>is_student = True</code>.",
+                        "Include these new variables in your print statements using f-strings."
+                    ],
+                    pattern: /(city|town|suburb|is_|has_|can_)\s*=\s*/
+                },
+                {
+                    id: "exp4",
+                    title: "Use Different Print Styles",
+                    taskExplanation: "Experiment with different ways to display variable values using various print methods.",
+                    detailedInstructions: [
+                        "Try using commas: <code>print(\"Name:\", name)</code>.",
+                        "Use string concatenation: <code>print(\"Age: \" + str(age))</code>.",
+                        "Compare with f-strings to see which is easier to read."
+                    ],
+                    pattern: /print\s*\(\s*["'][^"']*["']\s*,\s*\w+\s*\)/
+                },
+                {
+                    id: "exp5",
+                    title: "Variable Calculations",
+                    taskExplanation: "Perform simple calculations using variables and store the results in new variables.",
+                    detailedInstructions: [
+                        "Create a calculation like <code>double_age = age * 2</code>.",
+                        "Add a years calculation like <code>birth_year = 2024 - age</code>.",
+                        "Display these calculated values with appropriate labels."
+                    ],
+                    pattern: /\w+\s*=\s*\w+\s*[\+\-\*\/]\s*\d+/
+                },
+                {
+                    id: "exp6",
+                    title: "Update Variable Values",
+                    taskExplanation: "Demonstrate how variables can be updated by assigning new values to existing variables.",
+                    detailedInstructions: [
+                        "After the initial assignments, add <code>score = score + 50</code>.",
+                        "Try <code>age = age + 1</code> to increment the age.",
+                        "Print the variables before and after the updates to see the changes."
+                    ],
+                    pattern: /\w+\s*=\s*\w+\s*[\+\-]\s*\d+/
                 }
-                
-                // Add continue button handler
-                const continueBtn = feedbackElement.querySelector('.continue-btn');
-                continueBtn.addEventListener('click', () => {
-                    currentQuestionIndex++;
-                    
-                    if (currentQuestionIndex < questions.length) {
-                        renderQuestion();
-                    } else {
-                        showResults();
-                    }
-                });
-                
-                container.innerHTML = '';
-                container.appendChild(feedbackElement);
-            }
-            
-            function showResults() {
-                const resultElement = document.createElement('div');
-                resultElement.className = 'duolingo-result';
-                
-                resultElement.innerHTML = `
-                    <div class="result-icon"><i class="fas fa-trophy"></i></div>
-                    <div class="result-text">You scored ${score} out of ${questions.length}!</div>
-                    <button class="restart-btn">Restart Quiz</button>
-                `;
-                
-                const restartBtn = resultElement.querySelector('.restart-btn');
-                restartBtn.addEventListener('click', () => {
-                    currentQuestionIndex = 0;
-                    score = 0;
-                    renderQuestion();
-                });
-                
-                container.innerHTML = '';
-                container.appendChild(resultElement);
-            }
-            
-            // Start the quiz
-            renderQuestion();
-        }
-        
-        // Function to award buckles for variable builder
-        function awardVariableBuilderBuckle(activityId) {
-            const completedKey = `completed_variable_builder_${activityId}`;
-            
-            if (!localStorage.getItem(completedKey)) {
-                // Use BucklesSystem to award buckles
-                BucklesSystem.awardBuckles('variable_builder', activityId);
-                
-                // Update the local buckle counter
-                const scoreElement = document.getElementById('variable-builder-buckle-score');
-                if (scoreElement) {
-                    scoreElement.textContent = BucklesSystem.getBuckles();
+            ]
+        },
+        secondary: {
+            title: "Code Lab 2 Experiments",
+            icon: "fa-flask",
+            experiments: [
+                {
+                    id: "input-exp1",
+                    title: "Run Input Program",
+                    taskExplanation: "Execute the input and conversion program to see how user input is processed.",
+                    detailedInstructions: [
+                        "Run the code and type a name when prompted.",
+                        "Enter an age when asked.",
+                        "Observe how the program processes and displays the input."
+                    ],
+                    pattern: /input\s*\(\s*["'][^"']*["']\s*\)/
+                },
+                {
+                    id: "input-exp2",
+                    title: "Add More Input",
+                    taskExplanation: "Extend the program to ask for additional information from the user.",
+                    detailedInstructions: [
+                        "Add another input like <code>city = input(\"What city are you from? \")</code>.",
+                        "Include the new input in your output messages.",
+                        "Try asking for a favourite number and converting it to an integer."
+                    ],
+                    pattern: /input\s*\(\s*["'][^"']*(?:city|town|number|score)[^"']*["']\s*\)/
+                },
+                {
+                    id: "input-exp3",
+                    title: "Multiple Calculations",
+                    taskExplanation: "Perform various calculations using the input values and display the results.",
+                    detailedInstructions: [
+                        "Calculate how old the user was 5 years ago: <code>past_age = age - 5</code>.",
+                        "Find out how old they'll be in 10 years: <code>future_age = age + 10</code>.",
+                        "Display all these calculations with clear labels."
+                    ],
+                    pattern: /\w+\s*=\s*age\s*[\+\-]\s*\d+/
+                },
+                {
+                    id: "input-exp4",
+                    title: "Input Validation",
+                    taskExplanation: "Experiment with what happens when different types of input are entered.",
+                    detailedInstructions: [
+                        "Try entering letters when a number is expected.",
+                        "See what happens when you enter a decimal number for age.",
+                        "Add a comment explaining what you observe."
+                    ],
+                    pattern: /#.*input.*error|#.*validation|#.*try/
+                },
+                {
+                    id: "input-exp5",
+                    title: "Enhanced F-Strings",
+                    taskExplanation: "Create more complex f-string expressions that include calculations and multiple variables.",
+                    detailedInstructions: [
+                        "Combine multiple variables: <code>f\"Hi {name} from {city}!\"</code>.",
+                        "Include calculations in f-strings: <code>f\"In 5 years you'll be {age + 5}\"</code>.",
+                        "Try formatting numbers: <code>f\"Your age doubled is {age * 2}\"</code>."
+                    ],
+                    pattern: /f["'][^"']*\{[^}]*[\+\-\*\/][^}]*\}[^"']*["']/
                 }
-                
-                // Mark as completed
-                localStorage.setItem(completedKey, 'true');
-            }
+            ]
         }
-        
-        // Function to award buckles for input conversion
-        function awardInputConversionBuckle(activityId) {
-            const completedKey = `completed_input_conversion_${activityId}`;
-            
-            if (!localStorage.getItem(completedKey)) {
-                // Use BucklesSystem to award buckles
-                BucklesSystem.awardBuckles('input_conversion', activityId);
-                
-                // Update the local buckle counter
-                const scoreElement = document.getElementById('input-conversion-buckle-score');
-                if (scoreElement) {
-                    scoreElement.textContent = BucklesSystem.getBuckles();
+    },
+
+    // Quiz configuration (for CHEW 1)
+    quiz: {
+        questions: [
+            {
+                type: "true-false",
+                question: "Variables can store different types of data like text and numbers.",
+                correctAnswer: "true",
+                feedbackCorrect: "Correct! Variables can store strings, integers, floats, booleans, and more.",
+                feedbackIncorrect: "Incorrect. Variables are very flexible and can store many different data types."
+            },
+            {
+                type: "true-false",
+                question: "The input() function always returns a string, even if the user types a number.",
+                correctAnswer: "true",
+                feedbackCorrect: "Correct! input() always returns a string, so you need int() to convert numbers.",
+                feedbackIncorrect: "Incorrect. input() always returns text (string), even for numbers. Use int() to convert."
+            },
+            {
+                type: "true-false",
+                question: "In Python, variable names can contain spaces.",
+                correctAnswer: "false",
+                feedbackCorrect: "Correct! Variable names cannot contain spaces. Use underscores like player_name.",
+                feedbackIncorrect: "Incorrect. Variable names cannot have spaces. Use underscores instead."
+            },
+            {
+                type: "true-false",
+                question: "F-strings start with the letter 'f' before the quotes.",
+                correctAnswer: "true",
+                feedbackCorrect: "Correct! F-strings use f\"text {variable}\" syntax.",
+                feedbackIncorrect: "Incorrect. F-strings do start with f, like f\"Hello {name}\"."
+            }
+        ]
+    },
+
+    // Statement building configuration (for CHEW 3)
+    statementBuilding: {
+        challenge: "Create a variable that gets user input and converts it to an integer",
+        instruction: "Click the code parts in the correct order to build the statement:",
+        parts: ["age", "=", "int", "(", "input", "(", '"Enter age: "', ")", ")"],
+        correctSequence: ["age", "=", "int", "(", "input", "(", '"Enter age: "', ")", ")"],
+        correctAnswer: 'age = int(input("Enter age: "))'
+    },
+
+    // Spot the Error Quiz (for CHEW 3)
+    spotTheErrorQuiz: {
+        title: "Spot the Syntax Error!",
+        instruction: "Examine the Python code below and identify the syntax error.",
+        code: `name = "Alex"\nage = input("Enter your age: ")\nprint("Hello " + name + "! You are " + age + 1 + " years old.")`,
+        question: "What is the primary syntax error in the code snippet above?",
+        options: [
+            { value: "A", text: "Missing quotes around the string \"Alex\"" },
+            { value: "B", text: "Cannot add a string and an integer together" },
+            { value: "C", text: "The variable name should be in quotes" },
+            { value: "D", text: "input() function is used incorrectly" }
+        ],
+        correctAnswer: "B",
+        explanation: "Correct! You cannot add strings and integers together. The age is a string from input(), and you're trying to add 1 (integer) to it. You need to convert age to int first or use an f-string.",
+        buckles: 1
+    },
+
+    // Loop Tracing Challenge (for CHEW 3)
+    tracingChallenge: {
+        title: "Variable Tracing Challenge",
+        instruction: "Carefully trace the execution of this code and predict the final output:",
+        code: `x = 5\ny = 3\nx = x + y\ny = x - 2\nprint(f"x = {x}, y = {y}")`,
+        question: "What will be the final output of this code?",
+        options: [
+            { value: "A", text: "x = 5, y = 3" },
+            { value: "B", text: "x = 8, y = 6" },
+            { value: "C", text: "x = 8, y = 6" },
+            { value: "D", text: "x = 3, y = 8" }
+        ],
+        correctAnswer: "B",
+        explanation: "Correct! Initially x=5, y=3. Then x becomes 5+3=8. Finally y becomes 8-2=6. So the output is x = 8, y = 6.",
+        buckles: 5
+    },
+
+    // Shepherd Tours Configuration
+    tours: {
+        "exp1": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "🚀 Run Original Code",
+                    text: `<p>Let's run the basic variable creation code to see how different data types work.</p>
+                           <p>This will show you strings, integers, and floats in action!</p>`,
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "▶️ Click Run Code",
+                    text: `<p>Click the 'Run Code' button to execute the variable creation code.</p>
+                           <p>Notice how each variable type is displayed differently!</p>`,
+                    attachTo: { element: "#run-primary-btn", on: "top" },
+                    buttons: [{ text: "Got It!", action: "complete" }]
                 }
-                
-                // Mark as completed
-                localStorage.setItem(completedKey, 'true');
-            }
+            ]
+        },
+        "exp2": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "✏️ Change Variable Values",
+                    text: `<p>Try changing the values assigned to the variables.</p>
+                           <p>Change <code>"Alex"</code> to a different name, or <code>15</code> to a different age.</p>`,
+                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "🔄 See the Changes",
+                    text: "<p>After making changes, run the code again to see how the output updates!</p>",
+                    attachTo: { element: "#run-primary-btn", on: "top" },
+                    buttons: [{ text: "Complete!", action: "complete" }]
+                }
+            ]
+        },
+        "exp3": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "➕ Add New Variables",
+                    text: `<p>Create additional variables with different data types.</p>
+                           <p>Try adding <code>city = "Brisbane"</code> or <code>is_student = True</code>.</p>`,
+                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "📊 Display New Variables",
+                    text: "<p>Add print statements to display your new variables using f-strings!</p>",
+                    attachTo: { element: "#run-primary-btn", on: "top" },
+                    buttons: [{ text: "Done!", action: "complete" }]
+                }
+            ]
+        },
+        "exp4": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "🖨️ Different Print Styles",
+                    text: `<p>Experiment with different ways to print variables.</p>
+                           <p>Try: <code>print("Name:", name)</code> or <code>print("Age: " + str(age))</code></p>`,
+                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "🔍 Compare Methods",
+                    text: "<p>Run the code to see which print method you prefer!</p>",
+                    attachTo: { element: "#run-primary-btn", on: "top" },
+                    buttons: [{ text: "Complete!", action: "complete" }]
+                }
+            ]
+        },
+        "exp5": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "🧮 Variable Calculations",
+                    text: `<p>Use variables in calculations to create new variables.</p>
+                           <p>Try <code>double_age = age * 2</code> or <code>birth_year = 2024 - age</code></p>`,
+                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "📈 Show Results",
+                    text: "<p>Display your calculated values and run the code!</p>",
+                    attachTo: { element: "#run-primary-btn", on: "top" },
+                    buttons: [{ text: "Done!", action: "complete" }]
+                }
+            ]
+        },
+        "exp6": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "🔄 Update Variables",
+                    text: `<p>Show how variables can change by assigning new values.</p>
+                           <p>Add <code>score = score + 50</code> after the initial assignment.</p>`,
+                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "📊 Before and After",
+                    text: "<p>Print the variable before and after updating to see the change!</p>",
+                    attachTo: { element: "#run-primary-btn", on: "top" },
+                    buttons: [{ text: "Complete!", action: "complete" }]
+                }
+            ]
+        },
+        // Tours for Secondary Playground
+        "input-exp1": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "⌨️ Input Program",
+                    text: `<p>This program shows how to get input from users and convert it.</p>
+                           <p>You'll type responses when prompted!</p>`,
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "▶️ Run and Interact",
+                    text: "<p>Click 'Run Code' and follow the prompts to enter your name and age!</p>",
+                    attachTo: { element: "#run-secondary-btn", on: "top" },
+                    buttons: [{ text: "Done!", action: "complete" }]
+                }
+            ]
+        },
+        "input-exp2": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "➕ Add More Input",
+                    text: `<p>Add another input() statement to ask for more information.</p>
+                           <p>Try asking for a city, hobby, or favourite number!</p>`,
+                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "🔄 Test New Input",
+                    text: "<p>Run the code and provide the new input when prompted!</p>",
+                    attachTo: { element: "#run-secondary-btn", on: "top" },
+                    buttons: [{ text: "Complete!", action: "complete" }]
+                }
+            ]
+        },
+        "input-exp3": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "🧮 Multiple Calculations",
+                    text: `<p>Create several calculations using the age variable.</p>
+                           <p>Try <code>past_age = age - 5</code> and <code>future_age = age + 10</code></p>`,
+                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "📊 Display Results",
+                    text: "<p>Show all your calculations with clear labels!</p>",
+                    attachTo: { element: "#run-secondary-btn", on: "top" },
+                    buttons: [{ text: "Done!", action: "complete" }]
+                }
+            ]
+        },
+        "input-exp4": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "🧪 Test Different Inputs",
+                    text: `<p>Try entering unexpected values to see what happens.</p>
+                           <p>What if you enter letters when a number is expected?</p>`,
+                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "🔍 Observe Results",
+                    text: "<p>Run the code and experiment with different types of input!</p>",
+                    attachTo: { element: "#run-secondary-btn", on: "top" },
+                    buttons: [{ text: "Complete!", action: "complete" }]
+                }
+            ]
+        },
+        "input-exp5": {
+            useModalOverlay: false,
+            steps: [
+                {
+                    title: "🎨 Enhanced F-Strings",
+                    text: `<p>Create more complex f-strings with multiple variables and calculations.</p>
+                           <p>Try <code>f"Hi {name}! In 5 years you'll be {age + 5}"</code></p>`,
+                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
+                    buttons: [{ text: "Next", action: "next" }]
+                },
+                {
+                    title: "✨ See Enhanced Output",
+                    text: "<p>Run the code to see your enhanced f-string formatting!</p>",
+                    attachTo: { element: "#run-secondary-btn", on: "top" },
+                    buttons: [{ text: "Complete!", action: "complete" }]
+                }
+            ]
         }
-        
-        // Initialize the quizzes when the page loads
+    }
+};
+
+// Shuffle function
+function shuffle(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+        // Initialize the educational system
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize first quiz
-            if (document.getElementById('quiz-container')) {
-                createQuiz('quiz-container', quizQuestions, 'variables-quiz');
+            if (typeof EducationalEditor !== 'undefined') {
+                EducationalEditor.initialize(pageConfig);
+            } else {
+                console.error('editor.js not loaded - Educational system cannot initialize');
             }
-            
-            // Initialize second quiz
-            if (document.getElementById('input-quiz-container')) {
-                createQuiz('input-quiz-container', inputQuizQuestions, 'input-quiz');
-            }
-            
-            // Initialize buckle counters
-            document.querySelectorAll('[id$="buckle-score"]').forEach(element => {
-                element.textContent = BucklesSystem.getBuckles();
-            });
         });
     </script>
 </body>
