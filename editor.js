@@ -28,7 +28,7 @@ const EducationalEditor = (function() {
         initializeQuiz();
         initializeStatementBuilding();
         initializeTracingChallenge();
-                initializeSpotTheErrorQuiz(); // Add this call
+        initializeSpotTheErrorQuiz();
 
         initializeTours();
 
@@ -558,104 +558,124 @@ const EducationalEditor = (function() {
         }
     }
 
-    // Statement building system
+    // Statement building system - FIXED VERSION
     function initializeStatementBuilding() {
-        if (!config.statementBuilding) return;
+    if (!config.statementBuilding) return;
 
-        const container = document.getElementById('statement-building-container');
-        if (!container) return;
+    const container = document.getElementById('statement-building-container');
+    if (!container) return;
 
-        const statementHTML = `
-            <div class="interactive-card" style="margin-top: 30px;">
-                <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                    <h3>Build a Statement <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
-                </div>
-
-                <p>Click on the pieces in the correct order to build a valid statement.</p>
-
-                <div class="interactive-activity">
-                    <h4>Challenge: ${config.statementBuilding.challenge}</h4>
-                    <p>${config.statementBuilding.instruction}</p>
-
-                    <div class="build-sentence" id="statement1-parts">
-                        ${config.statementBuilding.parts.map(part =>
-                            `<div class="sentence-part highlight-variable" data-value="${part}">${part}</div>`
-                        ).join('')}
-                    </div>
-
-                    <p>Your statement:</p>
-                    <div class="sentence-result" id="statement1-result"></div>
-
-                    <div class="feedback-area" id="statement1-feedback"></div>
-                </div>
-            </div>
-        `;
-
-        container.innerHTML = statementHTML;
-        initializeDragDropChallenge(); // Renamed for clarity, assuming it's not actual drag and drop but click-to-add
+    // Helper function to escape quotes in data attributes
+    function escapeDataAttribute(text) {
+        return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
-    function initializeDragDropChallenge() { // Or click-to-add challenge
-        if (!config.statementBuilding) return;
+    const statementHTML = `
+        <div class="interactive-card" style="margin-top: 30px;">
+            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                <h3>Build a Statement <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
+            </div>
 
-        const correctSequence = config.statementBuilding.correctSequence;
-        const pageIdentifier = config.pageIdentifier || 'default-page';
-        const activityId = 'statement-building'; // Consistent ID
+            <p>Click on the pieces in the correct order to build a valid statement.</p>
 
-        document.querySelectorAll('#statement1-parts .sentence-part').forEach(part => {
-            part.addEventListener('click', function() {
-                const resultContainer = document.getElementById('statement1-result');
+            <div class="interactive-activity">
+                <h4>Challenge: ${config.statementBuilding.challenge}</h4>
+                <p>${config.statementBuilding.instruction}</p>
 
-                const resultPart = document.createElement('div');
-                resultPart.className = 'result-part'; // Style this class for the chosen parts
-                resultPart.textContent = this.textContent;
-                resultPart.dataset.value = this.dataset.value;
+                <div class="build-sentence" id="statement1-parts">
+                    ${config.statementBuilding.parts.map(part =>
+                        `<div class="sentence-part highlight-variable" data-value="${escapeDataAttribute(part)}">${part}</div>`
+                    ).join('')}
+                </div>
 
-                // Add click listener to remove part from result
-                resultPart.addEventListener('click', function() {
-                    this.remove();
-                    checkSequence(); // Re-check after removal
-                });
+                <p>Your statement:</p>
+                <div class="sentence-result" id="statement1-result"></div>
 
-                resultContainer.appendChild(resultPart);
+                <div class="feedback-area" id="statement1-feedback"></div>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = statementHTML;
+    
+    setTimeout(() => {
+        initializeDragDropChallenge();
+    }, 10);
+}
+
+    function initializeDragDropChallenge() {
+    if (!config.statementBuilding) return;
+
+    const correctSequence = config.statementBuilding.correctSequence;
+    const pageIdentifier = config.pageIdentifier || 'default-page';
+    const activityId = 'statement-building';
+
+    const parts = document.querySelectorAll('#statement1-parts .sentence-part');
+    if (parts.length === 0) {
+        console.error('Statement building parts not found in DOM');
+        return;
+    }
+
+    parts.forEach(part => {
+        part.addEventListener('click', function() {
+            const resultContainer = document.getElementById('statement1-result');
+
+            const resultPart = document.createElement('div');
+            resultPart.className = 'result-part';
+            resultPart.textContent = this.textContent;
+            
+            // Decode the escaped data-value back to original
+            const dataValue = this.getAttribute('data-value');
+            const decodedValue = dataValue.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+            resultPart.dataset.value = decodedValue;
+
+            resultPart.addEventListener('click', function() {
+                this.remove();
                 checkSequence();
             });
+
+            resultContainer.appendChild(resultPart);
+            checkSequence();
         });
+    });
 
-        function checkSequence() {
-            const resultContainer = document.getElementById('statement1-result');
-            const feedbackContainer = document.getElementById('statement1-feedback');
-            const resultParts = Array.from(resultContainer.children);
+    function checkSequence() {
+        const resultContainer = document.getElementById('statement1-result');
+        const feedbackContainer = document.getElementById('statement1-feedback');
+        const resultParts = Array.from(resultContainer.children);
 
-            const currentSequence = resultParts.map(part => part.dataset.value);
+        const currentSequence = resultParts.map(part => part.dataset.value);
 
-            let correct = false; // Assume incorrect until proven
-            if (currentSequence.length === correctSequence.length) {
-                correct = currentSequence.every((val, index) => val === correctSequence[index]);
-            }
+        // Debug logging (you can remove these after testing)
+        console.log('Current sequence:', currentSequence);
+        console.log('Correct sequence:', correctSequence);
 
-            // Provide feedback only when the sequence length matches the target length
-            if (resultParts.length === correctSequence.length) {
-                if (correct) {
-                    feedbackContainer.className = 'feedback-area correct';
-                    feedbackContainer.innerHTML = `
-                        <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct!</h4>
-                        <p>You've created the correct sequence: <code>${config.statementBuilding.correctAnswer}</code></p>
-                    `;
-                    BucklesSystem.awardBuckles(pageIdentifier, activityId, 2); // Award buckles for correct sequence
-                } else {
-                    feedbackContainer.className = 'feedback-area incorrect';
-                    feedbackContainer.innerHTML = `
-                        <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Not Quite Right</h4>
-                        <p>The correct statement should be: <code>${config.statementBuilding.correctAnswer}</code></p>
-                    `;
-                }
+        let correct = false;
+        if (currentSequence.length === correctSequence.length) {
+            correct = currentSequence.every((val, index) => val === correctSequence[index]);
+        }
+
+        if (resultParts.length === correctSequence.length) {
+            if (correct) {
+                feedbackContainer.className = 'feedback-area correct';
+                feedbackContainer.innerHTML = `
+                    <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct!</h4>
+                    <p>You've created the correct sequence: <code>${config.statementBuilding.correctAnswer}</code></p>
+                `;
+                BucklesSystem.awardBuckles(pageIdentifier, activityId, 2);
             } else {
-                feedbackContainer.className = 'feedback-area'; // Clear feedback if sequence length is not final
-                feedbackContainer.innerHTML = '';
+                feedbackContainer.className = 'feedback-area incorrect';
+                feedbackContainer.innerHTML = `
+                    <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Not Quite Right</h4>
+                    <p>The correct statement should be: <code>${config.statementBuilding.correctAnswer}</code></p>
+                `;
             }
+        } else {
+            feedbackContainer.className = 'feedback-area';
+            feedbackContainer.innerHTML = '';
         }
     }
+}
 
     // Tracing challenge system
     function initializeTracingChallenge() {
@@ -820,7 +840,7 @@ ${config.tracingChallenge.code}
                 <p>${quizConfig.instruction}</p>
                 
                 <div class="code-block" style="background-color: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; font-family: monospace; white-space: pre;">
-${quizConfig.code.replace(/</g, '<').replace(/>/g, '>')}
+${quizConfig.code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
                 </div>
                 
                 <div class="multiple-choice-container">

@@ -922,10 +922,10 @@ area = length * width
 print("Area:", area)`,
                 question: "What's wrong with this code?",
                 options: [
-                    { value: "A", text: "Missing prompts in the input() functions", detail: "The prompts are there." },
-                    { value: "B", text: "Can't multiply strings - need int() conversion", detail: "input() returns strings!" },
-                    { value: "C", text: "Variable names are incorrect", detail: "The names are fine." },
-                    { value: "D", text: "print() statement is wrong", detail: "The print is correct." }
+                    { value: "A", text: "Missing prompts in the input() functions", detail: "" },
+                    { value: "B", text: "Can't multiply strings - need int() conversion", detail: "" },
+                    { value: "C", text: "Variable names are incorrect", detail: "" },
+                    { value: "D", text: "print() statement is wrong", detail: "" }
                 ],
                 correctAnswer: "B",
                 explanation: "Correct! input() returns strings, and you can't multiply strings mathematically. You need: length = int(input(...)) and width = int(input(...)).",
