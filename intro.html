@@ -3,17 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Intro - The Print Function</title>
+    <title>Python Print Function</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Include Flowchart.js dependencies -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.15.0/flowchart.min.js"></script>
-    <!-- Include the unified buckles system -->
+    
+    <!-- External Dependencies -->
     <script src="buckles.js"></script>
-    <!-- Include the quiz.js file -->
     <script src="quiz.js"></script>
+    <script src="https://skulpt.org/js/skulpt.min.js"></script>
+    <script src="https://skulpt.org/js/skulpt-stdlib.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.0.1/dist/js/shepherd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.0.1/dist/css/shepherd.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Modular Editor System -->
+    <script src="editor.js"></script>
+    
     <!-- Favicon Icons -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -24,9 +33,12 @@
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
 </head>
 <body>
+    <!-- Experiment Panels (populated by editor.js) -->
+    <div id="experiments-container"></div>
+
     <!-- Sidebar Navigation -->
     <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
-        <div class="sidebar-logo">PYTHON INTRO</div>
+        <div class="sidebar-logo">PYTHON PRINT FUNCTION</div>
         <a href="index.html" class="home-button">
             <i class="fas fa-home"></i>
             HOME
@@ -60,6 +72,10 @@
                 <i class="fas fa-utensils"></i>
                 CHEW 3
             </button>
+            <button class="tab-button" data-tab="recap">
+                <i class="fas fa-bookmark"></i>
+                RECAP
+            </button>
         </div>
     </aside>
 
@@ -76,8 +92,8 @@
                 </div>
                 
                 <ul>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand basic Python syntax and structure</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to use the print function to display text and numbers</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what the print function does and why it's important in programming</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn the correct syntax for Python print statements</li>
                 </ul>
             </div>
             
@@ -90,47 +106,57 @@
                 <p>By the end of this lesson, you should be able to:</p>
                 
                 <ul>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create basic print statements to display text and numbers</li>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Identify and fix common errors in print statements</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Write correct print statements to display text and numbers</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Identify and fix common syntax errors in print statements</li>
                 </ul>
             </div>
         </section>
 
-        <!-- CHUNK 1: Introduction to Programming and Print Function -->
-        <section id="chunk1" class="tab-content dark-section">
-            <h1>CHUNK 1: YOUR FIRST PYTHON COMMAND <i class="fas fa-code" style="margin-left: 15px;"></i></h1>
+        <!-- RECAP: Summary -->
+        <section id="recap" class="tab-content dark-section">
+            <h1>RECAP: PRINT FUNCTION SUMMARY <i class="fas fa-bookmark" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
-                <div class="chunk-badge">TEACHER CHUNK</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                <div class="chunk-badge">REVIEW SECTION</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
                 
-                <h3>What is Programming?</h3>
+                <h3>Quick Reference Guide</h3>
                 
-                <div class="interactive-card">
+                <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">1</div>
-                        <h3>Programming Basics <i class="fas fa-laptop-code" style="margin-left: 10px;"></i></h3>
+                        <h3>The Print Function <i class="fas fa-print" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <div class="two-column-grid">
-                        <div>
-                            <p>Programming is like giving instructions to a computer. The computer will follow your instructions exactly as written.</p>
-                            
-                            <p>Python is a programming language - it's how we communicate with computers in a way that both humans and computers can understand.</p>
-                            
-                            <p>Today, we'll learn our first Python command: <strong>print()</strong></p>
+                    <div class="elements-grid" style="margin-top: 0;">
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-comment-dots" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Display Messages</h4>
+                                <p>Shows text and numbers on screen</p>
+                            </div>
                         </div>
                         
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <h4><i class="fas fa-info-circle" style="margin-right: 12px;"></i> Key Point</h4>
-                            
-                            <p>The <strong>print()</strong> function is like a messenger - its job is to display messages on the screen.</p>
-                            
-                            <div style="text-align: center; margin: 20px 0;">
-                                <i class="fas fa-comment-dots" style="font-size: 4em; color: var(--accent-color);"></i>
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-code" style="color: var(--accent-color);"></i>
                             </div>
-                            
-                            <p style="font-style: italic; text-align: center;">It's usually the first command people learn in Python!</p>
+                            <div class="icon-text">
+                                <h4>First Command</h4>
+                                <p>Usually the first Python function you learn</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-eye" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Immediate Feedback</h4>
+                                <p>See your code results instantly</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -138,99 +164,31 @@
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">2</div>
-                        <h3>Your First Print Statement <i class="fas fa-print" style="margin-left: 10px;"></i></h3>
+                        <h3>Print Syntax Essentials <i class="fas fa-wrench" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p>Let's look at a simple print statement:</p>
-                    
-                    <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello, World!"</span><span class="highlight-operator">)</span>
-                    </div>
-                    
-                    <div style="background-color: #f8f9fa; border-radius: var(--border-radius); padding: 15px; margin-top: 20px;">
-                        <p style="font-weight: bold; margin-top: 0;">When you run this code, you'll see:</p>
-                        <div class="output-box">Hello, World!</div>
-                    </div>
-                    
-                    <p style="margin-top: 20px;">The computer reads your instruction and displays the text "Hello, World!" on the screen.</p>
-                </div>
-                
-                <!-- Improved Anatomy of a Print Statement -->
-                <div class="interactive-card" style="margin-top: 30px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px; background: linear-gradient(135deg, #002654, #003b7a);">
-                        <div class="element-number" style="background-color: #ffc107; color: #002654; font-weight: bold;">3</div>
-                        <h3 style="color: white; font-size: 1.4em;">Anatomy of a Print Statement <i class="fas fa-microscope" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.1em; margin-bottom: 25px; text-align: center;">Let's break down the print statement into its essential parts:</p>
-                    
-                    <div class="syntax-container-enhanced">
-                        <span class="syntax-element-enhanced function-name" style="background-color: #ffec3d; color: #5c4c00;">print</span>
-                        <span class="syntax-element-enhanced parentheses" style="background-color: #ff7a45; color: #5c2500;">(</span>
-                        <span class="syntax-element-enhanced quotes" style="background-color: #52c41a; color: #254000;">"</span>
-                        <span class="syntax-element-enhanced content" style="background-color: #1890ff; color: #003a8c;">Hello, World!</span>
-                        <span class="syntax-element-enhanced quotes" style="background-color: #52c41a; color: #254000;">"</span>
-                        <span class="syntax-element-enhanced parentheses" style="background-color: #ff7a45; color: #5c2500;">)</span>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
-                        <div class="syntax-explanation" style="border-left: 6px solid #ffec3d; padding: 15px; border-radius: 8px; background-color: rgba(255, 236, 61, 0.1);">
-                            <h4 style="margin-top: 0; color: #5c4c00;"><span class="syntax-element-enhanced function-name" style="display: inline-block; padding: 4px 10px; background-color: #ffec3d; color: #5c4c00; border-radius: 4px; font-weight: bold;">print</span> - Function Name</h4>
-                            <p style="margin-bottom: 5px;">This is the name of the function - it tells Python what action to perform.</p>
-                            <p style="font-style: italic;">Think of it as a verb or command in a sentence.</p>
-                            <div class="code-example">
-                                <span style="color: #5c4c00; font-weight: bold;">print</span>(<span style="color: #254000;">"Hello"</span>)
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div>
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Basic Text</h4>
+                            <div class="code-block" style="font-size: 0.9em; margin-bottom: 15px;">
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Hello, World!"</span>)
+                            </div>
+                            
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Numbers</h4>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">42</span>)
                             </div>
                         </div>
                         
-                        <div class="syntax-explanation" style="border-left: 6px solid #ff7a45; padding: 15px; border-radius: 8px; background-color: rgba(255, 122, 69, 0.1);">
-                            <h4 style="margin-top: 0; color: #5c2500;"><span class="syntax-element-enhanced parentheses" style="display: inline-block; padding: 4px 10px; background-color: #ff7a45; color: #5c2500; border-radius: 4px; font-weight: bold;">( )</span> - Parentheses</h4>
-                            <p style="margin-bottom: 5px;">These hold the information that the print function will use.</p>
-                            <p style="font-style: italic;">Everything inside is called the "argument" or "parameter."</p>
-                            <div class="code-example">
-                                print<span style="color: #5c2500; font-weight: bold;">(</span>argument goes here<span style="color: #5c2500; font-weight: bold;">)</span>
+                        <div>
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Multiple Items</h4>
+                            <div class="code-block" style="font-size: 0.9em; margin-bottom: 15px;">
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Age:"</span>, <span style="color: #AE81FF;">15</span>)
                             </div>
-                        </div>
-                        
-                        <div class="syntax-explanation" style="border-left: 6px solid #52c41a; padding: 15px; border-radius: 8px; background-color: rgba(82, 196, 26, 0.1);">
-                            <h4 style="margin-top: 0; color: #254000;"><span class="syntax-element-enhanced quotes" style="display: inline-block; padding: 4px 10px; background-color: #52c41a; color: #254000; border-radius: 4px; font-weight: bold;">" "</span> - Quotation Marks</h4>
-                            <p style="margin-bottom: 5px;">These tell Python that the content inside is text (a "string").</p>
-                            <p style="font-style: italic;">Without quotes, Python would think it's a variable or code.</p>
-                            <div class="code-example">
-                                print(<span style="color: #254000; font-weight: bold;">"</span>This is text<span style="color: #254000; font-weight: bold;">"</span>)
-                            </div>
-                        </div>
-                        
-                        <div class="syntax-explanation" style="border-left: 6px solid #1890ff; padding: 15px; border-radius: 8px; background-color: rgba(24, 144, 255, 0.1);">
-                            <h4 style="margin-top: 0; color: #003a8c;"><span class="syntax-element-enhanced content" style="display: inline-block; padding: 4px 10px; background-color: #1890ff; color: #003a8c; border-radius: 4px; font-weight: bold;">Hello, World!</span> - Content</h4>
-                            <p style="margin-bottom: 5px;">This is the actual message you want to display.</p>
-                            <p style="font-style: italic;">It can be any text you want to show on the screen.</p>
-                            <div class="code-example">
-                                print("<span style="color: #003a8c; font-weight: bold;">This will be displayed</span>")
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="example-output">
-                        <h4 style="margin-top: 0;">When you run this code:</h4>
-                        <div style="font-family: monospace; font-size: 18px; background-color: #f8f9fa; padding: 15px; border-radius: 4px; display: inline-block; margin: 10px 0;">
-                            <span style="color: #5c4c00; font-weight: bold;">print</span><span style="color: #5c2500; font-weight: bold;">(</span><span style="color: #254000; font-weight: bold;">"</span><span style="color: #003a8c; font-weight: bold;">Hello, World!</span><span style="color: #254000; font-weight: bold;">"</span><span style="color: #5c2500; font-weight: bold;">)</span>
-                        </div>
-                        <h4>You'll see this output:</h4>
-                        <div class="output-box-enhanced">Hello, World!</div>
-                    </div>
-                    
-                    <div class="print-error-common">
-                        <h4 style="margin-top: 0; color: #cf1322;"><i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>Common Mistake</h4>
-                        <p>Forgetting any of these parts will cause an error!</p>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-                            <div style="padding: 10px; background-color: rgba(255, 77, 79, 0.1); border-radius: 4px;">
-                                <div style="color: #cf1322; font-family: monospace;">print Hello, World!</div>
-                                <p style="font-size: 0.9em; margin: 5px 0 0 0;">Missing parentheses</p>
-                            </div>
-                            <div style="padding: 10px; background-color: rgba(255, 77, 79, 0.1); border-radius: 4px;">
-                                <div style="color: #cf1322; font-family: monospace;">print(Hello, World!)</div>
-                                <p style="font-size: 0.9em; margin: 5px 0 0 0;">Missing quotation marks</p>
+                            
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">New Lines</h4>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Line 1\nLine 2"</span>)
                             </div>
                         </div>
                     </div>
@@ -238,21 +196,206 @@
                 
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">4</div>
-                        <h3>Different Things to Print <i class="fas fa-list" style="margin-left: 10px;"></i></h3>
+                        <div class="element-number">3</div>
+                        <h3>Common Error Prevention <i class="fas fa-shield-alt" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p>You can print different types of information using the print function:</p>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+                        <div style="background: rgba(255, 77, 79, 0.1); padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #ff4d4f;">
+                            <h5 style="margin-top: 0; color: #ff4d4f;">❌ Missing Quotes</h5>
+                            <div class="code-block" style="font-size: 0.8em; color: #ff4d4f;">print(Hello)</div>
+                        </div>
+                        <div style="background: rgba(82, 196, 26, 0.1); padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #52c41a;">
+                            <h5 style="margin-top: 0; color: #52c41a;">✅ Correct</h5>
+                            <div class="code-block" style="font-size: 0.8em; color: #52c41a;">print("Hello")</div>
+                        </div>
+                        <div style="background: rgba(255, 77, 79, 0.1); padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #ff4d4f;">
+                            <h5 style="margin-top: 0; color: #ff4d4f;">❌ Missing Parentheses</h5>
+                            <div class="code-block" style="font-size: 0.8em; color: #ff4d4f;">print "Hello"</div>
+                        </div>
+                        <div style="background: rgba(82, 196, 26, 0.1); padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #52c41a;">
+                            <h5 style="margin-top: 0; color: #52c41a;">✅ Correct</h5>
+                            <div class="code-block" style="font-size: 0.8em; color: #52c41a;">print("Hello")</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(0, 38, 84, 0.1), rgba(52, 152, 219, 0.1)); border-radius: var(--border-radius); padding: 30px; margin-top: 30px; text-align: center; border: 2px solid var(--accent-color);">
+                    <div style="font-size: 3em; margin-bottom: 15px;">🎓</div>
+                    <h4 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.3em;">You've Mastered Python Print Statements!</h4>
+                    <p style="margin-bottom: 0; font-size: 1.1em; color: var(--text-color);">You can now display messages, numbers, and create basic output in Python.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 1: What is the Print Function? -->
+        <section id="chunk1" class="tab-content dark-section">
+            <h1>CHUNK 1: MEET THE PRINT FUNCTION <i class="fas fa-print" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>What is Coding?</h3>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Introduction to Programming <i class="fas fa-laptop-code" style="margin-left: 10px;"></i></h3>
+                    </div>
                     
-                    <div class="two-column-grid">
+                    <p><strong>Coding</strong> (or programming) is like writing a recipe that a computer can follow. Just as a recipe has specific steps to make a cake, code has specific instructions to make a computer do tasks.</p>
+                    
+                    <div class="two-column-grid" style="margin: 20px 0; gap: 20px;">
                         <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <h4><i class="fas fa-font" style="margin-right: 12px;"></i> Text (Strings)</h4>
+                            <h4><i class="fas fa-book" style="margin-right: 12px;"></i> What is Syntax?</h4>
+                            <p><strong>Syntax</strong> is the set of rules for writing code correctly. Just like English has grammar rules (capital letters, full stops), programming languages have syntax rules.</p>
+                            <p style="font-style: italic;">If you don't follow the syntax rules, the computer won't understand your instructions!</p>
+                        </div>
+                        
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <h4><i class="fas fa-code" style="margin-right: 12px;"></i> Why Python?</h4>
+                            <p>Python is a programming language designed to be easy to read and write. It's like learning a simplified version of a foreign language that computers understand.</p>
+                            <p style="font-style: italic;">Python is often the first programming language people learn!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 40px;">Your First Python Command</h3>
+                
+                <p>The <strong>print()</strong> function is like a messenger in Python. Its job is to display information on the screen so you can see what your program is doing.</p>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Why Print is Important <i class="fas fa-star" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="elements-grid" style="margin-top: 0;">
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>See Results</h4>
+                                <p>Shows you what your code is doing</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Give Messages</h4>
+                                <p>Communicate with users of your program</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-bug"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Find Problems</h4>
+                                <p>Help debug and test your code</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Your First Print Statement <i class="fas fa-rocket" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Here's the most famous first program in computer science:</p>
+                    
+                    <div class="code-block">
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Hello, World!"</span>)
+                    </div>
+                    
+                    <div style="background-color: #f8f9fa; border-radius: var(--border-radius); padding: 15px; margin-top: 20px;">
+                        <p style="font-weight: bold; margin-top: 0;">Output:</p>
+                        <div class="output-box">Hello, World!</div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.03); border-radius: var(--border-radius); padding: 20px; margin-top: 30px; border-left: 4px solid var(--accent-color);">
+                        <p style="margin: 0; font-size: 1.05em;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i><strong>Did You Know?</strong> "Hello, World!" has been the traditional first program for decades. It shows that your programming environment is working correctly!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 1: Concept Check -->
+        <section id="chew1" class="tab-content light-section">
+            <h1>CHEW 1: CONCEPT CHECK <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Think-Pair-Share: Understanding Print</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Discuss what the print function does</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Share ideas about when you might use print in programming</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <h3>Discussion Questions <i class="fas fa-users" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin-bottom: 25px; text-align: center;">
+                        <p style="font-size: 1.3em; font-weight: 600; margin-bottom: 15px;">Discuss these questions with your partner:</p>
+                        <div style="text-align: left; font-size: 1.2em; padding: 10px 20px; background-color: white; border-radius: var(--border-radius); border: 2px solid var(--chew-color);">
+                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">1.</span> What do you think the print function does in Python?</p>
+                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">2.</span> What do you think the word syntax means?</p>
+                            <p style="margin: 15px 0;"><span style="font-weight: 600; color: var(--chew-color);">3.</span> What questions do you have about programming?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quiz container populated by editor.js -->
+                <div id="quiz-container" class="duolingo-container"></div>
+            </div>
+        </section>
+
+        <!-- CHUNK 2: Print Syntax and Basic Rules -->
+        <section id="chunk2" class="tab-content dark-section">
+            <h1>CHUNK 2: PRINT SYNTAX RULES <i class="fas fa-code" style="margin-left: 15px;"></i></h1>
+
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+
+                <h3>The Anatomy of a Print Statement</h3>
+
+                <p>Every print statement follows a specific pattern. Let's break it down step by step to understand the essential components.</p>
+                
+                <!-- Interactive syntax breakdown populated by editor.js -->
+                <div id="syntax-breakdown-container"></div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>What Can You Print? <i class="fas fa-list" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
+                            <h4><i class="fas fa-quote-right" style="margin-right: 12px;"></i> Text (Strings)</h4>
                             
-                            <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello, this is text!"</span><span class="highlight-operator">)</span>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Hello, Python!"</span>)
                             </div>
                             
-                            <div class="output-box">Hello, this is text!</div>
+                            <div class="output-box">Hello, Python!</div>
                             
                             <p style="margin-top: 10px; font-style: italic;">Text must be in quotation marks</p>
                         </div>
@@ -260,8 +403,8 @@
                         <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
                             <h4><i class="fas fa-calculator" style="margin-right: 12px;"></i> Numbers</h4>
                             
-                            <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">42</span><span class="highlight-operator">)</span>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">print</span>(<span style="color: #AE81FF;">42</span>)
                             </div>
                             
                             <div class="output-box">42</div>
@@ -269,695 +412,515 @@
                             <p style="margin-top: 10px; font-style: italic;">Numbers don't need quotation marks</p>
                         </div>
                     </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Common Beginner Mistakes <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 20px 0;">
+                        <div style="background: rgba(255, 77, 79, 0.1); padding: 20px; border-radius: var(--border-radius); border-left: 4px solid #ff4d4f;">
+                            <h5 style="margin-top: 0; color: #ff4d4f;">❌ Forgetting Quotes</h5>
+                            <div class="code-block" style="font-size: 0.9em; color: #ff4d4f; margin-bottom: 10px;">print(Hello)</div>
+                            <p style="margin: 0; font-size: 0.9em;">Python thinks "Hello" is a variable name</p>
+                        </div>
+                        <div style="background: rgba(255, 77, 79, 0.1); padding: 20px; border-radius: var(--border-radius); border-left: 4px solid #ff4d4f;">
+                            <h5 style="margin-top: 0; color: #ff4d4f;">❌ Missing Parentheses</h5>
+                            <div class="code-block" style="font-size: 0.9em; color: #ff4d4f; margin-bottom: 10px;">print "Hello"</div>
+                            <p style="margin: 0; font-size: 0.9em;">Python 3 requires parentheses for functions</p>
+                        </div>
+                    </div>
                     
                     <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Important:</strong> If you put numbers in quotes, Python treats them as text, not as actual numbers you can do math with.</p>
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Remember:</strong> Every print statement needs the function name, parentheses, and quotes around text!</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CHEW 1: Build Your Own Print Statements (NEW ACTIVITY) -->
-        <section id="chew1" class="tab-content light-section">
-            <h1>CHEW 1: BUILD YOUR OWN PRINT STATEMENTS <i class="fas fa-tools" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chew-section">
-                <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
-                <div id="buckle-container"></div>
-                
-                <h3>Create Valid Print Statements</h3>
-                
-                <div class="activity-goal">
-                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice building correct print statements with proper syntax</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Develop an understanding of the structure of Python print statements</li>
-                    </ul>
-                </div>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Build a Print Statement <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p>Click on the pieces in the correct order to build a valid print statement.</p>
-                    
-                    <div class="interactive-activity">
-                        <h4>Statement 1: Display "Hello, Python!"</h4>
-                        <p>Choose the correct parts to create your print statement:</p>
-                        
-                        <div class="build-sentence" id="statement1-parts">
-                            <div class="sentence-part highlight-variable" data-value="print">print</div>
-                            <div class="sentence-part highlight-operator" data-value="(">(</div>
-                            <div class="sentence-part highlight-value" data-value='"Hello, Python!"'>"Hello, Python!"</div>
-                            <div class="sentence-part highlight-operator" data-value=")">)</div>
-                            <div class="sentence-part highlight-value" data-value="Hello, Python!">Hello, Python!</div>
-                            <div class="sentence-part highlight-operator" data-value="[">[</div>
-                            <div class="sentence-part highlight-operator" data-value="]">]</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="statement1-result"></div>
-                        
-                        <div class="feedback-area" id="statement1-feedback"></div>
-                    </div>
-                    
-                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="statement2-container">
-                        <h4>Statement 2: Display a number</h4>
-                        <p>Choose the correct parts to print the number 100:</p>
-                        
-                        <div class="build-sentence" id="statement2-parts">
-                            <div class="sentence-part highlight-variable" data-value="print">print</div>
-                            <div class="sentence-part highlight-operator" data-value="(">(</div>
-                            <div class="sentence-part highlight-value" data-value="100">100</div>
-                            <div class="sentence-part highlight-value" data-value='"100"'>"100"</div>
-                            <div class="sentence-part highlight-operator" data-value=")">)</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="statement2-result"></div>
-                        
-                        <div class="feedback-area" id="statement2-feedback"></div>
-                    </div>
-                    
-                    <div class="interactive-activity" style="margin-top: 30px; display: none;" id="statement3-container">
-                        <h4>Statement 3: Use multiple arguments</h4>
-                        <p>Choose the correct parts to print "Name: Alice" using two arguments:</p>
-                        
-                        <div class="build-sentence" id="statement3-parts">
-                            <div class="sentence-part highlight-variable" data-value="print">print</div>
-                            <div class="sentence-part highlight-operator" data-value="(">(</div>
-                            <div class="sentence-part highlight-value" data-value='"Name:"'>"Name:"</div>
-                            <div class="sentence-part highlight-value" data-value='"Alice"'>"Alice"</div>
-                            <div class="sentence-part highlight-value" data-value='"Name: Alice"'>"Name: Alice"</div>
-                            <div class="sentence-part highlight-operator" data-value=",">&#44;</div>
-                            <div class="sentence-part highlight-operator" data-value="+">&#43;</div>
-                            <div class="sentence-part highlight-operator" data-value=")">)</div>
-                        </div>
-                        
-                        <p>Your statement:</p>
-                        <div class="sentence-result" id="statement3-result"></div>
-                        
-                        <div class="feedback-area" id="statement3-feedback"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHUNK 2: Print Function Features and Common Errors -->
-<section id="chunk2" class="tab-content dark-section">
-    <h1>CHUNK 2: AVOIDING COMMON ERRORS <i class="fas fa-bug" style="margin-left: 15px;"></i></h1>
-    
-    <div class="chunk-section">
-        <div class="chunk-badge">TEACHER CHUNK</div>
-        <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
-        
-        <h3>Creating New Lines and Common Errors</h3>
-        
-        <div class="interactive-card">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">1</div>
-                <h3>Creating New Lines with \n <i class="fas fa-level-down-alt" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <p>Sometimes you want to display text on multiple lines. You can use the special character <code>\n</code> to create a new line:</p>
-            
-            <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"First line\nSecond line"</span><span class="highlight-operator">)</span>
-            </div>
-            
-            <div class="output-box">First line
-Second line</div>
-            
-            <p style="margin-top: 15px;"><strong>How it works:</strong> The <code>\n</code> character is a special "escape sequence" that tells Python to start a new line.</p>
-            
-            <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Note:</strong> The backslash (\) character is used to create special characters in Python strings. That's why it's called an "escape" character.</p>
-            </div>
-        </div>
-        
-        <h3 style="margin-top: 30px;">Understanding Common Errors in Print Statements</h3>
-        
-        <div class="interactive-card">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">2</div>
-                <h3>Missing Quotation Marks <i class="fas fa-quote-right" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <div class="error-example">
-                <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Error: Missing Quotation Marks</h4>
-                
-                <div class="code-block" style="color: #ff4d4f;">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="error-indicator">Hello</span><span class="highlight-operator">)</span>
-                </div>
-                
-                <p style="margin-top: 15px;"><strong>Error Message:</strong> <code>NameError: name 'Hello' is not defined</code></p>
-                
-                <p style="margin-top: 10px;"><strong>Problem:</strong> Without quotation marks, Python thinks "Hello" is a variable name, not text.</p>
-            </div>
-            
-            <div class="fixed-example">
-                <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Fixed Version</h4>
-                
-                <div class="code-block" style="color: #52c41a;">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello"</span><span class="highlight-operator">)</span>
-                </div>
-                
-                <p style="margin-top: 10px;"><strong>Solution:</strong> Add quotation marks around text to tell Python it's a string.</p>
-            </div>
-        </div>
-        
-        <div class="interactive-card" style="margin-top: 30px;">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">3</div>
-                <h3>Missing Parentheses <i class="fas fa-brackets-curly" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <div class="error-example">
-                <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Error: Missing Parentheses</h4>
-                
-                <div class="code-block" style="color: #ff4d4f;">
-<span class="highlight-variable">print</span> <span class="error-indicator">"Hello"</span>
-                </div>
-                
-                <p style="margin-top: 15px;"><strong>Error Message:</strong> <code>SyntaxError: Missing parentheses in call to 'print'</code></p>
-                
-                <p style="margin-top: 10px;"><strong>Problem:</strong> The print function needs parentheses to work properly.</p>
-            </div>
-            
-            <div class="fixed-example">
-                <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Fixed Version</h4>
-                
-                <div class="code-block" style="color: #52c41a;">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello"</span><span class="highlight-operator">)</span>
-                </div>
-                
-                <p style="margin-top: 10px;"><strong>Solution:</strong> Always use parentheses with functions in Python.</p>
-            </div>
-        </div>
-        
-        <div class="interactive-card" style="margin-top: 30px;">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">4</div>
-                <h3>Mismatched Quotation Marks <i class="fas fa-not-equal" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <div class="error-example">
-                <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Error: Mismatched Quotation Marks</h4>
-                
-                <div class="code-block" style="color: #ff4d4f;">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="error-indicator">"Hello)</span><span class="highlight-operator">)</span>
-                </div>
-                
-                <p style="margin-top: 15px;"><strong>Error Message:</strong> <code>SyntaxError: EOL while scanning string literal</code></p>
-                
-                <p style="margin-top: 10px;"><strong>Problem:</strong> Opening quote mark doesn't have a matching closing quote mark.</p>
-            </div>
-            
-            <div class="fixed-example">
-                <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Fixed Version</h4>
-                
-                <div class="code-block" style="color: #52c41a;">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello"</span><span class="highlight-operator">)</span>
-                </div>
-                
-                <p style="margin-top: 10px;"><strong>Solution:</strong> Make sure each opening quote has a matching closing quote.</p>
-            </div>
-        </div>
-        
-        <div class="interactive-card" style="margin-top: 30px;">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <div class="element-number">5</div>
-                <h3>Spelling Errors <i class="fas fa-spell-check" style="margin-left: 10px;"></i></h3>
-            </div>
-            
-            <div class="error-example">
-                <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Error: Misspelled Function Name</h4>
-                
-                <div class="code-block" style="color: #ff4d4f;">
-<span class="error-indicator">pirnt</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello"</span><span class="highlight-operator">)</span>
-                </div>
-                
-                <p style="margin-top: 15px;"><strong>Error Message:</strong> <code>NameError: name 'pirnt' is not defined</code></p>
-                
-                <p style="margin-top: 10px;"><strong>Problem:</strong> Python doesn't recognize 'pirnt' as a function - spelling matters!</p>
-            </div>
-            
-            <div class="fixed-example">
-                <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Fixed Version</h4>
-                
-                <div class="code-block" style="color: #52c41a;">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello"</span><span class="highlight-operator">)</span>
-                </div>
-                
-                <p style="margin-top: 10px;"><strong>Solution:</strong> Double-check the spelling of function names.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-        <!-- CHEW 2: Duolingo-Style Quiz Activity (MOVED FROM CHEW 1) -->
+        <!-- CHEW 2: Interactive Coding -->
         <section id="chew2" class="tab-content light-section">
-            <h1>CHEW 2: PRACTICE WITH PRINT STATEMENTS <i class="fas fa-bug-slash" style="margin-left: 15px;"></i></h1>
+            <h1>CHEW 2: CODE LAB PRACTICE <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
-                <div id="quiz-buckle-container"></div>
                 
-                <h3>Find and Fix the Errors</h3>
+                <h3>Hands-On Print Statement Practice</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Identify common errors in print statements</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice fixing broken code</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Write and execute basic print statements</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Experiment with different types of output</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice debugging print statement errors</li>
                     </ul>
                 </div>
-                
-                <!-- Quiz container that will be populated by JavaScript -->
-                <div id="quiz-container" class="duolingo-container"></div>
+
+                <!-- Primary coding playground populated by editor.js -->
+                <div id="primary-playground-container"></div>
             </div>
         </section>
 
         <!-- CHUNK 3: Advanced Print Features -->
         <section id="chunk3" class="tab-content dark-section">
-            <h1>CHUNK 3: ADVANCED PRINT FEATURES <i class="fas fa-level-up-alt" style="margin-left: 15px;"></i></h1>
+            <h1>CHUNK 3: PRINT POWER FEATURES <i class="fas fa-magic" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">TEACHER CHUNK</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
                 
-                <h3>Printing Multiple Lines and Creating ASCII Art</h3>
+                <h3>Beyond Basic Printing</h3>
                 
-                <div class="interactive-card">
+                <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">1</div>
-                        <h3>Printing Multiple Lines <i class="fas fa-list" style="margin-left: 10px;"></i></h3>
+                        <h3>Printing Multiple Items <i class="fas fa-list-ul" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p>You can print multiple lines in a few ways:</p>
+                    <p>You can print multiple items in one statement by separating them with commas:</p>
                     
-                    <div class="two-column-grid" style="margin-top: 20px;">
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <h4><i class="fas fa-code" style="margin-right: 12px;"></i> Method 1: Multiple Print Statements</h4>
-                            
-                            <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"First line"</span><span class="highlight-operator">)</span>
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Second line"</span><span class="highlight-operator">)</span>
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Third line"</span><span class="highlight-operator">)</span>
-                            </div>
-                            
-                            <div class="output-box">First line
-Second line
-Third line</div>
-                        </div>
-                        
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <h4><i class="fas fa-code" style="margin-right: 12px;"></i> Method 2: Using \n (Newline Character)</h4>
-                            
-                            <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"First line\nSecond line\nThird line"</span><span class="highlight-operator">)</span>
-                            </div>
-                            
-                            <div class="output-box">First line
-Second line
-Third line</div>
-                            
-                            <p style="margin-top: 10px; font-style: italic;">The \n is a special character that creates a new line</p>
-                        </div>
+                    <div class="code-block">
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Name:"</span>, <span style="color: #E6DB74;">"Alice"</span>, <span style="color: #E6DB74;">"Age:"</span>, <span style="color: #AE81FF;">15</span>)
                     </div>
+                    
+                    <div class="output-box">Name: Alice Age: 15</div>
                     
                     <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Note:</strong> \n is called an "escape character" - it tells Python to do something special (in this case, create a new line).</p>
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Notice:</strong> Python automatically adds spaces between the items when you use commas.</p>
                     </div>
                 </div>
                 
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">2</div>
-                        <h3>Triple Quotes for Multi-line Strings <i class="fas fa-quote-right" style="margin-left: 10px;"></i></h3>
+                        <h3>Creating New Lines <i class="fas fa-level-down-alt" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p>For multi-line text, you can also use triple quotes:</p>
+                    <p>Use the special character <code>\n</code> to create new lines in your output:</p>
                     
-                    <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"""This is line 1
-This is line 2
-This is line 3"""</span><span class="highlight-operator">)</span>
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div>
+                            <h4 style="color: var(--accent-color);">Multiple Print Statements</h4>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"First line"</span>)
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Second line"</span>)
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: var(--accent-color);">Using \n Character</h4>
+                            <div class="code-block" style="font-size: 0.9em;">
+<span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"First line\nSecond line"</span>)
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="output-box">This is line 1
-This is line 2
-This is line 3</div>
-                    
-                    <p style="margin-top: 15px;">Triple quotes let you write multi-line strings exactly as you want them to appear, with line breaks included.</p>
+                    <div class="output-box" style="margin-top: 20px;">First line
+Second line</div>
                 </div>
                 
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">3</div>
-                        <h3>Creating ASCII Art <i class="fas fa-paint-brush" style="margin-left: 10px;"></i></h3>
+                        <h3>Print Statement Applications <i class="fas fa-rocket" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p>You can create simple artwork using text characters:</p>
-                    
-                    <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"""
-    /\\
-   /  \\
-  /    \\
- /      \\
-/________\\
-"""</span><span class="highlight-operator">)</span>
-                    </div>
-                    
-                    <div class="output-box">
-    /\
-   /  \
-  /    \
- /      \
-/________\
-</div>
-                    
-                    <p style="margin-top: 15px;">This creates a simple triangle using text characters.</p>
-                    
-                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Tip:</strong> Notice that we need to use a double backslash (\\) to display a single backslash. This is because the backslash is a special character in Python.</p>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">4</div>
-                        <h3>More ASCII Art Examples <i class="fas fa-cat" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <div class="two-column-grid">
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <h4><i class="fas fa-smile" style="margin-right: 12px;"></i> Simple Smiley Face</h4>
-                            
-                            <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"""
-  ___  
- /   \\ 
-|  O  O|
-|  \\_/ |
- \\___/ 
-"""</span><span class="highlight-operator">)</span>
+                    <div class="elements-grid" style="margin-top: 0;">
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-user-circle"></i>
                             </div>
-                            
-                            <div class="output-box">
-  ___  
- /   \ 
-|  O  O|
-|  \_/ |
- \___/ 
-</div>
+                            <div class="icon-text">
+                                <h4>User Interaction</h4>
+                                <p>Display prompts and messages to users</p>
+                            </div>
                         </div>
                         
-                        <div class="interactive-card" style="border-left: 4px solid var(--accent-color);">
-                            <h4><i class="fas fa-heart" style="margin-right: 12px;"></i> Simple Heart</h4>
-                            
-                            <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"""
- /\\  /\\ 
-(  \\/  )
- \\    / 
-  \\  /  
-   \\/   
-"""</span><span class="highlight-operator">)</span>
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-chart-line"></i>
                             </div>
-                            
-                            <div class="output-box">
- /\  /\ 
-(  \/  )
- \    / 
-  \  /  
-   \/   
-</div>
+                            <div class="icon-text">
+                                <h4>Display Results</h4>
+                                <p>Show calculations and data analysis</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>ASCII Art</h4>
+                                <p>Create simple drawings with text</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CHEW 3: Multi-line Printing and ASCII Art -->
+        <!-- CHEW 3: Creative Challenges -->
         <section id="chew3" class="tab-content light-section">
-            <h1>CHEW 3: CREATE ASCII ART <i class="fas fa-paint-brush" style="margin-left: 15px;"></i></h1>
+            <h1>CHEW 3: CREATIVE CHALLENGES <i class="fas fa-star" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
-                <div id="ascii-buckle-container"></div>
                 
-                <h3>Practice with Multi-line Printing</h3>
+                <h3>Advanced Print Applications</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create multi-line text output</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Design simple ASCII art</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create multi-line output and simple ASCII art</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Apply print functions to solve creative problems</li>
                     </ul>
                 </div>
+
+
+                <!-- Error spotting exercise populated by editor.js -->
+                <div id="spot-the-error-container" style="margin-top: 30px;"></div>
+
+                <br>
                 
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Complete the Code <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p>Fill in the missing parts to create a box:</p>
-                    
-                    <div style="margin-top: 20px;">
-                        <div class="code-block">
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"""
-+------+
-|      |
-|      |
-+------+
-"""</span><span class="highlight-operator">)</span>
-                        </div>
-                        
-                        <div style="margin-top: 20px;">
-                            <p>Now modify this code to create a larger box:</p>
-                            
-                            <textarea id="box-code" class="ascii-editor">print("""
-+----------+
-|          |
-|          |
-|          |
-|          |
-+----------+
-""")</textarea>
-                            
-                            <div style="text-align: center; margin-top: 15px;">
-                                <button class="action-btn" onclick="showAsciiOutput('box-code', 'box-output')">Run Code</button>
-                            </div>
-                            
-                            <div id="box-output" class="output-box" style="display: none;"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Create Your Own Art <i class="fas fa-palette" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p>Try to create this simple house using print:</p>
-                    
-                    <div class="output-box">
-    /\
-   /  \
-  /    \
- /      \
-/________\
-|        |
-|   __   |
-|  |  |  |
-|__|__|__|
-</div>
-                    
-                    <div style="margin-top: 20px;">
-                        <textarea id="house-code" class="ascii-editor">print("""
-    /\\
-   /  \\
-  /    \\
- /      \\
-/________\\
-|        |
-|   __   |
-|  |  |  |
-|__|__|__|
-""")</textarea>
-                        
-                        <div style="text-align: center; margin-top: 15px;">
-                            <button class="action-btn" onclick="showAsciiOutput('house-code', 'house-output')">Run Code</button>
-                        </div>
-                        
-                        <div id="house-output" class="output-box" style="display: none;"></div>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">3</div>
-                        <h3>Creative Challenge <i class="fas fa-star" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p>Create your own ASCII art! Here are some ideas:</p>
-                    
-                    <div style="display: flex; flex-wrap: wrap; gap: 15px; margin: 20px 0;">
-                        <div style="background-color: #f8f9fa; padding: 10px; border-radius: var(--border-radius); flex: 1;">Animal</div>
-                        <div style="background-color: #f8f9fa; padding: 10px; border-radius: var(--border-radius); flex: 1;">Flower</div>
-                        <div style="background-color: #f8f9fa; padding: 10px; border-radius: var(--border-radius); flex: 1;">Robot</div>
-                        <div style="background-color: #f8f9fa; padding: 10px; border-radius: var(--border-radius); flex: 1;">Spaceship</div>
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <textarea id="creative-code" class="ascii-editor">print("""
-# Create your own ASCII art here!
-# Remember to use \\ when you want to show a backslash
-""")</textarea>
-                        
-                        <div style="text-align: center; margin-top: 15px;">
-                            <button class="action-btn" onclick="showAsciiOutput('creative-code', 'creative-output')">Run Code</button>
-                        </div>
-                        
-                        <div id="creative-output" class="output-box" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Key Points <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
-                
-                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
-                    <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> What We've Learned Today</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> The print() function displays text and numbers</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Text needs to be in quotation marks</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Common errors include missing quotes, parentheses, and spelling mistakes</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> You can print multiple lines using \n or triple quotes</li>
-                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> ASCII art is a fun way to create pictures with text characters</li>
-                    </ul>
-                </div>
+                <!-- Extension coding environment populated by editor.js -->
+                <div id="secondary-playground-container"></div>
             </div>
         </section>
     </main>
 
-    <!-- Include the modular JS files -->
     <script>
+        // Shuffle function for randomising arrays
+        function shuffle(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Page Configuration - All page-specific content lives here
+        const pageConfig = {
+            pageIdentifier: "python-print-function",
+            topic: {
+                title: "Python Print Function",
+                sidebarTitle: "PYTHON PRINT FUNCTION"
+            },
+            primaryPlayground: {
+                title: "Code Lab 1: Basic Print Statements",
+                subtitle: "Learn the fundamentals of displaying output in Python",
+                icon: "fa-flask",
+                initialCode: `print("Hello, World!")`,
+                buttonText: "Run Code",
+                terminalReady: "Click 'Run Code' to execute your first Python program...",
+                storageKey: "printBasicsExperiments",
+                parentTabId: "chew2"
+            },
+            secondaryPlayground: {
+                title: "Code Lab 2: Creative Output",
+                subtitle: "Create multi-line text and simple ASCII art",
+                icon: "fa-palette",
+                initialCode: `print("Welcome to Python!")
+print("Name:", "Student")
+print("Course: Programming")`,
+                buttonText: "Run Code",
+                terminalReady: "Click 'Run Code' to see your creative output...",
+                storageKey: "printCreativeExperiments",
+                parentTabId: "chew3"
+            },
+            experiments: {
+                primary: {
+                    title: "Code Lab 1: Basic Print Statements",
+                    icon: "fa-flask",
+                    experiments: [
+                        {
+                            id: "exp1",
+                            title: "Run Hello World",
+                            taskExplanation: "Execute your first Python program to see how the print function displays text.",
+                            detailedInstructions: [
+                                "Look at the code: <code>print(\"Hello, World!\")</code>",
+                                "Click 'Run Code' to execute the program",
+                                "Observe how the text appears in the output terminal"
+                            ],
+                            pattern: /print\s*\(\s*["'].*["']\s*\)/
+                        },
+                        {
+                            id: "exp2",
+                            title: "Change the Message",
+                            taskExplanation: "Modify the text inside the quotation marks to display your own message.",
+                            detailedInstructions: [
+                                "Change <code>\"Hello, World!\"</code> to your own message",
+                                "Keep the quotation marks around your text",
+                                "Try something like <code>\"Welcome to Python!\"</code>"
+                            ],
+                            pattern: /print\s*\(\s*["'](?!Hello, World!).*["']\s*\)/
+                        },
+                        {
+                            id: "exp3",
+                            title: "Print a Number",
+                            taskExplanation: "Display a number without quotation marks to see how Python handles numeric values.",
+                            detailedInstructions: [
+                                "Try <code>print(42)</code> or <code>print(2025)</code>",
+                                "Notice that numbers don't need quotation marks",
+                                "Compare with <code>print(\"42\")</code> - both look the same when printed"
+                            ],
+                            pattern: /print\s*\(\s*\d+\s*\)/
+                        },
+                        {
+                            id: "exp4",
+                            title: "Print Multiple Items",
+                            taskExplanation: "Use commas to print several items in one statement, seeing how Python separates them.",
+                            detailedInstructions: [
+                                "Try <code>print(\"Name:\", \"Alice\", \"Age:\", 16)</code>",
+                                "Notice how Python adds spaces between items automatically",
+                                "Experiment with different combinations of text and numbers"
+                            ],
+                            pattern: /print\s*\(\s*(?:"[^"]*"|'[^']*'|\w+|\d+)\s*,\s*(?:"[^"]*"|'[^']*'|\w+|\d+)/
+                        },
+                        {
+                            id: "exp5",
+                            title: "Create Multiple Lines",
+                            taskExplanation: "Use the \\n character to create line breaks within a single print statement.",
+                            detailedInstructions: [
+                                "Try <code>print(\"Line 1\\nLine 2\\nLine 3\")</code>",
+                                "The <code>\\n</code> creates a new line",
+                                "Compare with multiple separate print statements"
+                            ],
+                            pattern: /print\s*\(\s*["'].*\\n.*["']\s*\)/
+                        },
+                        {
+                            id: "exp6",
+                            title: "Fix Common Errors",
+                            taskExplanation: "Practice identifying and correcting typical print statement mistakes.",
+                            detailedInstructions: [
+                                "Try typing <code>print Hello</code> (missing quotes and parentheses)",
+                                "See the error message, then fix it to <code>print(\"Hello\")</code>",
+                                "Try other broken examples like <code>Print(\"test\")</code> (capital P)"
+                            ],
+                            pattern: /print\s*\(\s*["'].*["']\s*\).*\n.*print\s*\(\s*["'].*["']\s*\)/
+                        }
+                    ]
+                },
+                secondary: {
+                    title: "Code Lab 2: Creative Output",
+                    icon: "fa-palette",
+                    experiments: [
+                        {
+                            id: "art-exp1",
+                            title: "Run the Welcome Program",
+                            taskExplanation: "Execute the multi-line welcome program to see formatted output in action.",
+                            detailedInstructions: [
+                                "Run the existing code to see how multiple print statements create formatted output",
+                                "Notice how each print statement creates a new line",
+                                "Observe the combination of text and variable-like content"
+                            ],
+                            pattern: /print.*\n.*print.*\n.*print/
+                        },
+                        {
+                            id: "art-exp2",
+                            title: "Create a Personal Card",
+                            taskExplanation: "Modify the program to display your own information in a formatted card layout.",
+                            detailedInstructions: [
+                                "Change the name and course to your own details",
+                                "Add more information like <code>print(\"Favourite Subject:\", \"Computing\")</code>",
+                                "Experiment with different formatting"
+                            ],
+                            pattern: /print.*Name.*\n.*print.*Course.*\n.*print.*Favourite/
+                        },
+                        {
+                            id: "art-exp3",
+                            title: "Simple ASCII Border",
+                            taskExplanation: "Create a decorative border using text characters to frame your output.",
+                            detailedInstructions: [
+                                "Add <code>print(\"=\"*30)</code> at the start for a border",
+                                "Add the same line at the end",
+                                "The <code>*</code> repeats the character multiple times"
+                            ],
+                            pattern: /print\s*\(\s*["'][=\-*+#]{1,3}["']\s*\*\s*\d+\s*\)/
+                        },
+                        {
+                            id: "art-exp4",
+                            title: "Create Simple Art",
+                            taskExplanation: "Design basic ASCII art using print statements and special characters.",
+                            detailedInstructions: [
+                                "Try creating a simple smiley: <code>print(\":-)\")</code>",
+                                "Or a heart: <code>print(\"<3\")</code>",
+                                "Use <code>\\n</code> to create multi-line art"
+                            ],
+                            pattern: /print\s*\(\s*["'](?=.*[:\-\(\)<>3\\/|_^@#*+=~])(?!.*Welcome)(?!.*Name)(?!.*Course).*["']\s*\)/
+                        },
+                        {
+                            id: "art-exp5",
+                            title: "Formatted Information Display",
+                            taskExplanation: "Combine multiple techniques to create a well-formatted information display.",
+                            detailedInstructions: [
+                                "Create a bordered information card",
+                                "Include multiple print statements with consistent formatting",
+                                "Use both single items and comma-separated multiple items"
+                            ],
+                            pattern: /print.*[=\-*+#].*\n.*print.*Name.*\n.*print.*Age.*\n.*print.*[=\-*+#]/
+                        }
+                    ]
+                }
+            },
+            quiz: {
+                questions: [
+                    {
+                        type: "true-false",
+                        question: "The print function is used to display output on the screen.",
+                        correctAnswer: "true",
+                        feedbackCorrect: "Correct! The print function displays text, numbers, and other information on the screen.",
+                        feedbackIncorrect: "Incorrect. The print function's main purpose is to display output so you can see what your program is doing."
+                    },
+                    {
+                        type: "true-false",
+                        question: "In Python, text must be enclosed in quotation marks when using print.",
+                        correctAnswer: "true",
+                        feedbackCorrect: "Correct! Text (strings) must be enclosed in quotation marks so Python knows it's text, not a variable name.",
+                        feedbackIncorrect: "Incorrect. Without quotation marks, Python treats the text as variable names rather than text to display."
+                    },
+                    {
+                        type: "true-false",
+                        question: "Numbers require quotation marks when using the print function.",
+                        correctAnswer: "false",
+                        feedbackCorrect: "Correct! Numbers can be printed directly without quotes. For example: print(42)",
+                        feedbackIncorrect: "Incorrect. Numbers don't need quotes. print(42) and print(\"42\") look the same but are treated differently by Python."
+                    },
+                    {
+                        type: "true-false",
+                        question: "The code print Hello will display 'Hello' on the screen.",
+                        correctAnswer: "false",
+                        feedbackCorrect: "Correct! This code is missing parentheses and quotes, so it will cause an error.",
+                        feedbackIncorrect: "Incorrect. This code needs parentheses and quotes: print(\"Hello\")"
+                    }
+                ]
+            },
+            statementBuilding: {
+                challenge: "Create a print statement to display 'Welcome to Python!'",
+                instruction: "Click the code parts in the correct order to build the print statement:",
+                parts: shuffle(["print", "(", "\"", "Welcome to Python!", "\"", ")"]),
+                correctSequence: ["print", "(", "\"", "Welcome to Python!", "\"", ")"],
+                correctAnswer: "print(\"Welcome to Python!\")"
+            },
+            spotTheErrorQuiz: {
+                title: "Spot the Print Error!",
+                instruction: "Examine the Python code below and identify the syntax error.",
+                code: `print("Hello, World!"
+print("Welcome to Python!")`,
+                question: "What is the primary syntax error in the code snippet above?",
+                options: [
+                    { value: "A", text: "Missing closing parenthesis <code>)</code> on the first line" },
+                    { value: "B", text: "Incorrect quotation marks around the text" },
+                    { value: "C", text: "Missing <code>print</code> keyword on the second line" },
+                    { value: "D", text: "No syntax error in this code" }
+                ],
+                correctAnswer: "A",
+                explanation: "Correct! The first line is missing the closing parenthesis. It should be: print(\"Hello, World!\")",
+                buckles: 1
+            },
+            syntaxBreakdown: {
+                code: `<span class="syntax-part" data-part="print" style="color: #66D9EF;">print</span><span class="syntax-part" data-part="parentheses" style="color: #F8F8F2;">(</span><span class="syntax-part" data-part="quotes" style="color: #E6DB74;">"</span><span class="syntax-part" data-part="content" style="color: #E6DB74;">Hello, World!</span><span class="syntax-part" data-part="quotes" style="color: #E6DB74;">"</span><span class="syntax-part" data-part="parentheses" style="color: #F8F8F2;">)</span>`,
+                explanations: {
+                    'print': { title: 'The print Function', text: 'This is the name of Python\'s built-in function for displaying output. It tells Python what action to perform.' },
+                    'parentheses': { title: 'Parentheses ()', text: 'Functions in Python require parentheses to work. Everything inside the parentheses is given to the function as input.' },
+                    'quotes': { title: 'Quotation Marks', text: 'These tell Python that what\'s inside is text (a string). Without quotes, Python thinks it\'s a variable name.' },
+                    'content': { title: 'The Message', text: 'This is the actual text that will be displayed on the screen when the program runs.' }
+                }
+            },
+            tours: {
+                "exp1": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🚀 Your First Python Program", text: `<p>Let's run your first Python program!</p><p>The code <code>print("Hello, World!")</code> is already in the editor.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "▶️ Click Run Code", text: `<p>Click the 'Run Code' button to execute your first Python program.</p><p>Watch the output area to see what happens!</p>`, attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Got It!", action: "complete" }] }
+                    ]
+                },
+                "exp2": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "✏️ Change the Message", text: `<p>Now let's personalise the message!</p><p>Change <code>"Hello, World!"</code> to your own text, like <code>"Welcome to Python!"</code></p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🔄 Test Your Changes", text: "<p>After editing the message, click 'Run Code' to see your personalised output!</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "exp3": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🔢 Print a Number", text: `<p>Numbers don't need quotation marks in Python.</p><p>Try typing <code>print(42)</code> or <code>print(2025)</code></p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🧪 Run and Observe", text: "<p>Run your code and notice how the number appears. Numbers and text in quotes look the same when printed!</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
+                    ]
+                },
+                "exp4": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "📝 Multiple Items", text: `<p>You can print several things at once using commas.</p><p>Try: <code>print("Name:", "Alice", "Age:", 16)</code></p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "👀 Notice the Spacing", text: "<p>Run the code and observe how Python automatically adds spaces between items separated by commas.</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "exp5": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "📄 Multiple Lines", text: `<p>Use <code>\\n</code> to create new lines within one print statement.</p><p>Try: <code>print("Line 1\\nLine 2\\nLine 3")</code></p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🔍 See the Line Breaks", text: "<p>Run the code and see how <code>\\n</code> creates line breaks in your output.</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
+                    ]
+                },
+                "exp6": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🐛 Practice Debugging", text: `<p>Let's practice fixing errors!</p><p>Try typing broken code like <code>print Hello</code> and see the error message.</p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🔧 Fix the Error", text: "<p>After seeing the error, fix it to <code>print(\"Hello\")</code> and run again to see it work!</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "art-exp1": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🎨 Creative Output", text: `<p>This code lab focuses on creating formatted and creative output.</p><p>Let's start by running the welcome program.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "▶️ Run Welcome Program", text: "<p>Click 'Run Code' to see how multiple print statements create nicely formatted output.</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
+                    ]
+                },
+                "art-exp2": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "👤 Personalise Your Card", text: `<p>Make this program show your own information!</p><p>Change the name, course, and add your own details.</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🎯 Run Your Version", text: "<p>After personalising the information, run your code to see your custom information card!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "art-exp3": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🖼️ Add Borders", text: `<p>Create decorative borders using repeated characters.</p><p>Try adding <code>print("="*30)</code> at the start and end of your program.</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🎨 See the Border", text: "<p>Run your code to see how the repeated equals signs create a border around your information!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
+                    ]
+                },
+                "art-exp4": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "😊 ASCII Art", text: `<p>Create simple art using text characters!</p><p>Try making a smiley face: <code>print(":-)")</code> or a heart: <code>print("<3")</code></p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🎭 Display Your Art", text: "<p>Run your creative code and see your ASCII art appear!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "art-exp5": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🏆 Master Challenge", text: `<p>Combine everything you've learned!</p><p>Create a bordered information card with multiple lines, different types of data, and maybe some ASCII art.</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🌟 Showcase Your Skills", text: "<p>Run your masterpiece and admire your well-formatted, creative Python output!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Amazing!", action: "complete" }] }
+                    ]
+                }
+            }
+        };
+
+        // Initialize the educational system
         document.addEventListener('DOMContentLoaded', function() {
-    // Create buckle counters for each section
-    BucklesSystem.createBuckleCounter('buckle-container', 'absolute');
-    BucklesSystem.createBuckleCounter('quiz-buckle-container', 'absolute');
-    BucklesSystem.createBuckleCounter('ascii-buckle-container', 'absolute');
-            
-    // Tab navigation
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            
-            // Deactivate all buttons and hide all contents
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            // Activate the selected button and show the corresponding content
-            this.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+            if (typeof EducationalEditor !== 'undefined') {
+                EducationalEditor.initialize(pageConfig);
+            } else {
+                console.error('editor.js not loaded - Educational system cannot initialize');
+            }
         });
-    });
-    
-    // Initialize Chew 1 Print Statement Builder
-    initPrintStatementBuilder('intro');
-    
-    // Updated quiz questions that only cover content taught until CHUNK 2
-const quizQuestions = [
-    {
-        type: "true-false",
-        question: "In Python, the print function requires parentheses.",
-        correctAnswer: "true",
-        feedbackCorrect: "Correct! In Python 3, the print function always requires parentheses.",
-        feedbackIncorrect: "Incorrect. In Python 3, print is a function and requires parentheses around its arguments."
-    },
-    {
-        type: "true-false",
-        question: "Text must be enclosed in quotation marks when using the print function.",
-        correctAnswer: "true",
-        feedbackCorrect: "Correct! Text (strings) must be enclosed in quotation marks in Python.",
-        feedbackIncorrect: "Incorrect. Without quotation marks, Python treats text as variable names, not as text to be printed."
-    },
-    {
-        type: "true-false",
-        question: "The code <code>print(Hello)</code> will print the word Hello.",
-        correctAnswer: "false",
-        feedbackCorrect: "Correct! Without quotes, Python treats Hello as a variable name, not a string.",
-        feedbackIncorrect: "Incorrect. To print text directly, it must be enclosed in quotes. Without quotes, Python looks for a variable called Hello."
-    },
-    {
-        type: "true-false",
-        question: "An error will occur if you try to print a number without quotation marks.",
-        correctAnswer: "false",
-        feedbackCorrect: "Correct! Numbers can be printed directly without quotation marks. For example, print(42) is valid.",
-        feedbackIncorrect: "Incorrect. Numbers can be printed directly without quotation marks. For example, print(42) is valid."
-    },
-    {
-        type: "true-false",
-        question: "The error message <code>SyntaxError: EOL while scanning string literal</code> typically means you have mismatched quotation marks.",
-        correctAnswer: "true",
-        feedbackCorrect: "Correct! This error usually occurs when you have an opening quote but no closing quote.",
-        feedbackIncorrect: "Incorrect. This error usually occurs when you have an opening quote but no closing quote."
-    },
-    {
-        type: "true-false",
-        question: "In Python, <code>Print(\"Hello\")</code> and <code>print(\"Hello\")</code> will both work correctly.",
-        correctAnswer: "false",
-        feedbackCorrect: "Correct! Python is case-sensitive, so print() is correct, but Print() would cause an error.",
-        feedbackIncorrect: "Incorrect. Python is case-sensitive, so print() is correct, but Print() would cause an error."
-    },
-    {
-        type: "true-false",
-        question: "The \\n character in a string creates a new line when printed.",
-        correctAnswer: "true",
-        feedbackCorrect: "Correct! \\n is a special escape character that represents a new line in Python strings.",
-        feedbackIncorrect: "Incorrect. \\n is a special escape character that represents a new line in Python strings."
-    },
-    {
-        type: "true-false",
-        question: "The code <code>print(\"First line\\nSecond line\")</code> will output text on two separate lines.",
-        correctAnswer: "true",
-        feedbackCorrect: "Correct! The \\n creates a line break, so the output will be on two lines.",
-        feedbackIncorrect: "Incorrect. The \\n character creates a line break, splitting the output into two lines."
-    },
-    {
-        type: "true-false",
-        question: "When printing numbers, <code>print(5)</code> and <code>print(\"5\")</code> produce exactly the same output.",
-        correctAnswer: "true",
-        feedbackCorrect: "Correct! While one is a number and one is a string, they look identical when printed.",
-        feedbackIncorrect: "Incorrect. Although one is a number and one is a string, they appear identical when displayed with print()."
-    },
-    {
-        type: "true-false",
-        question: "To include a quotation mark in a string, you can use <code>print(\"She said, \\\"Hello\\\"\")</code>",
-        correctAnswer: "true",
-        feedbackCorrect: "Correct! The backslash (\\) helps you include quotation marks within a string.",
-        feedbackIncorrect: "Incorrect. Using a backslash (\\) before a quotation mark lets you include quotes within a string."
-    }
-];
-    
-    initializeQuiz(quizQuestions, 'intro');
-    
-    // Ensure ASCII art functions are properly attached
-    window.showAsciiOutput = showAsciiOutput;
-});
     </script>
 </body>
 </html>
