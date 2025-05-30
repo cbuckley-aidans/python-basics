@@ -7,10 +7,22 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Include the unified buckles system -->
+    
+    <!-- External Dependencies -->
     <script src="buckles.js"></script>
-    <!-- Include the quiz.js file -->
     <script src="quiz.js"></script>
+    <script src="https://skulpt.org/js/skulpt.min.js"></script>
+    <script src="https://skulpt.org/js/skulpt-stdlib.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.0.1/dist/js/shepherd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.0.1/dist/css/shepherd.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Modular Editor System -->
+    <script src="editor.js"></script>
+    
     <!-- Favicon Icons -->
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -21,6 +33,9 @@
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
 </head>
 <body>
+    <!-- Experiment Panels (populated by editor.js) -->
+    <div id="experiments-container"></div>
+
     <!-- Sidebar Navigation -->
     <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
         <div class="sidebar-logo">PYTHON RANDOM NUMBERS</div>
@@ -57,6 +72,10 @@
                 <i class="fas fa-utensils"></i>
                 CHEW 3
             </button>
+            <button class="tab-button" data-tab="recap">
+                <i class="fas fa-bookmark"></i>
+                RECAP
+            </button>
         </div>
     </aside>
 
@@ -90,6 +109,97 @@
                     <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Import the random module correctly in your programs</li>
                     <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Generate random integers using the randint() function</li>
                 </ul>
+            </div>
+        </section>
+
+        <!-- RECAP: Summary -->
+        <section id="recap" class="tab-content dark-section">
+            <h1>RECAP: RANDOM NUMBERS SUMMARY <i class="fas fa-bookmark" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">REVIEW SECTION</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
+                
+                <h3>Quick Reference Guide</h3>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Random Numbers Are Everywhere! <i class="fas fa-dice" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="elements-grid" style="margin-top: 0;">
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-gamepad" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Games</h4>
+                                <p>Dice rolls, card shuffles, enemy AI</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-lock" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Security</h4>
+                                <p>Password generation, encryption</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-chart-line" style="color: var(--accent-color);"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Simulations</h4>
+                                <p>Modelling real-world events</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Essential Random Module Syntax <i class="fas fa-code" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                        <div>
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Import the Module</h4>
+                            <div class="code-block" style="font-size: 0.9em; margin-bottom: 15px;">
+<span style="color: #F92672;">import</span> <span style="color: #A6E22E;">random</span>
+                            </div>
+                            
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Basic Random Integer</h4>
+                            <div class="code-block" style="font-size: 0.9em;">
+num = <span style="color: #A6E22E;">random</span>.<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">10</span>)
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">With Conditionals</h4>
+                            <div class="code-block" style="font-size: 0.9em; margin-bottom: 15px;">
+<span style="color: #F92672;">if</span> num <= <span style="color: #AE81FF;">5</span>:
+    <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Small number"</span>)
+                            </div>
+                            
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Coin Flip Example</h4>
+                            <div class="code-block" style="font-size: 0.9em;">
+flip = <span style="color: #A6E22E;">random</span>.<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">1</span>)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(0, 38, 84, 0.1), rgba(52, 152, 219, 0.1)); border-radius: var(--border-radius); padding: 30px; margin-top: 30px; text-align: center; border: 2px solid var(--accent-color);">
+                    <div style="font-size: 3em; margin-bottom: 15px;">🎲</div>
+                    <h4 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.3em;">You've Mastered Python Random Numbers!</h4>
+                    <p style="margin-bottom: 0; font-size: 1.1em; color: var(--text-color);">You can now generate random numbers and create unpredictable programs and games.</p>
+                </div>
             </div>
         </section>
 
@@ -416,10 +526,8 @@ import random as <span style="color: #A6E22E; background-color: rgba(166, 226, 4
                         <div class="build-sentence" id="statement1-parts">
                             <div class="sentence-part highlight-variable" data-value="generate">generate</div>
                             <div class="sentence-part highlight-keyword" data-value="include">include</div>
-
                             <div class="sentence-part highlight-keyword" data-value="import">import</div>
                             <div class="sentence-part highlight-variable" data-value="math">math</div>
-
                             <div class="sentence-part highlight-variable" data-value="random">random</div>
                             <div class="sentence-part highlight-keyword" data-value="from">from</div>
                         </div>
@@ -433,7 +541,6 @@ import random as <span style="color: #A6E22E; background-color: rgba(166, 226, 4
                 
                 <!-- Quiz container that will be populated by JavaScript -->
                 <div id="quiz-container" class="duolingo-container"></div>
-                
             </div>
         </section>
 
@@ -669,20 +776,40 @@ my_number = <span style="color: #A6E22E;">random</span>.<span style="color: #66D
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
                 
-                <h3>Try It Yourself</h3>
+                <h3>Interactive Coding Experience</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using the randint() function with different parameters</li>
                         <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Understand how to use random numbers in your programs</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Experiment with random numbers in a real Python environment</li>
                     </ul>
                 </div>
                 
-                <!-- Common Coding Mistakes -->
+                <!-- Brief concept recap -->
                 <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <h3>Quick Recap <i class="fas fa-refresh" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(0, 38, 84, 0.05); border-radius: var(--border-radius); padding: 20px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-color); margin-top: 0;">Key Concepts So Far:</h4>
+                        <ul style="margin-bottom: 0;">
+                            <li>Random numbers are useful for games, simulations, and unpredictable programs</li>
+                            <li>Use <code>import random</code> to access random functions</li>
+                            <li>The <code>randint(start, end)</code> function generates random integers in a range (inclusive)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Primary coding playground populated by editor.js -->
+                <div id="primary-playground-container"></div>
+                
+                <!-- Common Coding Mistakes -->
+                <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <h3>Common Coding Mistakes <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
                     </div>
@@ -742,7 +869,6 @@ randint(1, 6)
                             <div class="sentence-part highlight-variable" data-value="random">random</div>
                             <div class="sentence-part highlight-variable" data-value="randint">randint</div>
                             <div class="sentence-part highlight-value" data-value="5">5</div>
-
                             <div class="sentence-part highlight-operator" data-value="=">= </div>
                             <div class="sentence-part highlight-keyword" data-value="import">import</div>
                             <div class="sentence-part highlight-variable" data-value="random">random</div>
@@ -798,8 +924,7 @@ number = <span style="color: #A6E22E;">random</span>.<span style="color: #66D9EF
                     <div id="randint-range-feedback" class="feedback-message"></div>
                     
                     <div class="buckle-animation" id="quiz-buckle-animation" style="display: none;">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                             alt="Buckle" id="quiz-buckle-img">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" alt="Buckle" id="quiz-buckle-img">
                         <div class="shine"></div>
                     </div>
                 </div>
@@ -834,9 +959,9 @@ number = <span style="color: #A6E22E;">random</span>.<span style="color: #66D9EF
 <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"The random number is:"</span>, number)
 
 <span style="color: #75715E;"># Make decisions based on the random number</span>
-<span style="color: #F92672;">if</span> number <= <span style="color: #AE81FF;">3</span>:
+<span style="color: #F92672;">if</span> number &lt;= <span style="color: #AE81FF;">3</span>:
     <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"That's a low number!"</span>)
-<span style="color: #F92672;">elif</span> number <= <span style="color: #AE81FF;">7</span>:
+<span style="color: #F92672;">elif</span> number &lt;= <span style="color: #AE81FF;">7</span>:
     <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"That's a medium number!"</span>)
 <span style="color: #F92672;">else</span>:
     <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"That's a high number!"</span>)
@@ -1054,14 +1179,17 @@ The coin shows: Tails
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Build a Scissors, Paper, Rock game using random numbers</li>
                         <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Apply what you've learned about random numbers and conditionals</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create interactive programs that respond to user input</li>
                     </ul>
                 </div>
                 
-                <div class="interactive-card">
+                <!-- Secondary coding playground populated by editor.js -->
+                <div id="secondary-playground-container"></div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">1</div>
                         <h3>Game Overview <i class="fas fa-gamepad" style="margin-left: 10px;"></i></h3>
-                        
                     </div>
                     
                     <p style="font-size: 1.2em; margin-bottom: 20px;">In this project, you'll make a Scissors, Paper, Rock game where you play against the computer.</p>
@@ -1071,8 +1199,8 @@ The coin shows: Tails
                         <p>You and the computer both choose rock, paper, or scissors. The winner is decided by these rules:</p>
                         <ul>
                             <li>Rock blunts scissors</li>
-                            <li>Paper covers rock</li>
-                            <li>Scissors cut paper</li>
+                            <li>Paper covers rock
+                            <li>Scissors cut paper
                         </ul>
                     </div>
                 </div>
@@ -1086,12 +1214,12 @@ The coin shows: Tails
                     <div class="code-step-container">
                         <div class="code-step-header">
                             <span>Building the Game</span>
-                            <span id="rps-step-indicator">Step 1 of 5</span>
+                            <span id="rps-step-indicator">Step 5 of 5</span>
                         </div>
                         
                         <div class="code-step-content">
                             <!-- Step 1: Import Random Module -->
-                            <div id="rps-step-1" class="variable-update-step active">
+                            <div id="rps-step-1" class="variable-update-step">
                                 <div style="display: flex; align-items: center; margin: 20px 0;">
                                     <div style="background-color: var(--chew-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">1</div>
                                     <div>
@@ -1238,7 +1366,7 @@ random_number = <span style="color: #66D9EF;">randint</span>(<span style="color:
                             </div>
                             
                             <!-- Step 5: Determine the Winner -->
-                            <div id="rps-step-5" class="variable-update-step">
+                            <div id="rps-step-5" class="variable-update-step active">
                                 <div style="display: flex; align-items: center; margin: 20px 0;">
                                     <div style="background-color: var(--chew-color); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-weight: bold; font-size: 1.5em;">5</div>
                                     <div>
@@ -1304,10 +1432,10 @@ random_number = <span style="color: #66D9EF;">randint</span>(<span style="color:
                         </div>
                         
                         <div class="step-navigation">
-                            <button id="prev-rps-btn" class="step-btn" onclick="prevRpsStep()" disabled>
+                            <button id="prev-rps-btn" class="step-btn" onclick="prevRpsStep()">
                                 <i class="fas fa-chevron-left"></i> Previous
                             </button>
-                            <button id="next-rps-btn" class="step-btn" onclick="nextRpsStep()">
+                            <button id="next-rps-btn" class="step-btn" onclick="nextRpsStep()" disabled>
                                 Next <i class="fas fa-chevron-right"></i>
                             </button>
                         </div>
@@ -1359,8 +1487,7 @@ random_number = <span style="color: #66D9EF;">randint</span>(<span style="color:
                     </div>
                     
                     <div class="buckle-animation" id="rps-game-buckle-animation" style="display: none;">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" 
-                             alt="Buckle" id="rps-game-buckle-img">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E" alt="Buckle" id="rps-game-buckle-img">
                         <div class="shine"></div>
                     </div>
                 </div>
@@ -1378,7 +1505,7 @@ random_number = <span style="color: #66D9EF;">randint</span>(<span style="color:
 num = <span style="color: #A6E22E;">random</span>.<span style="color: #66D9EF;">randint</span>(<span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">10</span>)  <span style="color: #75715E;"># Random number between 1 and 10 (inclusive)</span>
 
 <span style="color: #75715E;"># Using with conditionals</span>
-<span style="color: #F92672;">if</span> num <= <span style="color: #AE81FF;">5</span>:
+<span style="color: #F92672;">if</span> num &lt;= <span style="color: #AE81FF;">5</span>:
     <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Small number"</span>)
 <span style="color: #F92672;">else</span>:
     <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">"Big number"</span>)
@@ -1398,8 +1525,289 @@ num = <span style="color: #A6E22E;">random</span>.<span style="color: #66D9EF;">
     </main>
 
     <script>
-        // Navigation
+        // Shuffle function for randomising arrays
+        function shuffle(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Page Configuration - All page-specific content lives here
+        const pageConfig = {
+            pageIdentifier: "python-random-numbers",
+            topic: {
+                title: "Python Random Numbers",
+                sidebarTitle: "PYTHON RANDOM NUMBERS"
+            },
+            primaryPlayground: {
+                title: "Code Lab 1: Random Basics",
+                subtitle: "Master importing random and using randint() function",
+                icon: "fa-flask",
+                initialCode: `import random\n\n# Generate a random number between 1 and 10\nnumber = random.randint(1, 10)\nprint("Random number:", number)`,
+                buttonText: "Run Code",
+                terminalReady: "Click 'Run Code' to generate a random number...",
+                storageKey: "primaryRandomExperiments",
+                parentTabId: "chew2"
+            },
+            secondaryPlayground: {
+                title: "Code Lab 2: Rock Paper Scissors",
+                subtitle: "Build a complete game using random numbers and conditionals",
+                icon: "fa-flask",
+                initialCode: `from random import randint\n\n# Player's turn\nplayer = input('Choose scissors (s), paper (p) or rock (r):')\nprint(f'You chose: {player}')\n\n# Computer's turn\nrandom_number = randint(1, 3)\n\n# Delete the '#' symbol to see the number that's generated\n#print(random_number)\n\nif random_number == 1:\n    computer = 's'\nelif random_number == 2:\n    computer = 'p'\nelse:\n    computer = 'r'\n\nprint(f'The computer chose: {computer}')\n\n# Check the result\nif player == computer:\n    print('DRAW!')\nelif player == 'r' and computer == 's':\n    print('Player wins!')\nelif player == 'r' and computer == 'p':\n    print('Computer wins!')\nelif player == 'p' and computer == 'r':\n    print('Player wins!')\nelif player == 'p' and computer == 's':\n    print('Computer wins!')\nelif player == 's' and computer == 'p':\n    print('Player wins!')\nelif player == 's' and computer == 'r':\n    print('Computer wins!')`,
+                buttonText: "Run Code",
+                terminalReady: "Click 'Run Code' to play Rock Paper Scissors!",
+                storageKey: "secondaryRandomExperiments",
+                parentTabId: "chew3"
+            },
+            experiments: {
+                primary: {
+                    title: "Code Lab 1: Random Basics",
+                    icon: "fa-flask",
+                    experiments: [
+                        {
+                            id: "exp1",
+                            title: "Run Random Number Generator",
+                            taskExplanation: "Execute the basic random number code to see how randint() generates different numbers each time.",
+                            detailedInstructions: [
+                                "Run the code multiple times to see different random numbers.",
+                                "Observe how <code>random.randint(1, 10)</code> can generate any number from 1 to 10.",
+                                "Notice that the numbers are truly unpredictable."
+                            ],
+                            pattern: /import\s+random[\s\S]*random\.randint\s*\(\s*1\s*,\s*10\s*\)/
+                        },
+                        {
+                            id: "exp2",
+                            title: "Change the Range",
+                            taskExplanation: "Modify the range parameters to generate numbers in different ranges.",
+                            detailedInstructions: [
+                                "Change <code>randint(1, 10)</code> to <code>randint(1, 6)</code> for dice simulation.",
+                                "Try <code>randint(50, 100)</code> for larger numbers.",
+                                "Experiment with <code>randint(0, 1)</code> for coin flip (0 or 1)."
+                            ],
+                            pattern: /random\.randint\s*\(\s*(?!1\s*,\s*10)\d+\s*,\s*\d+\s*\)/
+                        },
+                        {
+                            id: "exp3",
+                            title: "Use Multiple Random Numbers",
+                            taskExplanation: "Generate multiple random numbers in the same program to see variety.",
+                            detailedInstructions: [
+                                "Add more lines to generate additional random numbers.",
+                                "For example: <code>dice1 = random.randint(1, 6)</code> and <code>dice2 = random.randint(1, 6)</code>.",
+                                "Print both numbers to simulate rolling two dice."
+                            ],
+                            pattern: /random\.randint[\s\S]*random\.randint/
+                        },
+                        {
+                            id: "exp4",
+                            title: "Add Conditional Logic",
+                            taskExplanation: "Use if statements to make decisions based on the random number.",
+                            detailedInstructions: [
+                                "Add an if statement to check if the number is high or low.",
+                                "For example: <code>if number <= 5: print(\"Low number\")</code>.",
+                                "Add an <code>else:</code> clause for numbers greater than 5."
+                            ],
+                            pattern: /if\s+\w+.*?:/
+                        },
+                        {
+                            id: "exp5",
+                            title: "Import with Alias",
+                            taskExplanation: "Try importing the random module with an alias to make code shorter.",
+                            detailedInstructions: [
+                                "Change <code>import random</code> to <code>import random as rnd</code>.",
+                                "Update the code to use <code>rnd.randint()</code> instead of <code>random.randint()</code>.",
+                                "See how aliases can make your code more concise."
+                            ],
+                            pattern: /import\s+random\s+as\s+\w+/
+                        }
+                    ]
+                },
+                secondary: {
+                    title: "Code Lab 2: Rock Paper Scissors",
+                    icon: "fa-flask",
+                    experiments: [
+                        {
+                            id: "rps-exp1",
+                            title: "Play the Basic Game",
+                            taskExplanation: "Run the complete Rock Paper Scissors game to see how random numbers create unpredictable gameplay.",
+                            detailedInstructions: [
+                                "Click 'Run Code' and enter 'r', 'p', or 's' when prompted.",
+                                "Notice how the computer makes a random choice each time.",
+                                "Play multiple rounds by running the code again."
+                            ],
+                            pattern: /from\s+random\s+import\s+randint[\s\S]*if\s+player\s*==\s*computer/
+                        },
+                        {
+                            id: "rps-exp2",
+                            title: "Show the Random Number",
+                            taskExplanation: "Uncomment the debug line to see the computer's random number before conversion.",
+                            detailedInstructions: [
+                                "Find the line <code># print(random_number)</code>.",
+                                "Remove the <code>#</code> to uncomment it: <code>print(random_number)</code>.",
+                                "Run the game to see both the number (1, 2, or 3) and the choice (s, p, or r)."
+                            ],
+                            pattern: /print\s*\(\s*random_number\s*\)/
+                        },
+                        {
+                            id: "rps-exp3",
+                            title: "Add Score Tracking",
+                            taskExplanation: "Enhance the game by keeping track of wins and losses.",
+                            detailedInstructions: [
+                                "Add variables at the top: <code>player_wins = 0</code> and <code>computer_wins = 0</code>.",
+                                "Increment these variables when someone wins.",
+                                "Print the current score after each round."
+                            ],
+                            pattern: /player_wins|computer_wins/
+                        },
+                        {
+                            id: "rps-exp4",
+                            title: "Improve User Interface",
+                            taskExplanation: "Make the game more user-friendly with better messages and formatting.",
+                            detailedInstructions: [
+                                "Add a welcome message at the start.",
+                                "Include emojis in the output: ✂️ for scissors, 📄 for paper, 🪨 for rock.",
+                                "Make the win/lose messages more exciting."
+                            ],
+                            pattern: /welcome|emoji|✂️|📄|🪨/
+                        },
+                        {
+                            id: "rps-exp5",
+                            title: "Create a Loop Version",
+                            taskExplanation: "Modify the game to play multiple rounds in a single run using a while loop.",
+                            detailedInstructions: [
+                                "Wrap the game logic in a <code>while True:</code> loop.",
+                                "Add an option to quit the game.",
+                                "Ask the player if they want to play again after each round."
+                            ],
+                            pattern: /while\s+(True|true|\w+.*:)[\s\S]*break/
+                        }
+                    ]
+                }
+            },
+            quiz: {
+                questions: [
+                    {
+                        type: "true-false",
+                        question: "The random module is built into Python and doesn't need to be installed.",
+                        correctAnswer: "true",
+                        feedbackCorrect: "Correct! The random module comes with Python, so you just need to import it.",
+                        feedbackIncorrect: "Incorrect. The random module is included with Python by default - you don't need to install it separately."
+                    },
+                    {
+                        type: "true-false",
+                        question: "To use functions from the random module, you need to import it first.",
+                        correctAnswer: "true",
+                        feedbackCorrect: "Correct! You always need to import the random module before using its functions.",
+                        feedbackIncorrect: "Incorrect. You must import the random module with 'import random' before you can use any of its functions."
+                    },
+                    {
+                        type: "true-false",
+                        question: "Using 'import random as rnd' means you can't use the name 'random' anymore.",
+                        correctAnswer: "true",
+                        feedbackCorrect: "Correct! When you use an alias, you must use that alias (like 'rnd') instead of the original name.",
+                        feedbackIncorrect: "Incorrect. When you use an alias like 'import random as rnd', you need to use the alias (rnd) to access the module's functions."
+                    }
+                ]
+            },
+            statementBuilding: {
+                challenge: "Create a basic import statement for the random module",
+                instruction: "Click the code parts in the correct order to import the random module:",
+                parts: shuffle(["import", "random"]),
+                correctSequence: ["import", "random"],
+                correctAnswer: "import random"
+            },
+            tours: {
+                "exp1": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🎲 Generate Random Numbers", text: `<p>Let's run the basic random number generator to see how it works.</p><p>Each time you run this, you'll get a different number!</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "▶️ Click Run Code", text: `<p>Click the 'Run Code' button to generate a random number.</p><p>Try running it multiple times to see different results!</p>`, attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Got It!", action: "complete" }] }
+                    ]
+                },
+                "exp2": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🎯 Change the Range", text: `<p>Let's modify the range to generate different numbers.</p><p>Try changing <code>randint(1, 10)</code> to <code>randint(1, 6)</code> for a dice roll!</p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "✏️ Edit the Numbers", text: `<p>Change the range parameters in the <code>randint()</code> function.</p><p>For example: <code>random.randint(1, 6)</code> for dice or <code>random.randint(0, 1)</code> for coin flip.</p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "I Changed It", action: "next" }] },
+                        { title: "🚀 Test Your Changes", text: "<p>Run the code to see your new range in action!</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "exp3": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🎲🎲 Multiple Random Numbers", text: `<p>Let's generate multiple random numbers in one program.</p><p>This is useful for simulating rolling two dice or multiple coin flips.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "✏️ Add More randint() Calls", text: `<p>Add more lines with <code>random.randint()</code> calls.</p><p>For example:</p><div class='tour-code-block'>dice1 = random.randint(1, 6)<br>dice2 = random.randint(1, 6)<br>print("Dice 1:", dice1)<br>print("Dice 2:", dice2)</div>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Added More!", action: "next" }] },
+                        { title: "🎯 See the Variety", text: "<p>Run the code to see multiple random numbers generated at once!</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Done!", action: "complete" }] }
+                    ]
+                },
+                "exp4": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🤔 Add Decision Making", text: `<p>Let's use if statements to make decisions based on random numbers.</p><p>This is how games create different outcomes!</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "✏️ Add If Statement", text: `<p>Add conditional logic to your code:</p><div class='tour-code-block'>if number <= 5:<br>    print("Low number")<br>else:<br>    print("High number")</div>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Added Logic!", action: "next" }] },
+                        { title: "🎮 See the Decisions", text: "<p>Run the code multiple times to see how the program makes different decisions based on random numbers!</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "exp5": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🏷️ Use an Alias", text: `<p>Let's import random with a shorter name (alias) to make our code more concise.</p><p>This is useful when you use a module frequently.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "✏️ Change Import Statement", text: `<p>Change your import to use an alias:</p><div class='tour-code-block'>import random as rnd</div><p>Then update your code to use <code>rnd.randint()</code> instead of <code>random.randint()</code>.</p>`, attachTo: { element: ".coding-playground .code-panel", on: "right" }, buttons: [{ text: "Updated!", action: "next" }] },
+                        { title: "🚀 Test the Alias", text: "<p>Run the code to see that aliases work exactly the same as the full module name!</p>", attachTo: { element: "#run-primary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "rps-exp1": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🎮 Play Rock Paper Scissors", text: `<p>Let's play the complete Rock Paper Scissors game!</p><p>The computer will make random choices to compete against you.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🚀 Start the Game", text: `<p>Click 'Run Code' and enter 'r' for rock, 'p' for paper, or 's' for scissors when prompted.</p>`, attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Let's Play!", action: "complete" }] }
+                    ]
+                },
+                "rps-exp2": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🔍 Debug Mode", text: `<p>Let's see the computer's random number before it gets converted to a choice.</p><p>This helps us understand how the random generation works.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "✏️ Uncomment Debug Line", text: `<p>Find the line <code># print(random_number)</code> and remove the <code>#</code> to make it <code>print(random_number)</code>.</p><p>This will show you the raw random number (1, 2, or 3).</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Uncommented!", action: "next" }] },
+                        { title: "🎲 See the Numbers", text: "<p>Run the game to see both the random number and the computer's choice!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "rps-exp3": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "📊 Track Scores", text: `<p>Let's enhance the game by keeping track of wins and losses.</p><p>This makes the game more competitive and interesting!</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "✏️ Add Score Variables", text: `<p>Add score tracking variables at the top:</p><div class='tour-code-block'>player_wins = 0<br>computer_wins = 0</div><p>Then increment them when someone wins and print the current score.</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Added Scores!", action: "next" }] },
+                        { title: "🏆 See the Competition", text: "<p>Run the game to see the score tracking in action!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "rps-exp4": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "✨ Improve the Interface", text: `<p>Let's make the game more visually appealing and user-friendly.</p><p>Good user interface makes games more enjoyable!</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "🎨 Add Visual Elements", text: `<p>Enhance your game with:</p><ul><li>Welcome messages</li><li>Emojis: ✂️ 📄 🪨</li><li>Exciting win/lose messages</li><li>Better formatting</li></ul>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Enhanced!", action: "next" }] },
+                        { title: "🌟 Experience the Upgrade", text: "<p>Run the game to see how much better it looks and feels!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                },
+                "rps-exp5": {
+                    useModalOverlay: false,
+                    steps: [
+                        { title: "🔄 Multi-Round Game", text: `<p>Let's create a version that plays multiple rounds without restarting the program.</p><p>This is more like real games that continue until you choose to quit.</p>`, buttons: [{ text: "Next", action: "next" }] },
+                        { title: "✏️ Add Game Loop", text: `<p>Wrap your game in a loop:</p><div class='tour-code-block'>while True:<br>    # game logic here<br>    play_again = input("Play again? (y/n): ")<br>    if play_again.lower() != 'y':<br>        break</div>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Added Loop!", action: "next" }] },
+                        { title: "🎮 Endless Fun", text: "<p>Run the game to play multiple rounds in a row!</p>", attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                }
+            }
+        };
+
+        // Initialize the educational system
         document.addEventListener('DOMContentLoaded', function() {
+            if (typeof EducationalEditor !== 'undefined') {
+                EducationalEditor.initialize(pageConfig);
+            } else {
+                console.error('editor.js not loaded - Educational system cannot initialize');
+            }
+
             // Tab switching
             document.querySelectorAll('.tab-button').forEach(button => {
                 button.addEventListener('click', function() {
@@ -2015,5 +2423,5 @@ num = <span style="color: #A6E22E;">random</span>.<span style="color: #66D9EF;">
             }
         }
     </script>
-    </body>
-    </html>
+</body>
+</html>
