@@ -624,8 +624,8 @@
                 PRACTICE 1
             </button>
             <button class="tab-button" data-tab="chunk2">
-                <i class="fas fa-keyboard"></i>
-                INPUT & TYPES
+                <i class="fas fa-database"></i>
+                DATA TYPES
             </button>
             <button class="tab-button" data-tab="practice2">
                 <i class="fas fa-dumbbell"></i>
@@ -656,7 +656,7 @@
                 
                 <ul>
                     <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand what variables are and how to create them in Python</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn how to use and change variable values in programs</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Learn about different data types and how to use them</li>
                 </ul>
             </div>
             
@@ -669,7 +669,7 @@
                 <p>By the end of this lesson, you should be able to:</p>
                 
                 <ul>
-                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create and name variables with appropriate values</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Create variables with different data types (strings, integers, floats, booleans)</li>
                     <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Write programs that use variables to store and manipulate data</li>
                 </ul>
             </div>
@@ -732,7 +732,7 @@
                     
                     <div style="text-align: center; margin-bottom: 20px;">
                         <h4 style="color: var(--accent-color); margin-bottom: 15px;">Common Data Types:</h4>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0;">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
                             <div style="background: rgba(0, 38, 84, 0.1); padding: 15px; border-radius: var(--border-radius); text-align: center;">
                                 <div class="code-block" style="font-size: 0.8em; margin-bottom: 10px;">name = "Alex"</div>
                                 <p style="margin: 0; font-size: 0.9em;">String (text)</p>
@@ -744,6 +744,10 @@
                             <div style="background: rgba(0, 38, 84, 0.1); padding: 15px; border-radius: var(--border-radius); text-align: center;">
                                 <div class="code-block" style="font-size: 0.8em; margin-bottom: 10px;">height = 1.65</div>
                                 <p style="margin: 0; font-size: 0.9em;">Float (decimal number)</p>
+                            </div>
+                            <div style="background: rgba(0, 38, 84, 0.1); padding: 15px; border-radius: var(--border-radius); text-align: center;">
+                                <div class="code-block" style="font-size: 0.8em; margin-bottom: 10px;">is_student = True</div>
+                                <p style="margin: 0; font-size: 0.9em;">Boolean (True/False)</p>
                             </div>
                         </div>
                     </div>
@@ -764,10 +768,10 @@
 <span style="color: #50FA7B;">is_winner</span> <span style="color: #F92672;">=</span> <span style="color: #AE81FF;">True</span>
                             </div>
                             
-                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Using input()</h4>
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Boolean Operations</h4>
                             <div class="code-block" style="font-size: 0.9em;">
-<span style="color: #50FA7B;">age</span> <span style="color: #F92672;">=</span> <span style="color: #66D9EF;">input</span>(<span style="color: #E6DB74;">"Enter age: "</span>)
-<span style="color: #50FA7B;">age_num</span> <span style="color: #F92672;">=</span> <span style="color: #66D9EF;">int</span>(<span style="color: #50FA7B;">age</span>)
+<span style="color: #50FA7B;">has_passed</span> <span style="color: #F92672;">=</span> <span style="color: #50FA7B;">score</span> <span style="color: #F92672;">>=</span> <span style="color: #AE81FF;">50</span>
+<span style="color: #50FA7B;">is_adult</span> <span style="color: #F92672;">=</span> <span style="color: #50FA7B;">age</span> <span style="color: #F92672;">>=</span> <span style="color: #AE81FF;">18</span>
                             </div>
                         </div>
                         
@@ -778,10 +782,10 @@
 <span style="color: #66D9EF;">print</span>(<span style="color: #E6DB74;">f"Score: {score}"</span>)
                             </div>
                             
-                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Updating Variables</h4>
+                            <h4 style="color: var(--accent-color); margin-bottom: 15px;">Type Checking</h4>
                             <div class="code-block" style="font-size: 0.9em;">
-<span style="color: #50FA7B;">score</span> <span style="color: #F92672;">=</span> <span style="color: #50FA7B;">score</span> <span style="color: #F92672;">+</span> <span style="color: #AE81FF;">10</span>
-<span style="color: #50FA7B;">lives</span> <span style="color: #F92672;">=</span> <span style="color: #50FA7B;">lives</span> <span style="color: #F92672;">-</span> <span style="color: #AE81FF;">1</span>
+<span style="color: #66D9EF;">print</span>(<span style="color: #66D9EF;">type</span>(<span style="color: #50FA7B;">age</span>))
+<span style="color: #66D9EF;">print</span>(<span style="color: #66D9EF;">type</span>(<span style="color: #50FA7B;">name</span>))
                             </div>
                         </div>
                     </div>
@@ -790,7 +794,7 @@
                 <div style="background: linear-gradient(135deg, rgba(0, 38, 84, 0.1), rgba(52, 152, 219, 0.1)); border-radius: var(--border-radius); padding: 30px; margin-top: 30px; text-align: center; border: 2px solid var(--accent-color);">
                     <div style="font-size: 3em; margin-bottom: 15px;">🎓</div>
                     <h4 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.3em;">You've Mastered Python Variables!</h4>
-                    <p style="margin-bottom: 0; font-size: 1.1em; color: var(--text-color);">You can now store, modify, and use data effectively in your programs.</p>
+                    <p style="margin-bottom: 0; font-size: 1.1em; color: var(--text-color);">You can now store, modify, and use different types of data effectively in your programs.</p>
                 </div>
             </div>
         </section>
@@ -917,7 +921,7 @@
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice creating and assigning variables</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practise creating and assigning variables</li>
                         <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Understand different data types</li>
                         <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Experiment with variable names and values</li>
                     </ul>
@@ -932,67 +936,53 @@
             </div>
         </section>
 
-        <!-- CHUNK 2: Input & Data Types -->
+        <!-- CHUNK 2: Data Types -->
         <section id="chunk2" class="tab-content dark-section">
-            <h1>INPUT & DATA TYPES <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+            <h1>DATA TYPES <i class="fas fa-database" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">TEACHER CHUNK</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 10 mins</div>
                 
-                <h3>Getting Input & Using Variables</h3>
+                <h3>Understanding Python Data Types</h3>
                 
-                <p>So far, we've created variables with values we already know. But often, we want our programs to get information from the user. This is where the <code>input()</code> function comes in!</p>
+                <p>Not all data is the same! Python has different data types to handle different kinds of information. Understanding these types helps you choose the right way to store and work with your data.</p>
                 
                 <div class="interactive-card">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
                         <div class="element-number">1</div>
-                        <h3>Using input() <i class="fas fa-keyboard" style="margin-left: 10px;"></i></h3>
+                        <h3>The Four Main Data Types <i class="fas fa-list" style="margin-left: 10px;"></i></h3>
                     </div>
                     
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">The <code>input()</code> function pauses your program and waits for the user to type something:</p>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Ask the user for their name</span>
-<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-variable">input</span><span class="highlight-operator">(</span><span class="highlight-value">"What is your name? "</span><span class="highlight-operator">)</span>
-
-<span class="code-comment"># Use the entered name in a greeting</span>
-<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">"Hello, "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">name</span> <span class="highlight-operator">+</span> <span class="highlight-value">"!"</span><span class="highlight-operator">)</span>
-                    </div>
-                    
-                    <div style="display: flex; flex-direction: column; margin-top: 25px; background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius);">
-                        <p style="margin: 0 0 15px 0;"><i class="fas fa-terminal" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Program Output (if user types "Jamie"):</strong></p>
-                        <div class="result-display">
-                            What is your name? Jamie<br>
-                            Hello, Jamie!
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Strings vs Numbers <i class="fas fa-exchange-alt" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">It's important to understand the difference between text (strings) and numbers (integers):</p>
-                    
-                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
                         <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05);">
                             <div style="display: flex; align-items: center; margin-bottom: 15px;">
                                 <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
                                     <i class="fas fa-font"></i>
                                 </div>
-                                <h4 style="margin: 0;">STRINGS</h4>
+                                <h4 style="margin: 0;">STRING (str)</h4>
                             </div>
-                            <ul style="text-align: left; padding-left: 20px;">
-                                <li>Text values in quotes: <code>"hello"</code>, <code>'42'</code></li>
-                                <li>Can be joined using <code>+</code></li>
-                                <li>The <code>input()</code> function always returns strings</li>
-                            </ul>
-                            <div class="code-block" style="text-align: left; margin-top: 15px;">
-<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">"15"</span>  <span class="code-comment"># String!</span>
+                            <p style="margin-bottom: 15px;">Text values in quotes</p>
+                            <div class="code-block" style="text-align: left; margin-bottom: 15px;">
+<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
+<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">'Hello World'</span>
                             </div>
+                            <p style="margin: 0; font-size: 0.9em; color: #666;">Use for: names, messages, any text</p>
+                        </div>
+                        
+                        <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
+                                    <i class="fas fa-hashtag"></i>
+                                </div>
+                                <h4 style="margin: 0;">INTEGER (int)</h4>
+                            </div>
+                            <p style="margin-bottom: 15px;">Whole numbers (no decimals)</p>
+                            <div class="code-block" style="text-align: left; margin-bottom: 15px;">
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">15</span>
+<span class="highlight-variable">score</span> <span class="highlight-operator">=</span> <span class="highlight-value">-42</span>
+                            </div>
+                            <p style="margin: 0; font-size: 0.9em; color: #666;">Use for: counting, IDs, whole amounts</p>
                         </div>
                         
                         <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05);">
@@ -1000,71 +990,107 @@
                                 <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
                                     <i class="fas fa-calculator"></i>
                                 </div>
-                                <h4 style="margin: 0;">INTEGERS</h4>
+                                <h4 style="margin: 0;">FLOAT (float)</h4>
                             </div>
-                            <ul style="text-align: left; padding-left: 20px;">
-                                <li>Numeric values without quotes: <code>42</code>, <code>-7</code></li>
-                                <li>Can be used in calculations</li>
-                                <li>Convert strings using <code>int()</code></li>
-                            </ul>
-                            <div class="code-block" style="text-align: left; margin-top: 15px;">
-<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">15</span>  <span class="code-comment"># Integer!</span>
+                            <p style="margin-bottom: 15px;">Decimal numbers</p>
+                            <div class="code-block" style="text-align: left; margin-bottom: 15px;">
+<span class="highlight-variable">height</span> <span class="highlight-operator">=</span> <span class="highlight-value">1.75</span>
+<span class="highlight-variable">price</span> <span class="highlight-operator">=</span> <span class="highlight-value">9.99</span>
                             </div>
+                            <p style="margin: 0; font-size: 0.9em; color: #666;">Use for: measurements, money, percentages</p>
+                        </div>
+                        
+                        <div class="interactive-card" style="background-color: rgba(0, 38, 84, 0.05);">
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <div style="width: 50px; height: 50px; background-color: var(--accent-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
+                                    <i class="fas fa-toggle-on"></i>
+                                </div>
+                                <h4 style="margin: 0;">BOOLEAN (bool)</h4>
+                            </div>
+                            <p style="margin-bottom: 15px;">True or False values</p>
+                            <div class="code-block" style="text-align: left; margin-bottom: 15px;">
+<span class="highlight-variable">is_student</span> <span class="highlight-operator">=</span> <span class="highlight-value">True</span>
+<span class="highlight-variable">has_passed</span> <span class="highlight-operator">=</span> <span class="highlight-value">False</span>
+                            </div>
+                            <p style="margin: 0; font-size: 0.9em; color: #666;">Use for: yes/no, on/off, conditions</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="interactive-card" style="margin-top: 30px;">
                     <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">3</div>
-                        <h3>Using F-Strings <i class="fas fa-quote-right" style="margin-left: 10px;"></i></h3>
+                        <div class="element-number">2</div>
+                        <h3>Working with Different Types <i class="fas fa-tools" style="margin-left: 10px;"></i></h3>
                     </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Python provides a modern way to combine text and variables called <strong>f-strings</strong>:</p>
                     
                     <div class="two-column-grid" style="margin: 0; gap: 20px;">
                         <div class="interactive-card">
-                            <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Old Way</h4>
+                            <h4><i class="fas fa-plus" style="color: #52c41a; margin-right: 10px;"></i> String Operations</h4>
                             <div class="code-block" style="text-align: left;">
-<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
-<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">12</span>
-<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Hi "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">name</span> <span class="highlight-operator">+</span> <span class="highlight-value">"!"</span>
+<span class="highlight-variable">first_name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
+<span class="highlight-variable">last_name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Smith"</span>
+<span class="highlight-variable">full_name</span> <span class="highlight-operator">=</span> <span class="highlight-variable">first_name</span> <span class="highlight-operator">+</span> <span class="highlight-value">" "</span> <span class="highlight-operator">+</span> <span class="highlight-variable">last_name</span>
+<span class="code-comment"># Result: "Alex Smith"</span>
                             </div>
                         </div>
                         
                         <div class="interactive-card">
-                            <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> New Way (F-Strings)</h4>
+                            <h4><i class="fas fa-calculator" style="color: #52c41a; margin-right: 10px;"></i> Number Operations</h4>
                             <div class="code-block" style="text-align: left;">
-<span class="highlight-variable">name</span> <span class="highlight-operator">=</span> <span class="highlight-value">"Alex"</span>
-<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">12</span>
-<span class="highlight-variable">message</span> <span class="highlight-operator">=</span> <span class="highlight-value">f"Hi {name}! Age: {age}"</span>
+<span class="highlight-variable">score</span> <span class="highlight-operator">=</span> <span class="highlight-value">85</span>
+<span class="highlight-variable">bonus</span> <span class="highlight-operator">=</span> <span class="highlight-value">15</span>
+<span class="highlight-variable">total</span> <span class="highlight-operator">=</span> <span class="highlight-variable">score</span> <span class="highlight-operator">+</span> <span class="highlight-variable">bonus</span>
+<span class="code-comment"># Result: 100</span>
                             </div>
                         </div>
                     </div>
                     
                     <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
-                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> F-strings start with <code>f</code> and use <code>{}</code> curly braces to include variables.</p>
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> 
+                        <strong>Important:</strong> You can't mix incompatible types! For example, <code>"Hello" + 5</code> will cause an error.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Boolean Logic <i class="fas fa-brain" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Booleans are often created by comparing values:</p>
+                    
+                    <div class="code-block">
+<span class="highlight-variable">age</span> <span class="highlight-operator">=</span> <span class="highlight-value">16</span>
+<span class="highlight-variable">score</span> <span class="highlight-operator">=</span> <span class="highlight-value">85</span>
+
+<span class="highlight-variable">is_teenager</span> <span class="highlight-operator">=</span> <span class="highlight-variable">age</span> <span class="highlight-operator">>=</span> <span class="highlight-value">13</span> <span class="highlight-operator">and</span> <span class="highlight-variable">age</span> <span class="highlight-operator"><=</span> <span class="highlight-value">19</span>  <span class="code-comment"># True</span>
+<span class="highlight-variable">has_passed</span> <span class="highlight-operator">=</span> <span class="highlight-variable">score</span> <span class="highlight-operator">>=</span> <span class="highlight-value">50</span>                  <span class="code-comment"># True</span>
+<span class="highlight-variable">is_adult</span> <span class="highlight-operator">=</span> <span class="highlight-variable">age</span> <span class="highlight-operator">>=</span> <span class="highlight-value">18</span>                     <span class="code-comment"># False</span>
+
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">f"Is teenager: {is_teenager}"</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">f"Has passed: {has_passed}"</span><span class="highlight-operator">)</span>
+<span class="highlight-variable">print</span><span class="highlight-operator">(</span><span class="highlight-value">f"Is adult: {is_adult}"</span><span class="highlight-operator">)</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PRACTICE 2: Interactive Coding -->
+        <!-- PRACTICE 2: Data Types Practice -->
         <section id="practice2" class="tab-content light-section">
-            <h1>PRACTICE 2: ADVANCED PRACTICE <i class="fas fa-dumbbell" style="margin-left: 15px;"></i></h1>
+            <h1>PRACTICE 2: DATA TYPES PRACTICE <i class="fas fa-dumbbell" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
                 
-                <h3>Input, Conversion & F-Strings</h3>
+                <h3>Working with Different Data Types</h3>
                 
                 <div class="activity-goal">
                     <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice using input() to get user data</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Convert between strings and numbers</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create formatted output with f-strings</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practise creating variables with different data types</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Combine strings and perform calculations</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Create boolean variables through comparisons</li>
                     </ul>
                 </div>
 
@@ -1110,23 +1136,25 @@
                         
                         <div class="pseudocode-block">
                             <div class="pseudocode-line"><span class="pseudocode-keyword">BEGIN</span> Student Profile</div>
-                            <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"=== Student Profile ==="</span></div>
+                            <div class="pseudocode-line"><span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"=== Student Profile ==="</span></div>
                             <div class="pseudocode-line"></div>
                             <div class="pseudocode-line">    <span class="pseudocode-comment">// Set up student information</span></div>
-                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">first_name</span> = <span class="pseudocode-string">"Alex"</span></div>
-                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">last_name</span> = <span class="pseudocode-string">"Johnson"</span></div>
-                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">age</span> = 15</div>
-                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">favorite_subject</span> = <span class="pseudocode-string">"Computer Science"</span></div>
-                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">year_born</span> = 2009</div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">first_name</span> TO <span class="pseudocode-string">"Alex"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">last_name</span> TO <span class="pseudocode-string">"Johnson"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">age</span> TO 15</div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">favorite_subject</span> TO <span class="pseudocode-string">"Computer Science"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">year_born</span> TO 2009</div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">is_honors_student</span> TO <span class="pseudocode-keyword">True</span></div>
                             <div class="pseudocode-line"></div>
                             <div class="pseudocode-line">    <span class="pseudocode-comment">// Calculate next year's age</span></div>
-                            <div class="pseudocode-line">    <span class="pseudocode-keyword">CALCULATE</span> <span class="pseudocode-variable">next_year_age</span> = <span class="pseudocode-variable">age</span> + 1</div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">CALCULATE</span> <span class="pseudocode-variable">next_year_age</span> <span class="pseudocode-keyword">by adding</span> 1 <span class="pseudocode-keyword">to</span> <span class="pseudocode-variable">age</span></div>
                             <div class="pseudocode-line"></div>
                             <div class="pseudocode-line">    <span class="pseudocode-comment">// Display the profile</span></div>
                             <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Name: "</span> + <span class="pseudocode-variable">first_name</span> + <span class="pseudocode-string">" "</span> + <span class="pseudocode-variable">last_name</span></div>
                             <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Age: "</span> + <span class="pseudocode-variable">age</span></div>
                             <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Favorite Subject: "</span> + <span class="pseudocode-variable">favorite_subject</span></div>
                             <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Year Born: "</span> + <span class="pseudocode-variable">year_born</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Honors Student: "</span> + <span class="pseudocode-variable">is_honors_student</span></div>
                             <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Next year I will be "</span> + <span class="pseudocode-variable">next_year_age</span> + <span class="pseudocode-string">" years old"</span></div>
                             <div class="pseudocode-line"><span class="pseudocode-keyword">END</span> Student Profile</div>
                         </div>
@@ -1150,7 +1178,7 @@
                             <div class="flowchart-arrow">↓</div>
                             <div class="flowchart-step process">Display "=== Student Profile ==="</div>
                             <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-step process">Set student variables:<br/>first_name, last_name, age, favorite_subject, year_born</div>
+                            <div class="flowchart-step process">Set student variables:<br/>first_name, last_name, age, favourite_subject, is_student</div>
                             <div class="flowchart-arrow">↓</div>
                             <div class="flowchart-step process">Calculate: next_year_age = age + 1</div>
                             <div class="flowchart-arrow">↓</div>
@@ -1230,7 +1258,7 @@
                 title: "Code Lab 1",
                 subtitle: "Practice creating and using variables in Python",
                 icon: "fa-flask",
-                initialCode: `# Create variables with different data types\nname = "Alex"\nage = 15\nscore = 100.5\n\n# Display the variables\nprint(f"Name: {name}")\nprint(f"Age: {age}")\nprint(f"Score: {score}")`,
+                initialCode: `# Create variables with different data types\nname = "Alex"\nage = 15\nscore = 100.5\nis_student = True\n\n# Display the variables\nprint(f"Name: {name}")\nprint(f"Age: {age}")\nprint(f"Score: {score}")\nprint(f"Is Student: {is_student}")`,
                 buttonText: "Run Code",
                 terminalReady: "Click 'Run Code' to execute your program...",
                 storageKey: "primaryExperimentsVariables",
@@ -1240,9 +1268,9 @@
             // Secondary coding playground configuration
             secondaryPlayground: {
                 title: "Code Lab 2",
-                subtitle: "Advanced variable operations with input and calculations",
+                subtitle: "Advanced variable operations with different data types",
                 icon: "fa-flask",
-                initialCode: `# Get user input\nname = input("What's your name? ")\nage_str = input("What's your age? ")\n\n# Convert age to integer\nage = int(age_str)\n\n# Calculate next year's age\nnext_age = age + 1\n\n# Display results\nprint(f"Hi {name}!")\nprint(f"Next year you'll be {next_age}")`,
+                initialCode: `# Create variables of different types\nstudent_name = "Jamie"\ntest_score = 87\nheight_metres = 1.72\nis_passing = True\n\n# Display the variables\nprint(f"Student: {student_name}")\nprint(f"Score: {test_score}")\nprint(f"Height: {height_metres} metres")\nprint(f"Passing: {is_passing}")`,
                 buttonText: "Run Code",
                 terminalReady: "Click 'Run Code' to execute your program...",
                 storageKey: "secondaryExperimentsVariables",
@@ -1252,7 +1280,7 @@
             // Problem playground configuration
             problemPlayground: {
                 title: "Problem Solver",
-                subtitle: "Create a student profile using variables and basic calculations",
+                subtitle: "Create a student profile using variables with different data types",
                 icon: "fa-tools",
                 initialCode: `# Student Profile - Complete this code based on the pseudocode/flowchart\nprint("=== Student Profile ===")`,
                 buttonText: "Run Code",
@@ -1273,7 +1301,7 @@
                             taskExplanation: "Execute the basic variable creation code to see how different data types are stored and displayed.",
                             detailedInstructions: [
                                 "Examine the different variable assignments in the code.",
-                                "Notice how strings, integers, and floats are written differently.",
+                                "Notice how strings, integers, floats, and booleans are written differently.",
                                 "Click 'Run Code' to see how variables are displayed."
                             ],
                             pattern: /name\s*=\s*["'][^"']*["']/
@@ -1285,7 +1313,8 @@
                             detailedInstructions: [
                                 "Change the string value assigned to the name variable.",
                                 "Modify the number assigned to the age variable.",
-                                "Update the decimal value assigned to the score variable."
+                                "Update the decimal value assigned to the score variable.",
+                                "Try changing the boolean value from True to False."
                             ],
                             pattern: /name\s*=\s*["'](?!Alex["'])[^"']+["']/
                         },
@@ -1295,10 +1324,10 @@
                             taskExplanation: "Create additional variables with different data types and display them.",
                             detailedInstructions: [
                                 "Add a new string variable for location information.",
-                                "Create a boolean variable for a true/false value.",
+                                "Create another boolean variable for a different true/false value.",
                                 "Include these new variables in your print statements."
                             ],
-                            pattern: /(city|town|suburb|is_|has_|can_)\s*=\s*/
+                            pattern: /(city|town|suburb|location|favorite|hobby)\s*=\s*/
                         },
                         {
                             id: "exp4",
@@ -1324,14 +1353,14 @@
                         },
                         {
                             id: "exp6",
-                            title: "Update Variable Values",
-                            taskExplanation: "Demonstrate how variables can be updated by assigning new values to existing variables.",
+                            title: "Boolean Comparisons",
+                            taskExplanation: "Create boolean variables using comparison operations.",
                             detailedInstructions: [
-                                "Update existing variables by assigning new values to them.",
-                                "Show the variables before and after the updates.",
-                                "Display the changes to see how variable values can change."
+                                "Create a boolean variable by comparing age to a number.",
+                                "Make another boolean by comparing score to a passing grade.",
+                                "Display these comparison results."
                             ],
-                            pattern: /\w+\s*=\s*\w+\s*[\+\-]\s*\d+/
+                            pattern: /\w+\s*=\s*\w+\s*[<>=!]+\s*\d+/
                         }
                     ]
                 },
@@ -1340,59 +1369,59 @@
                     icon: "fa-tasks",
                     experiments: [
                         {
-                            id: "input-exp1",
-                            title: "Run Input Program",
-                            taskExplanation: "Execute the input and conversion program to see how user input is processed.",
+                            id: "type-exp1",
+                            title: "Run Basic Program",
+                            taskExplanation: "Execute the basic data types program to see how different types are displayed.",
                             detailedInstructions: [
-                                "Run the code and provide input when prompted.",
-                                "Enter information when the program asks for it.",
-                                "Observe how the program processes and displays the input."
+                                "Run the code to see different data types in action.",
+                                "Observe how each variable type is displayed.",
+                                "Notice the differences between strings, numbers, and booleans."
                             ],
-                            pattern: /input\s*\(/
+                            pattern: /print\s*\(/
                         },
                         {
-                            id: "input-exp2",
-                            title: "Add More Input",
-                            taskExplanation: "Extend the program to ask for additional information from the user.",
+                            id: "type-exp2",
+                            title: "Add More Variables",
+                            taskExplanation: "Create variables with different values and data types.",
                             detailedInstructions: [
-                                "Add another input statement to ask for more information.",
-                                "Include the new input in your output messages.",
-                                "Try asking for different types of information and converting if needed."
+                                "Add a float variable with a decimal number.",
+                                "Create another boolean variable using True or False.",
+                                "Display these new variables with appropriate labels."
                             ],
-                            pattern: /input\s*\(\s*["'][^"']*(?:city|town|number|score)[^"']*["']\s*\)/
+                            pattern: /(temperature|weight|price|distance)\s*=\s*\d+\.\d+/
                         },
                         {
-                            id: "input-exp3",
-                            title: "Multiple Calculations",
-                            taskExplanation: "Perform various calculations using the input values and display the results.",
+                            id: "type-exp3",
+                            title: "Boolean Experiments",
+                            taskExplanation: "Create boolean variables using different comparison operations.",
                             detailedInstructions: [
-                                "Calculate values based on the age input.",
-                                "Create multiple calculations using the same variable.",
-                                "Display all calculations with clear labels."
+                                "Create booleans by comparing numbers.",
+                                "Try using >, <, >=, <= operators.",
+                                "Display the boolean results with clear labels."
                             ],
-                            pattern: /\w+\s*=\s*age\s*[\+\-]\s*\d+/
+                            pattern: /\w+\s*=\s*\w+\s*[<>=!]+\s*\d+/
                         },
                         {
-                            id: "input-exp4",
-                            title: "Input Validation",
-                            taskExplanation: "Experiment with what happens when different types of input are entered.",
+                            id: "type-exp4",
+                            title: "String Operations",
+                            taskExplanation: "Experiment with combining strings together.",
                             detailedInstructions: [
-                                "Try entering unexpected values to see what happens.",
-                                "See what happens with different types of input.",
-                                "Add comments explaining what you observe."
+                                "Create new strings by combining existing ones.",
+                                "Use + operator to join strings together.",
+                                "Display your combined strings with labels."
                             ],
-                            pattern: /#.*input.*error|#.*validation|#.*try/
+                            pattern: /\w+\s*=\s*\w+\s*\+\s*["']/
                         },
                         {
-                            id: "input-exp5",
-                            title: "Enhanced F-Strings",
-                            taskExplanation: "Create more complex f-string expressions that include calculations and multiple variables.",
+                            id: "type-exp5",
+                            title: "Number Calculations",
+                            taskExplanation: "Perform calculations with integer and float variables.",
                             detailedInstructions: [
-                                "Combine multiple variables in single f-strings.",
-                                "Include calculations directly in f-string expressions.",
-                                "Try formatting different types of values."
+                                "Create calculations using your number variables.",
+                                "Try addition, subtraction, multiplication, and division.",
+                                "Display the results with descriptive labels."
                             ],
-                            pattern: /f["'][^"']*\{[^}]*[\+\-\*\/][^}]*\}[^"']*["']/
+                            pattern: /\w+\s*=\s*\w+\s*[\+\-\*\/]\s*\w+/
                         }
                     ]
                 },
@@ -1403,11 +1432,13 @@
                         {
                             id: "problem-req1",
                             title: "Create Student Variables",
-                            taskExplanation: "Create variables to store the student's basic information.",
+                            taskExplanation: "Create variables to store the student's basic information with correct data types.",
                             detailedInstructions: [
                                 "Keep the header message that's already provided.",
-                                "Create variables for the student's first name and last name.",
-                                "Add variables for age, favorite subject, and year born using the values from the pseudocode."
+                                "Create string variables for first name and last name.",
+                                "Add an integer variable for age.",
+                                "Create a string variable for favourite subject.",
+                                "Add a boolean variable for student status."
                             ],
                             pattern: /first_name\s*=\s*["'][^"']*["']/
                         },
@@ -1428,8 +1459,8 @@
                             taskExplanation: "Use print statements to display all the student information in a nice format.",
                             detailedInstructions: [
                                 "Create print statements to display the student's full name.",
-                                "Show the age, favorite subject, and year born.",
-                                "Use formatting techniques to make the output look professional."
+                                "Show the age, favourite subject, and student status.",
+                                "Use f-strings to make the output look professional."
                             ],
                             pattern: /print\s*\(\s*f["'][^"']*\{.*first_name.*\}[^"']*\{.*last_name.*\}[^"']*["']\s*\)/
                         },
@@ -1447,13 +1478,13 @@
                         {
                             id: "problem-req5",
                             title: "Extension Activity",
-                            taskExplanation: "Enhance the profile with additional information and calculations.",
+                            taskExplanation: "Enhance the profile with additional variables and calculations.",
                             detailedInstructions: [
-                                "Add more variables for additional student information.",
-                                "Try creating another simple calculation using existing variables.",
-                                "Create a new pseudocode or flowchart showing your enhanced profile."
+                                "Add more variables with different data types (float for height, etc.).",
+                                "Create boolean variables using comparisons (e.g., is_adult = age >= 18).",
+                                "Add more calculations using existing variables."
                             ],
-                            pattern: /hobby|favorite_color|school_year|months/,
+                            pattern: /(height|grade)\s*=\s*\d+\.\d+|is_adult\s*=\s*age\s*>=\s*18/,
                             isExtension: true
                         }
                     ]
@@ -1465,31 +1496,31 @@
                 questions: [
                     {
                         type: "true-false",
-                        question: "Variables can store different types of data like text and numbers.",
+                        question: "Variables can store different types of data like text, numbers, and True/False values.",
                         correctAnswer: "true",
                         feedbackCorrect: "Correct! Variables can store strings, integers, floats, booleans, and more.",
                         feedbackIncorrect: "Incorrect. Variables are very flexible and can store many different data types."
                     },
                     {
                         type: "true-false",
-                        question: "The input() function always returns a string, even if the user types a number.",
+                        question: "Boolean variables can only contain the values True or False.",
                         correctAnswer: "true",
-                        feedbackCorrect: "Correct! input() always returns a string, so you need int() to convert numbers.",
-                        feedbackIncorrect: "Incorrect. input() always returns text (string), even for numbers. Use int() to convert."
+                        feedbackCorrect: "Correct! Booleans represent True/False, yes/no, on/off type values.",
+                        feedbackIncorrect: "Incorrect. Boolean variables can only be True or False (note the capitalization!)."
                     },
                     {
                         type: "true-false",
-                        question: "In Python, variable names can contain spaces.",
+                        question: "In Python, 15 and 15.0 are the same data type.",
                         correctAnswer: "false",
-                        feedbackCorrect: "Correct! Variable names cannot contain spaces. Use underscores like player_name.",
-                        feedbackIncorrect: "Incorrect. Variable names cannot have spaces. Use underscores instead."
+                        feedbackCorrect: "Correct! 15 is an integer (int) and 15.0 is a float.",
+                        feedbackIncorrect: "Incorrect. 15 is an integer, while 15.0 is a float - different data types!"
                     },
                     {
                         type: "true-false",
-                        question: "F-strings start with the letter 'f' before the quotes.",
+                        question: "The type() function can tell you what data type a variable contains.",
                         correctAnswer: "true",
-                        feedbackCorrect: "Correct! F-strings use f\"text {variable}\" syntax.",
-                        feedbackIncorrect: "Incorrect. F-strings do start with f, like f\"Hello {name}\"."
+                        feedbackCorrect: "Correct! type(variable_name) shows you the data type.",
+                        feedbackIncorrect: "Incorrect. The type() function is very useful for checking data types."
                     }
                 ]
             },
@@ -1502,13 +1533,13 @@
                         {
                             title: "🚀 Run Original Code",
                             text: `<p>Let's run the basic variable creation code to see how different data types work.</p>
-                                   <p>This will show you strings, integers, and floats in action!</p>`,
+                                   <p>This will show you strings, integers, floats, and booleans in action!</p>`,
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
                             title: "▶️ Click Run Code",
                             text: `<p>Click the 'Run Code' button to execute the variable creation code.</p>
-                                   <p>Notice how each variable type is displayed differently!</p>`,
+                                   <p>Notice how each data type is displayed differently!</p>`,
                             attachTo: { element: "#run-primary-btn", on: "top" },
                             buttons: [{ text: "Got It!", action: "complete" }]
                         }
@@ -1521,7 +1552,7 @@
                             title: "✏️ Change Variable Values",
                             text: `<p>Try changing the values assigned to the variables.</p>
                                    <p>Change <code>name = "Alex"</code> to a different name like <code>name = "Sam"</code></p>
-                                   <p>Try <code>age = 16</code> or <code>score = 95.0</code></p>`,
+                                   <p>Try <code>age = 16</code>, <code>score = 95.5</code>, or <code>is_student = False</code></p>`,
                             attachTo: { element: ".coding-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
@@ -1540,7 +1571,7 @@
                             title: "➕ Add New Variables",
                             text: `<p>Create additional variables with different data types.</p>
                                    <p>Try adding: <code>city = "Brisbane"</code></p>
-                                   <p>Or: <code>is_student = True</code></p>`,
+                                   <p>Or: <code>has_pet = True</code></p>`,
                             attachTo: { element: ".coding-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
@@ -1556,16 +1587,16 @@
                     useModalOverlay: false,
                     steps: [
                         {
-                            title: "🖨️ Different Print Styles",
-                            text: `<p>Experiment with different ways to print variables.</p>
-                                   <p>Try: <code>print("Name:", name)</code></p>
-                                   <p>Or: <code>print("Age: " + str(age))</code></p>`,
+                            title: "🔍 Use type() Function",
+                            text: `<p>Add type checking to see what data type each variable is.</p>
+                                   <p>Try: <code>print(type(name))</code></p>
+                                   <p>Or: <code>print(f"Age type: {type(age)}")</code></p>`,
                             attachTo: { element: ".coding-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "🔍 Compare Methods",
-                            text: "<p>Run the code to see which print method you prefer!</p>",
+                            title: "📋 Check All Types",
+                            text: "<p>Run the code to see the data types displayed!</p>",
                             attachTo: { element: "#run-primary-btn", on: "top" },
                             buttons: [{ text: "Complete!", action: "complete" }]
                         }
@@ -1594,112 +1625,112 @@
                     useModalOverlay: false,
                     steps: [
                         {
-                            title: "🔄 Update Variables",
-                            text: `<p>Show how variables can change by assigning new values.</p>
-                                   <p>Add: <code>score = score + 50</code> after the initial assignment.</p>
-                                   <p>Try: <code>age = age + 1</code></p>`,
+                            title: "✅ Boolean Comparisons",
+                            text: `<p>Create boolean variables using comparison operations.</p>
+                                   <p>Try: <code>is_adult = age >= 18</code></p>
+                                   <p>Or: <code>good_score = score >= 80</code></p>`,
                             attachTo: { element: ".coding-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "📊 Before and After",
-                            text: "<p>Print the variable before and after updating to see the change!</p>",
+                            title: "📊 Boolean Results",
+                            text: "<p>Print the boolean results to see True/False values!</p>",
                             attachTo: { element: "#run-primary-btn", on: "top" },
                             buttons: [{ text: "Complete!", action: "complete" }]
                         }
                     ]
                 },
                 // Tours for Secondary Playground
-                "input-exp1": {
+                "type-exp1": {
                     useModalOverlay: false,
                     steps: [
                         {
-                            title: "⌨️ Input Program",
-                            text: `<p>This program shows how to get input from users and convert it.</p>
-                                   <p>You'll type responses when prompted!</p>`,
+                            title: "📊 Basic Data Types",
+                            text: `<p>This program shows different data types in action.</p>
+                                   <p>You'll see strings, integers, floats, and booleans!</p>`,
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "▶️ Run and Interact",
-                            text: "<p>Click 'Run Code' and follow the prompts to enter your name and age!</p>",
+                            title: "▶️ Run and Observe",
+                            text: "<p>Click 'Run Code' to see how different data types are displayed!</p>",
                             attachTo: { element: "#run-secondary-btn", on: "top" },
                             buttons: [{ text: "Done!", action: "complete" }]
                         }
                     ]
                 },
-                "input-exp2": {
+                "type-exp2": {
                     useModalOverlay: false,
                     steps: [
                         {
-                            title: "➕ Add More Input",
-                            text: `<p>Add another input() statement to ask for more information.</p>
-                                   <p>Try: <code>city = input("What city are you from? ")</code></p>
-                                   <p>Or: <code>hobby = input("What's your hobby? ")</code></p>`,
+                            title: "➕ Add More Variables",
+                            text: `<p>Add variables with different data types.</p>
+                                   <p>Try: <code>temperature = 36.5</code> (float)</p>
+                                   <p>Or: <code>is_sunny = False</code> (boolean)</p>`,
                             attachTo: { element: ".secondary-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "🔄 Test New Input",
-                            text: "<p>Run the code and provide the new input when prompted!</p>",
+                            title: "🔄 Display New Variables",
+                            text: "<p>Add print statements for your new variables and run the code!</p>",
                             attachTo: { element: "#run-secondary-btn", on: "top" },
                             buttons: [{ text: "Complete!", action: "complete" }]
                         }
                     ]
                 },
-                "input-exp3": {
+                "type-exp3": {
                     useModalOverlay: false,
                     steps: [
                         {
-                            title: "🧮 Multiple Calculations",
-                            text: `<p>Create several calculations using the age variable.</p>
-                                   <p>Try: <code>past_age = age - 5</code></p>
-                                   <p>And: <code>future_age = age + 10</code></p>`,
+                            title: "✅ Boolean Operations",
+                            text: `<p>Create boolean variables using comparison operators.</p>
+                                   <p>Try: <code>is_passing = test_score >= 60</code></p>
+                                   <p>Or: <code>is_tall = height_metres > 1.7</code></p>`,
                             attachTo: { element: ".secondary-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "📊 Display Results",
-                            text: "<p>Show all your calculations with clear labels using f-strings!</p>",
+                            title: "📊 Boolean Results",
+                            text: "<p>Display your boolean variables to see True/False values!</p>",
                             attachTo: { element: "#run-secondary-btn", on: "top" },
                             buttons: [{ text: "Done!", action: "complete" }]
                         }
                     ]
                 },
-                "input-exp4": {
+                "type-exp4": {
                     useModalOverlay: false,
                     steps: [
                         {
-                            title: "🧪 Test Different Inputs",
-                            text: `<p>Try entering unexpected values to see what happens.</p>
-                                   <p>What if you enter letters when a number is expected?</p>
-                                   <p>Add comments like <code># This causes an error</code> to document your findings.</p>`,
+                            title: "🔗 String Operations",
+                            text: `<p>Experiment with combining strings together.</p>
+                                   <p>Try: <code>full_name = student_name + " Smith"</code></p>
+                                   <p>Or: <code>message = "Hello " + student_name</code></p>`,
                             attachTo: { element: ".secondary-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "🔍 Observe Results",
-                            text: "<p>Run the code and experiment with different types of input!</p>",
+                            title: "📝 Display Combined Strings",
+                            text: "<p>Print your combined strings and run the code!</p>",
                             attachTo: { element: "#run-secondary-btn", on: "top" },
                             buttons: [{ text: "Complete!", action: "complete" }]
                         }
                     ]
                 },
-                "input-exp5": {
+                "type-exp5": {
                     useModalOverlay: false,
                     steps: [
                         {
-                            title: "🎨 Enhanced F-Strings",
-                            text: `<p>Create more complex f-strings with multiple variables and calculations.</p>
-                                   <p>Try: <code>f"Hi {name} from {city}!"</code></p>
-                                   <p>Or: <code>f"In 5 years you'll be {age + 5}"</code></p>`,
+                            title: "🧮 Number Calculations",
+                            text: `<p>Perform calculations with your number variables.</p>
+                                   <p>Try: <code>average = (test_score + 95) / 2</code></p>
+                                   <p>Or: <code>double_height = height_metres * 2</code></p>`,
                             attachTo: { element: ".secondary-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "✨ See Enhanced Output",
-                            text: "<p>Run the code to see your enhanced f-string formatting!</p>",
+                            title: "📈 Show Results",
+                            text: "<p>Display your calculation results with clear labels!</p>",
                             attachTo: { element: "#run-secondary-btn", on: "top" },
-                            buttons: [{ text: "Complete!", action: "complete" }]
+                            buttons: [{ text: "Done!", action: "complete" }]
                         }
                     ]
                 },
@@ -1710,14 +1741,14 @@
                         {
                             title: "🏗️ Create Student Variables",
                             text: `<p>Start by creating variables for the student's basic information.</p>
-                                   <p>You'll need: <code>first_name = "Alex"</code>, <code>last_name = "Johnson"</code></p>
-                                   <p>Also add: <code>age = 15</code>, <code>favorite_subject = "Computer Science"</code>, <code>year_born = 2009</code></p>`,
+                                   <p>You'll need strings, integers, and a boolean.</p>
+                                   <p>Remember: strings need quotes, numbers don't, booleans are True/False.</p>`,
                             attachTo: { element: ".problem-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "💡 Variable Tips",
-                            text: "<p>Remember: strings need quotes, numbers don't. Use the exact values from the pseudocode!</p>",
+                            title: "💡 Data Type Tips",
+                            text: "<p>Use the exact values from the pseudocode with correct data types!</p>",
                             attachTo: { element: "#run-problem-btn", on: "top" },
                             buttons: [{ text: "Got It!", action: "complete" }]
                         }
@@ -1749,13 +1780,13 @@
                             title: "📝 Display Information",
                             text: `<p>Use print statements to show all the student information.</p>
                                    <p>Try: <code>print(f"Name: {first_name} {last_name}")</code></p>
-                                   <p>Add similar lines for age, favorite subject, and year born.</p>`,
+                                   <p>Add similar lines for all variables including the boolean.</p>`,
                             attachTo: { element: ".problem-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
                             title: "🔍 Check Output",
-                            text: "<p>Run your code to see how the student information displays!</p>",
+                            text: "<p>Run your code to see how all data types display!</p>",
                             attachTo: { element: "#run-problem-btn", on: "top" },
                             buttons: [{ text: "Complete!", action: "complete" }]
                         }
@@ -1785,15 +1816,15 @@
                     steps: [
                         {
                             title: "🚀 Extension Challenge",
-                            text: `<p>Time to enhance your profile with more information!</p>
-                                   <p>Try adding: <code>hobby = "Gaming"</code>, <code>favorite_color = "Blue"</code></p>
-                                   <p>Or calculate: <code>age_in_months = age * 12</code></p>`,
+                            text: `<p>Time to enhance your profile with more data types!</p>
+                                   <p>Try adding: <code>height = 1.75</code> (float), <code>is_adult = age >= 18</code> (boolean)</p>
+                                   <p>Create more calculations and comparisons.</p>`,
                             attachTo: { element: ".problem-playground .code-panel", on: "right" },
                             buttons: [{ text: "Next", action: "next" }]
                         },
                         {
-                            title: "📝 Redesign Challenge",
-                            text: "<p>After adding new variables, create a new pseudocode or flowchart showing your enhanced profile!</p>",
+                            title: "📝 Advanced Features",
+                            text: "<p>After adding new variables, display them and create interesting boolean comparisons!</p>",
                             buttons: [{ text: "Let's Go!", action: "complete" }]
                         }
                     ]
