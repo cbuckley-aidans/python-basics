@@ -32,9 +32,8 @@
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
     
-    <!-- Enhanced Tour Styling -->
     <style>
-        /* Improved Shepherd tour styling */
+        /* Enhanced Shepherd tour styling */
         .shepherd-element {
             max-width: 400px;
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
@@ -116,7 +115,6 @@
             opacity: 1;
         }
         
-        /* Code highlighting in tour */
         .shepherd-text code {
             background: #f1f2f6;
             padding: 2px 6px;
@@ -135,112 +133,6 @@
             font-size: 0.9em;
         }
 
-        /* Additional CSS for new components */
-        
-        /* Styling for terminal simulation */
-        .terminal-simulation {
-            background-color: #272822;
-            color: #f8f8f2;
-            border-radius: var(--border-radius);
-            padding: 15px;
-            font-family: monospace;
-            margin-top: 10px;
-        }
-
-        .terminal-prompt {
-            color: #f8f8f2;
-            margin-bottom: 5px;
-        }
-
-        .terminal-output {
-            color: #a6e22e;
-        }
-
-        .typing-cursor {
-            animation: blink 1s step-start infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        /* Debug challenge styling */
-        .debug-challenge {
-            background-color: rgba(0,0,0,0.03);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .debug-challenge-header {
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .debug-challenge-hint, 
-        .debug-challenge-solution {
-            display: inline-block;
-            cursor: pointer;
-            color: var(--accent-color);
-            padding: 8px 15px;
-            margin-top: 15px;
-            border-radius: var(--border-radius);
-            border: 1px solid var(--accent-color);
-        }
-
-        .debug-challenge-hint:hover, 
-        .debug-challenge-solution:hover {
-            background-color: rgba(0, 38, 84, 0.1);
-        }
-
-        .debug-challenge-hint-content,
-        .debug-challenge-solution-content {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: var(--border-radius);
-        }
-
-        .debug-challenge-hint-content {
-            background-color: rgba(255, 193, 7, 0.1);
-            border-left: 4px solid #ffc107;
-        }
-
-        .debug-challenge-solution-content {
-            background-color: rgba(82, 196, 26, 0.1);
-            border-left: 4px solid #52c41a;
-        }
-
-        /* Mini challenge styling */
-        .challenge-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 20px;
-        }
-
-        .challenge-card {
-            background-color: rgba(0,0,0,0.03);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-        }
-
-        .challenge-header {
-            background-color: var(--chew-color);
-            color: white;
-            font-weight: 600;
-            padding: 12px 20px;
-        }
-
-        .challenge-content {
-            padding: 20px;
-        }
-
-        .challenge-example {
-            background-color: rgba(255, 255, 255, 0.5);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-top: 15px;
-        }
-        
         /* Duolingo-style quiz */
         .duolingo-container {
             background-color: #f5f5f5;
@@ -350,103 +242,311 @@
             font-weight: 600;
             margin-bottom: 25px;
         }
-        
-        /* Code building exercise */
-        .build-sentence {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            background-color: #f5f5f5;
+
+        /* Problem tab specific styles */
+        .problem-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
         }
-        
-        .sentence-part {
-            display: inline-block;
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            background-color: white;
-            border: 1px solid var(--outline-color);
+
+        .problem-option {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .sentence-part:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-2px);
-        }
-        
-        .sentence-result {
-            min-height: 60px;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            background-color: rgba(0, 38, 84, 0.05);
-            border: 1px dashed var(--outline-color);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .result-part {
-            display: inline-block;
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            background-color: white;
-            border: 1px solid var(--outline-color);
-            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
         }
-        
-        .result-part:hover::after {
-            content: "×";
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 20px;
-            height: 20px;
-            background-color: #ff4d4f;
+
+        .problem-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: var(--accent-color);
+        }
+
+        .problem-option.selected {
+            border-color: var(--accent-color);
+            background: linear-gradient(135deg, rgba(0, 38, 84, 0.1), rgba(52, 152, 219, 0.1));
+        }
+
+        .problem-option i {
+            font-size: 3em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .problem-content {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .problem-content.active {
+            display: block;
+        }
+
+        /* Improved pseudocode formatting */
+        .pseudocode-block {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .pseudocode-line {
+            display: block;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .pseudocode-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .pseudocode-keyword {
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        .pseudocode-string {
+            color: #d14;
+        }
+
+        .pseudocode-variable {
+            color: #6f42c1;
+        }
+
+        .pseudocode-comment {
+            color: #6a737d;
+            font-style: italic;
+        }
+
+        .flowchart-container {
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .flowchart-step {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            display: inline-block;
+            min-width: 200px;
+        }
+
+        .flowchart-step.start-end {
+            border-radius: 50px;
+            background: #e8f4f8;
+        }
+
+        .flowchart-step.process {
+            background: #f0f8ff;
+        }
+
+        .flowchart-step.input-output {
+            transform: skew(-10deg);
+            background: #f5f5dc;
+        }
+
+        .flowchart-step.input-output span {
+            transform: skew(10deg);
+            display: inline-block;
+        }
+
+        .flowchart-arrow {
+            font-size: 1.5em;
+            color: #3498db;
+            margin: 5px 0;
+        }
+
+        /* Task requirements panel - full height */
+        .task-requirements-panel, .secondary-task-requirements-panel, .problem-task-requirements-panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .task-requirements-panel.open, .secondary-task-requirements-panel.open, .problem-task-requirements-panel.open {
+            right: 0;
+        }
+
+        .task-requirements-panel-header, .secondary-task-requirements-panel-header, .problem-task-requirements-panel-header {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
             color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+        }
+
+        .task-requirements-panel-header h3, .secondary-task-requirements-panel-header h3, .problem-task-requirements-panel-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .task-requirement-item {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .task-requirement-item-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .task-requirement-status {
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
+            background: #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .task-requirement-status.completed {
+            background: #52c41a;
+            color: white;
+        }
+
+        .task-requirement-title {
+            margin: 0;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .task-requirement-explanation {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .task-requirement-instructions-dropdown {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .task-requirement-instructions-dropdown summary {
+            background: #f8f9fa;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-requirement-instructions-dropdown summary i {
+            margin-right: 8px;
+            transition: transform 0.2s;
+        }
+
+        .task-requirement-instructions-dropdown[open] summary i {
+            transform: rotate(90deg);
+        }
+
+        .task-requirement-instructions-list {
+            padding: 15px;
+            margin: 0;
+            list-style: none;
+            background: white;
+        }
+
+        .task-requirement-instructions-list li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .task-requirement-instructions-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
             font-weight: bold;
         }
-        
-        .feedback-area {
-            padding: 15px;
-            border-radius: var(--border-radius);
-            min-height: 60px;
+
+        .task-requirement-hint-btn {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
         }
-        
-        .feedback-area.correct {
-            background-color: rgba(82, 196, 26, 0.1);
-            border-left: 4px solid #52c41a;
+
+        .task-requirements-beaker-btn, .secondary-task-requirements-beaker-btn, .problem-task-requirements-beaker-btn {
+            position: absolute !important;
+            top: 15px !important;
+            right: 15px !important;
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            color: white !important;
+            font-size: 1.2em !important;
+            cursor: pointer !important;
+            z-index: 10 !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: linear-gradient(135deg, #8e44ad, #9b59b6) !important;
         }
-        
-        .feedback-area.incorrect {
-            background-color: rgba(255, 77, 79, 0.1);
-            border-left: 4px solid #ff4d4f;
+
+        .task-requirements-beaker-btn:hover, .secondary-task-requirements-beaker-btn:hover, .problem-task-requirements-beaker-btn:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
         }
-        
-        .slide-animation {
-            animation: slideIn 0.3s ease;
+
+        .extension-activity {
+            background: linear-gradient(135deg, rgba(142, 68, 173, 0.1), rgba(155, 89, 182, 0.1));
+            border: 2px solid #8e44ad;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
         }
-        
-        @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        .extension-activity h4 {
+            color: #8e44ad;
+            margin-top: 0;
         }
-        
-        /* Buckle animation */
+
+        .buckle-counter {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0,0,0,0.05);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
         .buckle-animation {
             position: fixed;
             top: 50%;
@@ -482,13 +582,20 @@
                 transform: translateX(100%) rotate(45deg);
             }
         }
+
+        .slide-animation {
+            animation: slideIn 0.3s ease;
+        }
         
-        .buckle-counter {
-            display: inline-flex;
-            align-items: center;
-            background-color: rgba(0,0,0,0.05);
-            padding: 5px 10px;
-            border-radius: 20px;
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -509,28 +616,24 @@
                 LI/SC
             </button>
             <button class="tab-button" data-tab="chunk1">
-                <i class="fas fa-cube"></i>
-                CHUNK 1
+                <i class="fas fa-lightbulb"></i>
+                UNDERSTANDING
             </button>
-            <button class="tab-button" data-tab="chew1">
-                <i class="fas fa-utensils"></i>
-                CHEW 1
+            <button class="tab-button" data-tab="practice1">
+                <i class="fas fa-dumbbell"></i>
+                PRACTICE 1
             </button>
             <button class="tab-button" data-tab="chunk2">
-                <i class="fas fa-cube"></i>
-                CHUNK 2
+                <i class="fas fa-keyboard"></i>
+                INPUT & TYPES
             </button>
-            <button class="tab-button" data-tab="chew2">
-                <i class="fas fa-utensils"></i>
-                CHEW 2
+            <button class="tab-button" data-tab="practice2">
+                <i class="fas fa-dumbbell"></i>
+                PRACTICE 2
             </button>
-            <button class="tab-button" data-tab="chunk3">
-                <i class="fas fa-cube"></i>
-                CHUNK 3
-            </button>
-            <button class="tab-button" data-tab="chew3">
-                <i class="fas fa-utensils"></i>
-                CHEW 3
+            <button class="tab-button" data-tab="problem">
+                <i class="fas fa-puzzle-piece"></i>
+                PROBLEM
             </button>
             <button class="tab-button" data-tab="recap">
                 <i class="fas fa-bookmark"></i>
@@ -692,9 +795,9 @@
             </div>
         </section>
 
-        <!-- CHUNK 1: What is a Variable? -->
+        <!-- CHUNK 1: Understanding Variables -->
         <section id="chunk1" class="tab-content dark-section">
-            <h1>CHUNK 1: WHAT IS A VARIABLE? <i class="fas fa-box-open" style="margin-left: 15px;"></i></h1>
+            <h1>UNDERSTANDING VARIABLES <i class="fas fa-lightbulb" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">TEACHER CHUNK</div>
@@ -801,9 +904,9 @@
             </div>
         </section>
 
-        <!-- CHEW 1: Variable Quiz -->
-        <section id="chew1" class="tab-content light-section">
-            <h1>CHEW 1: VARIABLE BASICS <i class="fas fa-clipboard-check" style="margin-left: 15px;"></i></h1>
+        <!-- PRACTICE 1: Variable Quiz -->
+        <section id="practice1" class="tab-content light-section">
+            <h1>PRACTICE 1: VARIABLE BASICS <i class="fas fa-dumbbell" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
@@ -820,20 +923,18 @@
                     </ul>
                 </div>
                 
-<!-- Quiz container populated by editor.js -->
+                <!-- Quiz container populated by editor.js -->
                 <div id="quiz-container" class="duolingo-container"></div>
                 <br>
 
                 <!-- Primary coding playground populated by editor.js -->
                 <div id="primary-playground-container"></div>
-                
-                
             </div>
         </section>
 
-        <!-- CHUNK 2: Working with Variables -->
+        <!-- CHUNK 2: Input & Data Types -->
         <section id="chunk2" class="tab-content dark-section">
-            <h1>CHUNK 2: WORKING WITH VARIABLES <i class="fas fa-exchange-alt" style="margin-left: 15px;"></i></h1>
+            <h1>INPUT & DATA TYPES <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
                 <div class="chunk-badge">TEACHER CHUNK</div>
@@ -948,9 +1049,9 @@
             </div>
         </section>
 
-        <!-- CHEW 2: Interactive Coding -->
-        <section id="chew2" class="tab-content light-section">
-            <h1>CHEW 2: ADVANCED PRACTICE <i class="fas fa-keyboard" style="margin-left: 15px;"></i></h1>
+        <!-- PRACTICE 2: Interactive Coding -->
+        <section id="practice2" class="tab-content light-section">
+            <h1>PRACTICE 2: ADVANCED PRACTICE <i class="fas fa-dumbbell" style="margin-left: 15px;"></i></h1>
             
             <div class="chew-section">
                 <div class="chew-badge">STUDENT ACTIVITY</div>
@@ -972,111 +1073,96 @@
             </div>
         </section>
 
-        <!-- CHUNK 3: Problem Solving with Variables -->
-        <section id="chunk3" class="tab-content dark-section">
-            <h1>CHUNK 3: PROBLEM SOLVING WITH VARIABLES <i class="fas fa-tools" style="margin-left: 15px;"></i></h1>
+        <!-- PROBLEM: Problem-Solving with Pseudocode/Flowchart -->
+        <section id="problem" class="tab-content dark-section">
+            <h1>PROBLEM: REAL-WORLD APPLICATION <i class="fas fa-puzzle-piece" style="margin-left: 15px;"></i></h1>
             
             <div class="chunk-section">
-                <div class="chunk-badge">TEACHER CHUNK</div>
-                <div class="timer-badge"><i class="fas fa-clock"></i> 5 mins</div>
-                
-                <h3>Variables in Action</h3>
-                
-                <p>Variables become really powerful when we use them to solve problems. Let's explore how variables can be used in calculations and real-world scenarios.</p>
-                
-                <div class="interactive-card">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">1</div>
-                        <h3>Calculating Area <i class="fas fa-vector-square" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's a program that calculates the area of a rectangle:</p>
-                    
-                    <div class="code-block">
-<span class="code-comment"># Store the dimensions in variables</span>
-length = 8
-width = 3
-
-<span class="code-comment"># Calculate the area using the variables</span>
-area = length * width
-
-<span class="code-comment"># Display the result using an f-string</span>
-print(f"A {length}x{width} rectangle has area {area}")
-                    </div>
-                    
-                    <div style="display: flex; justify-content: center; margin: 30px 0;">
-                        <div style="border: 2px solid var(--outline-color); padding: 15px; position: relative; width: 50%;">
-                            <p style="text-align: center; font-weight: 600; margin-bottom: 15px; font-size: 1.2em;">Rectangle Visualisation</p>
-                            <div style="width: 100%; height: 0; padding-bottom: 37.5%; background-color: rgba(59, 130, 246, 0.3); border: 2px solid var(--outline-color); position: relative; margin: 0 auto;">
-                                <div style="position: absolute; top: 35%; left: 0; width: 100%; text-align: center;">
-                                    <span style="background-color: white; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--outline-color); font-weight: 600; font-size: 1.2em;">area = 24</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="interactive-card" style="margin-top: 30px;">
-                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                        <div class="element-number">2</div>
-                        <h3>Common Syntax Errors <i class="fas fa-exclamation-triangle" style="margin-left: 10px;"></i></h3>
-                    </div>
-                    
-                    <div class="two-column-grid" style="margin: 0; gap: 20px;">
-                        <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
-                            <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Missing Quotes</h4>
-                            <div class="code-block" style="color: var(--bad-color);">
-name = Alex
-                            </div>
-                            <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                                <p style="margin-bottom: 10px;"><strong>Problem:</strong> String values need quotes.</p>
-                                <p style="margin: 0;"><strong>Fix:</strong> <code>name = "Alex"</code></p>
-                            </div>
-                        </div>
-                        
-                        <div class="interactive-card" style="border-left: 4px solid var(--bad-color);">
-                            <h4><i class="fas fa-times-circle" style="color: var(--bad-color); margin-right: 12px;"></i> Type Mismatch</h4>
-                            <div class="code-block" style="color: var(--bad-color);">
-age = input("Age: ")
-next_year = age + 1  # Error!
-                            </div>
-                            <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-top: 20px;">
-                                <p style="margin-bottom: 10px;"><strong>Problem:</strong> Adding number to string.</p>
-                                <p style="margin: 0;"><strong>Fix:</strong> <code>age = int(input("Age: "))</code></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHEW 3: Challenge Activities -->
-        <section id="chew3" class="tab-content light-section">
-            <h1>CHEW 3: CHALLENGE TIME! <i class="fas fa-trophy" style="margin-left: 15px;"></i></h1>
-            
-            <div class="chew-section">
-                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="chunk-badge">PROBLEM SOLVING</div>
                 <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
                 
-                <h3>Variable Challenge Exercises</h3>
+                <h3>From Design to Code</h3>
                 
-                <div class="activity-goal">
-                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Apply variables in problem-solving scenarios</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Debug common syntax errors</li>
-                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Build complete programs using variables</li>
-                    </ul>
+                <p>Now it's time to apply your variable knowledge! Choose your preferred problem representation, then implement the solution in Python.</p>
+                
+                <div class="problem-selector">
+                    <div class="problem-option" data-type="pseudocode">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>Pseudocode Version</h4>
+                        <p>Read step-by-step instructions in plain English and convert them to Python code.</p>
+                    </div>
+                    
+                    <div class="problem-option" data-type="flowchart">
+                        <i class="fas fa-project-diagram"></i>
+                        <h4>Flowchart Version</h4>
+                        <p>Follow a visual flowchart diagram and implement the logic in Python code.</p>
+                    </div>
                 </div>
 
-                <!-- Statement building exercise populated by editor.js -->
-                <div id="statement-building-container"></div>
+                <!-- Pseudocode Content -->
+                <div id="pseudocode-content" class="problem-content">
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <h3>Pseudocode: Student Profile <i class="fas fa-id-card" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <p><strong>Problem:</strong> Create a program that displays a student's profile information.</p>
+                        
+                        <div class="pseudocode-block">
+                            <div class="pseudocode-line"><span class="pseudocode-keyword">BEGIN</span> Student Profile</div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"=== Student Profile ==="</span></div>
+                            <div class="pseudocode-line"></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-comment">// Set up student information</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">first_name</span> = <span class="pseudocode-string">"Alex"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">last_name</span> = <span class="pseudocode-string">"Johnson"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">age</span> = 15</div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">favorite_subject</span> = <span class="pseudocode-string">"Computer Science"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">year_born</span> = 2009</div>
+                            <div class="pseudocode-line"></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-comment">// Calculate next year's age</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">CALCULATE</span> <span class="pseudocode-variable">next_year_age</span> = <span class="pseudocode-variable">age</span> + 1</div>
+                            <div class="pseudocode-line"></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-comment">// Display the profile</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Name: "</span> + <span class="pseudocode-variable">first_name</span> + <span class="pseudocode-string">" "</span> + <span class="pseudocode-variable">last_name</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Age: "</span> + <span class="pseudocode-variable">age</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Favorite Subject: "</span> + <span class="pseudocode-variable">favorite_subject</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Year Born: "</span> + <span class="pseudocode-variable">year_born</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Next year I will be "</span> + <span class="pseudocode-variable">next_year_age</span> + <span class="pseudocode-string">" years old"</span></div>
+                            <div class="pseudocode-line"><span class="pseudocode-keyword">END</span> Student Profile</div>
+                        </div>
+                        
+                        <!-- Problem playground populated by editor.js -->
+                        <div id="problem-playground-container"></div>
+                    </div>
+                </div>
 
-                <!-- Spot the error quiz populated by editor.js -->
-                <div id="spot-the-error-container" style="margin-top: 30px;"></div> 
-
-                <!-- Tracing challenge populated by editor.js -->
-                <div id="tracing-challenge-container"></div>
+                <!-- Flowchart Content -->
+                <div id="flowchart-content" class="problem-content">
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <h3>Flowchart: Student Profile <i class="fas fa-id-card" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <p><strong>Problem:</strong> Create a program that displays a student's profile information.</p>
+                        
+                        <div class="flowchart-container">
+                            <div class="flowchart-step start-end">START</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-step process">Display "=== Student Profile ==="</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-step process">Set student variables:<br/>first_name, last_name, age, favorite_subject, year_born</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-step process">Calculate: next_year_age = age + 1</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-step input-output"><span>Output: Display all student information</span></div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-step start-end">END</div>
+                        </div>
+                        
+                        <!-- Problem playground populated by editor.js -->
+                        <div id="problem-playground-container-flowchart"></div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -1096,466 +1182,634 @@ next_year = age + 1  # Error!
             });
         });
 
+        // Problem selector functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const problemOptions = document.querySelectorAll('.problem-option');
+            const problemContents = document.querySelectorAll('.problem-content');
+
+            problemOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedType = this.getAttribute('data-type');
+                    
+                    // Remove active class from all options and contents
+                    problemOptions.forEach(opt => opt.classList.remove('selected'));
+                    problemContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to selected option and corresponding content
+                    this.classList.add('selected');
+                    document.getElementById(`${selectedType}-content`).classList.add('active');
+                    
+                    // Initialize the appropriate playground
+                    if (selectedType === 'pseudocode') {
+                        setTimeout(() => {
+                            if (window.EducationalEditor) {
+                                window.EducationalEditor.initializeProblemPlayground('pseudocode');
+                            }
+                        }, 100);
+                    } else if (selectedType === 'flowchart') {
+                        setTimeout(() => {
+                            if (window.EducationalEditor) {
+                                window.EducationalEditor.initializeProblemPlayground('flowchart');
+                            }
+                        }, 100);
+                    }
+                });
+            });
+        });
+
         // Page Configuration - All page-specific content lives here
-        // In your python-variables.html <script> tag
-
         const pageConfig = {
-    pageIdentifier: "python-variables",
-    topic: {
-        title: "Python Variables",
-        sidebarTitle: "PYTHON VARIABLES"
-    },
+            pageIdentifier: "python-variables",
+            topic: {
+                title: "Python Variables",
+                sidebarTitle: "PYTHON VARIABLES"
+            },
 
-    // Primary coding playground configuration
-    primaryPlayground: {
-        title: "Code Lab 1",
-        subtitle: "Practice creating and using variables in Python",
-        icon: "fa-flask",
-        initialCode: `# Create variables with different data types\nname = "Alex"\nage = 15\nscore = 100.5\n\n# Display the variables\nprint(f"Name: {name}")\nprint(f"Age: {age}")\nprint(f"Score: {score}")`,
-        buttonText: "Run Code",
-        terminalReady: "Click 'Run Code' to execute your program...",
-        storageKey: "primaryExperimentsVariables",
-        parentTabId: "chew1"
-    },
+            // Primary coding playground configuration
+            primaryPlayground: {
+                title: "Code Lab 1",
+                subtitle: "Practice creating and using variables in Python",
+                icon: "fa-flask",
+                initialCode: `# Create variables with different data types\nname = "Alex"\nage = 15\nscore = 100.5\n\n# Display the variables\nprint(f"Name: {name}")\nprint(f"Age: {age}")\nprint(f"Score: {score}")`,
+                buttonText: "Run Code",
+                terminalReady: "Click 'Run Code' to execute your program...",
+                storageKey: "primaryExperimentsVariables",
+                parentTabId: "practice1"
+            },
 
-    // Secondary coding playground configuration
-    secondaryPlayground: {
-        title: "Code Lab 2",
-        subtitle: "Advanced variable operations with input and calculations",
-        icon: "fa-flask",
-        initialCode: `# Get user input\nname = input("What's your name? ")\nage_str = input("What's your age? ")\n\n# Convert age to integer\nage = int(age_str)\n\n# Calculate next year's age\nnext_age = age + 1\n\n# Display results\nprint(f"Hi {name}!")\nprint(f"Next year you'll be {next_age}")`,
-        buttonText: "Run Code",
-        terminalReady: "Click 'Run Code' to execute your program...",
-        storageKey: "secondaryExperimentsVariables",
-        parentTabId: "chew2"
-    },
+            // Secondary coding playground configuration
+            secondaryPlayground: {
+                title: "Code Lab 2",
+                subtitle: "Advanced variable operations with input and calculations",
+                icon: "fa-flask",
+                initialCode: `# Get user input\nname = input("What's your name? ")\nage_str = input("What's your age? ")\n\n# Convert age to integer\nage = int(age_str)\n\n# Calculate next year's age\nnext_age = age + 1\n\n# Display results\nprint(f"Hi {name}!")\nprint(f"Next year you'll be {next_age}")`,
+                buttonText: "Run Code",
+                terminalReady: "Click 'Run Code' to execute your program...",
+                storageKey: "secondaryExperimentsVariables",
+                parentTabId: "practice2"
+            },
 
-    // Experiments configuration
-    experiments: {
-        primary: {
-            title: "Code Lab 1 Experiments",
-            icon: "fa-flask",
-            experiments: [
-                {
-                    id: "exp1",
-                    title: "Run Original Code",
-                    taskExplanation: "Execute the basic variable creation code to see how different data types are stored and displayed.",
-                    detailedInstructions: [
-                        "Examine the different variable assignments: <code>name</code>, <code>age</code>, and <code>score</code>.",
-                        "Notice how strings use quotes, integers don't, and floats have decimal points.",
-                        "Click 'Run Code' to see how f-strings display the variables."
-                    ],
-                    pattern: /name\s*=\s*["'][^"']*["']/
+            // Problem playground configuration
+            problemPlayground: {
+                title: "Problem Solver",
+                subtitle: "Create a student profile using variables and basic calculations",
+                icon: "fa-tools",
+                initialCode: `# Student Profile - Complete this code based on the pseudocode/flowchart\nprint("=== Student Profile ===")`,
+                buttonText: "Run Code",
+                terminalReady: "Implement the solution step by step...",
+                storageKey: "problemSolvingVariables",
+                parentTabId: "problem"
+            },
+
+            // Task Requirements configuration
+            taskRequirements: {
+                primary: {
+                    title: "Code Lab 1 Task Requirements",
+                    icon: "fa-tasks",
+                    experiments: [
+                        {
+                            id: "exp1",
+                            title: "Run Original Code",
+                            taskExplanation: "Execute the basic variable creation code to see how different data types are stored and displayed.",
+                            detailedInstructions: [
+                                "Examine the different variable assignments in the code.",
+                                "Notice how strings, integers, and floats are written differently.",
+                                "Click 'Run Code' to see how variables are displayed."
+                            ],
+                            pattern: /name\s*=\s*["'][^"']*["']/
+                        },
+                        {
+                            id: "exp2",
+                            title: "Change Variable Values",
+                            taskExplanation: "Modify the values assigned to the existing variables to see how the output changes.",
+                            detailedInstructions: [
+                                "Change the string value assigned to the name variable.",
+                                "Modify the number assigned to the age variable.",
+                                "Update the decimal value assigned to the score variable."
+                            ],
+                            pattern: /name\s*=\s*["'](?!Alex["'])[^"']+["']/
+                        },
+                        {
+                            id: "exp3",
+                            title: "Add New Variables",
+                            taskExplanation: "Create additional variables with different data types and display them.",
+                            detailedInstructions: [
+                                "Add a new string variable for location information.",
+                                "Create a boolean variable for a true/false value.",
+                                "Include these new variables in your print statements."
+                            ],
+                            pattern: /(city|town|suburb|is_|has_|can_)\s*=\s*/
+                        },
+                        {
+                            id: "exp4",
+                            title: "Use Different Print Styles",
+                            taskExplanation: "Experiment with different ways to display variable values using various print methods.",
+                            detailedInstructions: [
+                                "Try using commas in print statements to separate values.",
+                                "Use string concatenation to join text and variables.",
+                                "Compare different methods to see which is easier to read."
+                            ],
+                            pattern: /print\s*\(\s*["'][^"']*["']\s*,\s*\w+\s*\)/
+                        },
+                        {
+                            id: "exp5",
+                            title: "Variable Calculations",
+                            taskExplanation: "Perform simple calculations using variables and store the results in new variables.",
+                            detailedInstructions: [
+                                "Create calculations using existing variables.",
+                                "Store calculation results in new variables.",
+                                "Display these calculated values with appropriate labels."
+                            ],
+                            pattern: /\w+\s*=\s*\w+\s*[\+\-\*\/]\s*\d+/
+                        },
+                        {
+                            id: "exp6",
+                            title: "Update Variable Values",
+                            taskExplanation: "Demonstrate how variables can be updated by assigning new values to existing variables.",
+                            detailedInstructions: [
+                                "Update existing variables by assigning new values to them.",
+                                "Show the variables before and after the updates.",
+                                "Display the changes to see how variable values can change."
+                            ],
+                            pattern: /\w+\s*=\s*\w+\s*[\+\-]\s*\d+/
+                        }
+                    ]
                 },
-                {
-                    id: "exp2",
-                    title: "Change Variable Values",
-                    taskExplanation: "Modify the values assigned to the existing variables to see how the output changes.",
-                    detailedInstructions: [
-                        "Change the string value in <code>name = \"Alex\"</code> to a different name.",
-                        "Modify the number in <code>age = 15</code> to a different age.",
-                        "Update the decimal in <code>score = 100.5</code> to a different score."
-                    ],
-                    pattern: /name\s*=\s*["'](?!Alex)[^"']*["']/
+                secondary: {
+                    title: "Code Lab 2 Task Requirements",
+                    icon: "fa-tasks",
+                    experiments: [
+                        {
+                            id: "input-exp1",
+                            title: "Run Input Program",
+                            taskExplanation: "Execute the input and conversion program to see how user input is processed.",
+                            detailedInstructions: [
+                                "Run the code and provide input when prompted.",
+                                "Enter information when the program asks for it.",
+                                "Observe how the program processes and displays the input."
+                            ],
+                            pattern: /input\s*\(/
+                        },
+                        {
+                            id: "input-exp2",
+                            title: "Add More Input",
+                            taskExplanation: "Extend the program to ask for additional information from the user.",
+                            detailedInstructions: [
+                                "Add another input statement to ask for more information.",
+                                "Include the new input in your output messages.",
+                                "Try asking for different types of information and converting if needed."
+                            ],
+                            pattern: /input\s*\(\s*["'][^"']*(?:city|town|number|score)[^"']*["']\s*\)/
+                        },
+                        {
+                            id: "input-exp3",
+                            title: "Multiple Calculations",
+                            taskExplanation: "Perform various calculations using the input values and display the results.",
+                            detailedInstructions: [
+                                "Calculate values based on the age input.",
+                                "Create multiple calculations using the same variable.",
+                                "Display all calculations with clear labels."
+                            ],
+                            pattern: /\w+\s*=\s*age\s*[\+\-]\s*\d+/
+                        },
+                        {
+                            id: "input-exp4",
+                            title: "Input Validation",
+                            taskExplanation: "Experiment with what happens when different types of input are entered.",
+                            detailedInstructions: [
+                                "Try entering unexpected values to see what happens.",
+                                "See what happens with different types of input.",
+                                "Add comments explaining what you observe."
+                            ],
+                            pattern: /#.*input.*error|#.*validation|#.*try/
+                        },
+                        {
+                            id: "input-exp5",
+                            title: "Enhanced F-Strings",
+                            taskExplanation: "Create more complex f-string expressions that include calculations and multiple variables.",
+                            detailedInstructions: [
+                                "Combine multiple variables in single f-strings.",
+                                "Include calculations directly in f-string expressions.",
+                                "Try formatting different types of values."
+                            ],
+                            pattern: /f["'][^"']*\{[^}]*[\+\-\*\/][^}]*\}[^"']*["']/
+                        }
+                    ]
                 },
-                {
-                    id: "exp3",
-                    title: "Add New Variables",
-                    taskExplanation: "Create additional variables with different data types and display them.",
-                    detailedInstructions: [
-                        "Add a new string variable like <code>city = \"Brisbane\"</code>.",
-                        "Create a boolean variable like <code>is_student = True</code>.",
-                        "Include these new variables in your print statements using f-strings."
-                    ],
-                    pattern: /(city|town|suburb|is_|has_|can_)\s*=\s*/
-                },
-                {
-                    id: "exp4",
-                    title: "Use Different Print Styles",
-                    taskExplanation: "Experiment with different ways to display variable values using various print methods.",
-                    detailedInstructions: [
-                        "Try using commas: <code>print(\"Name:\", name)</code>.",
-                        "Use string concatenation: <code>print(\"Age: \" + str(age))</code>.",
-                        "Compare with f-strings to see which is easier to read."
-                    ],
-                    pattern: /print\s*\(\s*["'][^"']*["']\s*,\s*\w+\s*\)/
-                },
-                {
-                    id: "exp5",
-                    title: "Variable Calculations",
-                    taskExplanation: "Perform simple calculations using variables and store the results in new variables.",
-                    detailedInstructions: [
-                        "Create a calculation like <code>double_age = age * 2</code>.",
-                        "Add a years calculation like <code>birth_year = 2024 - age</code>.",
-                        "Display these calculated values with appropriate labels."
-                    ],
-                    pattern: /\w+\s*=\s*\w+\s*[\+\-\*\/]\s*\d+/
-                },
-                {
-                    id: "exp6",
-                    title: "Update Variable Values",
-                    taskExplanation: "Demonstrate how variables can be updated by assigning new values to existing variables.",
-                    detailedInstructions: [
-                        "After the initial assignments, add <code>score = score + 50</code>.",
-                        "Try <code>age = age + 1</code> to increment the age.",
-                        "Print the variables before and after the updates to see the changes."
-                    ],
-                    pattern: /\w+\s*=\s*\w+\s*[\+\-]\s*\d+/
+                problem: {
+                    title: "Problem Solution Task Requirements",
+                    icon: "fa-tasks",
+                    experiments: [
+                        {
+                            id: "problem-req1",
+                            title: "Create Student Variables",
+                            taskExplanation: "Create variables to store the student's basic information.",
+                            detailedInstructions: [
+                                "Keep the header message that's already provided.",
+                                "Create variables for the student's first name and last name.",
+                                "Add variables for age, favorite subject, and year born using the values from the pseudocode."
+                            ],
+                            pattern: /first_name\s*=\s*["'][^"']*["']/
+                        },
+                        {
+                            id: "problem-req2",
+                            title: "Calculate Next Year's Age",
+                            taskExplanation: "Add a simple calculation to find out how old the student will be next year.",
+                            detailedInstructions: [
+                                "Create a new variable for next year's age.",
+                                "Use the current age variable in a simple calculation.",
+                                "This demonstrates how variables can be used in mathematical operations."
+                            ],
+                            pattern: /next_year_age\s*=\s*age\s*\+\s*1/
+                        },
+                        {
+                            id: "problem-req3",
+                            title: "Display Student Information",
+                            taskExplanation: "Use print statements to display all the student information in a nice format.",
+                            detailedInstructions: [
+                                "Create print statements to display the student's full name.",
+                                "Show the age, favorite subject, and year born.",
+                                "Use formatting techniques to make the output look professional."
+                            ],
+                            pattern: /print\s*\(\s*f["'][^"']*\{.*first_name.*\}[^"']*\{.*last_name.*\}[^"']*["']\s*\)/
+                        },
+                        {
+                            id: "problem-req4",
+                            title: "Show Next Year's Age",
+                            taskExplanation: "Add a final print statement that displays the calculated next year's age.",
+                            detailedInstructions: [
+                                "Create a print statement about next year's age.",
+                                "Make it a complete sentence that reads naturally.",
+                                "Use the calculated variable you created earlier."
+                            ],
+                            pattern: /print\s*\(\s*f["'][^"']*\{.*next_year_age.*\}[^"']*["']\s*\)/
+                        },
+                        {
+                            id: "problem-req5",
+                            title: "Extension Activity",
+                            taskExplanation: "Enhance the profile with additional information and calculations.",
+                            detailedInstructions: [
+                                "Add more variables for additional student information.",
+                                "Try creating another simple calculation using existing variables.",
+                                "Create a new pseudocode or flowchart showing your enhanced profile."
+                            ],
+                            pattern: /hobby|favorite_color|school_year|months/,
+                            isExtension: true
+                        }
+                    ]
                 }
-            ]
-        },
-        secondary: {
-            title: "Code Lab 2 Experiments",
-            icon: "fa-flask",
-            experiments: [
-                {
-                    id: "input-exp1",
-                    title: "Run Input Program",
-                    taskExplanation: "Execute the input and conversion program to see how user input is processed.",
-                    detailedInstructions: [
-                        "Run the code and type a name when prompted.",
-                        "Enter an age when asked.",
-                        "Observe how the program processes and displays the input."
-                    ],
-                    pattern: /input\s*\(\s*["'][^"']*["']\s*\)/
-                },
-                {
-                    id: "input-exp2",
-                    title: "Add More Input",
-                    taskExplanation: "Extend the program to ask for additional information from the user.",
-                    detailedInstructions: [
-                        "Add another input like <code>city = input(\"What city are you from? \")</code>.",
-                        "Include the new input in your output messages.",
-                        "Try asking for a favourite number and converting it to an integer."
-                    ],
-                    pattern: /input\s*\(\s*["'][^"']*(?:city|town|number|score)[^"']*["']\s*\)/
-                },
-                {
-                    id: "input-exp3",
-                    title: "Multiple Calculations",
-                    taskExplanation: "Perform various calculations using the input values and display the results.",
-                    detailedInstructions: [
-                        "Calculate how old the user was 5 years ago: <code>past_age = age - 5</code>.",
-                        "Find out how old they'll be in 10 years: <code>future_age = age + 10</code>.",
-                        "Display all these calculations with clear labels."
-                    ],
-                    pattern: /\w+\s*=\s*age\s*[\+\-]\s*\d+/
-                },
-                {
-                    id: "input-exp4",
-                    title: "Input Validation",
-                    taskExplanation: "Experiment with what happens when different types of input are entered.",
-                    detailedInstructions: [
-                        "Try entering letters when a number is expected.",
-                        "See what happens when you enter a decimal number for age.",
-                        "Add a comment explaining what you observe."
-                    ],
-                    pattern: /#.*input.*error|#.*validation|#.*try/
-                },
-                {
-                    id: "input-exp5",
-                    title: "Enhanced F-Strings",
-                    taskExplanation: "Create more complex f-string expressions that include calculations and multiple variables.",
-                    detailedInstructions: [
-                        "Combine multiple variables: <code>f\"Hi {name} from {city}!\"</code>.",
-                        "Include calculations in f-strings: <code>f\"In 5 years you'll be {age + 5}\"</code>.",
-                        "Try formatting numbers: <code>f\"Your age doubled is {age * 2}\"</code>."
-                    ],
-                    pattern: /f["'][^"']*\{[^}]*[\+\-\*\/][^}]*\}[^"']*["']/
-                }
-            ]
-        }
-    },
+            },
 
-    // Quiz configuration (for CHEW 1)
-    quiz: {
-        questions: [
-            {
-                type: "true-false",
-                question: "Variables can store different types of data like text and numbers.",
-                correctAnswer: "true",
-                feedbackCorrect: "Correct! Variables can store strings, integers, floats, booleans, and more.",
-                feedbackIncorrect: "Incorrect. Variables are very flexible and can store many different data types."
+            // Quiz configuration (for PRACTICE 1)
+            quiz: {
+                questions: [
+                    {
+                        type: "true-false",
+                        question: "Variables can store different types of data like text and numbers.",
+                        correctAnswer: "true",
+                        feedbackCorrect: "Correct! Variables can store strings, integers, floats, booleans, and more.",
+                        feedbackIncorrect: "Incorrect. Variables are very flexible and can store many different data types."
+                    },
+                    {
+                        type: "true-false",
+                        question: "The input() function always returns a string, even if the user types a number.",
+                        correctAnswer: "true",
+                        feedbackCorrect: "Correct! input() always returns a string, so you need int() to convert numbers.",
+                        feedbackIncorrect: "Incorrect. input() always returns text (string), even for numbers. Use int() to convert."
+                    },
+                    {
+                        type: "true-false",
+                        question: "In Python, variable names can contain spaces.",
+                        correctAnswer: "false",
+                        feedbackCorrect: "Correct! Variable names cannot contain spaces. Use underscores like player_name.",
+                        feedbackIncorrect: "Incorrect. Variable names cannot have spaces. Use underscores instead."
+                    },
+                    {
+                        type: "true-false",
+                        question: "F-strings start with the letter 'f' before the quotes.",
+                        correctAnswer: "true",
+                        feedbackCorrect: "Correct! F-strings use f\"text {variable}\" syntax.",
+                        feedbackIncorrect: "Incorrect. F-strings do start with f, like f\"Hello {name}\"."
+                    }
+                ]
             },
-            {
-                type: "true-false",
-                question: "The input() function always returns a string, even if the user types a number.",
-                correctAnswer: "true",
-                feedbackCorrect: "Correct! input() always returns a string, so you need int() to convert numbers.",
-                feedbackIncorrect: "Incorrect. input() always returns text (string), even for numbers. Use int() to convert."
-            },
-            {
-                type: "true-false",
-                question: "In Python, variable names can contain spaces.",
-                correctAnswer: "false",
-                feedbackCorrect: "Correct! Variable names cannot contain spaces. Use underscores like player_name.",
-                feedbackIncorrect: "Incorrect. Variable names cannot have spaces. Use underscores instead."
-            },
-            {
-                type: "true-false",
-                question: "F-strings start with the letter 'f' before the quotes.",
-                correctAnswer: "true",
-                feedbackCorrect: "Correct! F-strings use f\"text {variable}\" syntax.",
-                feedbackIncorrect: "Incorrect. F-strings do start with f, like f\"Hello {name}\"."
+
+            // Shepherd Tours Configuration
+            tours: {
+                "exp1": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🚀 Run Original Code",
+                            text: `<p>Let's run the basic variable creation code to see how different data types work.</p>
+                                   <p>This will show you strings, integers, and floats in action!</p>`,
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "▶️ Click Run Code",
+                            text: `<p>Click the 'Run Code' button to execute the variable creation code.</p>
+                                   <p>Notice how each variable type is displayed differently!</p>`,
+                            attachTo: { element: "#run-primary-btn", on: "top" },
+                            buttons: [{ text: "Got It!", action: "complete" }]
+                        }
+                    ]
+                },
+                "exp2": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "✏️ Change Variable Values",
+                            text: `<p>Try changing the values assigned to the variables.</p>
+                                   <p>Change <code>name = "Alex"</code> to a different name like <code>name = "Sam"</code></p>
+                                   <p>Try <code>age = 16</code> or <code>score = 95.0</code></p>`,
+                            attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "🔄 See the Changes",
+                            text: "<p>After making changes, run the code again to see how the output updates!</p>",
+                            attachTo: { element: "#run-primary-btn", on: "top" },
+                            buttons: [{ text: "Complete!", action: "complete" }]
+                        }
+                    ]
+                },
+                "exp3": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "➕ Add New Variables",
+                            text: `<p>Create additional variables with different data types.</p>
+                                   <p>Try adding: <code>city = "Brisbane"</code></p>
+                                   <p>Or: <code>is_student = True</code></p>`,
+                            attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "📊 Display New Variables",
+                            text: "<p>Add print statements like <code>print(f\"City: {city}\")</code> to display your new variables!</p>",
+                            attachTo: { element: "#run-primary-btn", on: "top" },
+                            buttons: [{ text: "Done!", action: "complete" }]
+                        }
+                    ]
+                },
+                "exp4": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🖨️ Different Print Styles",
+                            text: `<p>Experiment with different ways to print variables.</p>
+                                   <p>Try: <code>print("Name:", name)</code></p>
+                                   <p>Or: <code>print("Age: " + str(age))</code></p>`,
+                            attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "🔍 Compare Methods",
+                            text: "<p>Run the code to see which print method you prefer!</p>",
+                            attachTo: { element: "#run-primary-btn", on: "top" },
+                            buttons: [{ text: "Complete!", action: "complete" }]
+                        }
+                    ]
+                },
+                "exp5": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🧮 Variable Calculations",
+                            text: `<p>Use variables in calculations to create new variables.</p>
+                                   <p>Try: <code>double_age = age * 2</code></p>
+                                   <p>Or: <code>birth_year = 2024 - age</code></p>`,
+                            attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "📈 Show Results",
+                            text: "<p>Display your calculated values with <code>print(f\"Double age: {double_age}\")</code> and run the code!</p>",
+                            attachTo: { element: "#run-primary-btn", on: "top" },
+                            buttons: [{ text: "Done!", action: "complete" }]
+                        }
+                    ]
+                },
+                "exp6": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🔄 Update Variables",
+                            text: `<p>Show how variables can change by assigning new values.</p>
+                                   <p>Add: <code>score = score + 50</code> after the initial assignment.</p>
+                                   <p>Try: <code>age = age + 1</code></p>`,
+                            attachTo: { element: ".coding-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "📊 Before and After",
+                            text: "<p>Print the variable before and after updating to see the change!</p>",
+                            attachTo: { element: "#run-primary-btn", on: "top" },
+                            buttons: [{ text: "Complete!", action: "complete" }]
+                        }
+                    ]
+                },
+                // Tours for Secondary Playground
+                "input-exp1": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "⌨️ Input Program",
+                            text: `<p>This program shows how to get input from users and convert it.</p>
+                                   <p>You'll type responses when prompted!</p>`,
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "▶️ Run and Interact",
+                            text: "<p>Click 'Run Code' and follow the prompts to enter your name and age!</p>",
+                            attachTo: { element: "#run-secondary-btn", on: "top" },
+                            buttons: [{ text: "Done!", action: "complete" }]
+                        }
+                    ]
+                },
+                "input-exp2": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "➕ Add More Input",
+                            text: `<p>Add another input() statement to ask for more information.</p>
+                                   <p>Try: <code>city = input("What city are you from? ")</code></p>
+                                   <p>Or: <code>hobby = input("What's your hobby? ")</code></p>`,
+                            attachTo: { element: ".secondary-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "🔄 Test New Input",
+                            text: "<p>Run the code and provide the new input when prompted!</p>",
+                            attachTo: { element: "#run-secondary-btn", on: "top" },
+                            buttons: [{ text: "Complete!", action: "complete" }]
+                        }
+                    ]
+                },
+                "input-exp3": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🧮 Multiple Calculations",
+                            text: `<p>Create several calculations using the age variable.</p>
+                                   <p>Try: <code>past_age = age - 5</code></p>
+                                   <p>And: <code>future_age = age + 10</code></p>`,
+                            attachTo: { element: ".secondary-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "📊 Display Results",
+                            text: "<p>Show all your calculations with clear labels using f-strings!</p>",
+                            attachTo: { element: "#run-secondary-btn", on: "top" },
+                            buttons: [{ text: "Done!", action: "complete" }]
+                        }
+                    ]
+                },
+                "input-exp4": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🧪 Test Different Inputs",
+                            text: `<p>Try entering unexpected values to see what happens.</p>
+                                   <p>What if you enter letters when a number is expected?</p>
+                                   <p>Add comments like <code># This causes an error</code> to document your findings.</p>`,
+                            attachTo: { element: ".secondary-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "🔍 Observe Results",
+                            text: "<p>Run the code and experiment with different types of input!</p>",
+                            attachTo: { element: "#run-secondary-btn", on: "top" },
+                            buttons: [{ text: "Complete!", action: "complete" }]
+                        }
+                    ]
+                },
+                "input-exp5": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🎨 Enhanced F-Strings",
+                            text: `<p>Create more complex f-strings with multiple variables and calculations.</p>
+                                   <p>Try: <code>f"Hi {name} from {city}!"</code></p>
+                                   <p>Or: <code>f"In 5 years you'll be {age + 5}"</code></p>`,
+                            attachTo: { element: ".secondary-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "✨ See Enhanced Output",
+                            text: "<p>Run the code to see your enhanced f-string formatting!</p>",
+                            attachTo: { element: "#run-secondary-btn", on: "top" },
+                            buttons: [{ text: "Complete!", action: "complete" }]
+                        }
+                    ]
+                },
+                // Tours for Problem Playground
+                "problem-req1": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🏗️ Create Student Variables",
+                            text: `<p>Start by creating variables for the student's basic information.</p>
+                                   <p>You'll need: <code>first_name = "Alex"</code>, <code>last_name = "Johnson"</code></p>
+                                   <p>Also add: <code>age = 15</code>, <code>favorite_subject = "Computer Science"</code>, <code>year_born = 2009</code></p>`,
+                            attachTo: { element: ".problem-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "💡 Variable Tips",
+                            text: "<p>Remember: strings need quotes, numbers don't. Use the exact values from the pseudocode!</p>",
+                            attachTo: { element: "#run-problem-btn", on: "top" },
+                            buttons: [{ text: "Got It!", action: "complete" }]
+                        }
+                    ]
+                },
+                "problem-req2": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🧮 Simple Calculation",
+                            text: `<p>Add a simple calculation to find next year's age.</p>
+                                   <p>Create: <code>next_year_age = age + 1</code></p>
+                                   <p>This shows how to use variables in calculations!</p>`,
+                            attachTo: { element: ".problem-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "✅ Test Calculation",
+                            text: "<p>Run your code to see the calculation in action!</p>",
+                            attachTo: { element: "#run-problem-btn", on: "top" },
+                            buttons: [{ text: "Complete!", action: "complete" }]
+                        }
+                    ]
+                },
+                "problem-req3": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "📝 Display Information",
+                            text: `<p>Use print statements to show all the student information.</p>
+                                   <p>Try: <code>print(f"Name: {first_name} {last_name}")</code></p>
+                                   <p>Add similar lines for age, favorite subject, and year born.</p>`,
+                            attachTo: { element: ".problem-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "🔍 Check Output",
+                            text: "<p>Run your code to see how the student information displays!</p>",
+                            attachTo: { element: "#run-problem-btn", on: "top" },
+                            buttons: [{ text: "Complete!", action: "complete" }]
+                        }
+                    ]
+                },
+                "problem-req4": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "📊 Show Next Year",
+                            text: `<p>Add a final print statement for next year's age.</p>
+                                   <p>Try: <code>print(f"Next year I will be {next_year_age} years old")</code></p>
+                                   <p>Use the calculated variable you created earlier.</p>`,
+                            attachTo: { element: ".problem-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "✨ Complete Profile",
+                            text: "<p>Run your complete program and see the full student profile!</p>",
+                            attachTo: { element: "#run-problem-btn", on: "top" },
+                            buttons: [{ text: "Done!", action: "complete" }]
+                        }
+                    ]
+                },
+                "problem-req5": {
+                    useModalOverlay: false,
+                    steps: [
+                        {
+                            title: "🚀 Extension Challenge",
+                            text: `<p>Time to enhance your profile with more information!</p>
+                                   <p>Try adding: <code>hobby = "Gaming"</code>, <code>favorite_color = "Blue"</code></p>
+                                   <p>Or calculate: <code>age_in_months = age * 12</code></p>`,
+                            attachTo: { element: ".problem-playground .code-panel", on: "right" },
+                            buttons: [{ text: "Next", action: "next" }]
+                        },
+                        {
+                            title: "📝 Redesign Challenge",
+                            text: "<p>After adding new variables, create a new pseudocode or flowchart showing your enhanced profile!</p>",
+                            buttons: [{ text: "Let's Go!", action: "complete" }]
+                        }
+                    ]
+                }
             }
-        ]
-    },
+        };
 
-    // Statement building configuration (for CHEW 3)
-    statementBuilding: {
-        challenge: "Create a variable that gets user input and converts it to an integer",
-        instruction: "Click the code parts in the correct order to build the statement:",
-        parts: ["age", "=", "int", "(", "input", "(", '"Enter age: "', ")", ")"],
-        correctSequence: ["age", "=", "int", "(", "input", "(", '"Enter age: "', ")", ")"],
-        correctAnswer: 'age = int(input("Enter age: "))'
-    },
-
-    // Spot the Error Quiz (for CHEW 3)
-    spotTheErrorQuiz: {
-        title: "Spot the Syntax Error!",
-        instruction: "Examine the Python code below and identify the syntax error.",
-        code: `name = "Alex"\nage = input("Enter your age: ")\nprint("Hello " + name + "! You are " + age + 1 + " years old.")`,
-        question: "What is the primary syntax error in the code snippet above?",
-        options: [
-            { value: "A", text: "Missing quotes around the string \"Alex\"" },
-            { value: "B", text: "Cannot add a string and an integer together" },
-            { value: "C", text: "The variable name should be in quotes" },
-            { value: "D", text: "input() function is used incorrectly" }
-        ],
-        correctAnswer: "B",
-        explanation: "Correct! You cannot add strings and integers together. The age is a string from input(), and you're trying to add 1 (integer) to it. You need to convert age to int first or use an f-string.",
-        buckles: 1
-    },
-
-    // Loop Tracing Challenge (for CHEW 3)
-    tracingChallenge: {
-        title: "Variable Tracing Challenge",
-        instruction: "Carefully trace the execution of this code and predict the final output:",
-        code: `x = 5\ny = 3\nx = x + y\ny = x - 2\nprint(f"x = {x}, y = {y}")`,
-        question: "What will be the final output of this code?",
-        options: [
-            { value: "A", text: "x = 5, y = 3" },
-            { value: "B", text: "x = 8, y = 6" },
-            { value: "C", text: "x = 8, y = 6" },
-            { value: "D", text: "x = 3, y = 8" }
-        ],
-        correctAnswer: "B",
-        explanation: "Correct! Initially x=5, y=3. Then x becomes 5+3=8. Finally y becomes 8-2=6. So the output is x = 8, y = 6.",
-        buckles: 5
-    },
-
-    // Shepherd Tours Configuration
-    tours: {
-        "exp1": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "🚀 Run Original Code",
-                    text: `<p>Let's run the basic variable creation code to see how different data types work.</p>
-                           <p>This will show you strings, integers, and floats in action!</p>`,
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "▶️ Click Run Code",
-                    text: `<p>Click the 'Run Code' button to execute the variable creation code.</p>
-                           <p>Notice how each variable type is displayed differently!</p>`,
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Got It!", action: "complete" }]
-                }
-            ]
-        },
-        "exp2": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "✏️ Change Variable Values",
-                    text: `<p>Try changing the values assigned to the variables.</p>
-                           <p>Change <code>"Alex"</code> to a different name, or <code>15</code> to a different age.</p>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "🔄 See the Changes",
-                    text: "<p>After making changes, run the code again to see how the output updates!</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
-            ]
-        },
-        "exp3": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "➕ Add New Variables",
-                    text: `<p>Create additional variables with different data types.</p>
-                           <p>Try adding <code>city = "Brisbane"</code> or <code>is_student = True</code>.</p>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "📊 Display New Variables",
-                    text: "<p>Add print statements to display your new variables using f-strings!</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Done!", action: "complete" }]
-                }
-            ]
-        },
-        "exp4": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "🖨️ Different Print Styles",
-                    text: `<p>Experiment with different ways to print variables.</p>
-                           <p>Try: <code>print("Name:", name)</code> or <code>print("Age: " + str(age))</code></p>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "🔍 Compare Methods",
-                    text: "<p>Run the code to see which print method you prefer!</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
-            ]
-        },
-        "exp5": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "🧮 Variable Calculations",
-                    text: `<p>Use variables in calculations to create new variables.</p>
-                           <p>Try <code>double_age = age * 2</code> or <code>birth_year = 2024 - age</code></p>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "📈 Show Results",
-                    text: "<p>Display your calculated values and run the code!</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Done!", action: "complete" }]
-                }
-            ]
-        },
-        "exp6": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "🔄 Update Variables",
-                    text: `<p>Show how variables can change by assigning new values.</p>
-                           <p>Add <code>score = score + 50</code> after the initial assignment.</p>`,
-                    attachTo: { element: ".coding-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "📊 Before and After",
-                    text: "<p>Print the variable before and after updating to see the change!</p>",
-                    attachTo: { element: "#run-primary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
-            ]
-        },
-        // Tours for Secondary Playground
-        "input-exp1": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "⌨️ Input Program",
-                    text: `<p>This program shows how to get input from users and convert it.</p>
-                           <p>You'll type responses when prompted!</p>`,
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "▶️ Run and Interact",
-                    text: "<p>Click 'Run Code' and follow the prompts to enter your name and age!</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Done!", action: "complete" }]
-                }
-            ]
-        },
-        "input-exp2": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "➕ Add More Input",
-                    text: `<p>Add another input() statement to ask for more information.</p>
-                           <p>Try asking for a city, hobby, or favourite number!</p>`,
-                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "🔄 Test New Input",
-                    text: "<p>Run the code and provide the new input when prompted!</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
-            ]
-        },
-        "input-exp3": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "🧮 Multiple Calculations",
-                    text: `<p>Create several calculations using the age variable.</p>
-                           <p>Try <code>past_age = age - 5</code> and <code>future_age = age + 10</code></p>`,
-                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "📊 Display Results",
-                    text: "<p>Show all your calculations with clear labels!</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Done!", action: "complete" }]
-                }
-            ]
-        },
-        "input-exp4": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "🧪 Test Different Inputs",
-                    text: `<p>Try entering unexpected values to see what happens.</p>
-                           <p>What if you enter letters when a number is expected?</p>`,
-                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "🔍 Observe Results",
-                    text: "<p>Run the code and experiment with different types of input!</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
-            ]
-        },
-        "input-exp5": {
-            useModalOverlay: false,
-            steps: [
-                {
-                    title: "🎨 Enhanced F-Strings",
-                    text: `<p>Create more complex f-strings with multiple variables and calculations.</p>
-                           <p>Try <code>f"Hi {name}! In 5 years you'll be {age + 5}"</code></p>`,
-                    attachTo: { element: ".secondary-playground .code-panel", on: "right" },
-                    buttons: [{ text: "Next", action: "next" }]
-                },
-                {
-                    title: "✨ See Enhanced Output",
-                    text: "<p>Run the code to see your enhanced f-string formatting!</p>",
-                    attachTo: { element: "#run-secondary-btn", on: "top" },
-                    buttons: [{ text: "Complete!", action: "complete" }]
-                }
-            ]
+        // Shuffle function
+        function shuffle(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
         }
-    }
-};
-
-// Shuffle function
-function shuffle(array) {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-}
 
         // Initialize the educational system
         document.addEventListener('DOMContentLoaded', function() {
