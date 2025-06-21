@@ -11,7 +11,7 @@ const EducationalEditor = (function() {
 
     // Private variables
     let config = {};
-    let editors = {}; // Will store CodeMirror instances: editors['primary'], editors['secondary']
+    let editors = {}; // Will store CodeMirror instances: editors['primary'], editors['secondary'], editors['problem']
     let tours = {};
 
     // Core initialization function
@@ -20,10 +20,10 @@ const EducationalEditor = (function() {
 
         // Initialize all components based on config
         initializeNavigation();
-        initializeExperimentPanels();
+        initializeTaskRequirementsPanels();
         initializePrimaryPlayground();
-        
         initializeSecondaryPlayground();
+        initializeProblemPlaygrounds();
         initializeSyntaxBreakdown();
         initializeQuiz();
         initializeStatementBuilding();
@@ -33,101 +33,124 @@ const EducationalEditor = (function() {
         initializeTours();
 
         // Load and update progress
-        updateExperimentTrackers();
+        updateTaskRequirementsTrackers();
 
         console.log('Educational Editor System initialized successfully');
     }
 
     function initializeNavigation() {
-    document.querySelectorAll('.tab-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const clickedTabId = this.getAttribute('data-tab'); // ID of the tab section to show
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const clickedTabId = this.getAttribute('data-tab'); // ID of the tab section to show
 
-            // Deactivate all tabs and content
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
+                // Deactivate all tabs and content
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Activate the clicked tab and its content
+                this.classList.add('active');
+                const activeTabContent = document.getElementById(clickedTabId);
+                if (activeTabContent) {
+                    activeTabContent.classList.add('active');
+                }
+
+                // --- REFRESH LOGIC using parentTabId from pageConfig ---
+                // Check for primary playground
+                if (config.primaryPlayground && config.primaryPlayground.parentTabId === clickedTabId && editors['primary']) {
+                    setTimeout(() => {
+                        if (editors['primary']) {
+                            editors['primary'].refresh();
+                            editors['primary'].focus();
+                        }
+                    }, 10);
+                }
+
+                // Check for secondary playground
+                if (config.secondaryPlayground && config.secondaryPlayground.parentTabId === clickedTabId && editors['secondary']) {
+                    setTimeout(() => {
+                        if (editors['secondary']) {
+                            editors['secondary'].refresh();
+                            editors['secondary'].focus();
+                        }
+                    }, 10);
+                }
+
+                // Check for problem playground
+                if (config.problemPlayground && config.problemPlayground.parentTabId === clickedTabId && editors['problem']) {
+                    setTimeout(() => {
+                        if (editors['problem']) {
+                            editors['problem'].refresh();
+                            editors['problem'].focus();
+                        }
+                    }, 10);
+                }
             });
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // Activate the clicked tab and its content
-            this.classList.add('active');
-            const activeTabContent = document.getElementById(clickedTabId);
-            if (activeTabContent) {
-                activeTabContent.classList.add('active');
-            }
-
-            // --- REFRESH LOGIC using parentTabId from pageConfig ---
-            // Check for primary playground
-            if (config.primaryPlayground && config.primaryPlayground.parentTabId === clickedTabId && editors['primary']) {
-                setTimeout(() => {
-                    if (editors['primary']) { // Double check editor instance exists
-                        editors['primary'].refresh();
-                        editors['primary'].focus();
-                    }
-                }, 10); // A small delay can help ensure the layout is complete
-            }
-
-            // Check for secondary playground
-            if (config.secondaryPlayground && config.secondaryPlayground.parentTabId === clickedTabId && editors['secondary']) {
-                setTimeout(() => {
-                    if (editors['secondary']) { // Double check editor instance exists
-                        editors['secondary'].refresh();
-                        editors['secondary'].focus();
-                    }
-                }, 10);
-            }
         });
-    });
 
-    // Set sidebar title from config
-    if (config.topic && config.topic.sidebarTitle) {
-        const sidebarLogo = document.querySelector('.sidebar-logo');
-        if (sidebarLogo) {
-            sidebarLogo.textContent = config.topic.sidebarTitle;
+        // Set sidebar title from config
+        if (config.topic && config.topic.sidebarTitle) {
+            const sidebarLogo = document.querySelector('.sidebar-logo');
+            if (sidebarLogo) {
+                sidebarLogo.textContent = config.topic.sidebarTitle;
+            }
         }
     }
-}
 
-    // Experiment panels system
-    function initializeExperimentPanels() {
+    // Task Requirements panels system (renamed from experiments)
+    function initializeTaskRequirementsPanels() {
         const container = document.getElementById('experiments-container');
-        if (!container || !config.experiments) return;
+        if (!container) return;
 
         let panelsHTML = '';
 
-        if (config.experiments.primary) {
-            panelsHTML += createExperimentPanel('experiments-panel', config.experiments.primary, 'toggleExperimentsPanel');
+        // Primary task requirements (backward compatibility with experiments)
+        if (config.taskRequirements && config.taskRequirements.primary) {
+            panelsHTML += createTaskRequirementsPanel('task-requirements-panel', config.taskRequirements.primary, 'toggleTaskRequirementsPanel', 'primary');
+        } else if (config.experiments && config.experiments.primary) {
+            panelsHTML += createTaskRequirementsPanel('task-requirements-panel', config.experiments.primary, 'toggleTaskRequirementsPanel', 'primary');
         }
 
-        if (config.experiments.secondary) {
-            panelsHTML += createExperimentPanel('secondary-experiments-panel', config.experiments.secondary, 'toggleSecondaryExperimentsPanel');
+        // Secondary task requirements
+        if (config.taskRequirements && config.taskRequirements.secondary) {
+            panelsHTML += createTaskRequirementsPanel('secondary-task-requirements-panel', config.taskRequirements.secondary, 'toggleSecondaryTaskRequirementsPanel', 'secondary');
+        } else if (config.experiments && config.experiments.secondary) {
+            panelsHTML += createTaskRequirementsPanel('secondary-task-requirements-panel', config.experiments.secondary, 'toggleSecondaryTaskRequirementsPanel', 'secondary');
+        }
+
+        // Problem task requirements
+        if (config.taskRequirements && config.taskRequirements.problem) {
+            panelsHTML += createTaskRequirementsPanel('problem-task-requirements-panel', config.taskRequirements.problem, 'toggleProblemTaskRequirementsPanel', 'problem');
         }
 
         container.innerHTML = panelsHTML;
 
-        window.toggleExperimentsPanel = () => toggleExperimentPanel('experiments-panel', 'secondary-experiments-panel');
-        window.toggleSecondaryExperimentsPanel = () => toggleExperimentPanel('secondary-experiments-panel', 'experiments-panel');
+        window.toggleTaskRequirementsPanel = () => toggleTaskRequirementsPanel('task-requirements-panel', 'secondary-task-requirements-panel,problem-task-requirements-panel');
+        window.toggleSecondaryTaskRequirementsPanel = () => toggleTaskRequirementsPanel('secondary-task-requirements-panel', 'task-requirements-panel,problem-task-requirements-panel');
+        window.toggleProblemTaskRequirementsPanel = () => toggleTaskRequirementsPanel('problem-task-requirements-panel', 'task-requirements-panel,secondary-task-requirements-panel');
 
-        window.startExperimentTour = (expId) => startExperimentTour(expId, 'primary');
-        window.startSecondaryExperimentTour = (expId) => startExperimentTour(expId, 'secondary');
+        window.startTaskRequirementTour = (reqId, type) => startTaskRequirementTour(reqId, type);
     }
 
-        function createExperimentPanel(panelId, experimentConfig, toggleFunction) {
-        const panelClass = panelId.includes('secondary') ? 'secondary-experiments-panel' : 'experiments-panel';
-        const headerClass = panelId.includes('secondary') ? 'secondary-experiments-panel-header' : 'experiments-panel-header';
+    function createTaskRequirementsPanel(panelId, requirementsConfig, toggleFunction, type) {
+        const panelClass = panelId.includes('secondary') ? 'secondary-task-requirements-panel' : 
+                          panelId.includes('problem') ? 'problem-task-requirements-panel' : 'task-requirements-panel';
+        const headerClass = panelId.includes('secondary') ? 'secondary-task-requirements-panel-header' : 
+                           panelId.includes('problem') ? 'problem-task-requirements-panel-header' : 'task-requirements-panel-header';
 
-        let experimentsHTML = '';
-        experimentConfig.experiments.forEach((exp, index) => {
+        let requirementsHTML = '';
+        requirementsConfig.experiments.forEach((req, index) => {
             // Generate instructions HTML if detailedInstructions exist
             let instructionsHTML = '';
-            if (exp.detailedInstructions && exp.detailedInstructions.length > 0) {
+            if (req.detailedInstructions && req.detailedInstructions.length > 0) {
                 instructionsHTML = `
-                    <ul class="experiment-instructions-list">
-                        ${exp.detailedInstructions.map(instr => `<li>${instr}</li>`).join('')}
+                    <ul class="task-requirement-instructions-list">
+                        ${req.detailedInstructions.map(instr => `<li>${instr}</li>`).join('')}
                         <li>
-                            <button class="experiment-hint-btn" onclick="${panelId.includes('secondary') ? 'startSecondaryExperimentTour' : 'startExperimentTour'}('${exp.id}')">
+                            <button class="task-requirement-hint-btn" onclick="startTaskRequirementTour('${req.id}', '${type}')">
                                 <i class="fas fa-lightbulb"></i> HINT / Guided Tour
                             </button>
                         </li>
@@ -135,17 +158,21 @@ const EducationalEditor = (function() {
                 `;
             }
 
-            experimentsHTML += `
-                <div class="experiment-item" id="${exp.id}-item">
-                    <div class="experiment-item-header">
-                        <div class="experiment-status" id="${exp.id}-status">${index + 1}</div>
-                        <h4 class="experiment-title">${exp.title}</h4>
+            // Check if this is an extension activity
+            const extensionClass = req.isExtension ? ' extension-activity' : '';
+            const extensionIcon = req.isExtension ? '<i class="fas fa-rocket" style="margin-left: 8px; color: #8e44ad;"></i>' : '';
+
+            requirementsHTML += `
+                <div class="task-requirement-item${extensionClass}" id="${req.id}-item">
+                    <div class="task-requirement-item-header">
+                        <div class="task-requirement-status" id="${req.id}-status">${index + 1}</div>
+                        <h4 class="task-requirement-title">${req.title}${extensionIcon}</h4>
                     </div>
-                    <p class="experiment-task-explanation">${exp.taskExplanation || exp.description || ''}</p>
+                    <p class="task-requirement-explanation">${req.taskExplanation || req.description || ''}</p>
                     
-                    <details class="experiment-instructions-dropdown">
+                    <details class="task-requirement-instructions-dropdown">
                         <summary>
-                            <i class="fas fa-chevron-down"></i> View Instructions
+                            <i class="fas fa-chevron-down"></i> View Requirements
                         </summary>
                         ${instructionsHTML}
                     </details>
@@ -156,23 +183,23 @@ const EducationalEditor = (function() {
         return `
             <div class="${panelClass}" id="${panelId}">
                 <div class="${headerClass}">
-                    <h3><i class="fas ${experimentConfig.icon}" style="margin-right: 10px;"></i>${experimentConfig.title}</h3>
+                    <h3><i class="fas ${requirementsConfig.icon}" style="margin-right: 10px;"></i>${requirementsConfig.title}</h3>
                     <button class="close-experiments-btn" onclick="${toggleFunction}()">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="experiments-list">
-                    ${experimentsHTML}
+                    ${requirementsHTML}
                 </div>
             </div>
         `;
     }
 
-    function toggleExperimentPanel(panelToToggle, panelToClose) {
+    function toggleTaskRequirementsPanel(panelToToggle, panelsToClose) {
         const panel = document.getElementById(panelToToggle);
-        const otherPanel = document.getElementById(panelToClose);
+        const otherPanels = panelsToClose.split(',').map(id => document.getElementById(id.trim())).filter(p => p);
 
-        if (otherPanel) otherPanel.classList.remove('open');
+        otherPanels.forEach(otherPanel => otherPanel.classList.remove('open'));
         if (panel) panel.classList.toggle('open');
     }
 
@@ -187,14 +214,26 @@ const EducationalEditor = (function() {
         initializePlayground('secondary', config.secondaryPlayground, 'secondary-playground-container');
     }
 
-    function initializePlayground(type, playgroundConfig, containerId) {
+    function initializeProblemPlaygrounds() {
+        if (!config.problemPlayground) return;
+        
+        // Initialize both pseudocode and flowchart containers
+        initializePlayground('problem', config.problemPlayground, 'problem-playground-container', 'problem');
+        initializePlayground('problem-flowchart', config.problemPlayground, 'problem-playground-container-flowchart', 'problem');
+    }
+
+    function initializePlayground(type, playgroundConfig, containerId, categoryType = null) {
         const container = document.getElementById(containerId);
         if (!container) return;
 
         const isSecondary = type === 'secondary';
-        const playgroundClass = isSecondary ? 'secondary-playground' : 'coding-playground';
-        const beakerClass = isSecondary ? 'secondary-experiments-beaker-btn' : 'experiments-beaker-btn';
-        const beakerFunction = isSecondary ? 'toggleSecondaryExperimentsPanel' : 'toggleExperimentsPanel';
+        const isProblem = type.includes('problem');
+        const playgroundClass = isSecondary ? 'secondary-playground' : 
+                               isProblem ? 'problem-playground' : 'coding-playground';
+        const beakerClass = isSecondary ? 'secondary-task-requirements-beaker-btn' : 
+                           isProblem ? 'problem-task-requirements-beaker-btn' : 'task-requirements-beaker-btn';
+        const beakerFunction = isSecondary ? 'toggleSecondaryTaskRequirementsPanel' : 
+                              isProblem ? 'toggleProblemTaskRequirementsPanel' : 'toggleTaskRequirementsPanel';
 
         const playgroundHTML = `
             <div class="interactive-card">
@@ -248,10 +287,10 @@ const EducationalEditor = (function() {
         `;
 
         container.innerHTML = playgroundHTML;
-        initializeCodeEditor(type, playgroundConfig.initialCode);
+        initializeCodeEditor(type, playgroundConfig.initialCode, categoryType);
     }
 
-    function initializeCodeEditor(type, initialCode) {
+    function initializeCodeEditor(type, initialCode, categoryType = null) {
         function waitForDependencies() {
             if (typeof CodeMirror === 'undefined' || typeof Sk === 'undefined') {
                 setTimeout(waitForDependencies, 100);
@@ -271,7 +310,7 @@ const EducationalEditor = (function() {
                 autoCloseBrackets: true,
                 matchBrackets: true,
                 extraKeys: {
-                    "Ctrl-Enter": () => runCode(type),
+                    "Ctrl-Enter": () => runCode(type, categoryType),
                     "Tab": function(cm) {
                         if (cm.somethingSelected()) {
                             cm.indentSelection("add");
@@ -285,7 +324,6 @@ const EducationalEditor = (function() {
             // Enhanced Python 3 configuration for Skulpt
             Sk.configure({
                 output: function(text) {
-                    // Process the output to ensure Python 3 print behavior
                     const processedText = processPrintOutput(text);
                     addTerminalMessage(type, processedText, 'terminal-output');
                 },
@@ -299,17 +337,17 @@ const EducationalEditor = (function() {
                 execLimit: 5000
             });
 
-            document.getElementById(`run-${type}-btn`).addEventListener('click', () => runCode(type));
+            document.getElementById(`run-${type}-btn`).addEventListener('click', () => runCode(type, categoryType));
             document.getElementById(`clear-${type}-terminal-btn`).addEventListener('click', () => clearTerminal(type));
 
-            // Set value and initial refresh. This is good if the editor is visible on load.
+            // Set value and initial refresh
             editors[type].setValue(initialCode);
             editors[type].refresh();
 
             // Focus the editor if its tab is the active one on page load
             const parentTab = editorElement.closest('.tab-content');
             if (parentTab && parentTab.classList.contains('active')) {
-                 setTimeout(() => { // Delay focus slightly
+                 setTimeout(() => {
                      editors[type].focus();
                  }, 150);
             }
@@ -321,17 +359,13 @@ const EducationalEditor = (function() {
     // Process print output to ensure Python 3 behavior
     function processPrintOutput(text) {
         // Remove any tuple formatting that might appear from Python 2 behavior
-        // This handles cases where print("text", variable) might show as ('text', value)
         text = text.replace(/^\s*\(\s*'([^']*)',\s*([^)]*)\s*\)\s*$/gm, '$1 $2');
         text = text.replace(/^\s*\(\s*"([^"]*)",\s*([^)]*)\s*\)\s*$/gm, '$1 $2');
-
-        // Clean up any remaining tuple-like formatting
         text = text.replace(/^\s*\(\s*(.+?),\s*(.+?)\s*\)\s*$/gm, '$1 $2');
-
         return text;
     }
 
-    async function runCode(type) {
+    async function runCode(type, categoryType = null) {
         const editor = editors[type];
         if (!editor) return;
 
@@ -343,7 +377,15 @@ const EducationalEditor = (function() {
 
         const runBtn = document.getElementById(`run-${type}-btn`);
         const statusIndicator = document.getElementById(`${type}-status`);
-        const playgroundConfig = type === 'primary' ? config.primaryPlayground : config.secondaryPlayground;
+        let playgroundConfig;
+        
+        if (type === 'primary') {
+            playgroundConfig = config.primaryPlayground;
+        } else if (type === 'secondary') {
+            playgroundConfig = config.secondaryPlayground;
+        } else if (type.includes('problem')) {
+            playgroundConfig = config.problemPlayground;
+        }
 
         runBtn.innerHTML = '<span class="loading"></span> Running...';
         runBtn.disabled = true;
@@ -353,7 +395,6 @@ const EducationalEditor = (function() {
         clearTerminal(type);
 
         try {
-            // Enhanced Skulpt configuration for each run
             Sk.configure({
                 output: function(text) {
                     const processedText = processPrintOutput(text);
@@ -370,13 +411,12 @@ const EducationalEditor = (function() {
             statusIndicator.textContent = 'Ready';
             statusIndicator.className = 'status-indicator';
 
-            checkExperiments(type, code);
+            checkTaskRequirements(type, code, categoryType);
 
         } catch (error) {
             let errorMessage = error.toString();
-            // Clean up common Python error messages for better educational experience
             errorMessage = errorMessage.replace(/Sk\.builtin\..*?:/g, 'Error:');
-            errorMessage = errorMessage.replace(/line \d+/g, ''); // Consider keeping line numbers for debugging
+            errorMessage = errorMessage.replace(/line \d+/g, '');
 
             addTerminalMessage(type, `Error: ${errorMessage}`, 'terminal-error');
             statusIndicator.textContent = 'Error';
@@ -398,103 +438,112 @@ const EducationalEditor = (function() {
         terminal.scrollTop = terminal.scrollHeight;
     }
 
-        function clearTerminal(type) {
+    function clearTerminal(type) {
         const terminal = document.getElementById(`${type}-terminal`);
         if (!terminal) return;
 
-        // Simply clear all child elements from the terminal
         terminal.innerHTML = '';
 
-        // The status indicator should still be reset
         document.getElementById(`${type}-status`).textContent = 'Ready';
         document.getElementById(`${type}-status`).className = 'status-indicator';
     }
 
-    // Experiment detection and tracking
-    function checkExperiments(type, code) {
-        const experimentType = type === 'primary' ? 'primary' : 'secondary';
-        const experimentsConfig = config.experiments[experimentType]; // Changed variable name for clarity
-        if (!experimentsConfig) return;
+    // Task requirements detection and tracking (renamed from experiments)
+    function checkTaskRequirements(type, code, categoryType = null) {
+        let requirementsType;
+        
+        if (categoryType === 'problem') {
+            requirementsType = 'problem';
+        } else if (type === 'primary') {
+            requirementsType = 'primary';
+        } else if (type === 'secondary') {
+            requirementsType = 'secondary';
+        } else {
+            return;
+        }
+
+        let requirementsConfig = null;
+        if (config.taskRequirements && config.taskRequirements[requirementsType]) {
+            requirementsConfig = config.taskRequirements[requirementsType];
+        } else if (config.experiments && config.experiments[requirementsType]) {
+            requirementsConfig = config.experiments[requirementsType];
+        }
+
+        if (!requirementsConfig) return;
 
         const pageIdentifier = config.pageIdentifier || 'default-page';
 
-        experimentsConfig.experiments.forEach(exp => {
-            // Check if the pattern tests true AND the activity is not already completed
-            if (exp.pattern.test(code) && !BucklesSystem.isActivityCompleted(pageIdentifier, exp.id)) {
-
-                const experimentItem = document.getElementById(`${exp.id}-item`);
-                const experimentStatus = document.getElementById(`${exp.id}-status`);
-                if (experimentItem && experimentStatus) {
-                    experimentItem.classList.add('completed');
-                    experimentStatus.classList.add('completed');
-                    experimentStatus.innerHTML = '<i class="fas fa-check"></i>';
+        requirementsConfig.experiments.forEach(req => {
+            if (req.pattern.test(code) && !BucklesSystem.isActivityCompleted(pageIdentifier, req.id)) {
+                const requirementItem = document.getElementById(`${req.id}-item`);
+                const requirementStatus = document.getElementById(`${req.id}-status`);
+                if (requirementItem && requirementStatus) {
+                    requirementItem.classList.add('completed');
+                    requirementStatus.classList.add('completed');
+                    requirementStatus.innerHTML = '<i class="fas fa-check"></i>';
                 }
 
-                BucklesSystem.awardBuckles(pageIdentifier, exp.id, 1); // Assuming 1 buckle per experiment for now
-                showExperimentCompletion(exp.title);
+                const buckles = req.isExtension ? 3 : 1; // Extension activities worth more buckles
+                BucklesSystem.awardBuckles(pageIdentifier, req.id, buckles);
+                showTaskRequirementCompletion(req.title, buckles, req.isExtension);
             }
         });
     }
 
-    function showExperimentCompletion(experimentTitle) {
-    // Remove existing popup if any, to prevent multiple popups
-    const existingPopup = document.querySelector('.experiment-popup');
-    if (existingPopup) {
-        existingPopup.remove();
-    }
+    function showTaskRequirementCompletion(requirementTitle, buckles = 1, isExtension = false) {
+        const existingPopup = document.querySelector('.experiment-popup');
+        if (existingPopup) {
+            existingPopup.remove();
+        }
 
-    const popup = document.createElement('div');
-    popup.className = 'experiment-popup'; // This class will be used for initial transform/opacity
-    
-    // Correctly URL-encoded SVG for the buckle icon
-    // fill='#000' becomes fill='%23000'
-    // stroke='#DAA520' becomes stroke='%23DAA520'
-    // fill='#FFD700' becomes fill='%23FFD700'
-    const buckleSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='24' height='24'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E`;
+        const popup = document.createElement('div');
+        popup.className = 'experiment-popup';
+        
+        const buckleSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36' width='24' height='24'%3E%3Ccircle cx='18' cy='18' r='16' fill='%23FFD700' stroke='%23DAA520' stroke-width='2'/%3E%3Ctext x='18' y='24' font-family='Arial' font-size='20' font-weight='bold' text-anchor='middle' fill='%23000'%3EB%3C/text%3E%3C/svg%3E`;
 
-    popup.innerHTML = `
-        <div class="experiment-popup-content">
-            <div class="experiment-icon">🎉</div>
-            <h3>Experiment Complete!</h3>
-            <p><strong>${experimentTitle}</strong></p>
-            <p>Great work on this experiment!</p>
-            <div class="buckle-award">
-                <img src="${buckleSVG}" alt="Buckle">
-                +1 Buckle Earned!
+        const extensionBadge = isExtension ? `<div style="background: linear-gradient(135deg, #8e44ad, #9b59b6); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8em; margin-bottom: 8px;"><i class="fas fa-rocket"></i> Extension Activity!</div>` : '';
+
+        popup.innerHTML = `
+            <div class="experiment-popup-content">
+                ${extensionBadge}
+                <div class="experiment-icon">${isExtension ? '🚀' : '🎉'}</div>
+                <h3>Task Requirement Complete!</h3>
+                <p><strong>${requirementTitle}</strong></p>
+                <p>${isExtension ? 'Excellent work on this extension challenge!' : 'Great work on this task!'}</p>
+                <div class="buckle-award">
+                    <img src="${buckleSVG}" alt="Buckle">
+                    +${buckles} Buckle${buckles > 1 ? 's' : ''} Earned!
+                </div>
             </div>
-        </div>
-        <button class="popup-close-btn-simple">×</button>
-    `;
+            <button class="popup-close-btn-simple">×</button>
+        `;
 
-    document.body.appendChild(popup);
+        document.body.appendChild(popup);
 
-    // Trigger the animation by adding a 'show' class after a brief delay
-    setTimeout(() => {
-        popup.classList.add('show');
-    }, 50); // Small delay to allow the element to be in DOM for transition
-
-    // Add event listener for the close button
-    popup.querySelector('.popup-close-btn-simple').addEventListener('click', () => {
-        popup.classList.remove('show');
         setTimeout(() => {
-            if (document.body.contains(popup)) {
-                document.body.removeChild(popup);
-            }
-        }, 500); // Match transition duration
-    });
+            popup.classList.add('show');
+        }, 50);
 
-    // Auto-close after a few seconds
-    setTimeout(() => {
-        if (popup.classList.contains('show')) { // Only remove if still shown
+        popup.querySelector('.popup-close-btn-simple').addEventListener('click', () => {
             popup.classList.remove('show');
             setTimeout(() => {
                 if (document.body.contains(popup)) {
                     document.body.removeChild(popup);
                 }
-            }, 500); // Match transition duration
-        }
-    }, 4000); // Auto-close after 4 seconds
-}
+            }, 500);
+        });
+
+        setTimeout(() => {
+            if (popup.classList.contains('show')) {
+                popup.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(popup)) {
+                        document.body.removeChild(popup);
+                    }
+                }, 500);
+            }
+        }, 4000);
+    }
 
     // Syntax breakdown system
     function initializeSyntaxBreakdown() {
@@ -558,124 +607,118 @@ const EducationalEditor = (function() {
         }
     }
 
-    // Statement building system - FIXED VERSION
+    // Statement building system
     function initializeStatementBuilding() {
-    if (!config.statementBuilding) return;
+        if (!config.statementBuilding) return;
 
-    const container = document.getElementById('statement-building-container');
-    if (!container) return;
+        const container = document.getElementById('statement-building-container');
+        if (!container) return;
 
-    // Helper function to escape quotes in data attributes
-    function escapeDataAttribute(text) {
-        return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    }
+        function escapeDataAttribute(text) {
+            return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
 
-    const statementHTML = `
-        <div class="interactive-card" style="margin-top: 30px;">
-            <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
-                <h3>Build a Statement <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
-            </div>
-
-            <p>Click on the pieces in the correct order to build a valid statement.</p>
-
-            <div class="interactive-activity">
-                <h4>Challenge: ${config.statementBuilding.challenge}</h4>
-                <p>${config.statementBuilding.instruction}</p>
-
-                <div class="build-sentence" id="statement1-parts">
-                    ${config.statementBuilding.parts.map(part =>
-                        `<div class="sentence-part highlight-variable" data-value="${escapeDataAttribute(part)}">${part}</div>`
-                    ).join('')}
+        const statementHTML = `
+            <div class="interactive-card" style="margin-top: 30px;">
+                <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                    <h3>Build a Statement <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
                 </div>
 
-                <p>Your statement:</p>
-                <div class="sentence-result" id="statement1-result"></div>
+                <p>Click on the pieces in the correct order to build a valid statement.</p>
 
-                <div class="feedback-area" id="statement1-feedback"></div>
+                <div class="interactive-activity">
+                    <h4>Challenge: ${config.statementBuilding.challenge}</h4>
+                    <p>${config.statementBuilding.instruction}</p>
+
+                    <div class="build-sentence" id="statement1-parts">
+                        ${config.statementBuilding.parts.map(part =>
+                            `<div class="sentence-part highlight-variable" data-value="${escapeDataAttribute(part)}">${part}</div>`
+                        ).join('')}
+                    </div>
+
+                    <p>Your statement:</p>
+                    <div class="sentence-result" id="statement1-result"></div>
+
+                    <div class="feedback-area" id="statement1-feedback"></div>
+                </div>
             </div>
-        </div>
-    `;
+        `;
 
-    container.innerHTML = statementHTML;
-    
-    setTimeout(() => {
-        initializeDragDropChallenge();
-    }, 10);
-}
+        container.innerHTML = statementHTML;
+        
+        setTimeout(() => {
+            initializeDragDropChallenge();
+        }, 10);
+    }
 
     function initializeDragDropChallenge() {
-    if (!config.statementBuilding) return;
+        if (!config.statementBuilding) return;
 
-    const correctSequence = config.statementBuilding.correctSequence;
-    const pageIdentifier = config.pageIdentifier || 'default-page';
-    const activityId = 'statement-building';
+        const correctSequence = config.statementBuilding.correctSequence;
+        const pageIdentifier = config.pageIdentifier || 'default-page';
+        const activityId = 'statement-building';
 
-    const parts = document.querySelectorAll('#statement1-parts .sentence-part');
-    if (parts.length === 0) {
-        console.error('Statement building parts not found in DOM');
-        return;
-    }
+        const parts = document.querySelectorAll('#statement1-parts .sentence-part');
+        if (parts.length === 0) {
+            console.error('Statement building parts not found in DOM');
+            return;
+        }
 
-    parts.forEach(part => {
-        part.addEventListener('click', function() {
-            const resultContainer = document.getElementById('statement1-result');
+        parts.forEach(part => {
+            part.addEventListener('click', function() {
+                const resultContainer = document.getElementById('statement1-result');
 
-            const resultPart = document.createElement('div');
-            resultPart.className = 'result-part';
-            resultPart.textContent = this.textContent;
-            
-            // Decode the escaped data-value back to original
-            const dataValue = this.getAttribute('data-value');
-            const decodedValue = dataValue.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
-            resultPart.dataset.value = decodedValue;
+                const resultPart = document.createElement('div');
+                resultPart.className = 'result-part';
+                resultPart.textContent = this.textContent;
+                
+                const dataValue = this.getAttribute('data-value');
+                const decodedValue = dataValue.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+                resultPart.dataset.value = decodedValue;
 
-            resultPart.addEventListener('click', function() {
-                this.remove();
+                resultPart.addEventListener('click', function() {
+                    this.remove();
+                    checkSequence();
+                });
+
+                resultContainer.appendChild(resultPart);
                 checkSequence();
             });
-
-            resultContainer.appendChild(resultPart);
-            checkSequence();
         });
-    });
 
-    function checkSequence() {
-        const resultContainer = document.getElementById('statement1-result');
-        const feedbackContainer = document.getElementById('statement1-feedback');
-        const resultParts = Array.from(resultContainer.children);
+        function checkSequence() {
+            const resultContainer = document.getElementById('statement1-result');
+            const feedbackContainer = document.getElementById('statement1-feedback');
+            const resultParts = Array.from(resultContainer.children);
 
-        const currentSequence = resultParts.map(part => part.dataset.value);
+            const currentSequence = resultParts.map(part => part.dataset.value);
 
-        // Debug logging (you can remove these after testing)
-        console.log('Current sequence:', currentSequence);
-        console.log('Correct sequence:', correctSequence);
-
-        let correct = false;
-        if (currentSequence.length === correctSequence.length) {
-            correct = currentSequence.every((val, index) => val === correctSequence[index]);
-        }
-
-        if (resultParts.length === correctSequence.length) {
-            if (correct) {
-                feedbackContainer.className = 'feedback-area correct';
-                feedbackContainer.innerHTML = `
-                    <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct!</h4>
-                    <p>You've created the correct sequence: <code>${config.statementBuilding.correctAnswer}</code></p>
-                `;
-                BucklesSystem.awardBuckles(pageIdentifier, activityId, 2);
-            } else {
-                feedbackContainer.className = 'feedback-area incorrect';
-                feedbackContainer.innerHTML = `
-                    <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Not Quite Right</h4>
-                    <p>The correct statement should be: <code>${config.statementBuilding.correctAnswer}</code></p>
-                `;
+            let correct = false;
+            if (currentSequence.length === correctSequence.length) {
+                correct = currentSequence.every((val, index) => val === correctSequence[index]);
             }
-        } else {
-            feedbackContainer.className = 'feedback-area';
-            feedbackContainer.innerHTML = '';
+
+            if (resultParts.length === correctSequence.length) {
+                if (correct) {
+                    feedbackContainer.className = 'feedback-area correct';
+                    feedbackContainer.innerHTML = `
+                        <h4><i class="fas fa-check-circle" style="color: #52c41a; margin-right: 10px;"></i> Correct!</h4>
+                        <p>You've created the correct sequence: <code>${config.statementBuilding.correctAnswer}</code></p>
+                    `;
+                    BucklesSystem.awardBuckles(pageIdentifier, activityId, 2);
+                } else {
+                    feedbackContainer.className = 'feedback-area incorrect';
+                    feedbackContainer.innerHTML = `
+                        <h4><i class="fas fa-times-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Not Quite Right</h4>
+                        <p>The correct statement should be: <code>${config.statementBuilding.correctAnswer}</code></p>
+                    `;
+                }
+            } else {
+                feedbackContainer.className = 'feedback-area';
+                feedbackContainer.innerHTML = '';
+            }
         }
     }
-}
 
     // Tracing challenge system
     function initializeTracingChallenge() {
@@ -722,37 +765,36 @@ ${config.tracingChallenge.code}
 
     function initializeTracingQuiz() {
         const pageIdentifier = config.pageIdentifier || 'default-page';
-        const activityId = 'tracing-challenge'; // Consistent ID
+        const activityId = 'tracing-challenge';
 
         document.querySelectorAll('.multiple-choice-option').forEach(option => {
             option.addEventListener('click', function() {
-                // Deselect other options visually
                 document.querySelectorAll('.multiple-choice-option').forEach(opt => {
-                    opt.classList.remove('selected'); // Define 'selected' style in CSS
-                    opt.style.borderColor = '#ddd'; // Reset border
+                    opt.classList.remove('selected');
+                    opt.style.borderColor = '#ddd';
                 });
 
                 this.classList.add('selected');
-                this.style.borderColor = 'var(--accent-color)'; // Highlight selected
+                this.style.borderColor = 'var(--accent-color)';
 
                 const answer = this.getAttribute('data-value');
                 const feedback = document.getElementById('tracing-feedback');
 
                 if (answer === config.tracingChallenge.correctAnswer) {
                     feedback.innerHTML = `<i class='fas fa-check-circle' style='color: #52c41a; margin-right: 8px;'></i> Correct! ${config.tracingChallenge.explanation}`;
-                    feedback.className = 'feedback-message correct'; // Style 'correct' class
+                    feedback.className = 'feedback-message correct';
                     BucklesSystem.awardBuckles(pageIdentifier, activityId, config.tracingChallenge.buckles);
                 } else {
                     feedback.innerHTML = `<i class='fas fa-times-circle' style='color: #ff4d4f; margin-right: 8px;'></i> Incorrect. Think about what happens step by step through the code.`;
-                    feedback.className = 'feedback-message incorrect'; // Style 'incorrect' class
+                    feedback.className = 'feedback-message incorrect';
                 }
             });
         });
     }
 
-    // Tour system - builds tours from config data
+    // Tour system
     function initializeTours() {
-        if (!config.tours || typeof Shepherd === 'undefined') return; // Ensure Shepherd is loaded
+        if (!config.tours || typeof Shepherd === 'undefined') return;
 
         Object.keys(config.tours).forEach(tourId => {
             const tourConfig = config.tours[tourId];
@@ -763,12 +805,12 @@ ${config.tracingChallenge.code}
     function createTourFromConfig(tourConfig) {
         const useModalOverlay = tourConfig.useModalOverlay !== undefined ?
                                 tourConfig.useModalOverlay :
-                                true; // Default to true if not specified
+                                true;
 
         const tour = new Shepherd.Tour({
             useModalOverlay: useModalOverlay,
             defaultStepOptions: {
-                classes: 'shepherd-custom-theme', // Use a custom class for Shepherd styling
+                classes: 'shepherd-custom-theme',
                 scrollTo: true,
                 cancelIcon: { enabled: true },
                 ...tourConfig.defaultStepOptions
@@ -787,15 +829,15 @@ ${config.tracingChallenge.code}
                                if (btn.codeType && editors[btn.codeType]) {
                                    runCode(btn.codeType);
                                }
-                               tour.complete(); // Or tour.next() if there are more steps
+                               tour.complete();
                            } : tour.complete,
-                    classes: btn.classes || 'shepherd-button-primary' // Use Shepherd's default or custom
+                    classes: btn.classes || 'shepherd-button-primary'
                 }))
             };
 
             if (stepConfig.attachTo) {
                 step.attachTo = {
-                    element: stepConfig.attachTo.element, // This should be a CSS selector string
+                    element: stepConfig.attachTo.element,
                     on: stepConfig.attachTo.on || 'bottom'
                 };
             }
@@ -806,19 +848,20 @@ ${config.tracingChallenge.code}
         return tour;
     }
 
-    function startExperimentTour(expId, type) {
-        // Toggle panels appropriately
-        if (type === 'primary' && document.getElementById('experiments-panel')) {
-            toggleExperimentPanel('experiments-panel', 'secondary-experiments-panel');
-        } else if (type === 'secondary' && document.getElementById('secondary-experiments-panel')) {
-            toggleExperimentPanel('secondary-experiments-panel', 'experiments-panel');
+    function startTaskRequirementTour(reqId, type) {
+        if (type === 'primary' && document.getElementById('task-requirements-panel')) {
+            toggleTaskRequirementsPanel('task-requirements-panel', 'secondary-task-requirements-panel,problem-task-requirements-panel');
+        } else if (type === 'secondary' && document.getElementById('secondary-task-requirements-panel')) {
+            toggleTaskRequirementsPanel('secondary-task-requirements-panel', 'task-requirements-panel,problem-task-requirements-panel');
+        } else if (type === 'problem' && document.getElementById('problem-task-requirements-panel')) {
+            toggleTaskRequirementsPanel('problem-task-requirements-panel', 'task-requirements-panel,secondary-task-requirements-panel');
         }
 
-        const tour = tours[expId];
+        const tour = tours[reqId];
         if (tour) {
             tour.start();
         } else {
-            console.warn(`Tour with ID "${expId}" not found.`);
+            console.warn(`Tour with ID "${reqId}" not found.`);
         }
     }
 
@@ -829,7 +872,6 @@ ${config.tracingChallenge.code}
         if (!container) return;
 
         const quizConfig = config.spotTheErrorQuiz;
-        // Using similar HTML structure to Tracing Challenge for consistent styling
         const quizHTML = `
             <div class="interactive-card">
                 <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
@@ -866,19 +908,18 @@ ${quizConfig.code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
 
         container.innerHTML = quizHTML;
 
-        // Event listeners (similar to initializeTracingQuiz)
         const pageIdentifier = config.pageIdentifier || 'default-page';
-        const activityId = 'spot-the-error-quiz'; // Unique ID for BucklesSystem
+        const activityId = 'spot-the-error-quiz';
         
         container.querySelectorAll('.spot-error-option').forEach(option => {
             option.addEventListener('click', function() {
                 container.querySelectorAll('.spot-error-option').forEach(opt => {
                     opt.classList.remove('selected');
-                    opt.style.borderColor = '#ddd'; // Reset border
+                    opt.style.borderColor = '#ddd';
                 });
                 
                 this.classList.add('selected');
-                this.style.borderColor = 'var(--accent-color)'; // Highlight selected
+                this.style.borderColor = 'var(--accent-color)';
                 
                 const answer = this.getAttribute('data-value');
                 const feedbackEl = document.getElementById('spot-error-feedback');
@@ -896,19 +937,26 @@ ${quizConfig.code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
     }
 
     // Progress tracking
-    function updateExperimentTrackers() {
+    function updateTaskRequirementsTrackers() {
         const pageIdentifier = config.pageIdentifier || 'default-page';
 
-        function updateTrackerForType(experimentTypeKey) {
-            if (config.experiments && config.experiments[experimentTypeKey]) {
-                config.experiments[experimentTypeKey].experiments.forEach(exp => {
-                    if (BucklesSystem.isActivityCompleted(pageIdentifier, exp.id)) {
-                        const experimentItem = document.getElementById(`${exp.id}-item`);
-                        const experimentStatus = document.getElementById(`${exp.id}-status`);
-                        if (experimentItem && experimentStatus) {
-                            experimentItem.classList.add('completed');
-                            experimentStatus.classList.add('completed');
-                            experimentStatus.innerHTML = '<i class="fas fa-check"></i>';
+        function updateTrackerForType(requirementsTypeKey) {
+            let requirementsConfig = null;
+            if (config.taskRequirements && config.taskRequirements[requirementsTypeKey]) {
+                requirementsConfig = config.taskRequirements[requirementsTypeKey];
+            } else if (config.experiments && config.experiments[requirementsTypeKey]) {
+                requirementsConfig = config.experiments[requirementsTypeKey];
+            }
+
+            if (requirementsConfig) {
+                requirementsConfig.experiments.forEach(req => {
+                    if (BucklesSystem.isActivityCompleted(pageIdentifier, req.id)) {
+                        const requirementItem = document.getElementById(`${req.id}-item`);
+                        const requirementStatus = document.getElementById(`${req.id}-status`);
+                        if (requirementItem && requirementStatus) {
+                            requirementItem.classList.add('completed');
+                            requirementStatus.classList.add('completed');
+                            requirementStatus.innerHTML = '<i class="fas fa-check"></i>';
                         }
                     }
                 });
@@ -917,18 +965,29 @@ ${quizConfig.code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
 
         updateTrackerForType('primary');
         updateTrackerForType('secondary');
+        updateTrackerForType('problem');
     }
 
     // Public API
     return {
         initialize: initialize,
-        runCode: runCode, // Expose runCode if needed externally, though typically internal
-        getEditor: (type) => editors[type], // Useful for debugging or external manipulation
-        getConfig: () => config, // For debugging
-        updateProgress: updateExperimentTrackers // If progress needs to be updated externally
+        runCode: runCode,
+        getEditor: (type) => editors[type],
+        getConfig: () => config,
+        updateProgress: updateTaskRequirementsTrackers,
+        initializeProblemPlayground: function(type) {
+            // This method can be called externally to initialize problem playgrounds
+            if (config.problemPlayground) {
+                if (type === 'pseudocode') {
+                    initializePlayground('problem', config.problemPlayground, 'problem-playground-container', 'problem');
+                } else if (type === 'flowchart') {
+                    initializePlayground('problem-flowchart', config.problemPlayground, 'problem-playground-container-flowchart', 'problem');
+                }
+            }
+        }
     };
 
 })();
 
-// Make EducationalEditor available globally if it's not a module being imported elsewhere
+// Make EducationalEditor available globally
 window.EducationalEditor = EducationalEditor;
