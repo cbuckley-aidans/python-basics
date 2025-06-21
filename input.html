@@ -1132,6 +1132,128 @@ Enter another: 3
             return shuffled;
         }
 
+        // COMPREHENSIVE VALIDATION FUNCTIONS FOR FLEXIBLE PATTERN MATCHING
+        function validateUserInfo(code) {
+            const cleanCode = code.toLowerCase().replace(/\s+/g, ' ');
+            
+            // Check for name input
+            const hasNameInput = /\b\w*name\w*\s*=\s*input\s*\(/.test(cleanCode);
+            
+            // Check for income input and conversion - multiple patterns
+            const incomePatterns = [
+                // Pattern 1: Same line conversion - income = int(input(...))
+                /\b\w*(?:income|money|budget|weekly|pay|cash|allowance)\w*\s*=\s*int\s*\(\s*input\s*\(/,
+                
+                // Pattern 2: Separate line conversion
+                // First get input: income_text = input(...)
+                // Then convert: income = int(income_text)
+                /(?=.*\b\w*(?:income|money|budget|weekly|pay|cash|allowance)(?:_text|_str|_string|_input)?\w*\s*=\s*input\s*\()(?=.*\b\w*(?:income|money|budget|weekly|pay|cash|allowance)\w*\s*=\s*int\s*\()/,
+                
+                // Pattern 3: Variable capture then conversion
+                // temp = input("income?")  
+                // income = int(temp)
+                /(?=.*\w+\s*=\s*input\s*\([^)]*(?:income|money|budget|weekly|pay|cash|allowance))(?=.*\w+\s*=\s*int\s*\(\s*\w+\s*\))/,
+                
+                // Pattern 4: Direct int() on any input that mentions income concepts
+                /int\s*\(\s*input\s*\([^)]*(?:income|money|budget|weekly|pay|cash|allowance)/
+            ];
+            
+            const hasIncomeConversion = incomePatterns.some(pattern => pattern.test(cleanCode));
+            
+            return hasNameInput && hasIncomeConversion;
+        }
+
+        function validateSpendingCategories(code) {
+            const cleanCode = code.toLowerCase().replace(/\s+/g, ' ');
+            
+            // Define category keywords
+            const categories = {
+                food: ['food', 'eat', 'meal', 'lunch', 'dinner', 'breakfast', 'snack'],
+                entertainment: ['entertainment', 'fun', 'game', 'play', 'movie', 'music', 'sport', 'hobby'],
+                other: ['other', 'misc', 'extra', 'additional', 'rest', 'remaining', 'stuff']
+            };
+            
+            // For each category, check if there's input collection AND int conversion
+            function checkCategory(keywords) {
+                return keywords.some(keyword => {
+                    // Same line patterns
+                    const sameLine = new RegExp(`\\b\\w*${keyword}\\w*\\s*=\\s*int\\s*\\(\\s*input\\s*\\(`).test(cleanCode);
+                    if (sameLine) return true;
+                    
+                    // Separate line patterns
+                    const separateLines = new RegExp(`(?=.*\\b\\w*${keyword}\\w*\\s*=\\s*input\\s*\\()(?=.*int\\s*\\()`).test(cleanCode);
+                    if (separateLines) return true;
+                    
+                    // Input with keyword in prompt, then int conversion somewhere
+                    const promptThenConvert = new RegExp(`(?=.*input\\s*\\([^)]*${keyword})(?=.*int\\s*\\()`).test(cleanCode);
+                    return promptThenConvert;
+                });
+            }
+            
+            const hasFood = checkCategory(categories.food);
+            const hasEntertainment = checkCategory(categories.entertainment);  
+            const hasOther = checkCategory(categories.other);
+            
+            return hasFood && hasEntertainment && hasOther;
+        }
+
+        function checkSemanticMatch(code, requirement) {
+            // Enhanced semantic checking with support for separated input/conversion
+            const cleanCode = code.toLowerCase().replace(/\s+/g, ' ');
+            
+            switch(requirement) {
+                case 'budget-req1':
+                    return validateUserInfo(code);
+                    
+                case 'budget-req2':
+                    return validateSpendingCategories(code);
+                    
+                case 'budget-req3':
+                    const hasAddition = /\w+\s*=.*\+.*\+/.test(cleanCode);
+                    const hasSubtraction = /\w+\s*=.*-/.test(cleanCode);
+                    return hasAddition && hasSubtraction;
+                    
+                case 'budget-req4':
+                    const prints = (cleanCode.match(/print/g) || []).length;
+                    const hasNamePrint = /print.*name/.test(cleanCode);
+                    const hasIncomePrint = /print.*(?:income|money|budget|weekly)/.test(cleanCode);
+                    const hasSpentPrint = /print.*(?:total|spent|expense)/.test(cleanCode);
+                    const hasRemainingPrint = /print.*(?:left|remaining|balance)/.test(cleanCode);
+                    
+                    return prints >= 3 && (hasNamePrint || hasIncomePrint || hasSpentPrint || hasRemainingPrint);
+                    
+                default:
+                    return false;
+            }
+        }
+
+        // ENHANCED USAGE EXAMPLE WITH CUSTOM VALIDATION SUPPORT:
+        function validateRequirement(code, requirementId, pattern) {
+            // Handle custom validation functions
+            if (typeof pattern === 'string' && pattern.startsWith('custom:')) {
+                const functionName = pattern.replace('custom:', '');
+                switch(functionName) {
+                    case 'validateUserInfo':
+                        return validateUserInfo(code);
+                    case 'validateSpendingCategories':
+                        return validateSpendingCategories(code);
+                    default:
+                        console.warn(`Unknown custom validation function: ${functionName}`);
+                        return false;
+                }
+            }
+            
+            // Handle regex patterns
+            if (pattern instanceof RegExp) {
+                if (pattern.test(code)) {
+                    return true;
+                }
+            }
+            
+            // Fallback to semantic checking for more flexibility
+            return checkSemanticMatch(code, requirementId);
+        }
+
         // Page Configuration
         const pageConfig = {
             pageIdentifier: "python-input-types",
@@ -1314,7 +1436,7 @@ Enter another: 3
                     experiments: [
                         {
                             id: "budget-req1",
-                            title: "Get User Information",
+                            title: "Get User Information", 
                             taskExplanation: "Start by getting the user's name and weekly income with appropriate prompts.",
                             detailedInstructions: [
                                 "Keep the header message that's already provided.",
@@ -1322,30 +1444,33 @@ Enter another: 3
                                 "Get their weekly income using input() and convert to integer with int().",
                                 "Use clear, descriptive prompts for both inputs."
                             ],
-                            pattern: /name\s*=\s*input\s*\(.*weekly_income\s*=\s*int\s*\(\s*input/s
+                            // Uses custom validation function to handle multiple patterns
+                            pattern: "custom:validateUserInfo"
                         },
                         {
-                            id: "budget-req2",
+                            id: "budget-req2", 
                             title: "Get Spending Categories",
                             taskExplanation: "Collect spending information for food, entertainment, and other expenses.",
                             detailedInstructions: [
                                 "Get food costs using input() and convert to integer.",
-                                "Get entertainment costs using input() and convert to integer.",
+                                "Get entertainment costs using input() and convert to integer.", 
                                 "Get other costs using input() and convert to integer.",
                                 "Make sure all prompts are clear and mention the $ symbol."
                             ],
-                            pattern: /food_cost\s*=\s*int.*entertainment_cost\s*=\s*int.*other_cost\s*=\s*int/s
+                            // Uses custom validation for flexible spending input patterns
+                            pattern: "custom:validateSpendingCategories"
                         },
                         {
                             id: "budget-req3",
-                            title: "Calculate Totals",
+                            title: "Calculate Totals", 
                             taskExplanation: "Perform calculations to find total spending and remaining money.",
                             detailedInstructions: [
                                 "Calculate total_spent by adding all three expense categories.",
                                 "Calculate money_left by subtracting total_spent from weekly_income.",
                                 "Store both results in appropriately named variables."
                             ],
-                            pattern: /total_spent\s*=.*\+.*\+.*money_left\s*=.*weekly_income.*-.*total_spent/s
+                            // NEW IMPROVED PATTERN - focuses on mathematical operations rather than exact variable names
+                            pattern: /(?=.*\b\w*(?:total|sum|spent|expense)\w*\s*=.*\+.*\+)(?=.*\b\w*(?:left|remaining|balance|rest|keep)\w*\s*=.*(?:income|money|budget|weekly).*-.*(?:total|spent|sum))/is
                         },
                         {
                             id: "budget-req4",
@@ -1354,10 +1479,11 @@ Enter another: 3
                             detailedInstructions: [
                                 "Display a personalized header with the user's name.",
                                 "Show the weekly income with a $ symbol.",
-                                "Display the total amount spent.",
+                                "Display the total amount spent.", 
                                 "Show how much money is remaining."
                             ],
-                            pattern: /print.*name.*print.*weekly_income.*print.*total_spent.*print.*money_left/s
+                            // NEW IMPROVED PATTERN - looks for multiple print statements with key information
+                            pattern: /(?=.*print.*(?:name|user))(?=.*print.*(?:income|money|budget|weekly))(?=.*print.*(?:total|spent|expense))(?=.*print.*(?:left|remaining|balance))/is
                         },
                         {
                             id: "budget-req5",
@@ -1368,7 +1494,8 @@ Enter another: 3
                                 "Include budget recommendations (e.g., suggest savings goals).",
                                 "Add conditional messages based on spending patterns."
                             ],
-                            pattern: /(percentage|percent|\%|savings|goal)/,
+                            // Extension pattern remains flexible
+                            pattern: /(percentage|percent|\%|savings|goal|recommendation|advice)/i,
                             isExtension: true
                         }
                     ]
@@ -1395,7 +1522,7 @@ Enter another: 3
                         question: "The int() function can convert any string into a number.",
                         correctAnswer: "false",
                         feedbackCorrect: "Correct! int() only works with strings that contain digits. int(\"hello\") causes an error.",
-                        feedbackIncorrect: "Incorrect. int() only works with numeric strings. int(\"abc\") will cause a ValueError."
+                        feedbackIncorrected: "Incorrect. int() only works with numeric strings. int(\"abc\") will cause a ValueError."
                     },
                     {
                         type: "true-false",

@@ -448,6 +448,63 @@ const EducationalEditor = (function() {
         document.getElementById(`${type}-status`).className = 'status-indicator';
     }
 
+    // ENHANCED VALIDATION SYSTEM - Supports both regex and custom functions
+    function validateTaskRequirementPattern(code, requirementId, pattern) {
+        // Handle custom validation functions
+        if (typeof pattern === 'string' && pattern.startsWith('custom:')) {
+            const functionName = pattern.replace('custom:', '');
+            
+            // Try to use validation functions from the global scope first
+            if (typeof window.validateRequirement === 'function') {
+                return window.validateRequirement(code, requirementId, pattern);
+            }
+            
+            // Fallback to direct function calls if available
+            switch(functionName) {
+                case 'validateUserInfo':
+                    if (typeof window.validateUserInfo === 'function') {
+                        return window.validateUserInfo(code);
+                    }
+                    break;
+                case 'validateSpendingCategories':
+                    if (typeof window.validateSpendingCategories === 'function') {
+                        return window.validateSpendingCategories(code);
+                    }
+                    break;
+                default:
+                    console.warn(`Unknown custom validation function: ${functionName}`);
+                    return false;
+            }
+            
+            // If custom validation functions not available, try semantic matching
+            if (typeof window.checkSemanticMatch === 'function') {
+                return window.checkSemanticMatch(code, requirementId);
+            }
+            
+            console.warn(`Custom validation function ${functionName} not found, and no fallback available`);
+            return false;
+        }
+        
+        // Handle regex patterns
+        if (pattern instanceof RegExp) {
+            return pattern.test(code);
+        }
+        
+        // Handle string patterns that should be converted to regex
+        if (typeof pattern === 'string') {
+            try {
+                const regex = new RegExp(pattern);
+                return regex.test(code);
+            } catch (e) {
+                console.warn(`Invalid regex pattern: ${pattern}`, e);
+                return false;
+            }
+        }
+        
+        console.warn(`Unsupported pattern type for requirement ${requirementId}:`, typeof pattern);
+        return false;
+    }
+
     // Task requirements detection and tracking (renamed from experiments)
     function checkTaskRequirements(type, code, categoryType = null) {
         let requirementsType;
@@ -474,7 +531,10 @@ const EducationalEditor = (function() {
         const pageIdentifier = config.pageIdentifier || 'default-page';
 
         requirementsConfig.experiments.forEach(req => {
-            if (req.pattern.test(code) && !BucklesSystem.isActivityCompleted(pageIdentifier, req.id)) {
+            // Use the enhanced validation system
+            const isCompleted = validateTaskRequirementPattern(code, req.id, req.pattern);
+            
+            if (isCompleted && !BucklesSystem.isActivityCompleted(pageIdentifier, req.id)) {
                 const requirementItem = document.getElementById(`${req.id}-item`);
                 const requirementStatus = document.getElementById(`${req.id}-status`);
                 if (requirementItem && requirementStatus) {
@@ -975,6 +1035,7 @@ ${quizConfig.code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
         getEditor: (type) => editors[type],
         getConfig: () => config,
         updateProgress: updateTaskRequirementsTrackers,
+        validateTaskRequirementPattern: validateTaskRequirementPattern,
         initializeProblemPlayground: function(type) {
             // This method can be called externally to initialize problem playgrounds
             if (config.problemPlayground) {
