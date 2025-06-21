@@ -1651,59 +1651,59 @@ print("Welcome to Python!")`,
                     experiments: [
                         {
                             id: "problem-req1",
-                            title: "Display Program Header",
-                            taskExplanation: "Create the program header and basic information display.",
+                            title: "Display Welcome Message",
+                            taskExplanation: "Create the welcome message for your ASCII art display.",
                             detailedInstructions: [
-                                "Keep the header that's already provided.",
-                                "Add print statements for program name, version, creator, and year.",
-                                "Use the exact text from the pseudocode/flowchart."
+                                "Add a print statement for \"Welcome to ASCII Art!\"",
+                                "This should be the first line of output",
+                                "Use the exact text from the pseudocode/flowchart"
                             ],
-                            pattern: /print\s*\(\s*["']Program Name:.*Calculator["']\s*\)/
+                            pattern: /print\s*\(\s*["']Welcome to ASCII Art!["']\s*\)/
                         },
                         {
                             id: "problem-req2",
-                            title: "List Program Features",
-                            taskExplanation: "Display the features section with a list of calculator operations.",
+                            title: "Add ASCII Art",
+                            taskExplanation: "Display your chosen ASCII art using multiple print statements.",
                             detailedInstructions: [
-                                "Add a print statement for \"Features:\"",
-                                "Create separate print statements for each feature (Addition, Subtraction, etc.)",
-                                "Use consistent formatting with dashes or bullets"
+                                "Choose one of the ASCII art options provided above",
+                                "Copy the print statements for your chosen design",
+                                "Make sure each line of the art is in a separate print statement"
                             ],
-                            pattern: /print\s*\(\s*["']Features:["']\s*\)/
+                            pattern: /print\s*\(\s*["'][^"']*[\*\/\\\|\^_-][^"']*["']\s*\)/
                         },
                         {
                             id: "problem-req3",
-                            title: "Show Example Calculation",
-                            taskExplanation: "Display an example calculation using multiple items in a print statement.",
+                            title: "Display Closing Message",
+                            taskExplanation: "Add the final closing message to complete your ASCII art display.",
                             detailedInstructions: [
-                                "Create a print statement showing \"Example: 5 + 3 = \" and the number 8",
-                                "Use commas to print text and numbers together",
-                                "This demonstrates mixing text and numbers in print statements"
+                                "Add a print statement for \"Thanks for viewing!\"",
+                                "This should be the last line of output",
+                                "Use the exact text from the pseudocode/flowchart"
                             ],
-                            pattern: /print\s*\(\s*["']Example:.*=\s*["']\s*,\s*\d+\s*\)/
+                            pattern: /print\s*\(\s*["']Thanks for viewing!["']\s*\)/
                         },
                         {
                             id: "problem-req4",
                             title: "Complete the Display",
-                            taskExplanation: "Add the final ready message to complete the information display.",
+                            taskExplanation: "Run your complete program to see the full ASCII art display.",
                             detailedInstructions: [
-                                "Add the final print statement: \"Ready to calculate!\"",
-                                "Run your complete program to see the full information display",
-                                "Check that your output matches the pseudocode requirements"
+                                "Run your complete program to see the full ASCII art display",
+                                "Check that you have the welcome message, ASCII art, and closing message",
+                                "Verify your output matches the pseudocode/flowchart requirements"
                             ],
-                            pattern: /print\s*\(\s*["']Ready to calculate!["']\s*\)/
+                            pattern: /print\s*\(\s*["']Welcome to ASCII Art!["']\s*\)[\s\S]*print\s*\(\s*["']Thanks for viewing!["']\s*\)/
                         },
                         {
                             id: "problem-req5",
                             title: "Extension Activity",
-                            taskExplanation: "Enhance the display with additional formatting and information.",
+                            taskExplanation: "Enhance your ASCII art display with creative additions.",
                             detailedInstructions: [
-                                "Add decorative borders using repeated characters",
-                                "Include additional program information like author contact or date",
-                                "Experiment with ASCII art or creative formatting",
-                                "Create your own pseudocode for a different program display"
+                                "Create your own ASCII art design using online generators or tools",
+                                "Add decorative borders using repeated characters like ===== or -----",
+                                "Include additional messages like your name or date",
+                                "Experiment with colours or emojis in your display"
                             ],
-                            pattern: /print\s*\(\s*["'][=\-*+#]{3,}["']\s*\)|print\s*\(\s*["'].*Contact.*["']\s*\)|print\s*\(\s*["'].*Date.*["']\s*\)/,
+                            pattern: /print\s*\(\s*["'][=\-*+#~]{5,}["']\s*\)|print\s*\(\s*["'].*[A-Za-z]{2,}.*[0-9]{4}.*["']\s*\)|print\s*\(\s*["'].*\\u[0-9A-Fa-f]{4}.*["']\s*\)/,
                             isExtension: true
                         }
                     ]

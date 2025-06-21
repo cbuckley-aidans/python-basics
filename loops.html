@@ -19,6 +19,9 @@
     <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.0.1/dist/js/shepherd.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.0.1/dist/css/shepherd.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Include Flowchart.js dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.15.0/flowchart.min.js"></script>
     
     <!-- Modular Editor System -->
     <script src="editor.js"></script>
@@ -205,6 +208,135 @@
     --bad-color: #e74c3c;
     --good-color: #2ecc71;
 }
+
+/* Add these styles to your existing CSS for improved flowchart clarity */
+
+.flowchart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, rgba(0, 38, 84, 0.05), rgba(52, 152, 219, 0.05));
+    border-radius: 12px;
+    border: 2px solid rgba(52, 152, 219, 0.2);
+    margin: 20px 0;
+}
+
+.flowchart-step {
+    padding: 15px 20px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 2px solid #3498db;
+    background: white;
+    text-align: center;
+    font-weight: 500;
+    min-width: 200px;
+    max-width: 350px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.flowchart-step.start-end {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    border-color: #2c3e50;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+.flowchart-step.input-output {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border-color: #2980b9;
+    transform: skew(-10deg);
+}
+
+.flowchart-step.input-output span {
+    transform: skew(10deg);
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.flowchart-step.process {
+    background: linear-gradient(135deg, #e8f5e8, #f1f8f1);
+    border: 3px solid #4CAF50;
+    color: #2e7d32;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.flowchart-step.decision {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border-color: #ff9800;
+    color: #e65100;
+    transform: rotate(45deg);
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flowchart-arrow {
+    font-size: 1.5em;
+    color: #3498db;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.flowchart-arrow-back {
+    font-size: 1.2em;
+    color: #4CAF50;
+    font-weight: bold;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.flowchart-arrow-no {
+    font-size: 1.2em;
+    color: #e74c3c;
+    font-weight: bold;
+    margin: 15px 0;
+    text-align: center;
+}
+
+/* Pseudocode styling improvements */
+.pseudocode-block {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 25px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    line-height: 1.6;
+    border: 2px solid #4a5568;
+    margin: 20px 0;
+    overflow-x: auto;
+}
+
+.pseudocode-line {
+    margin: 8px 0;
+    padding: 4px 0;
+}
+
+.pseudocode-keyword {
+    color: #81e6d9;
+    font-weight: bold;
+}
+
+.pseudocode-variable {
+    color: #fbb6ce;
+    font-style: italic;
+}
+
+.pseudocode-string {
+    color: #68d391;
+}
+
+.pseudocode-comment {
+    color: #a0aec0;
+    font-style: italic;
+}
     </style>
 </head>
 <body>
@@ -224,28 +356,32 @@
                 LI/SC
             </button>
             <button class="tab-button" data-tab="chunk1">
-                <i class="fas fa-cube"></i>
-                CHUNK 1
+                <i class="fas fa-lightbulb"></i>
+                FOR LOOPS
             </button>
             <button class="tab-button" data-tab="chew1">
-                <i class="fas fa-utensils"></i>
-                CHEW 1
+                <i class="fas fa-dumbbell"></i>
+                PRACTICE 1
             </button>
             <button class="tab-button" data-tab="chunk2">
-                <i class="fas fa-cube"></i>
-                CHUNK 2
+                <i class="fas fa-repeat"></i>
+                RANGE
             </button>
             <button class="tab-button" data-tab="chew2">
-                <i class="fas fa-utensils"></i>
-                CHEW 2
+                <i class="fas fa-dumbbell"></i>
+                PRACTICE 2
             </button>
             <button class="tab-button" data-tab="chunk3">
-                <i class="fas fa-cube"></i>
-                CHUNK 3
+                <i class="fas fa-cogs"></i>
+                LOOP CONTROL
             </button>
             <button class="tab-button" data-tab="chew3">
-                <i class="fas fa-utensils"></i>
-                CHEW 3
+                <i class="fas fa-dumbbell"></i>
+                PRACTICE 3
+            </button>
+            <button class="tab-button" data-tab="problem">
+                <i class="fas fa-puzzle-piece"></i>
+                PROBLEM
             </button>
             <button class="tab-button" data-tab="recap">
                 <i class="fas fa-bookmark"></i>
@@ -286,6 +422,93 @@
                 </ul>
             </div>
         </section>
+
+        <!-- PROBLEM: Problem-Solving with Loops -->
+        <section id="problem" class="tab-content dark-section">
+    <h1>PROBLEM: REAL-WORLD APPLICATION <i class="fas fa-puzzle-piece" style="margin-left: 15px;"></i></h1>
+    
+    <div class="chunk-section">
+        <div class="chunk-badge">PROBLEM SOLVING</div>
+        <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+        
+        <h3>From Design to Code</h3>
+        
+        <p>Now it's time to apply your loop knowledge! Choose your preferred problem representation, then implement the solution using loops in Python.</p>
+        
+        <div class="problem-selector">
+            <div class="problem-option" data-type="pseudocode">
+                <i class="fas fa-file-alt"></i>
+                <h4>Pseudocode Version</h4>
+                <p>Read step-by-step instructions in plain English and convert them to Python loops.</p>
+            </div>
+            
+            <div class="problem-option" data-type="flowchart">
+                <i class="fas fa-project-diagram"></i>
+                <h4>Flowchart Version</h4>
+                <p>Follow a visual flowchart diagram and implement the logic using Python loops.</p>
+            </div>
+        </div>
+
+        <!-- Pseudocode Content -->
+        <div id="pseudocode-content" class="problem-content">
+            <div class="interactive-card">
+                <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                    <h3>Pseudocode: Training Session Tracker <i class="fas fa-dumbbell" style="margin-left: 10px;"></i></h3>
+                </div>
+                
+                <p><strong>Problem:</strong> Create a training session tracker that displays each round from 1 to 5, then shows a completion message.</p>
+                
+                <div class="pseudocode-block">
+                    <div class="pseudocode-line"><span class="pseudocode-keyword">BEGIN</span> Training Session</div>
+                    <div class="pseudocode-line"><span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"=== Training Session Started ==="</span></div>
+                    <div class="pseudocode-line"></div>
+                    <div class="pseudocode-line">    <span class="pseudocode-comment">// Loop through each training round</span></div>
+                    <div class="pseudocode-line">    <span class="pseudocode-keyword">FOR</span> <span class="pseudocode-variable">round_number</span> <span class="pseudocode-keyword">FROM</span> 1 <span class="pseudocode-keyword">TO</span> 5</div>
+                    <div class="pseudocode-line">        <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Round "</span> + <span class="pseudocode-variable">round_number</span> + <span class="pseudocode-string">": Training in progress..."</span></div>
+                    <div class="pseudocode-line">        <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Round "</span> + <span class="pseudocode-variable">round_number</span> + <span class="pseudocode-string">" completed! ✓"</span></div>
+                    <div class="pseudocode-line">    <span class="pseudocode-keyword">END FOR</span></div>
+                    <div class="pseudocode-line"></div>
+                    <div class="pseudocode-line">    <span class="pseudocode-comment">// Show completion message</span></div>
+                    <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Training Session Complete! 🏆"</span></div>
+                    <div class="pseudocode-line">    <span class="pseudocode-keyword">DISPLAY</span> <span class="pseudocode-string">"Great job! You completed all 5 rounds."</span></div>
+                    <div class="pseudocode-line"><span class="pseudocode-keyword">END</span> Training Session</div>
+                </div>
+                
+                <div style="background-color: rgba(0, 38, 84, 0.1); border-radius: var(--border-radius); padding: 20px; margin-top: 20px;">
+                    <h4 style="color: var(--accent-color); margin-top: 0; margin-bottom: 15px;"><i class="fas fa-lightbulb"></i> Key Loop Concepts:</h4>
+                    <ul style="margin: 0;">
+                        <li><strong>FOR loop:</strong> Repeats the code block for each number from 1 to 5</li>
+                        <li><strong>Loop variable:</strong> <code>round_number</code> takes values 1, 2, 3, 4, 5</li>
+                        <li><strong>Using the variable:</strong> Print different messages using the current round number</li>
+                    </ul>
+                </div>
+                
+                <!-- Problem playground populated by editor.js -->
+                <div id="problem-playground-container"></div>
+            </div>
+        </div>
+
+        <!-- Flowchart Content -->
+        <div id="flowchart-content" class="problem-content">
+            <div class="interactive-card">
+                <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                    <h3>Flowchart: Training Session Tracker <i class="fas fa-dumbbell" style="margin-left: 10px;"></i></h3>
+                </div>
+                
+                <p><strong>Problem:</strong> Create a training session tracker that displays each round from 1 to 5, then shows a completion message.</p>
+                
+<div class="flowchart-container" style="width: 100%; max-width: none; margin: 0;">
+    <div id="training-session-flowchart" style="height: 700px; width: 100%; min-width: 800px; overflow: auto; padding: 20px;"></div>
+</div>
+                
+                
+                
+                <!-- Problem playground populated by editor.js -->
+                <div id="problem-playground-container-flowchart"></div>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- RECAP: Summary -->
         <section id="recap" class="tab-content dark-section">
@@ -898,6 +1121,19 @@ const pageConfig = {
         storageKey: "secondaryExperiments",
         parentTabId: "chew3" // <<< Ensure this matches the tab ID for this playground
     },
+    problemPlayground: {
+    title: "Problem Solver: Training Session Tracker",
+    subtitle: "Create a training session tracker using loops",
+    icon: "fa-tools",
+    initialCode: `# Training Session Tracker - Complete using loops
+print("=== Training Session Started ===")
+
+# Add your for loop here to create rounds 1-5`,
+    buttonText: "Run Code",
+    terminalReady: "Create your training session tracker step by step...",
+    storageKey: "problemSolvingLoops",
+    parentTabId: "problem"
+},
     experiments: {
         primary: {
             title: "Code Lab 1 Experiments",
@@ -1209,7 +1445,83 @@ print(total)`,
                 { title: "🔻 Create Reverse Triangle", text: `<p>Change <code>range()</code> to count down (e.g., <code>range(5, 0, -1)</code>) and click 'Run Code'.</p>`, attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
             ]
         }
+    },
+    taskRequirements: {
+    problem: {
+        title: "Problem Solution Task Requirements",
+        icon: "fa-tasks",
+        experiments: [
+            {
+                id: "problem-req1",
+                title: "Display Session Header",
+                taskExplanation: "Create the header message for your training session.",
+                detailedInstructions: [
+                    "Add a print statement for \"=== Training Session Started ===\"",
+                    "This should be the first line of output",
+                    "Use the exact text from the pseudocode/flowchart"
+                ],
+                pattern: /print\s*\(\s*["']=== Training Session Started ===["']\s*\)/
+            },
+            {
+                id: "problem-req2",
+                title: "Create Training Loop",
+                taskExplanation: "Implement the main loop that goes through rounds 1 to 5.",
+                detailedInstructions: [
+                    "Use a for loop with range(1, 6) to count from 1 to 5",
+                    "This creates rounds 1, 2, 3, 4, 5",
+                    "Use a meaningful variable name like 'round_number' or 'round'"
+                ],
+                pattern: /for\s+\w+\s+in\s+range\s*\(\s*1\s*,\s*6\s*\)\s*:/
+            },
+            {
+                id: "problem-req3",
+                title: "Display Training Messages",
+                taskExplanation: "Inside the loop, print messages for each training round.",
+                detailedInstructions: [
+                    "Print \"Round X: Training in progress...\" (where X is the round number)",
+                    "Print \"Round X completed! ✓\"",
+                    "Use the loop variable to show the current round number"
+                ],
+                pattern: /print\s*\([^)]*round|print\s*\([^)]*Round/i
+            },
+            {
+                id: "problem-req4",
+                title: "Add Completion Messages",
+                taskExplanation: "After the loop, add messages to show the training is complete.",
+                detailedInstructions: [
+                    "Add a print statement for \"Training Session Complete! 🏆\"",
+                    "Add a print statement for \"Great job! You completed all 5 rounds.\"",
+                    "These should appear after the loop finishes"
+                ],
+                pattern: /print\s*\(\s*["']Training Session Complete! 🏆["']\s*\)/
+            },
+            {
+                id: "problem-req5",
+                title: "Test Complete Program",
+                taskExplanation: "Run your complete training session tracker.",
+                detailedInstructions: [
+                    "Run your complete program to see all training rounds",
+                    "Check that you have the header, 5 rounds with messages, and completion messages",
+                    "Verify your output matches the pseudocode/flowchart requirements"
+                ],
+                pattern: /print\s*\(\s*["']=== Training Session Started ===["']\s*\)[\s\S]*for\s+[\s\S]*print\s*\(\s*["']Training Session Complete! 🏆["']\s*\)/
+            },
+            {
+                id: "problem-req6",
+                title: "Extension Activity",
+                taskExplanation: "Enhance your training tracker with creative additions.",
+                detailedInstructions: [
+                    "Add different types of training (strength, cardio, flexibility)",
+                    "Include motivational messages or progress tracking",
+                    "Try different round numbers or add difficulty levels",
+                    "Create themed trackers (sports, study sessions, workout routines)"
+                ],
+                pattern: /print\s*\(\s*["'][^"']*(?:strength|cardio|flexibility|motivat|progress|difficult|level)[^"']*["']\s*\)|range\s*\(\s*1\s*,\s*(?!6\b)\d+\s*\)/i,
+                isExtension: true
+            }
+        ]
     }
+}
 };
 // Shuffle function (ensure it's defined if used by statementBuilding)
 function shuffle(array) {
@@ -1230,6 +1542,41 @@ function shuffle(array) {
     }
     return shuffled;
 }
+
+// Problem selector functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const problemOptions = document.querySelectorAll('.problem-option');
+    const problemContents = document.querySelectorAll('.problem-content');
+
+    problemOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const selectedType = this.getAttribute('data-type');
+            
+            // Remove active class from all options and contents
+            problemOptions.forEach(opt => opt.classList.remove('selected'));
+            problemContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected option and corresponding content
+            this.classList.add('selected');
+            document.getElementById(`${selectedType}-content`).classList.add('active');
+            
+            // Initialize the appropriate playground
+            if (selectedType === 'pseudocode') {
+                setTimeout(() => {
+                    if (window.EducationalEditor) {
+                        window.EducationalEditor.initializeProblemPlayground('pseudocode');
+                    }
+                }, 100);
+            } else if (selectedType === 'flowchart') {
+                setTimeout(() => {
+                    if (window.EducationalEditor) {
+                        window.EducationalEditor.initializeProblemPlayground('flowchart');
+                    }
+                }, 100);
+            }
+        });
+    });
+});
 
 // Initialize the educational system (this would typically be at the end of your script in index.html)
 document.addEventListener('DOMContentLoaded', function() {
@@ -1328,6 +1675,153 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
+
+        // Training Session Flowchart Code
+        // Alternative: More traditional loop flowchart structure
+// Clean version with optimal spacing
+const trainingSessionFlowchartCode = `
+st=>start: START
+header=>operation: Display Header Message
+init=>operation: round_number = 1
+check=>condition: round_number <= 5?
+display1=>operation: Display Training Message
+display2=>operation: Display Completed Message  
+increment=>operation: Increment round_number
+finish1=>operation: Display Session Complete
+finish2=>operation: Display Congratulations
+end=>end: END
+
+st->header->init->check
+check(yes, right)->display1->display2->increment(left)->check
+check(no, bottom)->finish1->finish2->end
+`;
+
+function renderTrainingSessionFlowchart() {
+    try {
+        const diagram = flowchart.parse(trainingSessionFlowchartCode);
+        const container = document.getElementById('training-session-flowchart');
+        
+        if (container) {
+            container.innerHTML = '';
+            
+            // Get container dimensions for proper scaling
+            const containerWidth = container.offsetWidth;
+            const scale = containerWidth > 800 ? 1.2 : containerWidth > 600 ? 1.0 : 0.8;
+            
+            diagram.drawSVG('training-session-flowchart', {
+                'line-width': 4,
+                'line-length': 100,      // Increased for more horizontal space
+                'text-margin': 30,       // More margin around text
+                'font-size': 20,         // Slightly larger font
+                'font-color': '#333',
+                'line-color': '#002654',
+                'element-color': '#002654',
+                'fill': 'white',
+                'yes-text': 'YES',
+                'no-text': 'NO',
+                'arrow-end': 'block',
+                'scale': scale * 2,
+                'maxWidth': 12,           // Increased from 3 to 5 for wider boxes
+                'flowstate': {
+                    'wide': { 'element-color': '#4caf50', 'fill': '#e8f5e8' }
+                },
+                'symbols': {
+                    'start': {
+                        'font-color': 'white',
+                        'element-color': '#002654',
+                        'fill': '#002654',
+                        'font-weight': 'bold',
+                        'font-size': 16
+                    },
+                    'end': {
+                        'font-color': 'white',
+                        'element-color': '#002654',
+                        'fill': '#002654',
+                        'font-weight': 'bold',
+                        'font-size': 16
+                    },
+                    'condition': {
+                        'element-color': '#ff6b35',
+                        'fill': '#fff3e0',
+                        'font-color': '#e65100',
+                        'font-weight': 'bold',
+                        'font-size': 14
+                    },
+                    'operation': {
+                        'element-color': '#4caf50',
+                        'fill': '#e8f5e8',
+                        'font-color': '#2e7d32',
+                        'font-weight': '500',
+                        'font-size': 14
+                    }
+                }
+            });
+            
+            // Ensure SVG fits container properly and uses full width
+            const svg = container.querySelector('svg');
+            if (svg) {
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxHeight = '100%';
+                svg.style.padding = '30px';  // Increased padding
+                svg.setAttribute('preserveAspectRatio', 'xMidYTop meet');
+                
+                // Center the SVG but allow it to use full width
+                svg.style.display = 'block';
+                svg.style.margin = '0 auto';
+                svg.style.overflow = 'visible';
+                
+                // Force minimum width for boxes by adjusting SVG viewBox if needed
+                const viewBox = svg.getAttribute('viewBox');
+                if (viewBox) {
+                    const [x, y, width, height] = viewBox.split(' ').map(Number);
+                    // Expand width if needed
+                    const newWidth = Math.max(width, containerWidth * 0.8);
+                    svg.setAttribute('viewBox', `${x} ${y} ${newWidth} ${height}`);
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error rendering training session flowchart:', error);
+        document.getElementById('training-session-flowchart').innerHTML = 
+            '<div style="color:red; padding:20px; text-align:center;">Error rendering flowchart. Please refresh the page.</div>';
+    }
+}
+// Add this to the DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing code ...
+
+    // Render flowchart when problem tab is selected or flowchart option is chosen
+    function checkAndRenderTrainingFlowchart() {
+        const problemSection = document.getElementById('problem');
+        const flowchartContent = document.getElementById('flowchart-content');
+        
+        if (problemSection && problemSection.classList.contains('active') && 
+            flowchartContent && flowchartContent.classList.contains('active')) {
+            setTimeout(renderTrainingSessionFlowchart, 150);
+        }
+    }
+
+    // Initial render
+    setTimeout(checkAndRenderTrainingFlowchart, 500);
+
+    // Re-render when tabs change
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('tab-button') && e.target.getAttribute('data-tab') === 'problem') {
+            setTimeout(checkAndRenderTrainingFlowchart, 300);
+        }
+        if (e.target.classList.contains('problem-option') && e.target.getAttribute('data-type') === 'flowchart') {
+            setTimeout(renderTrainingSessionFlowchart, 300);
+        }
+    });
+
+    // Re-render on window resize
+    window.addEventListener('resize', function() {
+        if (document.getElementById('training-session-flowchart').querySelector('svg')) {
+            setTimeout(renderTrainingSessionFlowchart, 100);
+        }
+    });
+});
     </script>
     
 </body>

@@ -37,6 +37,30 @@
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
     
     <style>
+        .flowchart-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+#grade-calculator-flowchart {
+    min-height: 600px;
+    background-color: white;
+    border-radius: 4px;
+    position: relative;
+}
+
+/* Ensure the flowchart is responsive */
+@media (max-width: 768px) {
+    #grade-calculator-flowchart {
+        height: 500px !important;
+    }
+}
         .feedback-correct {
             padding: 10px 15px;
             background-color: rgba(82, 196, 26, 0.1);
@@ -183,28 +207,32 @@
                 LI/SC
             </button>
             <button class="tab-button" data-tab="chunk1">
-                <i class="fas fa-cube"></i>
-                CHUNK 1
+                <i class="fas fa-question-circle"></i>
+                IF STATEMENTS
             </button>
             <button class="tab-button" data-tab="chew1">
-                <i class="fas fa-utensils"></i>
-                CHEW 1
+                <i class="fas fa-dumbbell"></i>
+                PRACTICE 1
             </button>
             <button class="tab-button" data-tab="chunk2">
-                <i class="fas fa-cube"></i>
-                CHUNK 2
+                <i class="fas fa-code-branch"></i>
+                ELSE STATEMENTS
             </button>
             <button class="tab-button" data-tab="chew2">
-                <i class="fas fa-utensils"></i>
-                CHEW 2
+                <i class="fas fa-dumbbell"></i>
+                PRACTICE 2
             </button>
             <button class="tab-button" data-tab="chunk3">
-                <i class="fas fa-cube"></i>
-                CHUNK 3
+                <i class="fas fa-link"></i>
+                ELIF & LOGICAL OPERATORS
             </button>
             <button class="tab-button" data-tab="chew3">
-                <i class="fas fa-utensils"></i>
-                CHEW 3
+                <i class="fas fa-dumbbell"></i>
+                PRACTICE 3
+            </button>
+            <button class="tab-button" data-tab="problem">
+                <i class="fas fa-puzzle-piece"></i>
+                PROBLEM
             </button>
             <button class="tab-button" data-tab="recap">
                 <i class="fas fa-bookmark"></i>
@@ -243,6 +271,94 @@
                     <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Write if-else statements with correct syntax and indentation</li>
                     <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Represent algorithms with flowcharts</li>
                 </ul>
+            </div>
+        </section>
+
+        <!-- PROBLEM: Problem-Solving with Conditionals -->
+        <section id="problem" class="tab-content dark-section">
+            <h1>PROBLEM: REAL-WORLD APPLICATION <i class="fas fa-puzzle-piece" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">PROBLEM SOLVING</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>From Design to Code</h3>
+                
+                <p>Now it's time to apply your conditional statement knowledge! Choose your preferred problem representation, then implement the solution using if, elif, and else statements in Python.</p>
+                
+                <div class="problem-selector">
+                    <div class="problem-option" data-type="pseudocode">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>Pseudocode Version</h4>
+                        <p>Read step-by-step instructions in plain English and convert them to Python conditionals.</p>
+                    </div>
+                    
+                    <div class="problem-option" data-type="flowchart">
+                        <i class="fas fa-project-diagram"></i>
+                        <h4>Flowchart Version</h4>
+                        <p>Follow a visual flowchart diagram and implement the decision logic using Python conditionals.</p>
+                    </div>
+                </div>
+
+                <!-- Pseudocode Content -->
+                <div id="pseudocode-content" class="problem-content">
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <h3>Pseudocode: Grade Calculator <i class="fas fa-graduation-cap" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <p><strong>Problem:</strong> Create a grade calculator that takes a numerical score and displays the corresponding letter grade and performance message.</p>
+                        
+                        <div class="pseudocode-block">
+                            <div class="pseudocode-line"><span class="pseudocode-keyword">BEGIN</span> Grade Calculator</div>
+                            <div class="pseudocode-line"><span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"=== Grade Calculator ==="</span></div>
+                            <div class="pseudocode-line"></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-comment">// Get student's score</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SET</span> <span class="pseudocode-variable">score</span> TO 85</div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Student Score: "</span> + <span class="pseudocode-variable">score</span></div>
+                            <div class="pseudocode-line"></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-comment">// Determine letter grade</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">IF</span> <span class="pseudocode-variable">score</span> >= 90 <span class="pseudocode-keyword">THEN</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Letter Grade: A"</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Excellent work!"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">ELSE IF</span> <span class="pseudocode-variable">score</span> >= 80 <span class="pseudocode-keyword">THEN</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Letter Grade: B"</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Great job!"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">ELSE IF</span> <span class="pseudocode-variable">score</span> >= 70 <span class="pseudocode-keyword">THEN</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Letter Grade: C"</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Good effort!"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">ELSE IF</span> <span class="pseudocode-variable">score</span> >= 60 <span class="pseudocode-keyword">THEN</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Letter Grade: D"</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Keep trying!"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">ELSE</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Letter Grade: F"</span></div>
+                            <div class="pseudocode-line">        <span class="pseudocode-keyword">SAY</span> <span class="pseudocode-string">"Don't give up!"</span></div>
+                            <div class="pseudocode-line">    <span class="pseudocode-keyword">END IF</span></div>
+                            <div class="pseudocode-line"><span class="pseudocode-keyword">END</span> Grade Calculator</div>
+                        </div>
+                        
+                        <!-- Problem playground populated by editor.js -->
+                        <div id="problem-playground-container"></div>
+                    </div>
+                </div>
+
+                <!-- Flowchart Content -->
+                <div id="flowchart-content" class="problem-content">
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <h3>Flowchart: Grade Calculator <i class="fas fa-graduation-cap" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <p><strong>Problem:</strong> Create a grade calculator that takes a numerical score and displays the corresponding letter grade and performance message.</p>
+                        
+                        <div class="flowchart-container">
+    <div id="grade-calculator-flowchart" style="height: 700px; width: 100%; overflow: auto;"></div>
+</div>
+                        
+                        <!-- Problem playground populated by editor.js -->
+                        <div id="problem-playground-container-flowchart"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1534,6 +1650,18 @@ It's not too hot today.</pre>
                 storageKey: "secondaryExperiments",
                 parentTabId: "chew3"
             },
+            problemPlayground: {
+                title: "Problem Solver: Grade Calculator",
+                subtitle: "Create a grade calculator using conditional statements",
+                icon: "fa-tools",
+                initialCode: `# Grade Calculator - Complete using if/elif/else statements
+print("=== Grade Calculator ===")
+score = 85`,
+                buttonText: "Run Code",
+                terminalReady: "Create your grade calculator step by step...",
+                storageKey: "problemSolvingConditionals",
+                parentTabId: "problem"
+            },
             experiments: {
                 primary: {
                     title: "Code Lab 1 Experiments",
@@ -1795,6 +1923,71 @@ It's not too hot today.</pre>
                     steps: [
                         { title: "📋 Multiple Requirements", text: `<p>Add requirements like attendance and homework completion.</p><p>Use compound conditions with <code>and</code> or <code>or</code> operators.</p>`, attachTo: { element: ".secondary-playground .code-panel", on: "right" }, buttons: [{ text: "Next", action: "next" }] },
                         { title: "✅ Test Requirements", text: `<p>Test different combinations to ensure your pass/fail logic works correctly!</p>`, attachTo: { element: "#run-secondary-btn", on: "top" }, buttons: [{ text: "Complete!", action: "complete" }] }
+                    ]
+                }
+            },
+            taskRequirements: {
+                problem: {
+                    title: "Problem Solution Task Requirements",
+                    icon: "fa-tasks",
+                    experiments: [
+                        {
+                            id: "problem-req1",
+                            title: "Display Calculator Header",
+                            taskExplanation: "Create the header message for your grade calculator.",
+                            detailedInstructions: [
+                                "Add a print statement for \"=== Grade Calculator ===\"",
+                                "Display the student's score using the score variable",
+                                "Use the exact text from the pseudocode/flowchart"
+                            ],
+                            pattern: /print\s*\(\s*["']=== Grade Calculator ===["']\s*\)/
+                        },
+                        {
+                            id: "problem-req2",
+                            title: "Implement Grade Logic",
+                            taskExplanation: "Create the if-elif-else structure to determine letter grades.",
+                            detailedInstructions: [
+                                "Use if statement to check if score >= 90 for grade A",
+                                "Use elif statements for grades B (>= 80), C (>= 70), and D (>= 60)",
+                                "Use else statement for grade F"
+                            ],
+                            pattern: /if\s+\w+\s*>=\s*90\s*:|elif\s+\w+\s*>=\s*80\s*:|elif\s+\w+\s*>=\s*70\s*:|elif\s+\w+\s*>=\s*60\s*:|else\s*:/
+                        },
+                        {
+                            id: "problem-req3",
+                            title: "Display Letter Grades",
+                            taskExplanation: "Add print statements to display the appropriate letter grade.",
+                            detailedInstructions: [
+                                "Print \"Letter Grade: A\" for scores 90 and above",
+                                "Print appropriate letter grades for each range",
+                                "Make sure each print statement is in the correct if/elif/else block"
+                            ],
+                            pattern: /print\s*\(\s*["']Letter Grade: [A-F]["']\s*\)/
+                        },
+                        {
+                            id: "problem-req4",
+                            title: "Add Performance Messages",
+                            taskExplanation: "Include encouraging messages for each grade level.",
+                            detailedInstructions: [
+                                "Add \"Excellent work!\" for grade A",
+                                "Add \"Great job!\" for grade B, \"Good effort!\" for grade C",
+                                "Add \"Keep trying!\" for grade D and \"Don't give up!\" for grade F"
+                            ],
+                            pattern: /print\s*\(\s*["'](?:Excellent work!|Great job!|Good effort!|Keep trying!|Don't give up!)["']\s*\)/
+                        },
+                        {
+                            id: "problem-req5",
+                            title: "Extension Activity",
+                            taskExplanation: "Enhance your grade calculator with additional features.",
+                            detailedInstructions: [
+                                "Add plus/minus grades (e.g., A-, B+) with more specific score ranges",
+                                "Include GPA calculation alongside letter grades",
+                                "Add input validation to handle invalid scores",
+                                "Create different grading scales (e.g., university vs high school)"
+                            ],
+                            pattern: /if\s+\w+\s*>=\s*9[7-9]\s*:|if\s+\w+\s*>=\s*8[7-9]\s*:|gpa\s*=|input\s*\(|int\s*\(\s*input/,
+                            isExtension: true
+                        }
                     ]
                 }
             }
@@ -2171,6 +2364,41 @@ cond3(no, bottom)->op4(right)->end
             }
         }
 
+        // Problem selector functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const problemOptions = document.querySelectorAll('.problem-option');
+            const problemContents = document.querySelectorAll('.problem-content');
+
+            problemOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedType = this.getAttribute('data-type');
+                    
+                    // Remove active class from all options and contents
+                    problemOptions.forEach(opt => opt.classList.remove('selected'));
+                    problemContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to selected option and corresponding content
+                    this.classList.add('selected');
+                    document.getElementById(`${selectedType}-content`).classList.add('active');
+                    
+                    // Initialize the appropriate playground
+                    if (selectedType === 'pseudocode') {
+                        setTimeout(() => {
+                            if (window.EducationalEditor) {
+                                window.EducationalEditor.initializeProblemPlayground('pseudocode');
+                            }
+                        }, 100);
+                    } else if (selectedType === 'flowchart') {
+                        setTimeout(() => {
+                            if (window.EducationalEditor) {
+                                window.EducationalEditor.initializeProblemPlayground('flowchart');
+                            }
+                        }, 100);
+                    }
+                });
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof EducationalEditor !== 'undefined') {
                 EducationalEditor.initialize(pageConfig);
@@ -2235,6 +2463,141 @@ cond3(no, bottom)->op4(right)->end
                 }
             }, 500);
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const gradeCalculatorFlowchartCode = `
+st=>start: START
+header=>operation: Display: "=== Grade Calculator ==="
+init=>operation: Set score = 85
+display=>operation: Display: "Student Score: " + score
+cond1=>condition: Is score >= 90?
+cond2=>condition: Is score >= 80?
+cond3=>condition: Is score >= 70?
+cond4=>condition: Is score >= 60?
+gradeA=>operation: Display: Grade A
+"Excellent work!"
+gradeB=>operation: Display: Grade B
+"Great job!"
+gradeC=>operation: Display: Grade C
+"Good effort!"
+gradeD=>operation: Display: Grade D
+"Keep trying!"
+gradeF=>operation: Display: Grade F
+"Don't give up!"
+end=>end: END
+
+st->header->init->display->cond1
+cond1(yes, right)->gradeA->end
+cond1(no)->cond2
+cond2(yes, right)->gradeB->end
+cond2(no)->cond3
+cond3(yes, right)->gradeC->end
+cond3(no)->cond4
+cond4(yes, right)->gradeD->end
+cond4(no)->gradeF->end
+`;
+
+    function renderGradeCalculatorFlowchart() {
+        try {
+            const diagram = flowchart.parse(gradeCalculatorFlowchartCode);
+            const container = document.getElementById('grade-calculator-flowchart');
+            
+            if (container) {
+                container.innerHTML = '';
+                
+                // Get container dimensions for proper scaling
+                const containerWidth = container.offsetWidth;
+                const scale = containerWidth > 600 ? 0.8 : 0.6;
+                
+                diagram.drawSVG('grade-calculator-flowchart', {
+                    'line-width': 2,
+                    'line-length': 40,
+                    'text-margin': 8,
+                    'font-size': 12,
+                    'font-color': '#333',
+                    'line-color': '#002654',
+                    'element-color': '#002654',
+                    'fill': 'white',
+                    'yes-text': 'YES',
+                    'no-text': 'NO',
+                    'arrow-end': 'block',
+                    'scale': scale,
+                    'symbols': {
+                        'start': {
+                            'font-color': 'white',
+                            'element-color': '#002654',
+                            'fill': '#002654'
+                        },
+                        'end': {
+                            'font-color': 'white',
+                            'element-color': '#002654',
+                            'fill': '#002654'
+                        },
+                        'condition': {
+                            'element-color': '#e74c3c',
+                            'fill': '#fff3cd',
+                            'font-color': '#e74c3c'
+                        },
+                        'operation': {
+                            'element-color': '#28a745',
+                            'fill': '#d4edda',
+                            'font-color': '#155724'
+                        }
+                    }
+                });
+                
+                // Ensure SVG fits container properly
+                const svg = container.querySelector('svg');
+                if (svg) {
+                    svg.style.width = '100%';
+                    svg.style.height = 'auto';
+                    svg.style.maxHeight = '100%';
+                    svg.setAttribute('preserveAspectRatio', 'xMidYTop meet');
+                    
+                    // Center the SVG if it's smaller than container
+                    svg.style.display = 'block';
+                    svg.style.margin = '0 auto';
+                }
+            }
+        } catch (error) {
+            console.error('Error rendering grade calculator flowchart:', error);
+            document.getElementById('grade-calculator-flowchart').innerHTML = 
+                '<div style="color:red; padding:20px; text-align:center;">Error rendering flowchart. Please refresh the page.</div>';
+        }
+    }
+
+    // Render flowchart with proper timing
+    function checkAndRenderFlowchart() {
+        const problemSection = document.getElementById('problem');
+        const flowchartContent = document.getElementById('flowchart-content');
+        
+        if (problemSection && problemSection.classList.contains('active') && 
+            flowchartContent && flowchartContent.classList.contains('active')) {
+            setTimeout(renderGradeCalculatorFlowchart, 150);
+        }
+    }
+
+    // Initial render
+    setTimeout(checkAndRenderFlowchart, 500);
+
+    // Re-render when tabs change
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('tab-button') && e.target.getAttribute('data-tab') === 'problem') {
+            setTimeout(checkAndRenderFlowchart, 300);
+        }
+        if (e.target.classList.contains('problem-option') && e.target.getAttribute('data-type') === 'flowchart') {
+            setTimeout(renderGradeCalculatorFlowchart, 300);
+        }
+    });
+
+    // Re-render on window resize
+    window.addEventListener('resize', function() {
+        if (document.getElementById('grade-calculator-flowchart').querySelector('svg')) {
+            setTimeout(renderGradeCalculatorFlowchart, 100);
+        }
+    });
+});
+    
     </script>
 </body>
 </html>
