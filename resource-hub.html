@@ -291,6 +291,14 @@
         .card-images .card-icon { background-color: #2ECC71; }
         .card-audio::before { background-color: #F1C40F; }
         .card-audio .card-icon { background-color: #F1C40F; }
+        .card-intro-binary::before { background-color: #E74C3C; }
+        .card-intro-binary .card-icon { background-color: #E74C3C; }
+
+        /* Hardware & Networks */
+        .card-hardware::before { background-color: #7f8c8d; }
+        .card-hardware .card-icon { background-color: #7f8c8d; }
+        .card-networks::before { background-color: #2980b9; }
+        .card-networks .card-icon { background-color: #2980b9; }
         
         /* Python Basics */
         .card-variables::before { background-color: #FF6B6B; }
@@ -303,8 +311,6 @@
         .card-functions .card-icon { background-color: #96CEB4; }
         .card-cheatsheet::before { background-color: #6C5B7B; }
         .card-cheatsheet .card-icon { background-color: #6C5B7B; }
-        .card-intro-binary::before { background-color: #E74C3C; }
-.card-intro-binary .card-icon { background-color: #E74C3C; }
 
         /* Responsiveness */
         @media (max-width: 768px) {
@@ -314,6 +320,8 @@
 
             .navbar-menu {
                 gap: 20px;
+                flex-wrap: wrap; /* Allow wrapping on smaller screens */
+                justify-content: center;
             }
 
             .cards-container {
@@ -387,8 +395,6 @@
 
             .navbar-menu {
                 gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
             }
 
             .navbar-menu li a {
@@ -420,141 +426,141 @@
         }
 
         .card-excel::before { background-color: #27AE60; }
-.card-excel .card-icon { background-color: #27AE60; }
-.card-data-cheatsheet::before { background-color: #E74C3C; }
-.card-data-cheatsheet .card-icon { background-color: #E74C3C; }
+        .card-excel .card-icon { background-color: #27AE60; }
+        .card-data-cheatsheet::before { background-color: #E74C3C; }
+        .card-data-cheatsheet .card-icon { background-color: #E74C3C; }
 
-.floating-card {
-    position: fixed;
-    top: 80px;
-    left: 20px;
-    z-index: 900;
-    background-color: var(--primary-bg);
-    border: 2px solid var(--outline-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-sm);
-    padding: 12px;
-    transition: transform var(--transition-time), box-shadow var(--transition-time);
-    cursor: pointer;
-    overflow: visible;
-    width: 105px;
-}
+        .floating-card {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            z-index: 900;
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 12px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            cursor: pointer;
+            overflow: visible;
+            width: 105px;
+        }
 
-.floating-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background-color: #FF9500;
-}
+        .floating-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #FF9500;
+        }
 
-.floating-card:hover {
-    transform: translateY(-0.25em);
-    box-shadow: var(--shadow-md);
-}
+        .floating-card:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
 
-.floating-card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
-}
+        .floating-card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+        }
 
-.floating-card-icon {
-    width: 36px;
-    height: 36px;
-    background-color: #FF9500;
-    border: 2px solid var(--outline-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .floating-card-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #FF9500;
+            border: 2px solid var(--outline-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.floating-card-icon i {
-    font-size: 1rem;
-    color: white;
-}
+        .floating-card-icon i {
+            font-size: 1rem;
+            color: white;
+        }
 
-.floating-card-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.2;
-}
+        .floating-card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
 
-.floating-card-tooltip {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--outline-color);
-    color: white;
-    padding: 6px 12px;
-    border-radius: var(--border-radius);
-    font-size: 0.85rem;
-    font-weight: 600;
-    opacity: 0;
-    transition: opacity var(--transition-time), transform var(--transition-time);
-    pointer-events: none;
-    white-space: nowrap;
-    margin-top: 10px;
-    z-index: 901;
-}
+        .floating-card-tooltip {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--outline-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: var(--border-radius);
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity var(--transition-time), transform var(--transition-time);
+            pointer-events: none;
+            white-space: nowrap;
+            margin-top: 10px;
+            z-index: 901;
+        }
 
-.floating-card:hover .floating-card-tooltip {
-    opacity: 1;
-}
+        .floating-card:hover .floating-card-tooltip {
+            opacity: 1;
+        }
 
-@media (max-width: 768px) {
-    .floating-card {
-        padding: 10px;
-        width: 90px;
-    }
-    
-    .floating-card-icon {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .floating-card-title {
-        font-size: 0.8rem;
-    }
-}
+        @media (max-width: 768px) {
+            .floating-card {
+                padding: 10px;
+                width: 90px;
+            }
+            
+            .floating-card-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .floating-card-title {
+                font-size: 0.8rem;
+            }
+        }
 
-@media (max-width: 480px) {
-    .floating-card {
-        top: 70px;
-        left: 10px;
-    }
-}
+        @media (max-width: 480px) {
+            .floating-card {
+                top: 70px;
+                left: 10px;
+            }
+        }
 
-.card-branching::before { background-color: #F39C12; }
-.card-branching .card-icon { background-color: #F39C12; }
-.card-iteration::before { background-color: #16A085; }
-.card-iteration .card-icon { background-color: #16A085; }
-.card-variables-co::before { background-color: #8E44AD; }
-.card-variables-co .card-icon { background-color: #8E44AD; }
-.card-cheatsheet-co::before { background-color: #D35400; }
-.card-cheatsheet-co .card-icon { background-color: #D35400; }
+        .card-branching::before { background-color: #F39C12; }
+        .card-branching .card-icon { background-color: #F39C12; }
+        .card-iteration::before { background-color: #16A085; }
+        .card-iteration .card-icon { background-color: #16A085; }
+        .card-variables-co::before { background-color: #8E44AD; }
+        .card-variables-co .card-icon { background-color: #8E44AD; }
+        .card-cheatsheet-co::before { background-color: #D35400; }
+        .card-cheatsheet-co .card-icon { background-color: #D35400; }
 
-.card-intro::before { background-color: #3498DB; }
-.card-intro .card-icon { background-color: #3498DB; }
+        .card-intro::before { background-color: #3498DB; }
+        .card-intro .card-icon { background-color: #3498DB; }
 
         .card-turtle::before { background-color: #1ABC9C; }
-.card-turtle .card-icon { background-color: #1ABC9C; }
+        .card-turtle .card-icon { background-color: #1ABC9C; }
 
         .card-random::before { background-color: #E67E22; }
-.card-random .card-icon { background-color: #E67E22; }
+        .card-random .card-icon { background-color: #E67E22; }
 
-.card-flowcharts::before { background-color: #3498DB; }
-.card-flowcharts .card-icon { background-color: #3498DB; }
+        .card-flowcharts::before { background-color: #3498DB; }
+        .card-flowcharts .card-icon { background-color: #3498DB; }
 
-.card-pseudocode::before { background-color: #d946ef; }
-.card-pseudocode .card-icon { background-color: #d946ef; }
+        .card-pseudocode::before { background-color: #d946ef; }
+        .card-pseudocode .card-icon { background-color: #d946ef; }
         
     </style>
 </head>
@@ -565,6 +571,7 @@
             <ul class="navbar-menu">
                 <li><a href="#cospaces-basics">CoSpaces</a></li>
                 <li><a href="#binary-brilliance">Binary Brilliance</a></li>
+                <li><a href="#hardware-networks">Hardware & Networks</a></li>
                 <li><a href="#power-of-data">Power of Data</a></li>
                 <li><a href="#python-basics">Python Basics</a></li>
                 <li><a href="#python-levelup">Python: Level-Up</a></li>
@@ -572,100 +579,117 @@
         </div>
     </nav>
 
-    
-
-    
-
     <div class="main-container">
 
         <!-- Original CoSpaces section with the last card removed -->
-<div id="cospaces-basics" class="section-container">
-    <div class="section-header">
-        <h2 class="section-title">CoSpaces</h2>
-    </div>
-    <div class="cards-container">
-        
-        <a href="https://cbuckley-aidans.github.io/cube-project/basics.html" class="card card-branching">
-            <div class="card-icon">
-                <i class="fa-solid fa-clipboard-question"></i>
+        <div id="cospaces-basics" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">CoSpaces</h2>
             </div>
-            <h2 class="card-title">Basics</h2>
-        </a>
-        
-        <a href="https://cbuckley-aidans.github.io/cube-project/branching.html" class="card card-branching">
-            <div class="card-icon">
-                <i class="fa-solid fa-code-branch"></i>
+            <div class="cards-container">
+                
+                <a href="https://cbuckley-aidans.github.io/cube-project/basics.html" class="card card-branching">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-clipboard-question"></i>
+                    </div>
+                    <h2 class="card-title">Basics</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/cube-project/branching.html" class="card card-branching">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <h2 class="card-title">Branching</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/cube-project/iteration.html" class="card card-iteration">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <h2 class="card-title">Iteration</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/cube-project/variables.html" class="card card-variables-co">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h2 class="card-title">Variables</h2>
+                </a>
             </div>
-            <h2 class="card-title">Branching</h2>
-        </a>
-        
-        <a href="https://cbuckley-aidans.github.io/cube-project/iteration.html" class="card card-iteration">
-            <div class="card-icon">
-                <i class="fa-solid fa-rotate"></i>
+            
+            <!-- New separate container for Cheat Sheet, formatted like in Python Basics -->
+            <div class="cards-container single-card" style="margin-top: 20px;">
+                <a href="https://cbuckley-aidans.github.io/cube-project/cheatsheet.html" class="card card-cheatsheet-co">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h2 class="card-title">Cheat Sheet</h2>
+                </a>
             </div>
-            <h2 class="card-title">Iteration</h2>
-        </a>
-        
-        <a href="https://cbuckley-aidans.github.io/cube-project/variables.html" class="card card-variables-co">
-            <div class="card-icon">
-                <i class="fa-solid fa-database"></i>
-            </div>
-            <h2 class="card-title">Variables</h2>
-        </a>
-    </div>
-    
-    <!-- New separate container for Cheat Sheet, formatted like in Python Basics -->
-    <div class="cards-container single-card" style="margin-top: 20px;">
-        <a href="https://cbuckley-aidans.github.io/cube-project/cheatsheet.html" class="card card-cheatsheet-co">
-            <div class="card-icon">
-                <i class="fa-solid fa-file-lines"></i>
-            </div>
-            <h2 class="card-title">Cheat Sheet</h2>
-        </a>
-    </div>
-</div>
+        </div>
 
         <div id="binary-brilliance" class="section-container">
-    <div class="section-header">
-        <h2 class="section-title">Binary Brilliance</h2>
-    </div>
-    <div class="cards-container">
-        <a href="https://cbuckley-aidans.github.io/binary-brilliance/intro.html" class="card card-intro-binary">
-            <div class="card-icon">
-                <i class="fa-solid fa-play"></i>
+            <div class="section-header">
+                <h2 class="section-title">Binary Brilliance</h2>
             </div>
-            <h2 class="card-title">Intro</h2>
-        </a>
-        
-        <a href="https://cbuckley-aidans.github.io/binary-brilliance/integers.html" class="card card-integers">
-            <div class="card-icon">
-                <i class="fa-solid fa-hashtag"></i>
+            <div class="cards-container">
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/intro.html" class="card card-intro-binary">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                    <h2 class="card-title">Intro</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/integers.html" class="card card-integers">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-hashtag"></i>
+                    </div>
+                    <h2 class="card-title">Integers</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/text.html" class="card card-text">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-font"></i>
+                    </div>
+                    <h2 class="card-title">Text</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/images.html" class="card card-images">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <h2 class="card-title">Images</h2>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/binary-brilliance/audio.html" class="card card-audio">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </div>
+                    <h2 class="card-title">Audio</h2>
+                </a>
             </div>
-            <h2 class="card-title">Integers</h2>
-        </a>
-        
-        <a href="https://cbuckley-aidans.github.io/binary-brilliance/text.html" class="card card-text">
-            <div class="card-icon">
-                <i class="fa-solid fa-font"></i>
+        </div>
+
+        <!-- NEW Hardware & Networks Section -->
+        <div id="hardware-networks" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Hardware & Networks</h2>
             </div>
-            <h2 class="card-title">Text</h2>
-        </a>
-        
-        <a href="https://cbuckley-aidans.github.io/binary-brilliance/images.html" class="card card-images">
-            <div class="card-icon">
-                <i class="fa-solid fa-image"></i>
+            <div class="cards-container">
+                <a href="https://cbuckley-aidans.github.io/other-projects/drones/6-drones-system.html" class="card card-hardware">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h2 class="card-title">Hardware Systems</h2>
+                </a>
+                <a href="https://cbuckley-aidans.github.io/other-projects/drones/6-drones-networks.html" class="card card-networks">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h2 class="card-title">Networks</h2>
+                </a>
             </div>
-            <h2 class="card-title">Images</h2>
-        </a>
-        
-        <a href="https://cbuckley-aidans.github.io/binary-brilliance/audio.html" class="card card-audio">
-            <div class="card-icon">
-                <i class="fa-solid fa-volume-high"></i>
-            </div>
-            <h2 class="card-title">Audio</h2>
-        </a>
-    </div>
-</div>
+        </div>
 
         <div id="power-of-data" class="section-container">
             <div class="section-header">
@@ -702,18 +726,18 @@
                 </a>
 
                 <a href="https://cbuckley-aidans.github.io/python-basics/flowcharts.html" class="card card-flowcharts">
-    <div class="card-icon">
-        <i class="fa-solid fa-diagram-project"></i>
-    </div>
-    <h2 class="card-title">Flowcharts</h2>
-</a>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <h2 class="card-title">Flowcharts</h2>
+                </a>
 
-<a href="https://cbuckley-aidans.github.io/python-basics/pseudocode.html" class="card card-pseudocode">
-    <div class="card-icon">
-        <i class="fa-solid fa-code"></i>
-    </div>
-    <h2 class="card-title">Pseudocode</h2>
-</a>
+                <a href="https://cbuckley-aidans.github.io/python-basics/pseudocode.html" class="card card-pseudocode">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h2 class="card-title">Pseudocode</h2>
+                </a>
 
                 <a href="https://cbuckley-aidans.github.io/python-basics/variables.html" class="card card-variables">
                     <div class="card-icon">
@@ -737,18 +761,18 @@
                 </a>
 
                 <a href="https://cbuckley-aidans.github.io/python-basics/random.html" class="card card-random">
-    <div class="card-icon">
-        <i class="fa-solid fa-dice"></i>
-    </div>
-    <h2 class="card-title">Random</h2>
-</a>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-dice"></i>
+                    </div>
+                    <h2 class="card-title">Random</h2>
+                </a>
 
                 <a href="https://cbuckley-aidans.github.io/python-basics/turtle.html" class="card card-turtle">
-    <div class="card-icon">
-        <i class="fa-solid fa-pencil"></i>
-    </div>
-    <h2 class="card-title">Turtle</h2>
-</a>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-pencil"></i>
+                    </div>
+                    <h2 class="card-title">Turtle</h2>
+                </a>
                 
                 <a href="https://cbuckley-aidans.github.io/python-basics/functions.html" class="card card-functions">
                     <div class="card-icon">
