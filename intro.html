@@ -1336,7 +1336,7 @@ print("Welcome to ASCII Art!")`,
         "See the error message, then fix it to <code>print(\"Hello\")</code>",
         "Try other broken examples like <code>Print(\"test\")</code> (capital P)"
     ],
-    pattern: /(print\s+\w+(?!\s*\())|(Print\s*\([^)]*\))|((print\s+\w+|Print\s*\([^)]*\))[\s\S]*(print\s*\(\s*["'][^"']*["']\s*\)))/
+    pattern: /print\s+\w+(?!\s*\()|Print\s*\(|print\s*\(\s*["'][^"']*["']\s*\)/
 }
                     ]
                 },
@@ -1723,3 +1723,4 @@ print("Welcome to Python!")`,
 </body>
 
 </html>
+
