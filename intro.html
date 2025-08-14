@@ -1328,16 +1328,16 @@ print("Welcome to ASCII Art!")`,
                             pattern: /print\s*\(\s*["'].*\\n.*["']\s*\)/
                         },
                         {
-                            id: "exp6",
-                            title: "Fix Common Errors",
-                            taskExplanation: "Practice identifying and correcting typical print statement mistakes.",
-                            detailedInstructions: [
-                                "Try typing <code>print Hello</code> (missing quotes and parentheses)",
-                                "See the error message, then fix it to <code>print(\"Hello\")</code>",
-                                "Try other broken examples like <code>Print(\"test\")</code> (capital P)"
-                            ],
-                            pattern: /print\s*\(\s*["'].*["']\s*\).*\n.*print\s*\(\s*["'].*["']\s*\)/
-                        }
+    id: "exp6",
+    title: "Fix Common Errors",
+    taskExplanation: "Practice identifying and correcting typical print statement mistakes.",
+    detailedInstructions: [
+        "Try typing <code>print Hello</code> (missing quotes and parentheses)",
+        "See the error message, then fix it to <code>print(\"Hello\")</code>",
+        "Try other broken examples like <code>Print(\"test\")</code> (capital P)"
+    ],
+    pattern: /(print\s+\w+(?!\s*\())|(Print\s*\([^)]*\))|((print\s+\w+|Print\s*\([^)]*\))[\s\S]*(print\s*\(\s*["'][^"']*["']\s*\)))/
+}
                     ]
                 },
                 secondary: {
@@ -1721,4 +1721,5 @@ print("Welcome to Python!")`,
         });
     </script>
 </body>
+
 </html>
